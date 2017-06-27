@@ -1,0 +1,7 @@
+{{#simple-form as |form|}}
+  {{#form.field label=(t "users.attributes.username.label") error=changeset.error.username as |ff|}}
+    {{input id=ff.id value=changeset.username placeholder=(t "users.attributes.username.placeholder")}}
+  {{/form.field}}
+
+  {{form.controls disabled=disabled submit=(action "submit") cancel=(action "cancel")}}
+{{/simple-form}}

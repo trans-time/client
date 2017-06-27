@@ -1,0 +1,8 @@
+general:
+  cancel: 'Cancel'
+  submit: 'Submit'
+users:
+  attributes:
+    username:
+      label: 'Username'
+      placeholder: 'eg, stevonnie7'

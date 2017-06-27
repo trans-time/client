@@ -1,0 +1,16 @@
+<div class="small-3 columns">
+  <label for={{id}} class="text-right middle form-field-label">{{label}}</label>
+</div>
+
+<div class="small-9 columns">
+  {{yield (hash id=id)}}
+</div>
+
+
+{{#if error}}
+  <ul class="small-9 small-offset-3 columns">
+    {{#each error.validation as |validation|}}
+      <li class="small-12 column">{{validation}}</li>
+    {{/each}}
+  </ul>
+{{/if}}

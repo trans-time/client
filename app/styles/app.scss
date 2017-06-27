@@ -1,0 +1,7 @@
+@import "settings";
+@import "foundation-sites/foundation";
+@include foundation-everything;
+
+.form-field-label::after {
+  content: ":";
+}
