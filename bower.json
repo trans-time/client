@@ -1,5 +1,5 @@
 {
-  "name": "timeline",
+  "name": "client",
   "dependencies": {
     "foundation-sites": "^6.3.1"
   }

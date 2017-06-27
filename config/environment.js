@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'timeline',
+    modulePrefix: 'client',
     environment: environment,
     rootURL: '/',
     locationType: 'auto',

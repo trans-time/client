@@ -1,7 +1,7 @@
 {
-  "name": "timeline",
+  "name": "client",
   "version": "0.0.0",
-  "description": "Small description for timeline goes here",
+  "description": "Small description for client goes here",
   "license": "MIT",
   "author": "",
   "directories": {
