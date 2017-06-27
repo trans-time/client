@@ -25,12 +25,12 @@ export default Ember.Component.extend({
 
   actions: {
     cancel() {
-      this.get('router').transitionTo('users');
+      this.get('complete')();
     },
 
     submit() {
       this.get('changeset').save();
-      this.get('router').transitionTo('users');
+      this.get('complete')();
     }
   }
 });

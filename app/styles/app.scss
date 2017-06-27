@@ -2,6 +2,14 @@
 @import "foundation-sites/foundation";
 @include foundation-everything;
 
+html, body {
+  height: 100%;
+}
+
 .form-field-label::after {
   content: ":";
+}
+
+.main-modal {
+  width: 68vw;
 }
