@@ -9,5 +9,8 @@ export default function(server) {
 
   // server.createList('post', 10);
 
-  server.createList('user', 50);
+  ['Full Body', 'Face', 'Upper Body', 'Lower Body'].forEach((name) => {
+    server.create('image-category', { name });
+  });
+  server.createList('user', 3);
 }

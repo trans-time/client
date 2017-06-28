@@ -1,17 +1,18 @@
+import Ember from 'ember';
 import Base from 'ember-simple-auth/authenticators/base';
 
 export default Base.extend({
-  restore(data) {
+  restore() {
     return new Ember.RSVP.Promise((resolve) => {
       resolve();
     });
   },
-  authenticate(options) {
+  authenticate() {
     return new Ember.RSVP.Promise((resolve) => {
       resolve();
     });
   },
-  invalidate(data) {
+  invalidate() {
     return new Ember.RSVP.Promise((resolve) => {
       resolve();
     });

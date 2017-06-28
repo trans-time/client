@@ -3,4 +3,4 @@ export default function() {
     this.hasClass('main-modal'),
     this.use('fade')
   );
-};
+}
