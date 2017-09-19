@@ -1,8 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  classNames: ['top-bar'],
-
   modalManager: Ember.inject.service('modal-manager'),
   session: Ember.inject.service('session'),
 

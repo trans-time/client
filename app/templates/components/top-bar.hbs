@@ -1,12 +1,8 @@
-<div class="top-bar-left">
-</div>
-<div class="top-bar-right">
-  <ul class="menu">
-    {{#if session.isAuthenticated}}
-      <a {{action "signOut"}}>{{t "auth.signOut"}}</a>
-    {{else}}
-      <li><a {{action "signIn"}}>{{t "auth.signIn"}}</a></li>
-      <li><button type="button" class="button" {{action "signUp"}}>{{t "auth.signUp"}}</button></li>
-    {{/if}}
-  </ul>
-</div>
+<ul>
+  {{#if session.isAuthenticated}}
+    <a {{action "signOut"}}>{{t "auth.signOut"}}</a>
+  {{else}}
+    <li><a {{action "signIn"}}>{{t "auth.signIn"}}</a></li>
+    <li><button type="button" {{action "signUp"}}>{{t "auth.signUp"}}</button></li>
+  {{/if}}
+</ul>
