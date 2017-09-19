@@ -1,10 +1,7 @@
 {{#each model.posts as |post|}}
   <div>
-    {{#each post.imageSets as |imageSet|}}
-      <h1>{{imageSet.imageCategory.name}}</h1>
-      {{#each imageSet.images as |image|}}
-        <img src={{image.src}}>
-      {{/each}}
+    {{#each post.images as |image|}}
+      <img src={{image.src}}>
     {{/each}}
     <p>{{post.text}}</p>
   </div>

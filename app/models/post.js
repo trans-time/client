@@ -1,7 +1,7 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-  imageSets: DS.hasMany('image-set'),
+  images: DS.hasMany('image'),
   tags: DS.hasMany('post-tag'),
   user: DS.belongsTo('user'),
 

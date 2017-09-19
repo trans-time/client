@@ -1,7 +1,7 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-  imageSet: DS.belongsTo('image-set'),
+  post: DS.belongsTo('post'),
 
   src: DS.attr('string')
 });

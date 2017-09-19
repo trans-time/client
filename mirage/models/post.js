@@ -1,5 +1,5 @@
 import { Model, hasMany } from 'ember-cli-mirage';
 
 export default Model.extend({
-  imageSets: hasMany('image-set')
+  images: hasMany('image')
 });
