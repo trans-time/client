@@ -1,0 +1,10 @@
+<p>{{model.description}}</p>
+
+<ul>
+  {{#each model.tags as |tag|}}
+    <li>{{#link-to "users.user.timeline" (query-params tag=tag.name)}}{{tag.name}}{{/link-to}}</li>
+  {{/each}}
+</ul>
+
+{{#link-to "users.user.timeline" (query-params direction="desc")}}From end{{/link-to}}
+{{#link-to "users.user.timeline"}}From beginning{{/link-to}}

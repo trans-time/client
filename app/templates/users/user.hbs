@@ -1,8 +1,1 @@
-{{#each model.posts as |post|}}
-  <div>
-    {{#each post.images as |image|}}
-      <img src={{image.src}}>
-    {{/each}}
-    <p>{{post.text}}</p>
-  </div>
-{{/each}}
+{{outlet}}

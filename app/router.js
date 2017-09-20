@@ -8,7 +8,9 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('users', function() {
-    this.route('user', { path: '/:id' });
+    this.route('user', { path: '/:id' }, function() {
+      this.route('timeline');
+    });
   });
 });
 

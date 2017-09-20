@@ -2,6 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model(params) {
-    return this.store.findRecord('user', params.id);
+    return this.store.findRecord('user', params.id, { include: 'posts, posts.images, posts.tags' });
   }
 });
