@@ -4,6 +4,7 @@ import TouchActionMixin from 'ember-hammertime/mixins/touch-action';
 export default Ember.Component.extend(TouchActionMixin, {
   classNames: ['timeline-container'],
 
+  swipeState: Ember.computed(() => { return {} }),
   navState: Ember.computed(() => Ember.Object.create({
     progress: 0,
     diffs: [],
@@ -12,16 +13,78 @@ export default Ember.Component.extend(TouchActionMixin, {
 
   initialPost: Ember.computed.oneWay('orderedPosts.firstObject'),
   store: Ember.inject.service(),
-  swipeNotifier: Ember.inject.service('swipe-notifier'),
+
+  _touchStart(e) {
+    this._startEvent(e.changedTouches[0]);
+    e.preventDefault();
+  },
+
+  _startEvent(e) {
+    this.swipeState.diffX = 0;
+    this.swipeState.diffY = 0;
+    this.swipeState.startX = e.clientX;
+    this.swipeState.startY = e.clientY;
+    this.swipeState.currentX = e.clientX;
+    this.swipeState.currentY = e.clientY;
+    this.swipeState.active = true;
+
+    this._swipeStart();
+  },
+
+  _touchMove(e) {
+    this._moveEvent(e.changedTouches[0]);
+    e.preventDefault();
+  },
+
+  _moveEvent(e) {
+    if (!this.swipeState.active) return;
+
+    this.swipeState.diffX = this.swipeState.currentX - e.clientX;
+    this.swipeState.diffY = e.clientY - this.swipeState.currentY;
+    this.swipeState.currentX = e.clientX;
+    this.swipeState.currentY = e.clientY;
+
+    this._swipeMove();
+  },
+
+  _touchEnd(e) {
+    this._endEvent(e.changedTouches[0]);
+    e.preventDefault();
+  },
+
+  _endEvent(e) {
+    if (!this.swipeState.active) return;
+
+    this.swipeState.diffX = this.swipeState.currentX - e.clientX;
+    this.swipeState.diffY = e.clientY - this.swipeState.currentY;
+    this.swipeState.currentX = e.clientX;
+    this.swipeState.currentY = e.clientY;
+    this.swipeState.active = false;
+
+    this._swipeEnd();
+  },
 
   didInsertElement(...args) {
     this._super(...args);
 
-    const swipeNotifier = this.get('swipeNotifier');
+    this.element.addEventListener('touchstart', Ember.run.bind(this, this._touchStart));
+    this.element.addEventListener('touchmove', Ember.run.bind(this, this._touchMove));
+    this.element.addEventListener('touchend', Ember.run.bind(this, this._touchEnd));
 
-    swipeNotifier.on('start', this._swipeStart.bind(this));
-    swipeNotifier.on('move', this._swipeMove.bind(this));
-    swipeNotifier.on('end', this._swipeEnd.bind(this));
+    const startEvent = Ember.run.bind(this, this._startEvent);
+    const moveEvent = Ember.run.bind(this, this._moveEvent);
+    const endEvent = Ember.run.bind(this, this._endEvent);
+    const removeClickEvents = () => {
+      this.element.removeEventListener('mousedown', startEvent);
+      this.element.removeEventListener('mousemove', moveEvent);
+      this.element.removeEventListener('mouseup', endEvent);
+      this.element.removeEventListener('touchstart', removeClickEvents);
+    };
+
+    this.element.addEventListener('mousedown', startEvent);
+    this.element.addEventListener('mousemove', moveEvent);
+    this.element.addEventListener('mouseup', endEvent);
+    this.element.addEventListener('touchstart', removeClickEvents);
 
     this.set('navState.currentImage', this.get('initialPost.images.firstObject'));
   },
@@ -46,7 +109,7 @@ export default Ember.Component.extend(TouchActionMixin, {
     }
   }),
 
-  _swipeStart(swipeState) {
+  _swipeStart() {
     const navState = this.get('navState');
 
     navState.setProperties({
@@ -55,7 +118,8 @@ export default Ember.Component.extend(TouchActionMixin, {
     });
   },
 
-  _swipeMove(swipeState) {
+  _swipeMove() {
+    const swipeState = this.get('swipeState');
     const navState = this.get('navState');
     const previousProgress = navState.get('progress');
     const horizontalNav = (navState.get('axis') || navState.set('axis', Math.abs(swipeState.diffX) > Math.abs(swipeState.diffY) ? 'x' : 'y')) === 'x';
@@ -79,7 +143,7 @@ export default Ember.Component.extend(TouchActionMixin, {
     }
   },
 
-  _swipeEnd(swipeState) {
+  _swipeEnd() {
     const navState = this.get('navState');
     const diffs = navState.get('diffs');
     const precision = 5;
