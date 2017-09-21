@@ -1,3 +1,49 @@
-html, body {
+body > .ember-view, html, body, .app-component {
   height: 100%;
+  width: 100%;
+  margin: 0px;
+  overflow: hidden;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #222;
+}
+
+[data-ember-action], a, button, input, .link {
+  cursor: pointer;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.timeline-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  touch-action: manipulation;
+  -ms-touch-action: manipulation;
+  cursor: pointer;
+  perspective: 100px;
+}
+
+.timeline-post {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.timeline-image {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  will-change: transform;
+  background-size: cover;
+  background-position: center center;
+  background-color: #ccc;
 }

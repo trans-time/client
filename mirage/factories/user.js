@@ -5,7 +5,7 @@ export default Factory.extend({
   description: faker.lorem.paragraph,
 
   afterCreate(user, server) {
-    user.posts = server.createList('post', 10);
+    if (user.posts.length === 0) user.posts = server.createList('post', 10);
 
     user.save();
   }
