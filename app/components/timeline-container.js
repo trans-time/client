@@ -7,62 +7,28 @@ export default Ember.Component.extend(TouchActionMixin, {
   swipeState: Ember.computed(() => { return {} }),
   navState: Ember.computed(() => Ember.Object.create({
     progress: 0,
-    diffs: [],
-    horizontalSwipe: null
+    diffs: []
   })),
 
-  initialPost: Ember.computed.oneWay('orderedPosts.firstObject'),
-  store: Ember.inject.service(),
+  filteredPosts: Ember.computed('posts', 'tag', {
+    get() {
+      const { posts, tag } = this.getProperties('posts', 'tag');
 
-  _touchStart(e) {
-    this._startEvent(e.changedTouches[0]);
-    e.preventDefault();
-  },
+      return Ember.isEmpty(tag) ? posts.toArray() : posts.filter((postModel) => {
+        return postModel.get('tags').toArray().any((tagModel) => tagModel.get('name') === tag);
+      });
+    }
+  }),
 
-  _startEvent(e) {
-    this.swipeState.diffX = 0;
-    this.swipeState.diffY = 0;
-    this.swipeState.startX = e.clientX;
-    this.swipeState.startY = e.clientY;
-    this.swipeState.currentX = e.clientX;
-    this.swipeState.currentY = e.clientY;
-    this.swipeState.active = true;
+  orderedPosts: Ember.computed('direction', 'filteredPosts', {
+    get() {
+      const { direction, filteredPosts } = this.getProperties('direction', 'filteredPosts');
 
-    this._swipeStart();
-  },
-
-  _touchMove(e) {
-    this._moveEvent(e.changedTouches[0]);
-    e.preventDefault();
-  },
-
-  _moveEvent(e) {
-    if (!this.swipeState.active) return;
-
-    this.swipeState.diffX = this.swipeState.currentX - e.clientX;
-    this.swipeState.diffY = e.clientY - this.swipeState.currentY;
-    this.swipeState.currentX = e.clientX;
-    this.swipeState.currentY = e.clientY;
-
-    this._swipeMove();
-  },
-
-  _touchEnd(e) {
-    this._endEvent(e.changedTouches[0]);
-    e.preventDefault();
-  },
-
-  _endEvent(e) {
-    if (!this.swipeState.active) return;
-
-    this.swipeState.diffX = this.swipeState.currentX - e.clientX;
-    this.swipeState.diffY = e.clientY - this.swipeState.currentY;
-    this.swipeState.currentX = e.clientX;
-    this.swipeState.currentY = e.clientY;
-    this.swipeState.active = false;
-
-    this._swipeEnd();
-  },
+      return filteredPosts.sort((a, b) => {
+        return direction === 'desc' ? b.get('date') - a.get('date') : a.get('date') - b.get('date');
+      });
+    }
+  }),
 
   didInsertElement(...args) {
     this._super(...args);
@@ -86,30 +52,35 @@ export default Ember.Component.extend(TouchActionMixin, {
     this.element.addEventListener('mouseup', endEvent);
     this.element.addEventListener('touchstart', removeClickEvents);
 
-    this.set('navState.currentImage', this.get('initialPost.images.firstObject'));
+    this.set('navState.currentImage', this.get('orderedPosts.firstObject.images.firstObject'));
   },
 
-  filteredPosts: Ember.computed('posts', 'tag', {
-    get() {
-      const { posts, tag } = this.getProperties('posts', 'tag');
+  _touchStart(e) {
+    this._startEvent(e.changedTouches[0]);
+    e.preventDefault();
+  },
 
-      return Ember.isEmpty(tag) ? posts.toArray() : posts.filter((postModel) => {
-        return postModel.get('tags').toArray().any((tagModel) => tagModel.get('name') === tag);
-      });
-    }
-  }),
+  _touchMove(e) {
+    this._moveEvent(e.changedTouches[0]);
+    e.preventDefault();
+  },
 
-  orderedPosts: Ember.computed('direction', 'filteredPosts', {
-    get() {
-      const { direction, filteredPosts } = this.getProperties('direction', 'filteredPosts');
+  _touchEnd(e) {
+    this._endEvent(e.changedTouches[0]);
+    e.preventDefault();
+  },
 
-      return filteredPosts.sort((a, b) => {
-        return direction === 'desc' ? b.get('date') - a.get('date') : a.get('date') - b.get('date');
-      });
-    }
-  }),
+  _startEvent(e) {
+    const swipeState = this.get('swipeState');
 
-  _swipeStart() {
+    swipeState.diffX = 0;
+    swipeState.diffY = 0;
+    swipeState.startX = e.clientX;
+    swipeState.startY = e.clientY;
+    swipeState.currentX = e.clientX;
+    swipeState.currentY = e.clientY;
+    swipeState.active = true;
+
     const navState = this.get('navState');
 
     navState.setProperties({
@@ -118,8 +89,15 @@ export default Ember.Component.extend(TouchActionMixin, {
     });
   },
 
-  _swipeMove() {
+  _moveEvent(e) {
     const swipeState = this.get('swipeState');
+    if (!swipeState.active) return;
+
+    swipeState.diffX = swipeState.currentX - e.clientX;
+    swipeState.diffY = e.clientY - swipeState.currentY;
+    swipeState.currentX = e.clientX;
+    swipeState.currentY = e.clientY;
+
     const navState = this.get('navState');
     const previousProgress = navState.get('progress');
     const horizontalNav = (navState.get('axis') || navState.set('axis', Math.abs(swipeState.diffX) > Math.abs(swipeState.diffY) ? 'x' : 'y')) === 'x';
@@ -143,7 +121,16 @@ export default Ember.Component.extend(TouchActionMixin, {
     }
   },
 
-  _swipeEnd() {
+  _endEvent(e) {
+    const swipeState = this.get('swipeState');
+    if (!swipeState.active) return;
+
+    swipeState.diffX = swipeState.currentX - e.clientX;
+    swipeState.diffY = e.clientY - swipeState.currentY;
+    swipeState.currentX = e.clientX;
+    swipeState.currentY = e.clientY;
+    swipeState.active = false;
+
     const navState = this.get('navState');
     const diffs = navState.get('diffs');
     const precision = 5;
