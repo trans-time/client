@@ -1,8 +1,8 @@
-{{#each orderedPosts as |post|}}
-  {{#each post.images as |image|}}
-    {{timeline-image
-      image=image
-      navState=navState
-    }}
-  {{/each}}
-{{/each}}
+{{timeline-ui
+  direction=direction
+  posts=posts
+  tag=tag
+}}
+
+{{timeline-post}}
+{{timeline-controls}}

@@ -18,7 +18,7 @@ html, body {
   margin: 0;
   padding: 0;
   color: $text-color;
-  background-color: #222;
+  background-color: #fafafa;
   font-family: 'Comfortaa', cursive;
 }
 
@@ -28,6 +28,7 @@ html, body {
 
 .top-bar {
   display: flex;
+  flex-shrink: 0;
   align-items: baseline;
   background-color: #fff;
   border-bottom: 1px solid #999;
@@ -49,17 +50,27 @@ html, body {
   }
 }
 
-.timeline-container {
+.timeline-ui {
   position: relative;
+  flex-shrink: 0.1;
   height: 100%;
   width: 100%;
-  max-height: 1350px;
+  max-height: 125vw;
   max-width: 1080px;
   perspective: 100px;
+  margin: 0 auto;
   overflow: hidden;
   touch-action: manipulation;
   -ms-touch-action: manipulation;
   cursor: pointer;
+  background-color: #222;
+}
+
+@media screen and (min-height: 1350px)
+{
+  .timeline-ui {
+    height: 1350px;
+  }
 }
 
 .timeline-image {
@@ -70,9 +81,34 @@ html, body {
   object-fit: cover;
   object-position: center center;
   background-color: #ccc;
+  pointer-events: none;
 
   &.hidden {
     opacity: 0;
     visibility: hidden;
+  }
+}
+
+.timeline-post {
+  flex-grow: 1;
+  overflow-y: auto;
+  background-color: #fff;
+  border-top: 1px solid #999;
+  padding: 10px;
+}
+
+.timeline-controls {
+  display: flex;
+  flex-shrink: 0;
+  background-color: #fff;
+  border-top: 1px solid #999;
+
+  .timeline-controls-element {
+    display: inline-block;
+    padding: 10px;
+  }
+
+  .timeline-slider {
+    flex-grow: 1;
   }
 }
