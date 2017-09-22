@@ -15,18 +15,6 @@ export default Ember.Component.extend({
   isIncomingImage: Ember.computed.oneWay('image.isIncomingImage'),
   src: Ember.computed.oneWay('image.src'),
 
-  isSettled: Ember.computed('isCurrentImage', 'progress', {
-    get() {
-      return this.get('isCurrentImage') && this.get('progress') === 0;
-    }
-  }),
-
-  isTransitioning: Ember.computed('visible', 'progress', {
-    get() {
-      return this.get('visible') && this.get('progress') !== 0;
-    }
-  }),
-
   style: Ember.computed('progress', 'visible', function () {
     if (this.get('hidden')) return;
 
