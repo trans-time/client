@@ -13,6 +13,7 @@ export default Ember.Component.extend({
   incomingImage: Ember.computed.oneWay('navState.incomingImage'),
   axis: Ember.computed.oneWay('navState.axis'),
   progress: Ember.computed.oneWay('navState.progress'),
+  src: Ember.computed.oneWay('image.src'),
 
   isCurrentImage: Ember.computed('image', 'currentImage', {
     get() {
@@ -67,11 +68,5 @@ export default Ember.Component.extend({
 
   easing(t) {
     return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-  },
-
-  src: Ember.computed('image.src', {
-    get() {
-      return Ember.Handlebars.Utils.escapeExpression(this.get('image.src'));
-    }
-  })
+  }
 });
