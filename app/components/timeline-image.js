@@ -13,7 +13,14 @@ export default Ember.Component.extend({
   progress: Ember.computed.oneWay('navState.progress'),
   isCurrentImage: Ember.computed.oneWay('image.isCurrentImage'),
   isIncomingImage: Ember.computed.oneWay('image.isIncomingImage'),
-  src: Ember.computed.oneWay('image.src'),
+
+  didInsertElement(...args) {
+    this._super(...args);
+
+    this.set('image.loadPromise', new Ember.RSVP.Promise((resolve) => {
+      this.element.onload = resolve;
+    })).then(() => this.set('image.isLoaded', true));
+  },
 
   style: Ember.computed('progress', 'visible', function () {
     if (this.get('hidden')) return;
@@ -44,5 +51,11 @@ export default Ember.Component.extend({
 
   easing(t) {
     return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-  }
+  },
+
+  src: Ember.computed('image.src', 'image.shouldLoad', {
+    get() {
+      if (this.get('image.shouldLoad')) return this.get('image.src');
+    }
+  })
 });

@@ -3,5 +3,8 @@ import DS from 'ember-data';
 export default DS.Model.extend({
   post: DS.belongsTo('post'),
 
-  src: DS.attr('string')
+  src: DS.attr('string'),
+
+  isLoaded: false,
+  shouldLoad: false
 });

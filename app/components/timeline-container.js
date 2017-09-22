@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import TouchActionMixin from 'ember-hammertime/mixins/touch-action';
+import { task } from 'ember-concurrency';
 
 const NavState = Ember.Object.extend({
   currentImage: Ember.computed({
@@ -81,7 +82,10 @@ export default Ember.Component.extend(TouchActionMixin, {
     this.element.addEventListener('mouseup', endEvent);
     this.element.addEventListener('touchstart', removeClickEvents);
 
-    this.set('navState.currentImage', this.get('orderedPosts.firstObject.images.firstObject'));
+    const currentImage = this.get('orderedPosts.firstObject.images.firstObject');
+
+    this.set('navState.currentImage', currentImage);
+    this.get('_loadNeighborMatrix').perform(currentImage);
   },
 
   willDestroyElement(...args) {
@@ -225,6 +229,8 @@ export default Ember.Component.extend(TouchActionMixin, {
         currentImage,
         incomingImage
       });
+
+      this.get('_loadNeighborMatrix').perform(currentImage);
     }
   },
 
@@ -236,6 +242,30 @@ export default Ember.Component.extend(TouchActionMixin, {
       progress,
       incomingImage
     });
+  },
+
+  _loadNeighborMatrix: task(function * (image) {
+    image.set('shouldLoad', true);
+    yield image.get('loadPromise');
+    yield this._loadNeighbors(image);
+    yield this._loadNeighbors(this._getNeighbor(image, 'right'));
+    yield this._loadNeighbors(this._getNeighbor(image, 'down'));
+    yield this._loadNeighbors(this._getNeighbor(image, 'up'));
+    yield this._loadNeighbors(this._getNeighbor(image, 'left'));
+  }).restartable(),
+
+  _loadNeighbors(image) {
+    if (image === 'edge') return Ember.RSVP.resolve();
+
+    return Ember.RSVP.all(['right', 'down', 'up', 'left'].map((direction) => {
+      const neighbor = this._getNeighbor(image, direction);
+
+      if (neighbor === 'edge' || neighbor.get('isLoaded')) return Ember.RSVP.resolve();
+
+      neighbor.set('shouldLoad', true);
+
+      return neighbor.get('loadPromise');
+    }));
   },
 
   _getDirection(forward) {
