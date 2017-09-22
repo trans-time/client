@@ -9,23 +9,11 @@ export default Ember.Component.extend({
   hidden: Ember.computed.not('visible'),
   visible: Ember.computed.or('isCurrentImage', 'isIncomingImage'),
 
-  currentImage: Ember.computed.oneWay('navState.currentImage'),
-  incomingImage: Ember.computed.oneWay('navState.incomingImage'),
   axis: Ember.computed.oneWay('navState.axis'),
   progress: Ember.computed.oneWay('navState.progress'),
+  isCurrentImage: Ember.computed.oneWay('image.isCurrentImage'),
+  isIncomingImage: Ember.computed.oneWay('image.isIncomingImage'),
   src: Ember.computed.oneWay('image.src'),
-
-  isCurrentImage: Ember.computed('image', 'currentImage', {
-    get() {
-      return this.get('image') === this.get('currentImage');
-    }
-  }),
-
-  isIncomingImage: Ember.computed('image', 'incomingImage', {
-    get() {
-      return this.get('image') === this.get('incomingImage');
-    }
-  }),
 
   isSettled: Ember.computed('isCurrentImage', 'progress', {
     get() {

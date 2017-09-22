@@ -1,11 +1,40 @@
 import Ember from 'ember';
 import TouchActionMixin from 'ember-hammertime/mixins/touch-action';
 
+const NavState = Ember.Object.extend({
+  currentImage: Ember.computed({
+    get() {
+      return this.get('_currentImage');
+    },
+    set(key, currentImage) {
+      const previousImage = this.get('_currentImage');
+
+      if (previousImage) previousImage.set('isCurrentImage', false);
+      currentImage.set('isCurrentImage', true);
+
+      return this.set('_currentImage', currentImage);
+    }
+  }),
+  incomingImage: Ember.computed({
+    get() {
+      return this.get('_incomingImage');
+    },
+    set(key, incomingImage) {
+      const previousImage = this.get('_incomingImage');
+
+      if (previousImage && previousImage !== 'edge') previousImage.set('isIncomingImage', false);
+      if (incomingImage && incomingImage !== 'edge') incomingImage.set('isIncomingImage', true);
+
+      return this.set('_incomingImage', incomingImage);
+    }
+  })
+});
+
 export default Ember.Component.extend(TouchActionMixin, {
   classNames: ['timeline-container'],
 
   swipeState: Ember.computed(() => { return {} }),
-  navState: Ember.computed(() => Ember.Object.create({
+  navState: Ember.computed(() => NavState.create({
     progress: 0,
     diffs: []
   })),
@@ -53,6 +82,15 @@ export default Ember.Component.extend(TouchActionMixin, {
     this.element.addEventListener('touchstart', removeClickEvents);
 
     this.set('navState.currentImage', this.get('orderedPosts.firstObject.images.firstObject'));
+  },
+
+  willDestroyElement(...args) {
+    this._super(...args);
+
+    const { currentImage, incomingImage } = this.get('navState').getProperties('currentImage', 'incomingImage');
+
+    currentImage.set('isCurrentImage', false);
+    if (incomingImage) incomingImage.set('isIncomingImage', false);
   },
 
   _touchStart(e) {
