@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa:400,700');
+
+$text-color: #333;
+
 body > .ember-view, html, body, .app-component {
   height: 100%;
   width: 100%;
@@ -5,19 +9,44 @@ body > .ember-view, html, body, .app-component {
   overflow: hidden;
 }
 
+body > .ember-view {
+  display: flex;
+  flex-direction: column;
+}
+
 html, body {
   margin: 0;
   padding: 0;
+  color: $text-color;
   background-color: #222;
+  font-family: 'Comfortaa', cursive;
 }
 
 [data-ember-action], a, button, input, .link {
   cursor: pointer;
 }
 
-.hidden {
-  opacity: 0;
-  visibility: hidden;
+.top-bar {
+  display: flex;
+  align-items: baseline;
+  background-color: #fff;
+  border-bottom: 1px solid #999;
+
+  .top-bar-element {
+    display: inline-block;
+    padding: 10px;
+  }
+
+  .top-bar-title {
+    flex-grow: 1;
+
+    a {
+      color: $text-color;
+      font-weight: bold;
+      font-size: 150%;
+      text-decoration: none;
+    }
+  }
 }
 
 .timeline-container {
@@ -41,4 +70,9 @@ html, body {
   object-fit: cover;
   object-position: center center;
   background-color: #ccc;
+
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
 }

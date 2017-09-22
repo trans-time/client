@@ -38,6 +38,7 @@
     "ember-concurrency": "^0.8.10",
     "ember-data": "~2.15.0",
     "ember-export-application-global": "^2.0.0",
+    "ember-font-awesome": "^4.0.0-alpha.10",
     "ember-hammertime": "^1.2.4",
     "ember-intl": "^2.31.1",
     "ember-load-initializers": "^1.0.0",
