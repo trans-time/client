@@ -6,7 +6,7 @@ export default function(server) {
   server.create('user', {
     posts: ['male', 'gq', 'female'].map((gender, index) => {
       return server.create('post', {
-        date: index,
+        date: index * 1000000000,
         tags: [symbolTag],
         images: [0, 45, 90, 135, 180, 225, 270, 315].map((orientation) => {
           return server.create('image', {

@@ -1,5 +1,11 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  tagName: ''
+  tagName: '',
+
+  actions: {
+    changePost(post) {
+      this.set('post', post);
+    }
+  }
 });

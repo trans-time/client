@@ -86,6 +86,7 @@ export default Ember.Component.extend(TouchActionMixin, {
 
     this.set('navState.currentImage', currentImage);
     this.get('_loadNeighborMatrix').perform(currentImage);
+    this.attrs.changePost(currentImage.get('post.content'));
   },
 
   willDestroyElement(...args) {
@@ -230,6 +231,7 @@ export default Ember.Component.extend(TouchActionMixin, {
         incomingImage
       });
 
+      this.attrs.changePost(currentImage.get('post.content'));
       this.get('_loadNeighborMatrix').perform(currentImage);
     }
   },
