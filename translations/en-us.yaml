@@ -1,15 +1,15 @@
 auth:
-  signIn: 'Sign In'
-  signOut: 'Sign Out'
-  signUp: 'Sign Up'
+  signIn: "Sign In"
+  signOut: "Sign Out"
+  signUp: "Sign Up"
 general:
-  cancel: 'Cancel'
-  submit: 'Submit'
+  cancel: "Cancel"
+  submit: "Submit"
 users:
   attributes:
     password:
-      label: 'Password'
-      placeholder: 'eg, GurgensOffRoute109'
+      label: "Password"
+      placeholder: "eg, GurgensOffRoute109"
     username:
-      label: 'Username'
-      placeholder: 'eg, stevonnie7'
+      label: "Username"
+      placeholder: "eg, stevonnie7"

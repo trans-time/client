@@ -1,9 +1,10 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  tagName: 'img',
   classNames: ['timeline-image'],
   classNameBindings: ['hidden'],
-  attributeBindings: ['style'],
+  attributeBindings: ['style', 'src'],
 
   hidden: Ember.computed.not('visible'),
   visible: Ember.computed.or('isCurrentImage', 'isIncomingImage'),
@@ -37,15 +38,14 @@ export default Ember.Component.extend({
     }
   }),
 
-  style: Ember.computed('progress', 'visible', 'backgroundImage', function () {
-    const backgroundImage = this.get('backgroundImage');
-    if (this.get('hidden')) return Ember.String.htmlSafe(backgroundImage);;
+  style: Ember.computed('progress', 'visible', function () {
+    if (this.get('hidden')) return;
 
     const progress = this.get('progress');
     const easedProgress = this.easing(Math.abs(progress)) * (progress > 0 ? 1 : -1);
     const transform = this.get('isCurrentImage') ? this.animateOut(easedProgress) : this.animateIn(easedProgress);
 
-    return Ember.String.htmlSafe(`${backgroundImage}${transform}`);
+    return Ember.String.htmlSafe(transform);
   }),
 
   animateIn(progress) {
@@ -69,9 +69,9 @@ export default Ember.Component.extend({
     return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
   },
 
-  backgroundImage: Ember.computed('image.src', {
+  src: Ember.computed('image.src', {
     get() {
-      return `background-image: url("${Ember.Handlebars.Utils.escapeExpression(this.get('image.src'))}");`;
+      return Ember.Handlebars.Utils.escapeExpression(this.get('image.src'));
     }
   })
 });
