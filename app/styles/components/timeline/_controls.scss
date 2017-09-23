@@ -8,10 +8,16 @@
   .timeline-controls-element {
     display: inline-block;
     padding: 10px;
+    transition: color 500ms, text-shadow 500ms;
   }
 
   .timeline-slider {
     flex-grow: 1;
+  }
+
+  .mooned {
+    color: #f0c420;
+    text-shadow: 0px 0px 10px #f0c420;
   }
 }
 
