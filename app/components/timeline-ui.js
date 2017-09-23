@@ -34,6 +34,7 @@ const NavState = Ember.Object.extend({
 export default Ember.Component.extend(TouchActionMixin, {
   classNames: ['timeline-ui'],
 
+  pointers: Ember.computed(() => { return {} }),
   swipeState: Ember.computed(() => { return {} }),
   navState: Ember.computed(() => NavState.create({
     progress: 0,
@@ -86,6 +87,7 @@ export default Ember.Component.extend(TouchActionMixin, {
 
     this.set('navState.currentImage', currentImage);
     this.get('_loadNeighborMatrix').perform(currentImage);
+    this._displayPointers();
     this.attrs.changePost(currentImage.get('post.content'));
   },
 
@@ -233,6 +235,7 @@ export default Ember.Component.extend(TouchActionMixin, {
 
       this.attrs.changePost(currentImage.get('post.content'));
       this.get('_loadNeighborMatrix').perform(currentImage);
+      this._displayPointers();
     }
   },
 
@@ -243,6 +246,17 @@ export default Ember.Component.extend(TouchActionMixin, {
     this.get('navState').setProperties({
       progress,
       incomingImage
+    });
+  },
+
+  _displayPointers() {
+    const currentImage = this.get('navState.currentImage');
+
+    this.set('pointers', {
+      up: this._getNeighbor(currentImage, 'up') === 'edge',
+      right: this._getNeighbor(currentImage, 'right') === 'edge',
+      down: this._getNeighbor(currentImage, 'down') === 'edge',
+      left: this._getNeighbor(currentImage, 'left') === 'edge'
     });
   },
 
