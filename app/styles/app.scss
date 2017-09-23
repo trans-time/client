@@ -82,6 +82,7 @@ html, body {
   object-position: center center;
   background-color: #ccc;
   pointer-events: none;
+  box-shadow: 0 0 10px #333;
 
   &.hidden {
     opacity: 0;

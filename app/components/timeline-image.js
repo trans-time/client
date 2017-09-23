@@ -37,7 +37,7 @@ export default Ember.Component.extend({
     const translateAmount = isCurrentImage ? progress * -100 : isIncomingImage ? progress < 0 ? Math.abs(progress * 100) - 100 : 100 - (progress * 100) : 0;
     const blurRadius = Math.abs(progress) * 10;
 
-    return this.get('axis') === 'x' ? `transform: translate3d(${translateAmount}%, 0, 0); z-index: 1; box-shadow: 0 0 ${blurRadius}px #333;` : `transform: translate3d(0, ${-translateAmount}%, 0); z-index: 1; box-shadow: 0 0 ${blurRadius}px #333;`;
+    return this.get('axis') === 'x' ? `transform: translate3d(${translateAmount}%, 0, 0); z-index: 1;` : `transform: translate3d(0, ${-translateAmount}%, 0); z-index: 1;`;
   },
 
   animateOut(progress) {
