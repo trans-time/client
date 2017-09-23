@@ -1,0 +1,26 @@
+.top-bar {
+  flex-shrink: 0;
+  background-color: #fff;
+  border-bottom: 1px solid #999;
+
+  .top-bar-content {
+    display: flex;
+    align-items: baseline;
+  }
+
+  .top-bar-element {
+    display: inline-block;
+    padding: 10px;
+  }
+
+  .top-bar-title {
+    flex-grow: 1;
+
+    a {
+      color: $text-color;
+      font-weight: bold;
+      font-size: 150%;
+      text-decoration: none;
+    }
+  }
+}

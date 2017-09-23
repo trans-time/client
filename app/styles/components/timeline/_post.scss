@@ -1,0 +1,22 @@
+.timeline-post {
+  flex-grow: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid #999;
+  border-bottom: 0;
+  padding: 10px;
+
+  .timeline-post-date {
+    opacity: 0.8;
+    margin-bottom: 10px;
+    font-size: 68%;
+  }
+}
+
+@media screen and (max-height: 800px) {
+  .timeline-post {
+    border-left: 0;
+    border-right: 0;
+  }
+}
