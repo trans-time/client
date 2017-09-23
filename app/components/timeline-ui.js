@@ -75,11 +75,13 @@ export default Ember.Component.extend(TouchActionMixin, {
       this.element.removeEventListener('mousedown', startEvent);
       this.element.removeEventListener('mousemove', moveEvent);
       this.element.removeEventListener('mouseup', endEvent);
+      this.element.removeEventListener('mouseout', endEvent);
       this.element.removeEventListener('touchstart', removeClickEvents);
     };
 
     this.element.addEventListener('mousedown', startEvent);
     this.element.addEventListener('mousemove', moveEvent);
+    this.element.addEventListener('mouseout', endEvent);
     this.element.addEventListener('mouseup', endEvent);
     this.element.addEventListener('touchstart', removeClickEvents);
 
