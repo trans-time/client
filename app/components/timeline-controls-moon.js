@@ -6,7 +6,15 @@ export default Ember.Component.extend({
   classNames: ['timeline-controls-element'],
   classNameBindings: ['mooned'],
 
-  click() {
+  mouseDown() {
+    this.get('startCountdown').perform();
+  },
+
+  touchStart() {
+    this.get('startCountdown').perform();
+  },
+
+  mouseUp() {
     this.get('toggleMoon').perform();
   },
 
@@ -14,7 +22,15 @@ export default Ember.Component.extend({
     this.get('toggleMoon').perform();
   },
 
+  startCountdown: task(function * () {
+    yield timeout(750);
+
+    this.set('displayCelestialOptions', true);
+  }),
+
   toggleMoon: task(function * () {
+    this.get('startCountdown').cancelAll();
+
     yield timeout(100);
 
     this.toggleProperty('mooned');

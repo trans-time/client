@@ -1,0 +1,12 @@
+{{#each types as |type|}}
+  {{timeline-controls-fav-icon
+    type=type
+    isOpeningDisplayAllTypes=isOpeningDisplayAllTypes
+    shouldDisplayAllTypes=shouldDisplayAllTypes
+    faved=(and (eq currentType type) faved)
+    hidden=(and (not shouldDisplayAllTypes) (not-eq currentType type))
+    completeDisplayAllTypes=(action "completeDisplayAllTypes")
+    displayAllTypes=(action "displayAllTypes")
+    selectType=(action "selectType" type)
+  }}
+{{/each}}

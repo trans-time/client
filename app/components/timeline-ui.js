@@ -34,6 +34,9 @@ const NavState = Ember.Object.extend({
 export default Ember.Component.extend(TouchActionMixin, {
   classNames: ['timeline-ui'],
 
+  meta: Ember.inject.service(),
+  usingTouch: Ember.computed.alias('meta.usingTouch'),
+
   pointers: Ember.computed(() => { return {} }),
   swipeState: Ember.computed(() => { return {} }),
   navState: Ember.computed(() => NavState.create({
@@ -68,22 +71,25 @@ export default Ember.Component.extend(TouchActionMixin, {
     this.element.addEventListener('touchmove', Ember.run.bind(this, this._touchMove));
     this.element.addEventListener('touchend', Ember.run.bind(this, this._touchEnd));
 
-    const startEvent = Ember.run.bind(this, this._startEvent);
-    const moveEvent = Ember.run.bind(this, this._moveEvent);
-    const endEvent = Ember.run.bind(this, this._endEvent);
-    const removeClickEvents = () => {
-      this.element.removeEventListener('mousedown', startEvent);
-      this.element.removeEventListener('mousemove', moveEvent);
-      this.element.removeEventListener('mouseup', endEvent);
-      this.element.removeEventListener('mouseout', endEvent);
-      this.element.removeEventListener('touchstart', removeClickEvents);
-    };
+    if (!this.get('usingTouch')) {
+      const startEvent = Ember.run.bind(this, this._startEvent);
+      const moveEvent = Ember.run.bind(this, this._moveEvent);
+      const endEvent = Ember.run.bind(this, this._endEvent);
+      const removeClickEvents = () => {
+        this.set('usingTouch', true);
+        this.element.removeEventListener('mousedown', startEvent);
+        this.element.removeEventListener('mousemove', moveEvent);
+        this.element.removeEventListener('mouseup', endEvent);
+        this.element.removeEventListener('mouseout', endEvent);
+        this.element.removeEventListener('touchstart', removeClickEvents);
+      };
 
-    this.element.addEventListener('mousedown', startEvent);
-    this.element.addEventListener('mousemove', moveEvent);
-    this.element.addEventListener('mouseout', endEvent);
-    this.element.addEventListener('mouseup', endEvent);
-    this.element.addEventListener('touchstart', removeClickEvents);
+      this.element.addEventListener('mousedown', startEvent);
+      this.element.addEventListener('mousemove', moveEvent);
+      this.element.addEventListener('mouseout', endEvent);
+      this.element.addEventListener('mouseup', endEvent);
+      this.element.addEventListener('touchstart', removeClickEvents);
+    }
 
     const currentImage = this.get('orderedPosts.firstObject.images.firstObject');
 
@@ -301,20 +307,21 @@ export default Ember.Component.extend(TouchActionMixin, {
     const yIndex = post.get('images').indexOf(image);
 
     switch(direction) {
-      case 'right': return this._getHorizontalNeighbor(xIndex + 1, yIndex);
-      case 'left': return this._getHorizontalNeighbor(xIndex - 1, yIndex);
-      case 'up': return this._getVerticalNeighbor(post, yIndex - 1, 'lastObject');
-      case 'down': return this._getVerticalNeighbor(post, yIndex + 1, 'firstObject');
+      case 'right': return this._getHorizontalNeighbor(post, yIndex + 1, 'firstObject');
+      case 'left': return this._getHorizontalNeighbor(post, yIndex - 1, 'lastObject');
+      case 'up': return this._getVerticalNeighbor(xIndex - 1, yIndex);
+      case 'down': return this._getVerticalNeighbor(xIndex + 1, yIndex);
     }
   },
 
-  _getHorizontalNeighbor(xIndex, yIndex) {
+  _getHorizontalNeighbor(post, yIndex, wrapIndex) {
+    return post.get('images').toArray()[yIndex] || post.get(`images.${wrapIndex}`);
+
+  },
+
+  _getVerticalNeighbor(xIndex, yIndex) {
     const post = this.get('orderedPosts')[xIndex];
 
     return post ? post.get('images').toArray()[yIndex] || post.get('images.lastObject') : 'edge';
-  },
-
-  _getVerticalNeighbor(post, yIndex, wrapIndex) {
-    return post.get('images').toArray()[yIndex] || post.get(`images.${wrapIndex}`);
   }
 });
