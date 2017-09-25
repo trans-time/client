@@ -28,6 +28,14 @@ export default function() {
   this.post('/users');
   this.get('/users/:id');
   this.get('/posts', (schema, request) => {
-    return schema.posts.where({ userId: request.queryParams.userId });
+    const posts = schema.posts.where({ userId: request.queryParams.userId });
+    const tagIds = request.queryParams.tags.split(',').map((name) => schema.tags.where({ name }).models[0].id);
+
+    return posts.filter((post) => {
+      return tagIds.every((tagId) => post.tagIds.includes(tagId));
+    });
+  })
+  this.get('/tags', (schema, request) => {
+    return schema.tags.where({ userId: request.queryParams.userId });
   })
 }

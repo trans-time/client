@@ -47,7 +47,7 @@ export default Ember.Component.extend(TouchActionMixin, {
   orderedPosts: Ember.computed('posts', {
     get() {
       return this.get('posts').toArray().sort((a, b) => {
-        return direction === 'desc' ? b.get('date') - a.get('date') : a.get('date') - b.get('date');
+        return a.get('date') - b.get('date');
       });
     }
   }),

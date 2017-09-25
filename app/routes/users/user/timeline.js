@@ -2,13 +2,13 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   queryParams: {
-    tag: {
+    tags: {
       refreshModel: true
     }
   },
 
   model(params) {
-    return this.store.query('post', { userId: this.modelFor('users.user').id, tag: params.tag });
+    return this.store.query('post', { userId: this.modelFor('users.user').id, tags: params.tags });
   },
 
   actions: {
