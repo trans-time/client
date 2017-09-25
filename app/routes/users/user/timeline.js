@@ -8,7 +8,12 @@ export default Ember.Route.extend({
   },
 
   model(params) {
-    return this.store.query('post', { userId: this.modelFor('users.user').id, tags: params.tags });
+    const user = this.modelFor('users.user');
+
+    return Ember.RSVP.hash({
+      posts: this.store.query('post', { userId: user.id, tags: params.tags }),
+      user
+    });
   },
 
   actions: {
