@@ -15,7 +15,7 @@ export default Ember.Component.extend({
     }
   }),
 
-  touchStart() {
+  touchStart(e) {
     this.set('usingTouch', true);
     this.get('countdownToDisplayAllTypesTask').perform();
   },
@@ -24,7 +24,7 @@ export default Ember.Component.extend({
     this.endEvent();
   },
 
-  mouseDown() {
+  mouseDown(e) {
     if (!this.get('usingTouch')) this.get('countdownToDisplayAllTypesTask').perform();
   },
 
