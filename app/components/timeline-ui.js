@@ -44,21 +44,9 @@ export default Ember.Component.extend(TouchActionMixin, {
     diffs: []
   })),
 
-  filteredPosts: Ember.computed('posts', 'tag', {
+  orderedPosts: Ember.computed('posts', {
     get() {
-      const { posts, tag } = this.getProperties('posts', 'tag');
-
-      return Ember.isEmpty(tag) ? posts.toArray() : posts.filter((postModel) => {
-        return postModel.get('tags').toArray().any((tagModel) => tagModel.get('name') === tag);
-      });
-    }
-  }),
-
-  orderedPosts: Ember.computed('direction', 'filteredPosts', {
-    get() {
-      const { direction, filteredPosts } = this.getProperties('direction', 'filteredPosts');
-
-      return filteredPosts.sort((a, b) => {
+      return this.get('posts').toArray().sort((a, b) => {
         return direction === 'desc' ? b.get('date') - a.get('date') : a.get('date') - b.get('date');
       });
     }

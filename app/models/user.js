@@ -6,6 +6,7 @@ export default DS.Model.extend({
   posts: DS.hasMany('post', { async: true }),
 
   username: DS.attr('string'),
+  tagSummary: DS.attr(),
 
   tags: computed('posts.@each.tag', {
     get() {

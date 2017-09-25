@@ -27,4 +27,7 @@ export default function() {
   this.get('/users');
   this.post('/users');
   this.get('/users/:id');
+  this.get('/posts', (schema, request) => {
+    return schema.posts.where({ userId: request.queryParams.userId });
+  })
 }
