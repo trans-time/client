@@ -5,6 +5,8 @@ auth:
 general:
   cancel: "Cancel"
   submit: "Submit"
+search:
+  title: "Search"
 users:
   attributes:
     password:

@@ -4,8 +4,11 @@ export default Ember.Component.extend({
   classNames: ['top-bar'],
 
   modalManager: Ember.inject.service('modal-manager'),
+  meta: Ember.inject.service(),
   router: Ember.inject.service(),
   session: Ember.inject.service('session'),
+
+  title: Ember.computed.oneWay('meta.title'),
 
   actions: {
     back() {
