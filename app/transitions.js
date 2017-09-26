@@ -29,7 +29,7 @@ export default function() {
   this.transition(
     this.hasClass('top-bar-menu-modal'),
     this.toValue((toValue, fromValue) => fromValue === null),
-    this.use('to-down', { duration: 200 })
+    this.use('to-down')
   );
 
   this.transition(

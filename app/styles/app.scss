@@ -42,3 +42,7 @@ body > .ember-view:not(.liquid-destination) > .liquid-container > .liquid-child 
   display: flex;
   flex-direction: column;
 }
+
+.liquid-destination:not(.default-liquid-destination) {
+  z-index: 9;
+}
