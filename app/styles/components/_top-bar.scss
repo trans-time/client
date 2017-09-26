@@ -1,8 +1,8 @@
 .top-bar {
   position: relative;
   flex-shrink: 0;
-  background-color: #fff;
-  border-bottom: 1px solid #999;
+  background-color: $white;
+  border-bottom: 1px solid $medium-gray;
   z-index: 10;
 
   .top-bar-content {
@@ -12,7 +12,7 @@
 
   .top-bar-element {
     display: inline-block;
-    padding: 10px;
+    padding: $rhythm;
   }
 
   .top-bar-title {
@@ -28,9 +28,9 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  border: thin solid #999;
-  padding: 10px;
+  border: thin solid $medium-gray;
+  padding: $rhythm;
   margin: 0;
   list-style-type: none;
-  background-color: #fff;
+  background-color: $white;
 }

@@ -10,8 +10,8 @@
   touch-action: manipulation;
   -ms-touch-action: manipulation;
   cursor: pointer;
-  background-color: #999;
-  border: thin solid #999;
+  background-color: $medium-gray;
+  border: thin solid $medium-gray;
 }
 
 @media screen and (min-height: 1350px)

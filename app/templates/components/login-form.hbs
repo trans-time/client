@@ -1,10 +1,19 @@
 {{#simple-form as |form|}}
-  {{#form.field label=(t "users.attributes.username.label") error=changeset.error.username as |ff|}}
-    {{input id=ff.id value=changeset.username placeholder=(t "users.attributes.username.placeholder")}}
-  {{/form.field}}
-  {{#form.field label=(t "users.attributes.password.label") error=changeset.error.password as |ff|}}
-    {{input type="password" id=ff.id value=changeset.password placeholder=(t "users.attributes.password.placeholder")}}
-  {{/form.field}}
+  {{paper-input
+    value=changeset.username
+    autofocus=true
+    label=(t "users.attributes.username.label")
+    onChange=(action (mut changeset.username))
+    errors=changeset.error.username.validation
+  }}
+
+  {{paper-input
+    value=changeset.password
+    type="password"
+    label=(t "users.attributes.password.label")
+    onChange=(action (mut changeset.password))
+    errors=changeset.error.password.validation
+  }}
 
   {{form.controls disabled=disabled submit=(action "submit") cancel=(action "cancel")}}
 {{/simple-form}}

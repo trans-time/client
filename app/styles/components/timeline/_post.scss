@@ -2,14 +2,14 @@
   flex-grow: 1;
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: #fff;
-  border: 1px solid #999;
+  background-color: $white;
+  border: 1px solid $medium-gray;
   border-bottom: 0;
-  padding: 10px;
+  padding: $rhythm;
 
   .timeline-post-date {
     opacity: 0.8;
-    margin-bottom: 10px;
+    margin-bottom: $rhythm;
     font-size: 68%;
   }
 }

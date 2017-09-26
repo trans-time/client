@@ -46,6 +46,7 @@
     "ember-intl": "^2.31.1",
     "ember-load-initializers": "^1.0.0",
     "ember-moment": "^7.4.1",
+    "ember-paper": "^1.0.0-beta.3",
     "ember-resolver": "^4.0.0",
     "ember-simple-auth": "^1.4.0",
     "ember-source": "~2.15.0",

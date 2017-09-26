@@ -23,8 +23,8 @@
 .timeline-ui-pointer {
   position: absolute;
   transition: opacity 1s;
-  color: #fff;
-  text-shadow: 0 1px 1px #333;
+  color: $white;
+  text-shadow: 0 1px 1px $dark-gray;
 
   &.hidden {
     opacity: 0;

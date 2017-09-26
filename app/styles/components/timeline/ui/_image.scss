@@ -3,9 +3,9 @@
   height: 100%;
   width: 100%;
   will-change: transform;
-  background-color: #ccc;
+  background-color: $light-gray;
   pointer-events: none;
-  box-shadow: 0 0 10px #333;
+  box-shadow: 0 0 $rhythm $dark-gray;
   object-fit: cover;
 
   &.hidden {

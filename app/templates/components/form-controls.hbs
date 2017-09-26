@@ -1,2 +1,12 @@
-<button type="button" {{action "handleCancel"}}>{{t "general.cancel"}}</button>
-<button type="button" {{action "handleSubmit"}} disabled={{disabled}}>{{t "general.submit"}}</button>
+{{paper-button
+  label=(t "general.cancel")
+  onClick=(action "handleCancel")
+}}
+
+{{paper-button
+  label=(t "general.submit")
+  disabled=disabled
+  raised=true
+  primary=true
+  onClick=(action "handleSubmit")
+}}

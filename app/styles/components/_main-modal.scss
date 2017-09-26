@@ -7,15 +7,15 @@
 }
 
 .main-modal-content {
-  background-color: #fff;
-  padding: 10px;
+  background-color: $white;
+  padding: $rhythm;
   max-height: 68%;
   width: 95vw;
   max-width: 375px;
   overflow-x: hidden;
   overflow-y: auto;
   box-sizing: border-box;
-  box-shadow: 1px 1px 3px #333;
+  box-shadow: 1px 1px 3px $dark-gray;
   z-index: 101;
 }
 
