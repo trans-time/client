@@ -1,7 +1,7 @@
 auth:
-  signIn: "Sign In"
-  signOut: "Sign Out"
-  signUp: "Sign Up"
+  join: "Join"
+  login: "Login"
+  logout: "Logout"
 general:
   cancel: "Cancel"
   submit: "Submit"

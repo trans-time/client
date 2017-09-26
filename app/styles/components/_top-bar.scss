@@ -2,6 +2,7 @@
   flex-shrink: 0;
   background-color: #fff;
   border-bottom: 1px solid #999;
+  z-index: 10000;
 
   .top-bar-content {
     display: flex;
@@ -20,4 +21,15 @@
     text-overflow: ellipsis;
     overflow: hidden;
   }
+}
+
+.top-bar-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  border: thin solid #999;
+  padding: 10px;
+  margin: 0;
+  list-style-type: none;
+  background-color: #fff;
 }

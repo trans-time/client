@@ -18,8 +18,10 @@ const SessionValidations = {
 };
 
 export default Ember.Component.extend({
-  modalManager: Ember.inject.service('modal-manager'),
-  session: Ember.inject.service('session'),
+  classNames: ['main-modal-content'],
+
+  modalManager: Ember.inject.service(),
+  session: Ember.inject.service(),
 
   disabled: Ember.computed.or('changeset.isInvalid', 'changeset.isPristine'),
 

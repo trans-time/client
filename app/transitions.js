@@ -20,4 +20,21 @@ export default function() {
     this.childOf('.timeline-post'),
     this.use('crossFade', { duration: 150 })
   );
+
+  this.transition(
+    this.hasClass('main-modal'),
+    this.use('fade')
+  );
+
+  this.transition(
+    this.hasClass('top-bar-menu-modal'),
+    this.toValue((toValue, fromValue) => fromValue === null),
+    this.use('to-down', { duration: 200 })
+  );
+
+  this.transition(
+    this.hasClass('top-bar-menu-modal'),
+    this.toValue((toValue) => toValue === null),
+    this.use('to-up')
+  );
 }

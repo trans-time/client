@@ -1,0 +1,5 @@
+{{#if session.isAuthenticated}}
+  <a {{action "logout"}}>{{t "auth.logout"}}</a>
+{{else}}
+  <li><a {{action "login"}}>{{t "auth.login"}}</a></li>
+{{/if}}

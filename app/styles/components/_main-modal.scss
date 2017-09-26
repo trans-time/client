@@ -1,0 +1,27 @@
+.main-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.main-modal-content {
+  background-color: #fff;
+  padding: 10px;
+  max-height: 68%;
+  width: 95vw;
+  max-width: 375px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-sizing: border-box;
+  box-shadow: 1px 1px 3px #333;
+  z-index: 101;
+}
+
+.main-modal-screen {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 100;
+}

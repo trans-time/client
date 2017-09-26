@@ -2,13 +2,18 @@
   <a class="top-bar-element" {{action "back"}}>{{fa-icon "chevron-left" size=2}}</a>
   <span class="top-bar-title top-bar-element">{{title}}</span>
   <span class="top-bar-element">{{fa-icon "bell-o" size=2}}</span>
-  <span class="top-bar-element">{{fa-icon "bars" size=2}}</span>
-  <!-- <ul>
-    {{#if session.isAuthenticated}}
-      <a {{action "signOut"}}>{{t "auth.signOut"}}</a>
-    {{else}}
-      <li><a {{action "signIn"}}>{{t "auth.signIn"}}</a></li>
-      <li><button type="button" {{action "signUp"}}>{{t "auth.signUp"}}</button></li>
-    {{/if}}
-  </ul> -->
+  <a class="top-bar-element" {{action "toggleMenu"}}>{{fa-icon "bars" size=2}}</a>
 </div>
+
+{{#if menuIsOpen}}
+  {{#liquid-tether
+    target=".top-bar-content"
+    attachment="top right"
+    targetAttachment="bottom right"
+    class="top-bar-menu-modal"
+  }}
+    {{top-bar-menu
+      toggleMenu=(action "toggleMenu")
+    }}
+  {{/liquid-tether}}
+{{/if}}
