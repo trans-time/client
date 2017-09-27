@@ -1,0 +1,22 @@
+.post-nav-post {
+  flex-grow: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: $white;
+  border: 1px solid $medium-gray;
+  border-bottom: 0;
+  padding: $rhythm;
+
+  .post-nav-post-date {
+    opacity: 0.8;
+    margin-bottom: $rhythm;
+    font-size: 68%;
+  }
+}
+
+@media screen and (max-height: 800px) {
+  .post-nav-post {
+    border-left: 0;
+    border-right: 0;
+  }
+}

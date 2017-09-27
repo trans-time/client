@@ -1,0 +1,5 @@
+{{#liquid-bind post as |model|}}
+  <div class="post-nav-post-date">{{moment-format model.date "MMMM DD, YYYY"}}</div>
+
+  <p>{{model.text}}</p>
+{{/liquid-bind}}

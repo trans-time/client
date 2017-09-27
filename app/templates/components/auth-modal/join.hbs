@@ -1,0 +1,42 @@
+{{#simple-form/form as |form|}}
+  {{#paper-list}}
+    {{#paper-subheader class="md-no-sticky"}}{{t "auth.join"}}{{/paper-subheader}}
+    {{#paper-item}}
+      {{paper-input
+        value=changeset.username
+        autofocus=true
+        label=(t "users.attributes.username.label")
+        onChange=(action (mut changeset.username))
+        errors=changeset.error.username.validation
+      }}
+    {{/paper-item}}
+
+    {{#paper-item}}
+      {{paper-input
+        value=changeset.email
+        autofocus=true
+        label=(t "users.attributes.email.label")
+        onChange=(action (mut changeset.email))
+        errors=changeset.error.email.validation
+      }}
+    {{/paper-item}}
+
+    {{#paper-item}}
+      {{paper-input
+        value=changeset.password
+        type="password"
+        label=(t "users.attributes.password.label")
+        onChange=(action (mut changeset.password))
+        errors=changeset.error.password.validation
+      }}
+    {{/paper-item}}
+  {{/paper-list}}
+
+  {{#form.controls disabled=disabled submit=(action "submit") cancel=(action "cancel")}}
+    {{paper-button
+      label=(t "auth.login")
+      onClick=(action "login")
+      classNames="simple-form-controls-align-left"
+    }}
+  {{/form.controls}}
+{{/simple-form/form}}

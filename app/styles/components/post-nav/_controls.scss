@@ -1,0 +1,43 @@
+.post-nav-controls-main {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  background-color: $white;
+  border: 1px solid $medium-gray;
+  border-bottom: 0;
+}
+
+.post-nav-controls-element {
+  display: inline-block;
+  padding: $rhythm;
+}
+
+.fav-icon {
+  position: relative;
+  padding: 25px;
+  transition: color 500ms, text-shadow 500ms, padding 500ms, transform 500ms;
+
+  &.hidden {
+    padding: 0;
+    transform: scale3d(0, 0, 0);
+  }
+
+  &.faved {
+    color: $highlight-color;
+    text-shadow: 0px 0px $rhythm $highlight-color;
+  }
+
+  i {
+    position: absolute;
+    top: 24%;
+    left: 25%;
+  }
+}
+
+@media screen and (max-height: 800px) {
+  .post-nav-controls-main {
+    border-left: 0;
+    border-right: 0;
+  }
+}

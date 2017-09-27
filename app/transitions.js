@@ -17,7 +17,7 @@ export default function() {
   );
 
   this.transition(
-    this.childOf('.timeline-post'),
+    this.childOf('.post-nav-post'),
     this.use('crossFade', { duration: 150 })
   );
 

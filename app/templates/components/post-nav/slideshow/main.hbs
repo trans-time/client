@@ -1,0 +1,14 @@
+{{#each orderedPosts as |post|}}
+  {{#each post.images as |image|}}
+    {{post-nav/slideshow/image
+      image=image
+      navState=navState
+    }}
+  {{/each}}
+{{/each}}
+
+<div class="post-nav-slideshow-pointer-container">
+  {{#each-in pointers as |direction hidden|}}
+    {{post-nav/slideshow/pointer direction=direction hidden=hidden}}
+  {{/each-in}}
+</div>
