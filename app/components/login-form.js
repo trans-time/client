@@ -7,13 +7,12 @@ import {
 } from 'ember-changeset-validations/validators';
 
 const SessionValidations = {
-  username: [
-    validatePresence(true),
-    validateLength({ min: 4 })
-  ],
   password: [
     validatePresence(true),
-    validateLength({ min: 4 })
+    validateLength({ min: 6 })
+  ],
+  username: [
+    validatePresence(true)
   ]
 };
 
@@ -41,9 +40,9 @@ export default Ember.Component.extend({
     },
 
     submit() {
-      const { identification, password } = this.getProperties('identification', 'password');
+      const { username, password } = this.get('changeset').getProperties('username', 'password');
 
-      this.get('session').authenticate('authenticator:basic', identification, password).catch((reason) => {
+      this.get('session').authenticate('authenticator:basic', username, password).catch((reason) => {
         this.set('errorMessage', reason.error || reason);
       }).then(() => {
         this.get('modalManager').close();

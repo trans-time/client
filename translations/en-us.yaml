@@ -9,9 +9,9 @@ search:
   title: "Search"
 users:
   attributes:
+    email:
+      label: "Email"
     password:
       label: "Password"
-      placeholder: "eg, GurgensOffRoute109"
     username:
       label: "Username"
-      placeholder: "eg, stevonnie7"
