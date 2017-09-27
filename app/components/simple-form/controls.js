@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  classNames: ['simle-form-controls'],
+  classNames: ['simple-form-controls'],
 
   actions: {
     handleCancel() {
