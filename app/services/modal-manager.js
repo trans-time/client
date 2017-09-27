@@ -2,8 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Service.extend({
   componentPath: '',
-  resolve: null,
-  reject: null,
+  resolve() {},
+  reject() {},
 
   open(componentPath, resolve, reject) {
     this.set('componentPath', componentPath);
@@ -16,8 +16,8 @@ export default Ember.Service.extend({
 
     this.setProperties({
       componentPath: '',
-      resolve: null,
-      reject: null
+      resolve() {},
+      reject() {}
     });
   }
 });

@@ -24,6 +24,15 @@ export default function() {
     http://www.ember-cli-mirage.com/docs/v0.3.x/shorthands/
   */
 
+  this.post('/auth', (schema, request) => {
+    return {
+      user: {
+        token: 'foo',
+        id: 1
+      }
+    }
+  });
+
   this.get('/users');
   this.post('/users');
   this.get('/users/:id');
@@ -37,5 +46,6 @@ export default function() {
   })
   this.get('/tags', (schema, request) => {
     return schema.tags.where({ userId: request.queryParams.userId });
-  })
+  });
+  this.post('/fav');
 }

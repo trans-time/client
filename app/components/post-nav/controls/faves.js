@@ -1,12 +1,10 @@
 import Ember from 'ember';
+import AuthenticatedActionMixin from 'client/mixins/authenticated-action';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(AuthenticatedActionMixin, {
   tagName: '',
   types: ['moon', 'star', 'sun'],
   currentType: 'star',
-
-  modalManager: Ember.inject.service(),
-  session: Ember.inject.service(),
 
   _handleSelection(type) {
     if (this.get('shouldDisplayAllTypes')) {
@@ -33,22 +31,14 @@ export default Ember.Component.extend({
     },
 
     selectType(type) {
-      if (this.get('session.isAuthenticated')) {
+      this.authenticatedAction().then(() => {
         this._handleSelection(type);
-      } else {
-        const promise = new Ember.RSVP.Promise((resolve, reject) => {
-          this.get('modalManager').open('auth-modal/login', resolve, reject);
+      }).catch(() => {
+        this.setProperties({
+          currentType: type,
+          shouldDisplayAllTypes: false
         });
-
-        promise.then(() => {
-          this._handleSelection(type);
-        }).catch(() => {
-          this.setProperties({
-            currentType: type,
-            shouldDisplayAllTypes: false
-          });
-        });
-      }
+      });
     }
   }
 });
