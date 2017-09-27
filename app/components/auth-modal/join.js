@@ -38,7 +38,7 @@ export default Ember.Component.extend({
 
   actions: {
     cancel() {
-      this.get('modalManager').close();
+      this.get('modalManager').close('reject');
     },
 
     login() {
@@ -54,7 +54,7 @@ export default Ember.Component.extend({
         this.get('session').authenticate('authenticator:basic', username, password).catch((reason) => {
           this.set('errorMessage', reason.error || reason);
         }).then(() => {
-          this.get('modalManager').close();
+          this.get('modalManager').close('resolve');
         });
       });
     }
