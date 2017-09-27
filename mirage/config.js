@@ -47,5 +47,7 @@ export default function() {
   this.get('/tags', (schema, request) => {
     return schema.tags.where({ userId: request.queryParams.userId });
   });
-  this.post('/fav');
+  this.post('/faves');
+  this.patch('/faves/:id')
+  this.del('/faves/:id');
 }

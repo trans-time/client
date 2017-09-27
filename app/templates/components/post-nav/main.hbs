@@ -1,10 +1,11 @@
 {{post-nav/slideshow/main
   direction=direction
-  posts=posts
+  posts=orderedPosts
   tag=tag
+  post=post
   changePost=(action "changePost")
   classNames="main-layout-constraint"
 }}
 
 {{post-nav/post post=post classNames="main-layout-constraint"}}
-{{post-nav/controls/main classNames="main-layout-constraint"}}
+{{post-nav/controls/main post=post classNames="main-layout-constraint"}}

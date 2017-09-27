@@ -44,14 +44,6 @@ export default Ember.Component.extend(TouchActionMixin, {
     diffs: []
   })),
 
-  orderedPosts: Ember.computed('posts', {
-    get() {
-      return this.get('posts').toArray().sort((a, b) => {
-        return a.get('date') - b.get('date');
-      });
-    }
-  }),
-
   didInsertElement(...args) {
     this._super(...args);
 
@@ -79,12 +71,11 @@ export default Ember.Component.extend(TouchActionMixin, {
       this.element.addEventListener('touchstart', removeClickEvents);
     }
 
-    const currentImage = this.get('orderedPosts.firstObject.images.firstObject');
+    const currentImage = this.get('post.images.firstObject');
 
     this.set('navState.currentImage', currentImage);
     this.get('_loadNeighborMatrix').perform(currentImage);
     this._displayPointers();
-    this.attrs.changePost(currentImage.get('post.content'));
   },
 
   willDestroyElement(...args) {
@@ -289,9 +280,9 @@ export default Ember.Component.extend(TouchActionMixin, {
   },
 
   _getNeighbor(image, direction) {
-    const orderedPosts = this.get('orderedPosts');
+    const posts = this.get('posts');
     const post = image.get('post.content');
-    const xIndex = orderedPosts.indexOf(post);
+    const xIndex = posts.indexOf(post);
     const yIndex = post.get('images').indexOf(image);
 
     switch(direction) {
@@ -308,7 +299,7 @@ export default Ember.Component.extend(TouchActionMixin, {
   },
 
   _getVerticalNeighbor(xIndex, yIndex) {
-    const post = this.get('orderedPosts')[xIndex];
+    const post = this.get('posts')[xIndex];
 
     return post ? post.get('images').toArray()[yIndex] || post.get('images.lastObject') : 'edge';
   }
