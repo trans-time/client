@@ -36,6 +36,10 @@ export default Ember.Component.extend({
       this.get('modalManager').close();
     },
 
+    join() {
+      this.get('modalManager').open('join-form');
+    },
+
     submit() {
       const { identification, password } = this.getProperties('identification', 'password');
 
