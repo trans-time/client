@@ -3,7 +3,11 @@ export default function(server) {
     server.create('tag', { name });
   });
   const symbolTag = server.create('tag', { name: 'Symbol' });
-  const posts = ['male', 'gq', 'female'].map((gender, index) => {
+  let sequence = ['male', 'gq', 'female', 'gq'];
+  for (let i = 0; i < 2; ++i) {
+    sequence = sequence.concat(sequence);
+  }
+  const posts = sequence.map((gender, index) => {
     return server.create('post', {
       date: index * 1000000000,
       tags: [symbolTag],

@@ -8,7 +8,10 @@
 {{/each}}
 
 <div class="post-nav-slideshow-pointer-container">
-  {{#each-in pointers as |direction hidden|}}
-    {{post-nav/slideshow/pointer direction=direction hidden=hidden}}
+  {{#each-in pointers as |direction icon|}}
+    {{post-nav/slideshow/pointer
+      direction=direction
+      icon=icon
+    }}
   {{/each-in}}
 </div>

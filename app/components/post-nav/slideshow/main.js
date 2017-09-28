@@ -36,6 +36,7 @@ export default Ember.Component.extend(TouchActionMixin, {
 
   meta: Ember.inject.service(),
   usingTouch: Ember.computed.alias('meta.usingTouch'),
+  isLoadingMorePosts: Ember.computed.notEmpty('loadingMorePostsPromise'),
 
   pointers: Ember.computed(() => { return {} }),
   swipeState: Ember.computed(() => { return {} }),
@@ -43,6 +44,12 @@ export default Ember.Component.extend(TouchActionMixin, {
     progress: 0,
     diffs: []
   })),
+
+  posts: Ember.computed('postsAssociation.[]', {
+    get() {
+      return this.get('postsAssociation').toArray();
+    }
+  }),
 
   didInsertElement(...args) {
     this._super(...args);
@@ -113,12 +120,7 @@ export default Ember.Component.extend(TouchActionMixin, {
     swipeState.currentY = e.clientY;
     swipeState.active = true;
 
-    const navState = this.get('navState');
-
-    navState.setProperties({
-      isSettling: false,
-      userHasInteracted: true
-    });
+    this.set('navState.isSettling', false);
   },
 
   _moveEvent(e) {
@@ -217,12 +219,14 @@ export default Ember.Component.extend(TouchActionMixin, {
       navState.setProperties({
         progress,
         currentImage,
-        incomingImage
+        incomingImage,
+        direction
       });
 
       this.attrs.changePost(currentImage.get('post.content'));
       this.get('_loadNeighborMatrix').perform(currentImage);
       this._displayPointers();
+      this._checkNeedToLoadMorePosts();
     }
   },
 
@@ -236,14 +240,40 @@ export default Ember.Component.extend(TouchActionMixin, {
     });
   },
 
+  _checkNeedToLoadMorePosts() {
+    const posts = this.get('posts');
+    const currentPost = this.get('navState.currentImage.post.content');
+
+    if (posts.indexOf(currentPost) > posts.length - 5 && !this.get('isLoadingMorePosts') && !this.get('reachedLastPost')) {
+      const loadingMorePostsPromise = new Ember.RSVP.Promise((resolve, reject) => {
+        this.attrs.loadMorePosts(resolve, reject);
+      });
+
+      this.set('loadingMorePostsPromise', loadingMorePostsPromise);
+
+      loadingMorePostsPromise.then((reachedLastPost) => {
+        this.set('reachedLastPost', reachedLastPost);
+        this.get('_loadNeighborMatrix').perform(this.get('navState.currentImage'));
+
+        if (this.get('navState.incomingImage') === 'edge') {
+          this.set('navState.incomingImage', this._getNeighbor(this.get('navState.currentImage'), this.get('navState.dirction')));
+        }
+      }).finally(() => {
+        this.set('loadingMorePostsPromise', null);
+        this._checkNeedToLoadMorePosts();
+        this._displayPointers();
+      });
+    }
+  },
+
   _displayPointers() {
     const currentImage = this.get('navState.currentImage');
 
     this.set('pointers', {
-      up: this._getNeighbor(currentImage, 'up') === 'edge',
-      right: this._getNeighbor(currentImage, 'right') === 'edge',
-      down: this._getNeighbor(currentImage, 'down') === 'edge',
-      left: this._getNeighbor(currentImage, 'left') === 'edge'
+      up: this._getNeighbor(currentImage, 'up') === 'edge' ? '' : 'chevron-up',
+      right: this._getNeighbor(currentImage, 'right') === 'edge' ? '' : 'chevron-right',
+      down: this._getNeighbor(currentImage, 'down') === 'edge' ? this.get('isLoadingMorePosts') ? 'circle-o-notch' : '' : 'chevron-down',
+      left: this._getNeighbor(currentImage, 'left') === 'edge' ? '' : 'chevron-left'
     });
   },
 
