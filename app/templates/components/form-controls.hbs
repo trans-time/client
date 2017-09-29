@@ -5,10 +5,9 @@
   onClick=(action "handleCancel")
 }}
 
-{{paper-button
+{{form.submit-button
   label=(t "general.submit")
-  disabled=disabled
+  disabled=form.isInvalid
   raised=true
   primary=true
-  onClick=(action "handleSubmit")
 }}

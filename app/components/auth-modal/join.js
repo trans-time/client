@@ -34,6 +34,7 @@ export default Ember.Component.extend({
     this._super(...args);
 
     this.set('changeset', new Changeset(this.set('model', this.get('store').createRecord('user')), lookupValidator(SessionValidations), SessionValidations));
+    this.get('changeset').validate();
   },
 
   actions: {
