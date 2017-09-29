@@ -27,13 +27,13 @@ export default Ember.Component.extend(AuthenticatedActionMixin, {
 
     if (this.get('shouldDisplayAllTypes')) {
       if (this.get('faved')) {
-        this._changeFavType(type);
+        this._changeFavType(type, post);
       } else {
         this._createNewFav(type, user, post);
       }
     } else {
       if (this.get('faved')) {
-        this._destroyFav();
+        this._destroyFav(post);
       } else {
         this._createNewFav(type, user, post);
       }
@@ -48,6 +48,8 @@ export default Ember.Component.extend(AuthenticatedActionMixin, {
       type
     }).save().then((fav) => {
       post.set('currentUserFav', fav);
+      post.incrementProperty('totalFaves');
+      post.incrementProperty(`total${Ember.String.capitalize(type)}s`);
     }).finally(() => {
       this.setProperties({
         disabled: false,
@@ -56,14 +58,17 @@ export default Ember.Component.extend(AuthenticatedActionMixin, {
     });
   },
 
-  _changeFavType(newType) {
+  _changeFavType(newType, post) {
     const currentUserFav = this.get('currentUserFav');
     const previousType = currentUserFav.get('type');
 
     if (previousType !== newType) {
       currentUserFav.set('type', newType);
       this.set('disabled', true);
-      currentUserFav.save().catch(() => {
+      currentUserFav.save().then(() => {
+        post.decrementProperty(`total${Ember.String.capitalize(previousType)}s`);
+        post.incrementProperty(`total${Ember.String.capitalize(newType)}s`);
+      }).catch(() => {
         currentUserFav.set('type', previousType);
       }).finally(() => {
         this.setProperties({
@@ -76,10 +81,15 @@ export default Ember.Component.extend(AuthenticatedActionMixin, {
     }
   },
 
-  _destroyFav() {
+  _destroyFav(post) {
+    const currentUserFav = this.get('currentUserFav');
+    const previousType = currentUserFav.get('type');
+
     this.set('disabled', true);
-    this.get('currentUserFav').destroyRecord().then(() => {
+    currentUserFav.destroyRecord().then(() => {
       this.set('post.currentUserFav', null);
+      post.decrementProperty('totalFaves');
+      post.decrementProperty(`total${Ember.String.capitalize(previousType)}s`);
     }).finally(() => {
       this.set('disabled', false);
     });
@@ -99,7 +109,7 @@ export default Ember.Component.extend(AuthenticatedActionMixin, {
 
     selectType(type) {
       this.authenticatedAction().then(() => {
-        this._handleSelection(type);
+        if (!this.get('disabled')) this._handleSelection(type);
       }).catch(() => {
         this.setProperties({
           currentType: type,

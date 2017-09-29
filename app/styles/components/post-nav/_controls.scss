@@ -1,11 +1,13 @@
 .post-nav-controls-main {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-end;
   flex-shrink: 0;
   background-color: $white;
   border: 1px solid $medium-gray;
   border-bottom: 0;
+  padding: 4px;
+  padding-bottom: 0;
 }
 
 .post-nav-controls-element {
@@ -16,26 +18,37 @@
 .fav-icon {
   position: relative;
   padding: 25px;
-  transition: color 500ms, text-shadow 500ms, padding 500ms, transform 500ms, opacity 500ms;
+  transition: padding 500ms, transform 500ms, opacity 500ms;
 
   &.hidden {
     padding: 0;
     transform: scale3d(0, 0, 0);
   }
 
-  &.faved {
-    color: $highlight-color;
-    text-shadow: 0px 0px $rhythm $highlight-color;
-  }
-
   i {
     position: absolute;
     top: 24%;
     left: 25%;
+    transition: color 500ms, text-shadow 500ms;
   }
 
-  &.disabled {
+  &.faved i {
+    color: $highlight-color;
+    text-shadow: 0px 0px $rhythm $highlight-color;
+  }
+
+  &.disabled i {
     opacity: 0.38;
+  }
+
+  .fav-icon-total {
+  }
+}
+
+.post-nav-chat-icon {
+  position: relative;
+
+  .chat-total {
   }
 }
 

@@ -16,6 +16,20 @@ export default Ember.Component.extend({
     }
   }),
 
+  total: Ember.computed('type', 'shouldDisplayAllTypes', 'post.totalFaves', {
+    get() {
+      if (!this.get('shouldDisplayAllTypes')) {
+        return this.get('post.totalFaves');
+      } else {
+        switch (this.get('type')) {
+          case 'star': return this.get('post.totalStars');
+          case 'sun': return this.get('post.totalSuns');
+          case 'moon': return this.get('post.totalMoons')
+        }
+      }
+    }
+  }),
+
   touchStart(e) {
     this.set('usingTouch', true);
     this.get('countdownToDisplayAllTypesTask').perform();
