@@ -22,15 +22,4 @@ export default function(server) {
     posts
   });
   server.createList('user', 3);
-
-  posts.forEach((post) => {
-    post.currentUserFav = server.create('fav', { post, user: currentUser });
-    post.totalFaves++;
-    switch (post.currentUserFav.type) {
-      case 1: post.totalStars++; break;
-      case 2: post.totalSuns++; break;
-      case 3: post.totalMoons++; break;
-    }
-    post.save();
-  })
 }

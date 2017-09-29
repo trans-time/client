@@ -7,6 +7,14 @@ export default Ember.Route.extend({
     }
   },
 
+  messageBus: Ember.inject.service(),
+
+  init(...args) {
+    this._super(...args);
+
+    this.get('messageBus').subscribe('userWasAuthenticated', this, this._refreshPosts);
+  },
+
   model(params) {
     this.setProperties({
       reachedLastPost: false
@@ -17,6 +25,18 @@ export default Ember.Route.extend({
     return Ember.RSVP.hash({
       posts: this.store.query('post', { userId: user.id, tags: params.tags, page: 0, perPage: 10 }),
       user
+    });
+  },
+
+  _refreshPosts() {
+    const query = this.get('controller.model.posts.query');
+    const originalQueryClone = Ember.assign({}, query);
+
+    query.perPage = (query.page + 1) * query.perPage;
+    query.page = 0;
+
+    this.store.query('post', query).then(() => {
+      this.set('controller.model.posts.query', originalQueryClone);
     });
   },
 

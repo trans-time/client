@@ -10,7 +10,7 @@ export default function() {
 
   // this.urlPrefix = '';    // make this `http://localhost:8080`, for example, if your API is on a different server
   // this.namespace = '';    // make this `/api`, for example, if your API is namespaced
-  this.timing = 1000;      // delay for each request, automatically set to 0 during testing
+  // this.timing = 1000;      // delay for each request, automatically set to 0 during testing
 
   /*
     Shorthand cheatsheet:
@@ -45,8 +45,31 @@ export default function() {
     const page = parseInt(request.queryParams.page, 10);
     const perPage = parseInt(request.queryParams.perPage, 10);
     const startingIndex = page * perPage || 0;
+    const postsSegment = taggedPosts.slice(startingIndex, startingIndex + perPage);
 
-    return taggedPosts.slice(startingIndex, startingIndex + perPage);
+    if (Ember.isPresent(request.requestHeaders.Authorization)) {
+      const user = schema.db.users.find(request.requestHeaders.Authorization.match(/id="(.*)"/)[1]);
+      postsSegment.models.forEach((post) => {
+        if (Math.random() > 0.4) {
+          const fav = schema.faves.create({
+            postId: post.id,
+            userId: user.id,
+            type: Math.ceil(Math.random() * 3)
+          }).attrs;
+
+          post.currentUserFavId = fav.id;
+          post.totalFaves++;
+
+          switch (fav.type) {
+            case 1: post.totalStars++; break;
+            case 2: post.totalSuns++; break;
+            case 3: post.totalMoons++; break;
+          }
+        }
+      })
+    }
+
+    return postsSegment;
   })
   this.get('/tags', (schema, request) => {
     return schema.tags.where({ userId: request.queryParams.userId });

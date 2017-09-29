@@ -1,6 +1,7 @@
 import { Promise } from 'rsvp';
+import { inject } from '@ember/service';
 import { isEmpty } from '@ember/utils';
-import { run } from '@ember/runloop';
+import { run, later } from '@ember/runloop';
 import { merge, assign as emberAssign } from '@ember/polyfills';
 import { computed } from '@ember/object';
 import BaseAuthenticator from 'ember-simple-auth/authenticators/base';
@@ -15,6 +16,8 @@ export default BaseAuthenticator.extend({
   resourceName: 'user',
   tokenAttributeName: 'token',
   identificationAttributeName: 'id',
+
+  messageBus: inject(),
 
   rejectWithXhr: computed.deprecatingAlias('rejectWithResponse', {
     id: `ember-simple-auth.authenticator.reject-with-xhr`,
@@ -42,6 +45,9 @@ export default BaseAuthenticator.extend({
               const resourceName = this.get('resourceName');
               const _json = json[resourceName] ? json[resourceName] : json;
               run(null, resolve, _json);
+              later(() => {
+                this.get('messageBus').publish('userWasAuthenticated');
+              }, 100);
             } else {
               run(null, reject, `Check that server response includes ${tokenAttributeName} and ${identificationAttributeName}`);
             }
