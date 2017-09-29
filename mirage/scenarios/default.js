@@ -24,7 +24,7 @@ export default function(server) {
   server.createList('user', 3);
 
   posts.forEach((post) => {
-    post.faves = server.createList('fav', 1, { post, user: currentUser })
+    post.currentUserFav = server.create('fav', { post, user: currentUser });
     post.save();
   })
 }

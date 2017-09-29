@@ -2,7 +2,8 @@ import { Model, belongsTo, hasMany } from 'ember-cli-mirage';
 
 export default Model.extend({
   user: belongsTo('user'),
-  faves: hasMany('fav'),
+  currentUserFav: belongsTo('fav', { inverse: 'currentUserFavPost' }),
+  faves: hasMany('fav', { inverse: 'post' }),
   images: hasMany('image'),
   tags: hasMany('tag')
 });

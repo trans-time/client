@@ -10,11 +10,11 @@ export default Ember.Component.extend(AuthenticatedActionMixin, {
   currentUser: Ember.inject.service(),
   store: Ember.inject.service(),
 
-  faves: Ember.computed.alias('post.faves'),
   user: Ember.computed.oneWay('currentUser.user'),
 
-  faved: Ember.computed.notEmpty('userFav'),
-  selectedCurrentType: Ember.computed.oneWay('userFav.type'),
+  currentUserFav: Ember.computed.alias('post.currentUserFav.content'),
+  faved: Ember.computed.notEmpty('currentUserFav'),
+  selectedCurrentType: Ember.computed.oneWay('currentUserFav.type'),
 
   currentType: Ember.computed('selectedCurrentType', {
     get() {
@@ -22,54 +22,67 @@ export default Ember.Component.extend(AuthenticatedActionMixin, {
     }
   }),
 
-  userFav: Ember.computed('faves.@each.user', 'user', {
-    get() {
-      return this.get('faves').findBy('user.id', this.get('user.id'));
-    }
-  }),
-
   _handleSelection(type) {
-    const user = this.get('user');
+    const { post, user }= this.getProperties('post', 'user');
 
     if (this.get('shouldDisplayAllTypes')) {
       if (this.get('faved')) {
-        const userFav = this.get('userFav');
-        if (userFav.get('type') !== type) {
-          userFav.set('type', type);
-          this.set('disabled', true);
-          userFav.save().finally(() => {
-            this.set('disabled', false);
-          });
-        }
+        this._changeFavType(type);
       } else {
-        this.set('disabled', true);
-        this.get('store').createRecord('fav', {
-          user,
-          post: this.get('post'),
-          type
-        }).save().finally(() => {
-          this.set('disabled', false);
-        });
+        this._createNewFav(type, user, post);
       }
-
-      this.set('shouldDisplayAllTypes', false);
     } else {
       if (this.get('faved')) {
-        this.set('disabled', true);
-        this.get('userFav').destroyRecord().finally(() => {
-          this.set('disabled', false);
-        });
+        this._destroyFav();
       } else {
-        this.set('disabled', true);
-        this.get('store').createRecord('fav', {
-          user,
-          post: this.get('post'),
-          type
-        }).save().finally(() => {
-          this.set('disabled', false);
-        });
+        this._createNewFav(type, user, post);
       }
     }
+  },
+
+  _createNewFav(type, user, post) {
+    this.set('disabled', true);
+    this.get('store').createRecord('fav', {
+      user,
+      post,
+      type
+    }).save().then((fav) => {
+      post.set('currentUserFav', fav);
+    }).finally(() => {
+      this.setProperties({
+        disabled: false,
+        shouldDisplayAllTypes: false
+      });
+    });
+  },
+
+  _changeFavType(newType) {
+    const currentUserFav = this.get('currentUserFav');
+    const previousType = currentUserFav.get('type');
+
+    if (previousType !== newType) {
+      currentUserFav.set('type', newType);
+      this.set('disabled', true);
+      currentUserFav.save().catch(() => {
+        currentUserFav.set('type', previousType);
+      }).finally(() => {
+        this.setProperties({
+          disabled: false,
+          shouldDisplayAllTypes: false
+        });
+      });
+    } else {
+      this.set('shouldDisplayAllTypes', false);
+    }
+  },
+
+  _destroyFav() {
+    this.set('disabled', true);
+    this.get('currentUserFav').destroyRecord().then(() => {
+      this.set('post.currentUserFav', null);
+    }).finally(() => {
+      this.set('disabled', false);
+    });
   },
 
   actions: {

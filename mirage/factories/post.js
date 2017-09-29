@@ -3,6 +3,12 @@ import { Factory, faker } from 'ember-cli-mirage';
 export default Factory.extend({
   text: faker.lorem.paragraph,
   date: faker.date.past,
+  totalStars: faker.random.number,
+  totalSuns: faker.random.number,
+  totalMoons: faker.random.number,
+  totalFaves() {
+    return this.totalStars + this.totalSuns + this.totalMoons;
+  },
 
   afterCreate(post, server) {
     if (post.images.length === 0) post.images = server.createList('image', faker.random.number(6));
