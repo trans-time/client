@@ -1,6 +1,7 @@
 {{#each types as |type|}}
   {{post-nav/controls/fav-icon
     type=type
+    disabled=disabled
     isOpeningDisplayAllTypes=isOpeningDisplayAllTypes
     shouldDisplayAllTypes=shouldDisplayAllTypes
     faved=(and (eq currentType type) faved)

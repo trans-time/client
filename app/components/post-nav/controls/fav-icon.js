@@ -4,7 +4,8 @@ import { task, timeout } from 'ember-concurrency';
 export default Ember.Component.extend({
   tagName: 'a',
   classNames: ['post-nav-controls-element', 'fav-icon'],
-  classNameBindings: ['faved', 'hidden'],
+  classNameBindings: ['faved', 'hidden', 'disabled'],
+  attributeBindings: ['disabled'],
 
   meta: Ember.inject.service(),
   usingTouch: Ember.computed.alias('meta.usingTouch'),

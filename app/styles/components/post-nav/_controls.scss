@@ -16,7 +16,7 @@
 .fav-icon {
   position: relative;
   padding: 25px;
-  transition: color 500ms, text-shadow 500ms, padding 500ms, transform 500ms;
+  transition: color 500ms, text-shadow 500ms, padding 500ms, transform 500ms, opacity 500ms;
 
   &.hidden {
     padding: 0;
@@ -32,6 +32,10 @@
     position: absolute;
     top: 24%;
     left: 25%;
+  }
+
+  &.disabled {
+    opacity: 0.38;
   }
 }
 

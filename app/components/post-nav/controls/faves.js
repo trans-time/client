@@ -3,6 +3,8 @@ import AuthenticatedActionMixin from 'client/mixins/authenticated-action';
 
 export default Ember.Component.extend(AuthenticatedActionMixin, {
   tagName: '',
+
+  disabled: false,
   types: ['moon', 'star', 'sun'],
 
   currentUser: Ember.inject.service(),
@@ -34,26 +36,38 @@ export default Ember.Component.extend(AuthenticatedActionMixin, {
         const userFav = this.get('userFav');
         if (userFav.get('type') !== type) {
           userFav.set('type', type);
-          userFav.save();
+          this.set('disabled', true);
+          userFav.save().finally(() => {
+            this.set('disabled', false);
+          });
         }
       } else {
+        this.set('disabled', true);
         this.get('store').createRecord('fav', {
           user,
           post: this.get('post'),
           type
-        }).save();
+        }).save().finally(() => {
+          this.set('disabled', false);
+        });
       }
 
       this.set('shouldDisplayAllTypes', false);
     } else {
       if (this.get('faved')) {
-        this.get('userFav').destroyRecord();
+        this.set('disabled', true);
+        this.get('userFav').destroyRecord().finally(() => {
+          this.set('disabled', false);
+        });
       } else {
+        this.set('disabled', true);
         this.get('store').createRecord('fav', {
           user,
           post: this.get('post'),
           type
-        }).save();
+        }).save().finally(() => {
+          this.set('disabled', false);
+        });
       }
     }
   },
