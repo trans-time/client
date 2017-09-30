@@ -33,6 +33,7 @@ const NavState = Ember.Object.extend({
 
 export default Ember.Component.extend(TouchActionMixin, {
   classNames: ['post-nav-slideshow-main'],
+  classNameBindings: ['textExpanded:compressed'],
 
   meta: Ember.inject.service(),
   usingTouch: Ember.computed.alias('meta.usingTouch'),

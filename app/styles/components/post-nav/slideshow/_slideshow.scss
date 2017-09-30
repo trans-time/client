@@ -1,9 +1,10 @@
 .post-nav-slideshow-main {
   position: relative;
-  flex-shrink: 0;
+  flex-shrink: 0.001;
   height: 100%;
   width: 100%;
   max-height: 125vw;
+  min-height: 200px;
   perspective: 100px;
   margin: 0 auto;
   overflow: hidden;
@@ -12,6 +13,11 @@
   cursor: pointer;
   background-color: $medium-gray;
   border: thin solid $medium-gray;
+  transition: flex-shrink 750ms ease-in-out;
+
+  &.compressed {
+    flex-shrink: 1;
+  }
 }
 
 @media screen and (min-height: 1350px)

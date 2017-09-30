@@ -1,5 +1,6 @@
 .post-nav-post {
   flex-grow: 1;
+  height: 1000vh;
   overflow-x: hidden;
   overflow-y: auto;
   background-color: $white;
@@ -7,10 +8,36 @@
   border-bottom: 0;
   padding: $rhythm;
 
+  .post-nav-post-top-line {
+    display: flex;
+  }
+
   .post-nav-post-date {
     opacity: 0.8;
     margin-bottom: $rhythm;
     font-size: 68%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .post-nav-resize-toggle {
+    position: relative;
+    margin-left: auto;
+    flex-shrink: 0;
+    width: 27px;
+
+    a {
+      position: absolute;
+      top: -$rhythm;
+      right: -$rhythm;
+      display: block;
+      padding: $rhythm;
+    }
+
+    i {
+      font-size: 20px;
+    }
   }
 }
 

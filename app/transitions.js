@@ -22,6 +22,11 @@ export default function() {
   );
 
   this.transition(
+    this.childOf('.post-nav-resize-toggle a'),
+    this.use('crossFade', { duration: 750 })
+  );
+
+  this.transition(
     this.hasClass('main-modal'),
     this.use('fade')
   );

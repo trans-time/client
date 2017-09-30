@@ -3,6 +3,8 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   tagName: '',
 
+  textExpanded: false,
+
   post: Ember.computed('initialPostId', 'posts.[]', {
     get() {
       const { initialPostId, posts } = this.getProperties('initialPostId', 'posts');
@@ -18,6 +20,14 @@ export default Ember.Component.extend({
 
     loadMorePosts(resolve, reject) {
       this.sendAction('action', resolve, reject)
-    }
+    },
+
+    expandText() {
+      this.set('textExpanded', true);
+    },
+
+    compressText() {
+      this.set('textExpanded', false);
+      }
   }
 });

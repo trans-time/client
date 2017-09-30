@@ -1,5 +1,15 @@
 {{#liquid-bind post as |model|}}
-  <div class="post-nav-post-date">{{moment-format model.date "MMMM DD, YYYY"}} | {{#link-to "users.user"}}{{model.user.username}}{{/link-to}}</div>
+  <div class="post-nav-post-top-line">
+    <div class="post-nav-post-date">{{moment-format model.date "MMMM DD, YYYY"}} | {{#link-to "users.user"}}{{model.user.username}}{{/link-to}}</div>
+
+    <div class="post-nav-resize-toggle">
+      <a {{action resizeType}}>
+        {{#liquid-bind resizeType as |iconType|}}
+          {{fa-icon iconType size=1}}
+        {{/liquid-bind}}
+      </a>
+    </div>
+  </div>
 
   <p>{{model.text}}</p>
 {{/liquid-bind}}
