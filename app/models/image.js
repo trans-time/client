@@ -5,6 +5,8 @@ export default DS.Model.extend({
 
   src: DS.attr('string'),
 
+  postNavComponent: 'post-nav/slideshow/image',
+
   isLoaded: false,
   shouldLoad: false
 });

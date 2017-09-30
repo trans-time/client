@@ -3,30 +3,30 @@ import TouchActionMixin from 'ember-hammertime/mixins/touch-action';
 import { task } from 'ember-concurrency';
 
 const NavState = Ember.Object.extend({
-  currentImage: Ember.computed({
+  currentPanel: Ember.computed({
     get() {
-      return this.get('_currentImage');
+      return this.get('_currentPanel');
     },
-    set(key, currentImage) {
-      const previousImage = this.get('_currentImage');
+    set(key, currentPanel) {
+      const previousImage = this.get('_currentPanel');
 
-      if (previousImage) previousImage.set('isCurrentImage', false);
-      currentImage.set('isCurrentImage', true);
+      if (previousImage) previousImage.set('isCurrentPanel', false);
+      currentPanel.set('isCurrentPanel', true);
 
-      return this.set('_currentImage', currentImage);
+      return this.set('_currentPanel', currentPanel);
     }
   }),
-  incomingImage: Ember.computed({
+  incomingPanel: Ember.computed({
     get() {
-      return this.get('_incomingImage');
+      return this.get('_incomingPanel');
     },
-    set(key, incomingImage) {
-      const previousImage = this.get('_incomingImage');
+    set(key, incomingPanel) {
+      const previousImage = this.get('_incomingPanel');
 
-      if (previousImage && previousImage !== 'edge') previousImage.set('isIncomingImage', false);
-      if (incomingImage && incomingImage !== 'edge') incomingImage.set('isIncomingImage', true);
+      if (previousImage && previousImage !== 'edge') previousImage.set('isIncomingPanel', false);
+      if (incomingPanel && incomingPanel !== 'edge') incomingPanel.set('isIncomingPanel', true);
 
-      return this.set('_incomingImage', incomingImage);
+      return this.set('_incomingPanel', incomingPanel);
     }
   })
 });
@@ -78,20 +78,20 @@ export default Ember.Component.extend(TouchActionMixin, {
       this.element.addEventListener('touchstart', removeClickEvents);
     }
 
-    const currentImage = this.get('post.images.firstObject');
+    const currentPanel = this.get('post.firstPanel');
 
-    this.set('navState.currentImage', currentImage);
-    this.get('_loadNeighborMatrix').perform(currentImage);
+    this.set('navState.currentPanel', currentPanel);
+    this.get('_loadNeighborMatrix').perform(currentPanel);
     this._displayPointers();
   },
 
   willDestroyElement(...args) {
     this._super(...args);
 
-    const { currentImage, incomingImage } = this.get('navState').getProperties('currentImage', 'incomingImage');
+    const { currentPanel, incomingPanel } = this.get('navState').getProperties('currentPanel', 'incomingPanel');
 
-    currentImage.set('isCurrentImage', false);
-    if (incomingImage) incomingImage.set('isIncomingImage', false);
+    currentPanel.set('isCurrentPanel', false);
+    if (incomingPanel) incomingPanel.set('isIncomingPanel', false);
   },
 
   _touchStart(e) {
@@ -148,7 +148,7 @@ export default Ember.Component.extend(TouchActionMixin, {
       this._swapPeek(progress, this._getDirection(false));
     } else if (previousProgress < 0 && progress >= 0) {
       this._swapPeek(progress, this._getDirection(true));
-    } else if (!this.get('navState.incomingImage')) {
+    } else if (!this.get('navState.incomingPanel')) {
       this._swapPeek(progress, previousProgress > progress ? this._getDirection(false) : this._getDirection(true));
     } else {
       navState.set('progress', progress);
@@ -172,7 +172,7 @@ export default Ember.Component.extend(TouchActionMixin, {
     if (latestDiffs.length > 0) {
       let velocity = latestDiffs.reduce((sum, diff) => sum + diff, 0) / Math.min(latestDiffs.length, precision);
       velocity = velocity > 0 ? Math.max(0.001, Math.min(0.03, velocity)) : Math.min(-0.001, Math.max(-0.03, velocity));
-      if (navState.get('incomingImage') === 'edge' && this._getNeighbor(navState.get('currentImage'), velocity < 0 ? this._getDirection(false) : this._getDirection(true)) === 'edge') velocity *= -1;
+      if (navState.get('incomingPanel') === 'edge' && this._getNeighbor(navState.get('currentPanel'), velocity < 0 ? this._getDirection(false) : this._getDirection(true)) === 'edge') velocity *= -1;
 
       navState.setProperties({
         diffs: [],
@@ -193,14 +193,14 @@ export default Ember.Component.extend(TouchActionMixin, {
       this._startNextPeek(0, progress <= 1 ? this._getDirection(false) : this._getDirection(true));
       navState.setProperties({
         isSettling: false,
-        incomingImage: null,
+        incomingPanel: null,
         axis: null
       });
     } else if ((previousProgress >= 0 && progress < 0) || (previousProgress < 0 && progress >= 0)) {
       navState.setProperties({
         isSettling: false,
         progress: 0,
-        incomingImage: null,
+        incomingPanel: null,
         axis: null
       });
     } else if (navState.get('isSettling')) {
@@ -211,38 +211,38 @@ export default Ember.Component.extend(TouchActionMixin, {
 
   _startNextPeek(progress, direction) {
     const navState = this.get('navState');
-    const currentImage = this._getNeighbor(navState.get('currentImage'), direction);
+    const currentPanel = this._getNeighbor(navState.get('currentPanel'), direction);
 
-    if (currentImage !== 'edge') {
-      const incomingImage = this._getNeighbor(currentImage, direction);
+    if (currentPanel !== 'edge') {
+      const incomingPanel = this._getNeighbor(currentPanel, direction);
 
       navState.setProperties({
         progress,
-        currentImage,
-        incomingImage,
+        currentPanel,
+        incomingPanel,
         direction
       });
 
-      this.attrs.changePost(currentImage.get('post.content'));
-      this.get('_loadNeighborMatrix').perform(currentImage);
+      this.attrs.changePost(currentPanel.get('post.content'));
+      this.get('_loadNeighborMatrix').perform(currentPanel);
       this._displayPointers();
       this._checkNeedToLoadMorePosts();
     }
   },
 
   _swapPeek(progress, direction) {
-    const currentImage = this.get('navState.currentImage');
-    const incomingImage = this._getNeighbor(currentImage, direction);
+    const currentPanel = this.get('navState.currentPanel');
+    const incomingPanel = this._getNeighbor(currentPanel, direction);
 
     this.get('navState').setProperties({
       progress,
-      incomingImage
+      incomingPanel
     });
   },
 
   _checkNeedToLoadMorePosts() {
     const posts = this.get('posts');
-    const currentPost = this.get('navState.currentImage.post.content');
+    const currentPost = this.get('navState.currentPanel.post.content');
 
     if (posts.indexOf(currentPost) > posts.length - 5 && !this.get('isLoadingMorePosts') && !this.get('reachedLastPost')) {
       const loadingMorePostsPromise = new Ember.RSVP.Promise((resolve, reject) => {
@@ -253,10 +253,10 @@ export default Ember.Component.extend(TouchActionMixin, {
 
       loadingMorePostsPromise.then((reachedLastPost) => {
         this.set('reachedLastPost', reachedLastPost);
-        this.get('_loadNeighborMatrix').perform(this.get('navState.currentImage'));
+        this.get('_loadNeighborMatrix').perform(this.get('navState.currentPanel'));
 
-        if (this.get('navState.incomingImage') === 'edge') {
-          this.set('navState.incomingImage', this._getNeighbor(this.get('navState.currentImage'), this.get('navState.dirction')));
+        if (this.get('navState.incomingPanel') === 'edge') {
+          this.set('navState.incomingPanel', this._getNeighbor(this.get('navState.currentPanel'), this.get('navState.dirction')));
         }
       }).finally(() => {
         this.set('loadingMorePostsPromise', null);
@@ -267,13 +267,13 @@ export default Ember.Component.extend(TouchActionMixin, {
   },
 
   _displayPointers() {
-    const currentImage = this.get('navState.currentImage');
+    const currentPanel = this.get('navState.currentPanel');
 
     this.set('pointers', {
-      up: this._getNeighbor(currentImage, 'up') === 'edge' ? '' : 'chevron-up',
-      right: this._getNeighbor(currentImage, 'right') === 'edge' ? '' : 'chevron-right',
-      down: this._getNeighbor(currentImage, 'down') === 'edge' ? this.get('isLoadingMorePosts') ? 'circle-o-notch' : '' : 'chevron-down',
-      left: this._getNeighbor(currentImage, 'left') === 'edge' ? '' : 'chevron-left'
+      up: this._getNeighbor(currentPanel, 'up') === 'edge' ? '' : 'chevron-up',
+      right: this._getNeighbor(currentPanel, 'right') === 'edge' ? '' : 'chevron-right',
+      down: this._getNeighbor(currentPanel, 'down') === 'edge' ? this.get('isLoadingMorePosts') ? 'circle-o-notch' : '' : 'chevron-down',
+      left: this._getNeighbor(currentPanel, 'left') === 'edge' ? '' : 'chevron-left'
     });
   },
 
@@ -313,7 +313,7 @@ export default Ember.Component.extend(TouchActionMixin, {
     const posts = this.get('posts');
     const post = image.get('post.content');
     const xIndex = posts.indexOf(post);
-    const yIndex = post.get('images').indexOf(image);
+    const yIndex = post.get('panels').indexOf(image);
 
     switch(direction) {
       case 'right': return this._getHorizontalNeighbor(post, yIndex + 1, 'firstObject');
@@ -324,13 +324,13 @@ export default Ember.Component.extend(TouchActionMixin, {
   },
 
   _getHorizontalNeighbor(post, yIndex, wrapIndex) {
-    return post.get('images').toArray()[yIndex] || post.get(`images.${wrapIndex}`);
+    return post.get('panels.length') === 1 ? 'edge' : post.get('panels')[yIndex] || post.get(`panels.${wrapIndex}`);
 
   },
 
   _getVerticalNeighbor(xIndex, yIndex) {
     const post = this.get('posts')[xIndex];
 
-    return post ? post.get('images').toArray()[yIndex] || post.get('images.lastObject') : 'edge';
+    return post ? post.get('panels')[yIndex] || post.get('panels.lastObject') : 'edge';
   }
 });

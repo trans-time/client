@@ -7,8 +7,14 @@ export default function(server) {
   for (let i = 0; i < 2; ++i) {
     sequence = sequence.concat(sequence);
   }
-  const posts = sequence.map((gender, index) => {
-    return server.create('post', {
+  const posts = server.createList('post', 1, {
+    date: 0,
+    tags: [symbolTag],
+    images: []
+  });
+
+  sequence.forEach((gender, index) => {
+    posts.push(server.create('post', {
       date: index * 1000000000,
       tags: [symbolTag],
       images: [0, 45, 90, 135, 180, 225, 270, 315].map((orientation) => {
@@ -16,8 +22,9 @@ export default function(server) {
           src: `/dev/${gender}-${orientation}.png`
         })
       })
-    })
+    }))
   });
+
   const currentUser = server.create('user', {
     posts
   });

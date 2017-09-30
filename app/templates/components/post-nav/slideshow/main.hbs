@@ -1,7 +1,7 @@
 {{#each posts as |post|}}
-  {{#each post.images as |image|}}
-    {{post-nav/slideshow/image
-      image=image
+  {{#each post.panels as |panel|}}
+    {{component panel.postNavComponent
+      panel=panel
       navState=navState
     }}
   {{/each}}

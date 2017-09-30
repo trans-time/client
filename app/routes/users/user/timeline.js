@@ -44,11 +44,9 @@ export default Ember.Route.extend({
     willTransition() {
       const controller = this.controllerFor('users.user.timeline');
 
-      controller.setProperties(controller.get('queryParams').reduce((properties, property) => {
-        properties[property] = null;
-
-        return properties;
-      }, {}));
+      controller.setProperties({
+        tags: []
+      });
     },
 
     loadMorePosts(resolve, reject) {

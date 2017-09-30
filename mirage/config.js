@@ -37,15 +37,17 @@ export default function() {
   this.post('/users');
   this.get('/users/:id');
   this.get('/posts', (schema, request) => {
-    const posts = schema.posts.where({ userId: request.queryParams.userId });
-    const tagIds = request.queryParams.tags.split(',').map((name) => schema.tags.where({ name }).models[0].id);
-    const taggedPosts = posts.filter((post) => {
-      return tagIds.every((tagId) => post.tagIds.includes(tagId));
-    });
+    let posts = schema.posts.where({ userId: request.queryParams.userId });
+    if (Ember.isPresent(request.queryParams.tags)) {
+      const tagIds = request.queryParams.tags.map((name) => schema.tags.where({ name }).models[0].id);
+      posts = posts.filter((post) => {
+        return tagIds.every((tagId) => post.tagIds.includes(tagId));
+      });
+    }
     const page = parseInt(request.queryParams.page, 10);
     const perPage = parseInt(request.queryParams.perPage, 10);
     const startingIndex = page * perPage || 0;
-    const postsSegment = taggedPosts.slice(startingIndex, startingIndex + perPage);
+    const postsSegment = posts.slice(startingIndex, startingIndex + perPage);
 
     if (Ember.isPresent(request.requestHeaders.Authorization)) {
       const user = schema.db.users.find(request.requestHeaders.Authorization.match(/id="(.*)"/)[1]);

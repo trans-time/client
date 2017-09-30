@@ -1,0 +1,24 @@
+.post-nav-slideshow-panel {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  will-change: transform;
+  background-color: $light-gray;
+  box-shadow: 0 0 $rhythm $dark-gray;
+
+  &.post-nav-slideshow-image {
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  &.post-nav-slideshow-blank {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
