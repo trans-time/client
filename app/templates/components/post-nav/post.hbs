@@ -1,5 +1,5 @@
 {{#liquid-bind post as |model|}}
-  <div class="post-nav-post-date">{{moment-format model.date "MMMM DD, YYYY"}}</div>
+  <div class="post-nav-post-date">{{moment-format model.date "MMMM DD, YYYY"}} | {{#link-to "users.user"}}{{model.user.username}}{{/link-to}}</div>
 
   <p>{{model.text}}</p>
 {{/liquid-bind}}
