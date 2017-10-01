@@ -28,6 +28,7 @@ export default Ember.Component.extend({
 
   store: Ember.inject.service(),
 
+  selectedTagIds: Ember.computed.mapBy('selectedTags', 'model.id'),
   selectedTags: Ember.computed('categories.@each.selectedTags.[]', {
     get() {
       return this.get('categories').reduce((selectedTags, category) => {
@@ -81,5 +82,11 @@ export default Ember.Component.extend({
         return categories;
       }, []));
     }
-  })
+  }),
+
+  actions: {
+    toggleTag(tag) {
+      tag.toggleProperty('selected');
+    }
+  }
 });

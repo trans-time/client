@@ -1,6 +1,5 @@
 <p>{{model.user.description}}</p>
 
-{{tag-summary/main tagSummary=model.userTagSummary user=model.user}}
-
-{{#link-to "users.user.timeline" (query-params direction="desc")}}From end{{/link-to}}
-{{#link-to "users.user.timeline"}}From beginning{{/link-to}}
+{{tag-summary/main
+  tagSummary=model.userTagSummary
+}}

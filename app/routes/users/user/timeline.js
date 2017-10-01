@@ -20,7 +20,7 @@ export default Ember.Route.extend({
       reachedLastPost: false
     });
 
-    const user = this.modelFor('users.user').get('user');
+    const user = this.modelFor('users.user').user;
 
     return Ember.RSVP.hash({
       posts: this.store.query('post', { userId: user.id, tags: params.tags, page: 0, perPage: 10 }),

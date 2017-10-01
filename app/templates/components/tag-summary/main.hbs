@@ -1,5 +1,9 @@
 {{#each categories as |category|}}
   {{tag-summary/category
     category=category
+    toggleTag=(action "toggleTag")
   }}
 {{/each}}
+
+{{#link-to "users.user.timeline" (query-params direction="desc" tags=selectedTagIds)}}From end{{/link-to}}
+{{#link-to "users.user.timeline" (query-params tags=selectedTagIds)}}From beginning{{/link-to}}

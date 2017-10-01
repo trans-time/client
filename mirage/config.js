@@ -42,9 +42,8 @@ export default function() {
   this.get('/posts', (schema, request) => {
     let posts = schema.posts.where({ userId: request.queryParams.userId });
     if (Ember.isPresent(request.queryParams.tags)) {
-      const tagIds = request.queryParams.tags.map((name) => schema.tags.where({ name }).models[0].id);
       posts = posts.filter((post) => {
-        return tagIds.every((tagId) => post.tagIds.includes(tagId));
+        return request.queryParams.tags.every((tagId) => post.tagIds.includes(tagId));
       });
     }
     const page = parseInt(request.queryParams.page, 10);
