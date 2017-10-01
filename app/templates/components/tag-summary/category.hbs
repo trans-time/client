@@ -1,0 +1,10 @@
+<div>{{category.name}}</div>
+
+{{#each category.tags as |tag|}}
+  {{#paper-button
+    raised=true
+    primary=tag.selected
+    disabled=(not tag.isValid)
+    onClick=(action "select" tag)
+  }}{{tag.model.name}}: {{tag.amount}}{{/paper-button}}
+{{/each}}

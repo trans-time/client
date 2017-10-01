@@ -1,10 +1,6 @@
-<p>{{model.description}}</p>
+<p>{{model.user.description}}</p>
 
-<ul>
-  {{#each-in model.tagSummary as |tag amount|}}
-    <li>{{#link-to "users.user.timeline" (query-params tags=(array tag))}}{{tag}}: {{amount}}{{/link-to}}</li>
-  {{/each-in}}
-</ul>
+{{tag-summary/main tagSummary=model.userTagSummary user=model.user}}
 
 {{#link-to "users.user.timeline" (query-params direction="desc")}}From end{{/link-to}}
 {{#link-to "users.user.timeline"}}From beginning{{/link-to}}

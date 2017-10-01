@@ -3,11 +3,14 @@ import RouteTitleMixin from 'client/mixins/route-title';
 
 export default Ember.Route.extend(RouteTitleMixin, {
   model(params) {
-    return this.store.findRecord('user', params.id);
+    return Ember.RSVP.hash({
+      user: this.store.findRecord('user', params.id),
+      userTagSummary: this.store.findRecord('user-tag-summary', params.id)
+    });
   },
 
-  afterModel(user) {
-    this.set('title', user.get('username'));
+  afterModel(model) {
+    this.set('title', model.user.get('username'));
 
     this._super(...arguments);
   }

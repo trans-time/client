@@ -1,7 +1,8 @@
-import { Model, hasMany } from 'ember-cli-mirage';
+import { Model, hasMany, belongsTo } from 'ember-cli-mirage';
 
 export default Model.extend({
   faves: hasMany('fav'),
   posts: hasMany('post'),
-  tags: hasMany('tag')
+  tags: hasMany('tag'),
+  userTagSummary: belongsTo('user-tag-summary')
 });
