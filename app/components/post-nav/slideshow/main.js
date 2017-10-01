@@ -91,8 +91,8 @@ export default Ember.Component.extend(TouchActionMixin, {
 
     const { currentPanel, incomingPanel } = this.get('navState').getProperties('currentPanel', 'incomingPanel');
 
-    currentPanel.set('isCurrentPanel', false);
-    if (incomingPanel) incomingPanel.set('isIncomingPanel', false);
+    if (currentPanel !== 'edge') currentPanel.set('isCurrentPanel', false);
+    if (incomingPanel && incomingPanel !== 'edge') incomingPanel.set('isIncomingPanel', false);
   },
 
   _touchStart(e) {
@@ -186,6 +186,8 @@ export default Ember.Component.extend(TouchActionMixin, {
   },
 
   _settle() {
+    if (Ember.isEmpty(this.element)) return;
+
     const navState = this.get('navState');
     const previousProgress = navState.get('progress');
     let progress = previousProgress + navState.get('velocity');
