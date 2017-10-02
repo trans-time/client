@@ -23,7 +23,7 @@ export default Ember.Route.extend({
     const user = this.modelFor('users.user').user;
 
     return Ember.RSVP.hash({
-      posts: this.store.query('post', { userId: user.id, tags: params.tags, page: 0, perPage: 10 }),
+      posts: this.store.query('post', { userId: user.id, tags: params.tags, direction: params.direction, page: 0, perPage: 10 }),
       user
     });
   },
@@ -45,7 +45,8 @@ export default Ember.Route.extend({
       const controller = this.controllerFor('users.user.timeline');
 
       controller.setProperties({
-        tags: []
+        tags: [],
+        direction: null
       });
     },
 

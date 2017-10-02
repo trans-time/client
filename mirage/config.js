@@ -73,6 +73,8 @@ export default function() {
       })
     }
 
+    if (request.queryParams.direction === 'desc') postsSegment.models.reverse();
+
     return postsSegment;
   })
   this.get('/tags', (schema, request) => {

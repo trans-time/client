@@ -28,8 +28,8 @@ export default Ember.Component.extend({
 
   store: Ember.inject.service(),
 
-  selectedTagIds: Ember.computed.mapBy('selectedTags', 'model.id'),
-  selectedTags: Ember.computed('categories.@each.selectedTags.[]', {
+  selectedTagIds: Ember.computed.mapBy('selectedTags', 'id'),
+  selectedTags: Ember.computed('categories.@each.selectedTags', {
     get() {
       return this.get('categories').reduce((selectedTags, category) => {
         return selectedTags.concat(category.get('selectedTags'));
@@ -75,6 +75,7 @@ export default Ember.Component.extend({
 
         category.get('tags').pushObject(Tag.create({
           model: tag,
+          id: tag.id,
           postIds: tagSummary[tagId],
           component: this
         }))
