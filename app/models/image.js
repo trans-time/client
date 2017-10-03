@@ -1,12 +1,5 @@
-import DS from 'ember-data';
+import PanelModel from './panel';
 
-export default DS.Model.extend({
-  post: DS.belongsTo('post'),
-
-  src: DS.attr('string'),
-
-  postNavComponent: 'post-nav/slideshow/image',
-
-  isLoaded: false,
-  shouldLoad: false
+export default PanelModel.extend({
+  postNavComponent: 'post-nav/slideshow/image'
 });

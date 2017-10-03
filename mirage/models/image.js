@@ -1,4 +1,4 @@
-import { Model } from 'ember-cli-mirage';
+import PanelModel from './panel';
 
-export default Model.extend({
+export default PanelModel.extend({
 });

@@ -79,7 +79,7 @@ export default Ember.Component.extend(TouchActionMixin, {
       this.element.addEventListener('touchstart', removeClickEvents);
     }
 
-    const currentPanel = this.get('post.firstPanel');
+    const currentPanel = this.get('post.panelsWithBlank.firstObject');
 
     this.set('navState.currentPanel', currentPanel);
     this.get('_loadNeighborMatrix').perform(currentPanel);
@@ -280,21 +280,21 @@ export default Ember.Component.extend(TouchActionMixin, {
     });
   },
 
-  _loadNeighborMatrix: task(function * (image) {
-    image.set('shouldLoad', true);
-    yield image.get('loadPromise');
-    yield this._loadNeighbors(image);
-    yield this._loadNeighbors(this._getNeighbor(image, 'right'));
-    yield this._loadNeighbors(this._getNeighbor(image, 'down'));
-    yield this._loadNeighbors(this._getNeighbor(image, 'up'));
-    yield this._loadNeighbors(this._getNeighbor(image, 'left'));
+  _loadNeighborMatrix: task(function * (panel) {
+    panel.set('shouldLoad', true);
+    yield panel.get('loadPromise');
+    yield this._loadNeighbors(panel);
+    yield this._loadNeighbors(this._getNeighbor(panel, 'right'));
+    yield this._loadNeighbors(this._getNeighbor(panel, 'down'));
+    yield this._loadNeighbors(this._getNeighbor(panel, 'up'));
+    yield this._loadNeighbors(this._getNeighbor(panel, 'left'));
   }).restartable(),
 
-  _loadNeighbors(image) {
-    if (image === 'edge') return Ember.RSVP.resolve();
+  _loadNeighbors(panel) {
+    if (panel === 'edge') return Ember.RSVP.resolve();
 
     return Ember.RSVP.all(['right', 'down', 'up', 'left'].map((direction) => {
-      const neighbor = this._getNeighbor(image, direction);
+      const neighbor = this._getNeighbor(panel, direction);
 
       if (neighbor === 'edge' || neighbor.get('isLoaded')) return Ember.RSVP.resolve();
 
@@ -312,11 +312,11 @@ export default Ember.Component.extend(TouchActionMixin, {
       horizontalSwipe ? 'left': 'down';
   },
 
-  _getNeighbor(image, direction) {
+  _getNeighbor(panel, direction) {
     const posts = this.get('posts');
-    const post = image.get('post.content');
+    const post = panel.get('post.content');
     const xIndex = posts.indexOf(post);
-    const yIndex = post.get('panels').indexOf(image);
+    const yIndex = post.get('panelsWithBlank').indexOf(panel);
 
     switch(direction) {
       case 'right': return this._getHorizontalNeighbor(post, yIndex + 1, 'firstObject');
@@ -327,13 +327,13 @@ export default Ember.Component.extend(TouchActionMixin, {
   },
 
   _getHorizontalNeighbor(post, yIndex, wrapIndex) {
-    return post.get('panels.length') === 1 ? 'edge' : post.get('panels')[yIndex] || post.get(`panels.${wrapIndex}`);
+    return post.get('panelsWithBlank.length') === 1 ? 'edge' : post.get('panelsWithBlank')[yIndex] || post.get(`panelsWithBlank.${wrapIndex}`);
 
   },
 
   _getVerticalNeighbor(xIndex, yIndex) {
     const post = this.get('posts')[xIndex];
 
-    return post ? post.get('panels')[yIndex] || post.get('panels.lastObject') : 'edge';
+    return post ? post.get('panelsWithBlank')[yIndex] || post.get('panelsWithBlank.lastObject') : 'edge';
   }
 });

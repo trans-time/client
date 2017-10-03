@@ -3,9 +3,9 @@ import DS from 'ember-data';
 export default DS.Model.extend({
   faves: DS.hasMany('fav', { inverse: 'post' }),
   currentUserFav: DS.belongsTo('fav'),
-  images: DS.hasMany('image'),
   tags: DS.hasMany('tag'),
   user: DS.belongsTo('user'),
+  panels: DS.hasMany('panel', { polymorphic: true }),
 
   text: DS.attr('string'),
   date: DS.attr('date'),
@@ -14,17 +14,11 @@ export default DS.Model.extend({
   totalMoons: DS.attr('number'),
   totalFaves: DS.attr('number'),
 
-  panels: Ember.computed('images.[]', {
+  panelsWithBlank: Ember.computed('panels.[]', {
     get() {
-      const images = this.get('images');
+      const panels = this.get('panels');
 
-      return images.get('length') === 0 ? Ember.A([this.get('_blankPanel')]) : Ember.A(images.toArray());
-    }
-  }),
-
-  firstPanel: Ember.computed('images.firstObject', {
-    get() {
-      return this.get('images.firstObject') || this.get('_blankPanel');
+      return panels.get('length') === 0 ? Ember.A([this.get('_blankPanel')]) : Ember.A(panels.toArray());
     }
   }),
 

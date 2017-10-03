@@ -14,14 +14,14 @@ export default function(server) {
   const posts = server.createList('post', 1, {
     date: 0,
     tags: [symbolTag],
-    images: []
+    panels: []
   });
 
   sequence.forEach((gender, index) => {
     posts.push(server.create('post', {
       date: index * 1000000000,
       tags: [symbolTag],
-      images: [0, 45, 90, 135, 180, 225, 270, 315].map((orientation) => {
+      panels: [0, 45, 90, 135, 180, 225, 270, 315].map((orientation) => {
         return server.create('image', {
           src: `/dev/${gender}-${orientation}.png`
         })

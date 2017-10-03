@@ -1,5 +1,4 @@
-import { Factory, faker } from 'ember-cli-mirage';
+import PanelFactory from './panel';
 
-export default Factory.extend({
-  src: faker.image.people
+export default PanelFactory.extend({
 });
