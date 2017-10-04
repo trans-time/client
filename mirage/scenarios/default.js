@@ -17,6 +17,9 @@ export default function(server) {
     panels: []
   });
 
+  const runningRoutine = server.create('routine', { routineType: server.create('routine-type', { name: 'running' }) });
+  const medicineRoutine = server.create('routine', { routineType: server.create('routine-type', { name: 'medicine' })});
+
   sequence.forEach((gender, index) => {
     posts.push(server.create('post', {
       date: index * 1000000000,
@@ -25,7 +28,21 @@ export default function(server) {
         return server.create('image', {
           src: `/dev/${gender}-${orientation}.png`
         })
-      })
+      }),
+      routineInstances: [
+        server.create('routine-instance', {
+          routine: runningRoutine,
+          distance: index * 10,
+          frequency: 3,
+          frequencyScale: 3
+        }),
+        server.create('routine-instance', {
+          routine: medicineRoutine,
+          weight: 100,
+          frequency: 2,
+          frequency: 2
+        })
+      ]
     }))
   });
 

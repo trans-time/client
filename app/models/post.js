@@ -1,11 +1,12 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-  faves: DS.hasMany('fav', { inverse: 'post' }),
   currentUserFav: DS.belongsTo('fav'),
-  tags: DS.hasMany('tag'),
   user: DS.belongsTo('user'),
+  faves: DS.hasMany('fav', { inverse: 'post' }),
   panels: DS.hasMany('panel', { polymorphic: true }),
+  routineInstances: DS.hasMany('routine-instance'),
+  tags: DS.hasMany('tag'),
 
   text: DS.attr('string'),
   date: DS.attr('date'),
