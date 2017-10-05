@@ -4,6 +4,7 @@
   tag=tag
   post=post
   textExpanded=textExpanded
+  quantifiablesExpanded=quantifiablesExpanded
   loadMorePosts=(action "loadMorePosts")
   changePost=(action "changePost")
   classNames="main-layout-constraint"
@@ -16,4 +17,8 @@
   expandText=(action "expandText")
   compressText=(action "compressText")
 }}
-{{post-nav/controls/main post=post classNames="main-layout-constraint"}}
+{{post-nav/controls/main
+  post=post
+  classNames="main-layout-constraint"
+  toggleQuantifiables=(action "toggleQuantifiables")
+}}

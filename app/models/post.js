@@ -15,6 +15,12 @@ export default DS.Model.extend({
   totalMoons: DS.attr('number'),
   totalFaves: DS.attr('number'),
 
+  quantifiables: Ember.computed('routineInstances.[]', {
+    get() {
+      return this.get('routineInstances');
+    }
+  }),
+
   panelsWithBlank: Ember.computed('panels.[]', {
     get() {
       const panels = this.get('panels');

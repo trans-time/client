@@ -1,9 +1,11 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-  post: DS.belongsTo('post'),
+  posts: DS.hasMany('post'),
   routine: DS.belongsTo('routine'),
+  previousInstance: DS.belongsTo('routine-instance', { inverse: null }),
 
+  date: DS.attr('date'),
   distance: DS.attr('number'),
   duration: DS.attr('number'),
   frequency: DS.attr('number'),

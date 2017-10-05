@@ -1,6 +1,7 @@
-import { Model, belongsTo } from 'ember-cli-mirage';
+import { Model, belongsTo, hasMany } from 'ember-cli-mirage';
 
 export default Model.extend({
-  post: belongsTo('post'),
-  routine: belongsTo('routine')
+  posts: hasMany('post'),
+  routine: belongsTo('routine'),
+  previousInstance: belongsTo('routineInstance', { inverse: null })
 });

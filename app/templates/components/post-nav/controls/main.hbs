@@ -1,4 +1,10 @@
+<a class="post-nav-controls-element post-nav-quantifiables-icon {{if noQuantifiables 'disabled'}}" disabled={{noQuantifiables}} {{action "toggleQuantifiables"}}>
+  {{number-bubble number=quantifiablesLength classNames="quantifiables-total"}}
+  {{fa-icon "universal-access" size=2}}
+</a>
+
 {{post-nav/controls/faves post=post}}
+
 <a class="post-nav-controls-element post-nav-chat-icon">
   {{number-bubble number=0 classNames="chat-total"}}
   {{fa-icon "comment-o" size=2 flip="horizontal"}}

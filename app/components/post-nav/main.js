@@ -4,6 +4,7 @@ export default Ember.Component.extend({
   tagName: '',
 
   textExpanded: false,
+  quantifiablesExpanded: false,
 
   post: Ember.computed('initialPostId', 'posts.[]', {
     get() {
@@ -28,6 +29,10 @@ export default Ember.Component.extend({
 
     compressText() {
       this.set('textExpanded', false);
-      }
+    },
+
+    toggleQuantifiables() {
+      this.toggleProperty('quantifiablesExpanded');
+    }
   }
 });
