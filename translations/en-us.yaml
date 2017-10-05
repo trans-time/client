@@ -5,6 +5,28 @@ auth:
 general:
   cancel: "Cancel"
   submit: "Submit"
+routine:
+  frequency: "{frequency, plural, =1 {once} =2 {twice} other {# times}}"
+  frequencyScale:
+    0: "constantly"
+    1: "{frequency} hourly"
+    2: "{frequency} daily"
+    3: "{frequency} weekly"
+    4: "{frequency} monthly"
+    5: "{frequency} yearly"
+  length:
+    english:
+      inches: "{length}\""
+      yards: "{length}yd"
+      miles: "{length} miles"
+    metric:
+      millimeters: "{length}mm"
+      centimeters: "{lenght}cm"
+      meters: "{length}m"
+      kilometers: "{length}km"
+  level:
+    up: "<span class='muted'>{previous}</span><span class='routine-level-up'><i class='fa fa-level-up'></i>{current}</span>"
+    down: "<span class='muted'>{previous}</span><span class='routine-level-down'><i class='fa fa-level-up'></i>{current}</span>"
 search:
   title: "Search"
 users:

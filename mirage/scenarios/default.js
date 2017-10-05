@@ -17,13 +17,13 @@ export default function(server) {
     panels: []
   });
 
-  const runningRoutine = server.create('routine', { routineType: server.create('routine-type', { name: 'running' }) });
+  const bikingRoutine = server.create('routine', { routineType: server.create('routine-type', { name: 'biking', icon: 'bicycle' }) });
   const medicineRoutine = server.create('routine', { routineType: server.create('routine-type', { name: 'medicine' })});
 
   sequence.forEach((gender, index) => {
-    const runningRoutineInstance = {
-      routine: runningRoutine,
-      distance: index * 10,
+    const bikingRoutineInstance = {
+      routine: bikingRoutine,
+      distance: (1609340 * index) + 1,
       frequency: 3,
       frequencyScale: 3
     }
@@ -35,7 +35,7 @@ export default function(server) {
     }
 
     if (index > 0) {
-      runningRoutineInstance.previousInstanceId = (index * 2) - 1;
+      bikingRoutineInstance.previousInstanceId = (index * 2) - 1;
       medicineRoutineInstance.previousInstanceId = index * 2;
     }
     posts.push(server.create('post', {
@@ -47,7 +47,7 @@ export default function(server) {
         })
       }),
       routineInstances: [
-        server.create('routine-instance', runningRoutineInstance),
+        server.create('routine-instance', bikingRoutineInstance),
         server.create('routine-instance', medicineRoutineInstance)
       ]
     }))

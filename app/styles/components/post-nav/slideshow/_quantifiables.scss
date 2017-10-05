@@ -2,12 +2,19 @@
   position: absolute;
   height: 100%;
   width: 100%;
-  background-color: blue;
+  background-color: rgba(255, 255, 255, 0.62);
   transition: opacity 500ms;
   z-index: 11;
-  opacity: 0.68;
 
   &.hidden {
     opacity: 0;
   }
+}
+
+.routine-level-up {
+  color: green;
+}
+
+.routine-level-down {
+  color: red;
 }
