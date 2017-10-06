@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 const convertMilliseconds = function convertMilliseconds(value) {
-  if (Ember.isBlank(value)) return { unit: 'none', originalValue: 0 };
+  if (!value) return { unit: 'none', originalValue: 0 };
 
   const millisecondsInAnHour = 3600000;
   const millisecondsInAMinute = 60000;

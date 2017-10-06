@@ -1,6 +1,7 @@
 import Ember from 'ember';
-import lengthTransform from 'client/utils/length';
 import durationTransform from 'client/utils/duration';
+import lengthTransform from 'client/utils/length';
+import weightTransform from 'client/utils/weight';
 
 export default Ember.Component.extend({
   intl: Ember.inject.service(),
@@ -22,11 +23,15 @@ export default Ember.Component.extend({
     get() {
       const intl = this.get('intl');
       const frequency = this.get('frequency');
-      const attributes = ['distance', 'duration', 'reps', 'sets', 'weight'];
+      const attributes = ['distance', 'duration', 'reps', 'sets', 'weightInMicrograms'];
       const { previousInstance, routineInstance } = this.getProperties('previousInstance', 'routineInstance');
       const currentAttributes = routineInstance.getProperties(...attributes);
       const previousAttributes = previousInstance.getProperties(...attributes);
       const stringParts = [];
+
+      if (Ember.isPresent(currentAttributes.weightInMicrograms) || Ember.isPresent(previousAttributes.weightInMicrograms)) {
+        stringParts.push(weightTransform(currentAttributes.weightInMicrograms, 'english', intl, previousAttributes.weightInMicrograms));
+      }
 
       if (Ember.isPresent(currentAttributes.distance) || Ember.isPresent(previousAttributes.distance)) {
         stringParts.push(lengthTransform(currentAttributes.distance, 'english', intl, previousAttributes.distance));
@@ -51,7 +56,7 @@ export default Ember.Component.extend({
   }),
 
   _translateFrequency(frequency, scale) {
-    if (Ember.isBlank(frequency) || Ember.isBlank(scale)) return;
+    if (Ember.isBlank(frequency) || Ember.isBlank(scale)) return '';
 
     const intl = this.get('intl');
 

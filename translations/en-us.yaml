@@ -26,20 +26,24 @@ routine:
     4: "{frequency} monthly"
     5: "{frequency} yearly"
   length:
-    english:
-      none: "0"
-      inches: "{length}\""
-      yards: "{length}yd"
-      miles: "{length} miles"
-    metric:
-      none: "0"
-      millimeters: "{length}mm"
-      centimeters: "{lenght}cm"
-      meters: "{length}m"
-      kilometers: "{length}km"
+    none: "0"
+    inches: "{length}\""
+    yards: "{length}yd"
+    miles: "{length} miles"
+    millimeters: "{length}mm"
+    centimeters: "{lenght}cm"
+    meters: "{length}m"
+    kilometers: "{length}km"
   level:
     up: "<span class='muted'>{previous}</span><span class='routine-level-up'><i class='fa fa-level-up'></i>{current}</span>"
     down: "<span class='muted'>{previous}</span><span class='routine-level-down'><i class='fa fa-level-down'></i>{current}</span>"
+  weight:
+    none: "0"
+    pounds: "{weight}lbs"
+    micrograms: "{weight}μg"
+    milligrams: "{weight}mg"
+    grams: "{weight}g"
+    kilograms: "{weight}kg"
 search:
   title: "Search"
 users:
