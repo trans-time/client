@@ -8,6 +8,7 @@ general:
 routine:
   duration:
     format: "for {duration}"
+    none: "0"
     hoursOnly: "{hours}h"
     hoursAndMinutes: "{hours}h{minutes}m"
     hoursMinutesAndSeconds: "{hours}h{minutes}m{seconds}s"
@@ -26,10 +27,12 @@ routine:
     5: "{frequency} yearly"
   length:
     english:
+      none: "0"
       inches: "{length}\""
       yards: "{length}yd"
       miles: "{length} miles"
     metric:
+      none: "0"
       millimeters: "{length}mm"
       centimeters: "{lenght}cm"
       meters: "{length}m"

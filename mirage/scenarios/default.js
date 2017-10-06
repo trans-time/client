@@ -23,8 +23,8 @@ export default function(server) {
   sequence.forEach((gender, index) => {
     const bikingRoutineInstance = {
       routine: bikingRoutine,
-      distance: ((1609340 * index) + 1) * 1.25,
-      duration: Math.floor((Math.random() * index) * 10000000),
+      distance: Math.random() < 0.5 ? ((1609340 * index) + 1) * 1.25 : undefined,
+      duration: Math.random() < 0.5 ? Math.floor((Math.random() * index) * 10000000) : undefined,
       frequency: 3,
       frequencyScale: 3
     }

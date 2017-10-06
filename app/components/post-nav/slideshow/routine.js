@@ -28,15 +28,15 @@ export default Ember.Component.extend({
       const previousAttributes = previousInstance.getProperties(...attributes);
       const stringParts = [];
 
-      if (Ember.isPresent(currentAttributes.distance)) {
+      if (Ember.isPresent(currentAttributes.distance) || Ember.isPresent(previousAttributes.distance)) {
         stringParts.push(lengthTransform(currentAttributes.distance, 'english', intl, previousAttributes.distance));
       }
 
-      if (Ember.isPresent(currentAttributes.duration)) {
+      if (Ember.isPresent(currentAttributes.duration) || Ember.isPresent(previousAttributes.duration)) {
         stringParts.push(durationTransform(currentAttributes.duration, intl, previousAttributes.duration));
       }
 
-      return Ember.String.htmlSafe(`${stringParts.join(' ')}, ${frequency}`);
+      return Ember.String.htmlSafe(stringParts.length > 0 ? `${stringParts.join(' ')}, ${frequency}` : frequency);
     }
   }),
 

@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 const convertMilliseconds = function convertMilliseconds(value) {
-  if (Ember.isBlank(value)) return;
+  if (Ember.isBlank(value)) return { unit: 'none', originalValue: 0 };
 
   const millisecondsInAnHour = 3600000;
   const millisecondsInAMinute = 60000;
@@ -38,7 +38,7 @@ const formatDuration = function formatDuration(currentMilliseconds, intl, previo
   const currentValue = convertMilliseconds(currentMilliseconds);
   const previousValue = convertMilliseconds(previousMilliseconds);
 
-  if (currentMilliseconds === previousMilliseconds || Ember.isBlank(previousMilliseconds)) {
+  if (currentMilliseconds === previousMilliseconds) {
     return intl.t(`routine.duration.${currentValue.unit}`, currentValue);
   } else {
     const current = intl.t(`routine.duration.${currentValue.unit}`, currentValue);
