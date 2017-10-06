@@ -24,6 +24,7 @@ export default function(server) {
     const bikingRoutineInstance = {
       routine: bikingRoutine,
       distance: ((1609340 * index) + 1) * 1.25,
+      duration: Math.floor((Math.random() * index) * 10000000),
       frequency: 3,
       frequencyScale: 3
     }

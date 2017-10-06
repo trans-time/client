@@ -12,7 +12,7 @@ const convertMillimeters = function convertMillimeters(value, unitSystem) {
     else if (value < tenthAMile) return { unit: 'yards', length: fixNumber(value * 0.00109361), originalValue: value };
     else return { unit: 'miles', length: fixNumber(value * 0.000000621371), originalValue: value };
   } else {
-    if (value < 10) return { unit: 'value', length: value, originalValue: value };
+    if (value < 10) return { unit: 'millimeters', length: value, originalValue: value };
     else if (value < 10000) return { unit: 'centimeters', length: fixNumber(value / 10), originalValue: value };
     else if (value < 100000) return { unit: 'meters', length: fixNumber(value / 1000), originalValue: value };
     return { unit: 'kilometers', length: fixNumber(value / 1000000), originalValue: value };

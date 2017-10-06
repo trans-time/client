@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import lengthTransform from 'client/utils/length';
+import durationTransform from 'client/utils/duration';
 
 export default Ember.Component.extend({
   intl: Ember.inject.service(),
@@ -25,10 +26,17 @@ export default Ember.Component.extend({
       const { previousInstance, routineInstance } = this.getProperties('previousInstance', 'routineInstance');
       const currentAttributes = routineInstance.getProperties(...attributes);
       const previousAttributes = previousInstance.getProperties(...attributes);
+      const stringParts = [];
 
       if (Ember.isPresent(currentAttributes.distance)) {
-        return  Ember.String.htmlSafe(`${lengthTransform(currentAttributes.distance, 'english', intl, previousAttributes.distance)}, ${frequency}`);
+        stringParts.push(lengthTransform(currentAttributes.distance, 'english', intl, previousAttributes.distance));
       }
+
+      if (Ember.isPresent(currentAttributes.duration)) {
+        stringParts.push(durationTransform(currentAttributes.duration, intl, previousAttributes.duration));
+      }
+
+      return Ember.String.htmlSafe(`${stringParts.join(' ')}, ${frequency}`);
     }
   }),
 

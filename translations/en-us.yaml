@@ -6,6 +6,16 @@ general:
   cancel: "Cancel"
   submit: "Submit"
 routine:
+  duration:
+    format: "for {duration}"
+    hoursOnly: "{hours}h"
+    hoursAndMinutes: "{hours}h{minutes}m"
+    hoursMinutesAndSeconds: "{hours}h{minutes}m{seconds}s"
+    minutesOnly: "{minutes}m"
+    minutesAndSeconds: "{minutes}m{seconds}s"
+    secondsOnly: "{seconds}s"
+    secondsAndMilliseconds: "{seconds}s{milliseconds}ms"
+    millisecondsOnly: "{milliseconds}ms"
   frequency: "{frequency, plural, =1 {once} =2 {twice} other {# times}}"
   frequencyScale:
     0: "constantly"
@@ -26,7 +36,7 @@ routine:
       kilometers: "{length}km"
   level:
     up: "<span class='muted'>{previous}</span><span class='routine-level-up'><i class='fa fa-level-up'></i>{current}</span>"
-    down: "<span class='muted'>{previous}</span><span class='routine-level-down'><i class='fa fa-level-up'></i>{current}</span>"
+    down: "<span class='muted'>{previous}</span><span class='routine-level-down'><i class='fa fa-level-down'></i>{current}</span>"
 search:
   title: "Search"
 users:
