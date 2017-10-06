@@ -23,7 +23,7 @@ export default function(server) {
   sequence.forEach((gender, index) => {
     const bikingRoutineInstance = {
       routine: bikingRoutine,
-      distance: (1609340 * index) + 1,
+      distance: ((1609340 * index) + 1) * 1.25,
       frequency: 3,
       frequencyScale: 3
     }
