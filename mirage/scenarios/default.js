@@ -37,8 +37,8 @@ export default function(server) {
     }
 
     if (index > 0) {
-      bikingRoutineInstance.previousInstanceId = (index * 2) - 1;
-      medicineRoutineInstance.previousInstanceId = index * 2;
+      bikingRoutineInstance.previousInstanceId = { type: 'routine-instance-exercises', id: index };
+      medicineRoutineInstance.previousInstanceId = { type: 'routine-instance-medicines', id: index };
     }
     posts.push(server.create('post', {
       date: index * 1000000000,
@@ -49,8 +49,8 @@ export default function(server) {
         })
       }),
       routineInstances: [
-        server.create('routine-instance', bikingRoutineInstance),
-        server.create('routine-instance', medicineRoutineInstance)
+        server.create('routine-instance-exercise', bikingRoutineInstance),
+        server.create('routine-instance-medicine', medicineRoutineInstance)
       ]
     }))
   });

@@ -5,7 +5,7 @@ export default DS.Model.extend({
   user: DS.belongsTo('user'),
   faves: DS.hasMany('fav', { inverse: 'post' }),
   panels: DS.hasMany('panel', { polymorphic: true }),
-  routineInstances: DS.hasMany('routine-instance'),
+  routineInstances: DS.hasMany('routine-instance', { polymorphic: true }),
   tags: DS.hasMany('tag'),
 
   text: DS.attr('string'),
