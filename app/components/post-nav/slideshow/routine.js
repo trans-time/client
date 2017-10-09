@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import durationTransform from 'client/utils/duration';
 import lengthTransform from 'client/utils/length';
+import volumeTransform from 'client/utils/volume';
 import weightTransform from 'client/utils/weight';
 
 export default Ember.Component.extend({
@@ -23,11 +24,15 @@ export default Ember.Component.extend({
     get() {
       const intl = this.get('intl');
       const frequency = this.get('frequency');
-      const attributes = ['distance', 'duration', 'reps', 'sets', 'weightInMicrograms'];
+      const attributes = ['distance', 'duration', 'reps', 'sets', 'weightInMicrograms', 'volume'];
       const { previousInstance, routineInstance } = this.getProperties('previousInstance', 'routineInstance');
       const currentAttributes = routineInstance.getProperties(...attributes);
       const previousAttributes = previousInstance.getProperties(...attributes);
       const stringParts = [];
+
+      if (Ember.isPresent(currentAttributes.volume) || Ember.isPresent(previousAttributes.volume)) {
+        stringParts.push(volumeTransform(currentAttributes.volume, 'english', intl, previousAttributes.volume));
+      }
 
       if (Ember.isPresent(currentAttributes.weightInMicrograms) || Ember.isPresent(previousAttributes.weightInMicrograms)) {
         stringParts.push(weightTransform(currentAttributes.weightInMicrograms, 'english', intl, previousAttributes.weightInMicrograms));

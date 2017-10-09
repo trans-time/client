@@ -37,6 +37,16 @@ routine:
   level:
     up: "<span class='muted'>{previous}</span><span class='routine-level-up'><i class='fa fa-level-up'></i>{current}</span>"
     down: "<span class='muted'>{previous}</span><span class='routine-level-down'><i class='fa fa-level-down'></i>{current}</span>"
+  volume:
+    none: "0"
+    teaspoons: "{volume}tsp"
+    tablespoons: "{volume}tbsp"
+    cups: "{volume}cups"
+    gallons: "{volume}gal"
+    microliters: "{weight}μL"
+    milliliters: "{weight}mL"
+    liters: "{weight}L"
+    kiloliters: "{weight}kL"
   weight:
     none: "0"
     pounds: "{weight}lbs"

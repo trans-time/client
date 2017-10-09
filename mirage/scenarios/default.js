@@ -31,6 +31,7 @@ export default function(server) {
     }
     const medicineRoutineInstance = {
       routine: medicineRoutine,
+      volume: Math.random() < 0.5 ? Math.floor((Math.random() * index) * 100) : undefined,
       weight: Math.random() < 0.5 ? Math.floor((Math.random() * index) * 100) : undefined,
       frequency: 2,
       frequencyScale: 2
