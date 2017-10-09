@@ -39,6 +39,9 @@ export default function() {
   this.get('/user-tag-summaries/:id', (schema, request) => {
     return schema.users.find(request.params.id).userTagSummary;
   });
+  this.get('/user-configurations/:id', (schema, request) => {
+    return schema.users.find(request.params.id).userConfiguration;
+  })
   this.get('/posts', (schema, request) => {
     let posts = schema.posts.where({ userId: request.queryParams.userId });
     if (Ember.isPresent(request.queryParams.tags)) {

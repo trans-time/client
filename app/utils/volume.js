@@ -4,12 +4,13 @@ import fixNumber from './fix-number';
 const convertMillimeters = function convertMillimeters(value, unitSystem) {
   if (!value) return { unit: 'none', originalValue: 0, volume: 0 };
 
-  const microlitersInATeaspoon = 4929;
-  const microlitersInATablespoon = 14787;
-  const microlitersInACup = 240000;
-  const microlitersInAGallon = 3785410;
+  if (unitSystem === 'english' || unitSystem === 'english-us') {
+    const isImperial = unitSystem === 'english';
+    const microlitersInATeaspoon = isImperial ? 5919 : 4929;
+    const microlitersInATablespoon = isImperial ? 17758 : 14787;
+    const microlitersInACup = isImperial ? 284131 : 240000;
+    const microlitersInAGallon = isImperial ? 4546090 : 3785410;
 
-  if (unitSystem === 'english') {
     if (value < microlitersInATablespoon) return { unit: 'teaspoons', volume: fixNumber(value / microlitersInATeaspoon), originalValue: value };
     else if (value < microlitersInACup / 4) return { unit: 'tablespoons', volume: fixNumber(value / microlitersInATablespoon), originalValue: value };
     else if (value < microlitersInAGallon / 4) return { unit: 'cups', volume: fixNumber(value / microlitersInACup), originalValue: value };

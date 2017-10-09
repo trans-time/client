@@ -10,6 +10,8 @@ import RoutineType from './routine-type';
 // 5: vapor
 
 export default RoutineType.extend({
+  category: 'medicine',
+
   hasVolume: DS.attr('boolean'),
   hasWeight: DS.attr('boolean'),
 

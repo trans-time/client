@@ -27,6 +27,13 @@ export default Factory.extend({
       summary
     });
 
+    user.userConfiguration = server.create('user-configuration', {
+      user,
+      language: 'en-us',
+      unitSystem: 'english',
+      unitSystemVolume: 'english-us'
+    });
+
     user.save();
   }
 });
