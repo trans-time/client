@@ -1,7 +1,7 @@
 import DS from 'ember-data';
 import RoutineType from './routine-type';
 
-// Dosage Form Key
+// Dosage Form
 // 0: oral
 // 1: injection
 // 2: topical
@@ -10,7 +10,6 @@ import RoutineType from './routine-type';
 // 5: vapor
 
 export default RoutineType.extend({
-  hasDensity: DS.attr('boolean'),
   hasVolume: DS.attr('boolean'),
   hasWeight: DS.attr('boolean'),
 
