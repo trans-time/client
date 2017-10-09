@@ -17,8 +17,8 @@ export default function(server) {
     panels: []
   });
 
-  const bikingRoutine = server.create('routine', { routineType: server.create('routine-type', { name: 'biking', icon: 'bicycle', weightIsMicro: false }) });
-  const medicineRoutine = server.create('routine', { routineType: server.create('routine-type', { name: 'medicine', weightIsMicro: true })});
+  const bikingRoutine = server.create('routine', { routineType: server.create('routine-type-exercise', { name: 'biking', icon: 'bicycle', weightIsMicro: false }) });
+  const medicineRoutine = server.create('routine', { routineType: server.create('routine-type-medicine', { name: 'medicine', weightIsMicro: true })});
 
   sequence.forEach((gender, index) => {
     const bikingRoutineInstance = {
