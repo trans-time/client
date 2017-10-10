@@ -43,10 +43,11 @@ const formatDuration = function formatDuration(currentMilliseconds, intl, previo
   } else {
     const current = intl.t(`routine.duration.${currentValue.unit}`, currentValue);
     const previous = intl.t(`routine.duration.${previousValue.unit}`, previousValue);
+    const text = intl.t('routine.level.format', { current, previous });
 
     return currentValue.originalValue < previousValue.originalValue ?
-      intl.t('routine.level.down', { current, previous }) :
-      intl.t('routine.level.up', { current, previous });
+      intl.t('routine.level.down', { text }) :
+      intl.t('routine.level.up', { text });
   }
 }
 

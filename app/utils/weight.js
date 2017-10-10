@@ -25,17 +25,19 @@ export default function weight(currentMicrograms, unitSystem, intl, previousMicr
   if (currentMicrograms === previousMicrograms) {
     return intl.t(`routine.weight.${currentValue.unit}`, currentValue);
   } else if (currentValue.unit === previousValue.unit) {
-    const level = currentValue.originalValue < previousValue.originalValue ?
-      intl.t('routine.level.down', { current: currentValue.weight, previous: previousValue.weight }) :
-      intl.t('routine.level.up', { current: currentValue.weight, previous: previousValue.weight });
+    const level = intl.t('routine.level.format', { current: currentValue.weight, previous: previousValue.weight });
+    const text = intl.t(`routine.weight.${currentValue.unit}`, { weight: level });
 
-    return intl.t(`routine.weight.${currentValue.unit}`, { weight: level });
+    return currentValue.originalValue < previousValue.originalValue ?
+      intl.t('routine.level.down', { text }) :
+      intl.t('routine.level.up', { text });
   } else {
     const current = intl.t(`routine.weight.${currentValue.unit}`, currentValue);
     const previous = intl.t(`routine.weight.${previousValue.unit}`, previousValue);
+    const text = intl.t('routine.level.format', { current, previous });
 
     return currentValue.originalValue < previousValue.originalValue ?
-      intl.t('routine.level.down', { current, previous }) :
-      intl.t('routine.level.up', { current, previous });
+      intl.t('routine.level.down', { text }) :
+      intl.t('routine.level.up', { text });
   }
 }

@@ -5,6 +5,9 @@ import volumeTransform from 'client/utils/volume';
 import weightTransform from 'client/utils/weight';
 
 export default Ember.Component.extend({
+  classNames: ['post-nav-slideshow-quantifiable'],
+  classNameBindings: ['colorScheme'],
+
   currentUser: Ember.inject.service(),
   intl: Ember.inject.service(),
 
@@ -22,6 +25,12 @@ export default Ember.Component.extend({
     }
   }),
 
+  colorScheme: Ember.computed({
+    get() {
+      return `quantifiable-${this.get('routineType.color')}`;
+    }
+  }),
+
   text: Ember.computed({
     get() {
       const configuration = this.get('currentUser.configuration');
@@ -34,19 +43,19 @@ export default Ember.Component.extend({
 
       const preferedUnitSystem = configuration.get('unitSystem') || 'metric';
 
-      if (Ember.isPresent(currentAttributes.volume) || Ember.isPresent(previousAttributes.volume)) {
+      if (currentAttributes.volume || previousAttributes.volume) {
         stringParts.push(volumeTransform(currentAttributes.volume, category === 'medicine' ? 'metric' : configuration.get('unitSystemVolume') || preferedUnitSystem, intl, previousAttributes.volume));
       }
 
-      if (Ember.isPresent(currentAttributes.weightInMicrograms) || Ember.isPresent(previousAttributes.weightInMicrograms)) {
+      if (currentAttributes.weightInMicrograms || previousAttributes.weightInMicrograms) {
         stringParts.push(weightTransform(currentAttributes.weightInMicrograms, category === 'medicine' ? 'metric' : configuration.get('unitSystemWeight') || preferedUnitSystem, intl, previousAttributes.weightInMicrograms));
       }
 
-      if (Ember.isPresent(currentAttributes.distance) || Ember.isPresent(previousAttributes.distance)) {
+      if (currentAttributes.distance || previousAttributes.distance) {
         stringParts.push(lengthTransform(currentAttributes.distance, configuration.get('unitSystemLength') || preferedUnitSystem, intl, previousAttributes.distance));
       }
 
-      if (Ember.isPresent(currentAttributes.duration) || Ember.isPresent(previousAttributes.duration)) {
+      if (currentAttributes.duration || previousAttributes.duration) {
         stringParts.push(durationTransform(currentAttributes.duration, intl, previousAttributes.duration));
       }
 

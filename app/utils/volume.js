@@ -30,17 +30,19 @@ export default function volume(currentMicroliters, unitSystem, intl, previousMic
   if (currentMicroliters === previousMicroliters) {
     return intl.t(`routine.volume.${currentValue.unit}`, currentValue);
   } else if (currentValue.unit === previousValue.unit) {
-    const level = currentValue.originalValue < previousValue.originalValue ?
-      intl.t('routine.level.down', { current: currentValue.volume, previous: previousValue.volume }) :
-      intl.t('routine.level.up', { current: currentValue.volume, previous: previousValue.volume });
+    const level = intl.t('routine.level.format', { current: currentValue.volume, previous: previousValue.volume });
+    const text = intl.t(`routine.volume.${currentValue.unit}`, { volume: level });
 
-    return intl.t(`routine.volume.${currentValue.unit}`, { volume: level });
+    return currentValue.originalValue < previousValue.originalValue ?
+      intl.t('routine.level.down', { text }) :
+      intl.t('routine.level.up', { text });
   } else {
     const current = intl.t(`routine.volume.${currentValue.unit}`, currentValue);
     const previous = intl.t(`routine.volume.${previousValue.unit}`, previousValue);
+    const text = intl.t('routine.level.format', { current, previous });
 
     return currentValue.originalValue < previousValue.originalValue ?
-      intl.t('routine.level.down', { current, previous }) :
-      intl.t('routine.level.up', { current, previous });
+      intl.t('routine.level.down', { text }) :
+      intl.t('routine.level.up', { text });
   }
 }

@@ -35,8 +35,9 @@ routine:
     meters: "{length}m"
     kilometers: "{length}km"
   level:
-    up: "<span class='muted'>{previous}</span><span class='routine-level-up'><i class='fa fa-level-up'></i>{current}</span>"
-    down: "<span class='muted'>{previous}</span><span class='routine-level-down'><i class='fa fa-level-down'></i>{current}</span>"
+    format:  "<span class='routine-level'><span class='routine-level-values'><span class='routine-level-previous'>{previous}</span><span class='routine-level-new'>{current}</span></span>"
+    up: "{text}<span class='routine-level-up'><i class='fa fa-level-up'></i></span></span>"
+    down: "{text}<span class='routine-level-down'><i class='fa fa-level-down'></i></span></span>"
   volume:
     none: "0"
     teaspoons: "{volume}tsp"

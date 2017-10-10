@@ -26,17 +26,19 @@ export default function length(currentMillimeters, unitSystem, intl, previousMil
   if (currentMillimeters === previousMillimeters) {
     return intl.t(`routine.length.${currentValue.unit}`, currentValue);
   } else if (currentValue.unit === previousValue.unit) {
-    const level = currentValue.originalValue < previousValue.originalValue ?
-      intl.t('routine.level.down', { current: currentValue.length, previous: previousValue.length }) :
-      intl.t('routine.level.up', { current: currentValue.length, previous: previousValue.length });
+    const level = intl.t('routine.level.format', { current: currentValue.length, previous: previousValue.length });
+    const text = intl.t(`routine.length.${currentValue.unit}`, { length: level });
 
-    return intl.t(`routine.length.${currentValue.unit}`, { length: level });
+    return currentValue.originalValue < previousValue.originalValue ?
+      intl.t('routine.level.down', { text }) :
+      intl.t('routine.level.up', { text });
   } else {
     const current = intl.t(`routine.length.${currentValue.unit}`, currentValue);
     const previous = intl.t(`routine.length.${previousValue.unit}`, previousValue);
+    const text = intl.t('routine.level.format', { current, previous });
 
     return currentValue.originalValue < previousValue.originalValue ?
-      intl.t('routine.level.down', { current, previous }) :
-      intl.t('routine.level.up', { current, previous });
+      intl.t('routine.level.down', { text }) :
+      intl.t('routine.level.up', { text });
   }
 }
