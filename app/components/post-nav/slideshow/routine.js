@@ -65,19 +65,41 @@ export default Ember.Component.extend({
 
   frequency: Ember.computed({
     get() {
-      const { previousInstance, routineInstance } = this.getProperties('previousInstance', 'routineInstance');
+      const { intl, previousInstance, routineInstance } = this.getProperties('intl', 'previousInstance', 'routineInstance');
       const { frequency, frequencyScale } = routineInstance.getProperties('frequency', 'frequencyScale');
       const { frequency: previousFrequency, frequencyScale: previousFrequencyScale } = previousInstance.getProperties('frequency', 'frequencyScale');
+      if (Ember.isBlank(frequency) || Ember.isBlank(frequencyScale)) return '';
 
-      return this._translateFrequency(frequency, frequencyScale);
+      const frequencyChanged = frequency !== previousFrequency && Ember.isPresent(previousFrequency);
+      const frequencyScaleChanged = frequencyScale !== previousFrequencyScale && Ember.isPresent(previousFrequencyScale);
+      let frequencyTranslation = frequencyScale === 0 ? '' : intl.t('routine.frequency.frequency', { frequency });
+      let frequencyScaleTranslation = intl.t(`routine.frequency.scale.${frequencyScale}`);
+      const previousFrequencyTranslation = previousFrequencyScale === 0 ? '' : intl.t('routine.frequency.frequency', { frequency: previousFrequency });
+      const previousFrequencyScaleTranslation = intl.t(`routine.frequency.scale.${previousFrequencyScale}`)
+      let text = '';
+
+      if (frequencyChanged && frequencyScaleChanged) {
+        text = intl.t('routine.level.format', {
+          current: intl.t('routine.frequency.format', { frequency: frequencyTranslation, frequencyScale: frequencyScaleTranslation }),
+          previous: intl.t('routine.frequency.format', { frequency: previousFrequencyTranslation, frequencyScale: previousFrequencyScaleTranslation })
+        });
+      } else {
+        if (frequencyChanged) {
+          frequencyTranslation = intl.t('routine.level.format', { current: frequencyTranslation, previous: previousFrequencyTranslation });
+        } else if (frequencyScaleChanged) {
+          frequencyScaleTranslation = intl.t('routine.level.format', { current: frequencyScaleTranslation, previous: previousFrequencyScaleTranslation });
+        }
+
+        text = intl.t('routine.frequency.format', { frequency: frequencyTranslation, frequencyScale: frequencyScaleTranslation });
+      }
+
+      if ((frequencyChanged || frequencyScaleChanged) && (frequencyScale < previousFrequencyScale || (frequencyScale === previousFrequencyScale && frequency > previousFrequency))) {
+        return intl.t('routine.level.up', { text });
+      } else if ((frequencyChanged || frequencyScaleChanged) && (frequencyScale > previousFrequencyScale || (frequencyScale === previousFrequencyScale && frequency < previousFrequency))) {
+        return intl.t('routine.level.down', { text });
+      } else {
+        return text;
+      }
     }
-  }),
-
-  _translateFrequency(frequency, scale) {
-    if (Ember.isBlank(frequency) || Ember.isBlank(scale)) return '';
-
-    const intl = this.get('intl');
-
-    return intl.t(`routine.frequencyScale.${scale}`, { frequency: intl.t('routine.frequency', { frequency }) });
-  }
+  })
 });

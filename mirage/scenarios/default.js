@@ -25,8 +25,8 @@ export default function(server) {
       routine: bikingRoutine,
       distance: Math.random() < 0.5 ? ((1609340 * index) + 1) * 1.25 : undefined,
       duration: Math.random() < 0.5 ? Math.floor((Math.random() * index) * 10000000) : undefined,
-      frequency: 3,
-      frequencyScale: 3
+      frequency: (index % 5) + 1,
+      frequencyScale: (index % 3)
     }
     const medicineRoutineInstance = {
       routine: medicineRoutine,

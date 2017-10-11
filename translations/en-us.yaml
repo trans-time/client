@@ -17,14 +17,16 @@ routine:
     secondsOnly: "{seconds}s"
     secondsAndMilliseconds: "{seconds}s{milliseconds}ms"
     millisecondsOnly: "{milliseconds}ms"
-  frequency: "{frequency, plural, =1 {once} =2 {twice} other {# times}}"
-  frequencyScale:
-    0: "constantly"
-    1: "{frequency} hourly"
-    2: "{frequency} daily"
-    3: "{frequency} weekly"
-    4: "{frequency} monthly"
-    5: "{frequency} yearly"
+  frequency:
+    format: "{frequency} {frequencyScale}"
+    frequency: "{frequency, plural, =1 {once} =2 {twice} other {# times}}"
+    scale:
+      0: "constantly"
+      1: "hourly"
+      2: "daily"
+      3: "weekly"
+      4: "monthly"
+      5: "yearly"
   length:
     none: "0"
     inches: "{length}\""
