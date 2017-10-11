@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import durationTransform from 'client/utils/duration';
 import lengthTransform from 'client/utils/length';
+import quantityTransform from 'client/utils/quantity';
 import volumeTransform from 'client/utils/volume';
 import weightTransform from 'client/utils/weight';
 
@@ -35,7 +36,7 @@ export default Ember.Component.extend({
     get() {
       const configuration = this.get('currentUser.configuration');
       const { category, frequency, intl } = this.getProperties('category', 'frequency', 'intl');
-      const attributes = ['distance', 'duration', 'reps', 'sets', 'weightInMicrograms', 'volume'];
+      const attributes = ['distance', 'duration', 'laps', 'reps', 'sets', 'weightInMicrograms', 'volume'];
       const { previousInstance, routineInstance } = this.getProperties('previousInstance', 'routineInstance');
       const currentAttributes = routineInstance.getProperties(...attributes);
       const previousAttributes = previousInstance.getProperties(...attributes);
@@ -57,6 +58,18 @@ export default Ember.Component.extend({
 
       if (currentAttributes.duration || previousAttributes.duration) {
         stringParts.push(durationTransform(currentAttributes.duration, intl, previousAttributes.duration));
+      }
+
+      if (currentAttributes.laps || previousAttributes.laps) {
+        stringParts.push(quantityTransform(currentAttributes.laps, 'laps', intl, previousAttributes.laps));
+      }
+
+      if (currentAttributes.reps || previousAttributes.reps) {
+        stringParts.push(quantityTransform(currentAttributes.reps, 'reps', intl, previousAttributes.reps));
+      }
+
+      if (currentAttributes.sets || previousAttributes.sets) {
+        stringParts.push(quantityTransform(currentAttributes.sets, 'sets', intl, previousAttributes.sets));
       }
 
       return Ember.String.htmlSafe(stringParts.length > 0 ? `${stringParts.join(' ')}, ${frequency}` : frequency);

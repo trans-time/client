@@ -33,13 +33,17 @@ routine:
     yards: "{length}yd"
     miles: "{length} miles"
     millimeters: "{length}mm"
-    centimeters: "{lenght}cm"
+    centimeters: "{length}cm"
     meters: "{length}m"
     kilometers: "{length}km"
   level:
     format:  "<span class='routine-level'><span class='routine-level-values'><span class='routine-level-previous'>{previous}</span><span class='routine-level-new'>{current}</span></span>"
     up: "{text}<span class='routine-level-up'><i class='fa fa-level-up'></i></span></span>"
     down: "{text}<span class='routine-level-down'><i class='fa fa-level-down'></i></span></span>"
+  quantity:
+    laps: "{quantity} {currentQuantity, plural, =1 {lap} other {laps}}"
+    reps: "{quantity} {currentQuantity, plural, =1 {rep} other {reps}}"
+    sets: "{quantity} {currentQuantity, plural, =1 {set} other {sets}}"
   volume:
     none: "0"
     teaspoons: "{volume}tsp"

@@ -17,14 +17,15 @@ export default function(server) {
     panels: []
   });
 
-  const bikingRoutine = server.create('routine', { routineType: server.create('routine-type-exercise', { name: 'biking', icon: 'bicycle', color: 'orange' }) });
+  const bikingRoutine = server.create('routine', { routineType: server.create('routine-type-exercise', { name: 'squats', icon: 'bicycle', color: 'orange' }) });
   const medicineRoutine = server.create('routine', { routineType: server.create('routine-type-medicine', { name: 'medicine', color: 'red' })});
 
   sequence.forEach((gender, index) => {
     const bikingRoutineInstance = {
       routine: bikingRoutine,
-      distance: Math.random() < 0.5 ? ((1609340 * index) + 1) * 1.25 : undefined,
-      duration: Math.random() < 0.5 ? Math.floor((Math.random() * index) * 10000000) : undefined,
+      weight: index * 1000000,
+      reps: index * 2,
+      sets: index,
       frequency: (index % 5) + 1,
       frequencyScale: (index % 3)
     }
