@@ -1,11 +1,5 @@
 import Ember from 'ember';
 
-const Category = Ember.Object.extend({
-  selectedPostIds: Ember.computed.oneWay('component.selectedPostIds'),
-  tags: Ember.computed(() => Ember.A()),
-  selectedTags: Ember.computed.filterBy('tags', 'selected')
-});
-
 const Tag = Ember.Object.extend({
   selected: false,
   selectedPostIds: Ember.computed.oneWay('component.selectedPostIds'),
@@ -28,21 +22,9 @@ export default Ember.Component.extend({
 
   store: Ember.inject.service(),
 
+  selectedTags: Ember.computed.filterBy('tags', 'selected'),
+
   selectedTagIds: Ember.computed.mapBy('selectedTags', 'id'),
-  selectedTags: Ember.computed('categories.@each.selectedTags', {
-    get() {
-      return this.get('categories').reduce((selectedTags, category) => {
-        return selectedTags.concat(category.get('selectedTags'));
-      }, []);
-    }
-  }),
-  duplicateSelectedPostIds: Ember.computed('selectedTags.[]', {
-    get() {
-      return this.get('selectedTags').reduce((duplicateSelectedPostIds, tag) => {
-        return duplicateSelectedPostIds.concat(tag.get('postIds'));
-      }, []);
-    }
-  }),
   selectedPostIds: Ember.computed('selectedTags.[]', {
     get() {
       const selectedTags = this.get('selectedTags');
@@ -53,35 +35,28 @@ export default Ember.Component.extend({
       const smallestSet = postIdSets.shift();
 
       return smallestSet.reduce((selectedPostIds, postId) => {
-        if (postIdSets.every((postIdSet) => postIdSet.includes(postId))) selectedPostIds.push(postId);
+        if (postIdSets.every((postIdSet) => postIdSet.includes(postId))) selectedPostIds.pushObject(postId);
 
         return selectedPostIds;
-      }, []);
+      }, Ember.A()).uniq();
     }
   }),
 
-  categories: Ember.computed('tagSummary', {
+  tags: Ember.computed('tagSummary.summary', {
     get() {
       const store = this.get('store');
       const tagSummary = this.get('tagSummary.summary');
 
-      return Ember.A(Object.keys(tagSummary).reduce((categories, tagId) => {
-        const tag = store.peekRecord('tag', tagId);
-        const name = tag.get('tagCategory.name');
-        const category = categories.find((category) => category.get('name') === name) || categories.pushObject(Category.create({
-          name,
-          component: this
-        }));
+      return Ember.A(Object.keys(tagSummary).map((id) => {
+        const model = store.peekRecord('tag', id);
 
-        category.get('tags').pushObject(Tag.create({
-          model: tag,
-          id: tag.id,
-          postIds: tagSummary[tagId],
+        return Tag.create({
+          id,
+          model: store.peekRecord('tag', id),
+          postIds: tagSummary[id],
           component: this
-        }))
-
-        return categories;
-      }, []));
+        })
+      }));
     }
   }),
 

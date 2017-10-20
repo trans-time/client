@@ -1,12 +1,9 @@
 export default function(server) {
-  const bodyCategory = server.create('tag-category', { name: 'Body' });
-  const miscCategory = server.create('tag-category', { name: 'Misc' });
-  const unsortedCategory = server.create('tag-category', { name: 'Unsorted' });
   ['Face', 'Chest', 'Hips'].forEach((name) => {
-    server.create('tag', { name, tagCategory: bodyCategory });
+    server.create('tag', { name });
   });
-  server.create('tag', { name: 'style', tagCategory: miscCategory })
-  const symbolTag = server.create('tag', { name: 'Symbol', tagCategory: unsortedCategory });
+  server.create('tag', { name: 'style' })
+  const symbolTag = server.create('tag', { name: 'Symbol' });
   let sequence = ['male', 'gq', 'female', 'gq'];
   for (let i = 0; i < 2; ++i) {
     sequence = sequence.concat(sequence);

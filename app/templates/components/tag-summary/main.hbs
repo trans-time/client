@@ -1,8 +1,10 @@
-{{#each categories as |category|}}
-  {{tag-summary/category
-    category=category
-    toggleTag=(action "toggleTag")
-  }}
+{{#each tags as |tag|}}
+  {{#paper-button
+    raised=true
+    primary=tag.selected
+    disabled=(not tag.isValid)
+    onClick=(action "toggleTag" tag)
+  }}{{tag.model.name}}: {{tag.amount}}{{/paper-button}}
 {{/each}}
 
 {{#link-to "users.user.timeline" (query-params direction="desc" tags=selectedTagIds)}}From end{{/link-to}}
