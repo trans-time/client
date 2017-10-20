@@ -1,12 +1,22 @@
 .post-nav-post {
-  flex-grow: 1;
-  height: 1000vh;
+  flex-shrink: 9999;
+  min-height: 70px;
   overflow-x: hidden;
   overflow-y: auto;
   background-color: $white;
   border: 1px solid $medium-gray;
   border-bottom: 0;
   padding: $rhythm;
+
+  p {
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  &.expanded {
+    flex-grow: 1;
+    flex-shrink: initial;
+  }
 
   .post-nav-post-top-line {
     display: flex;

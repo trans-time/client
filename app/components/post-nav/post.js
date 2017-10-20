@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   classNames: ['post-nav-post'],
+  classNameBindings: ['textExpanded:expanded'],
 
   didReceiveAttrs(...args) {
     this._super(...args);
