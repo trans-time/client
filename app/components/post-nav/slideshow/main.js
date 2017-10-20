@@ -52,12 +52,6 @@ export default Ember.Component.extend(TouchActionMixin, {
     }
   }),
 
-  enabled: Ember.computed('quantifiablesExpanded', {
-    get() {
-      return !this.get('quantifiablesExpanded');
-    }
-  }),
-
   didInsertElement(...args) {
     this._super(...args);
 
@@ -117,8 +111,6 @@ export default Ember.Component.extend(TouchActionMixin, {
   },
 
   _startEvent(e) {
-    if (!this.get('enabled')) return;
-
     const swipeState = this.get('swipeState');
 
     swipeState.diffX = 0;
@@ -133,8 +125,6 @@ export default Ember.Component.extend(TouchActionMixin, {
   },
 
   _moveEvent(e) {
-    if (!this.get('enabled')) return;
-
     const swipeState = this.get('swipeState');
     if (!swipeState.active) return;
 
@@ -167,8 +157,6 @@ export default Ember.Component.extend(TouchActionMixin, {
   },
 
   _endEvent(e) {
-    if (!this.get('enabled')) return;
-  
     const swipeState = this.get('swipeState');
     if (!swipeState.active) return;
 

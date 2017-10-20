@@ -5,7 +5,6 @@ export default DS.Model.extend({
   user: DS.belongsTo('user'),
   faves: DS.hasMany('fav', { inverse: 'post' }),
   panels: DS.hasMany('panel', { polymorphic: true }),
-  routineInstances: DS.hasMany('routine-instance', { polymorphic: true }),
   tags: DS.hasMany('tag'),
 
   text: DS.attr('string'),
@@ -14,12 +13,6 @@ export default DS.Model.extend({
   totalSuns: DS.attr('number'),
   totalMoons: DS.attr('number'),
   totalFaves: DS.attr('number'),
-
-  quantifiables: Ember.computed('routineInstances.[]', {
-    get() {
-      return this.get('routineInstances');
-    }
-  }),
 
   panelsWithBlank: Ember.computed('panels.[]', {
     get() {

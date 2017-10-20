@@ -15,11 +15,3 @@
     }}
   {{/each-in}}
 </div>
-
-<div class="post-nav-slideshow-quantifiables-container {{if (not quantifiablesExpanded) 'hidden'}}">
-  {{#if quantifiablesExpanded}}
-    {{#each post.routineInstances as |routineInstance|}}
-      {{post-nav/slideshow/routine routineInstance=routineInstance}}
-    {{/each}}
-  {{/if}}
-</div>

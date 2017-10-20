@@ -17,30 +17,7 @@ export default function(server) {
     panels: []
   });
 
-  const bikingRoutine = server.create('routine', { routineType: server.create('routine-type-exercise', { name: 'squats', icon: 'bicycle', color: 'orange' }) });
-  const medicineRoutine = server.create('routine', { routineType: server.create('routine-type-medicine', { name: 'medicine', color: 'red' })});
-
   sequence.forEach((gender, index) => {
-    const bikingRoutineInstance = {
-      routine: bikingRoutine,
-      weight: index * 1000000,
-      reps: index * 2,
-      sets: index,
-      frequency: (index % 5) + 1,
-      frequencyScale: (index % 3)
-    }
-    const medicineRoutineInstance = {
-      routine: medicineRoutine,
-      volume: Math.random() < 0.5 ? Math.floor((Math.random() * index) * 100) : undefined,
-      weight: Math.random() < 0.5 ? Math.floor((Math.random() * index) * 100) : undefined,
-      frequency: 2,
-      frequencyScale: 2
-    }
-
-    if (index > 0) {
-      bikingRoutineInstance.previousInstanceId = { type: 'routine-instance-exercises', id: index };
-      medicineRoutineInstance.previousInstanceId = { type: 'routine-instance-medicines', id: index };
-    }
     posts.push(server.create('post', {
       date: index * 1000000000,
       tags: [symbolTag],
@@ -48,11 +25,7 @@ export default function(server) {
         return server.create('image', {
           src: `/dev/${gender}-${orientation}.png`
         })
-      }),
-      routineInstances: [
-        server.create('routine-instance-exercise', bikingRoutineInstance),
-        server.create('routine-instance-medicine', medicineRoutineInstance)
-      ]
+      })
     }))
   });
 
