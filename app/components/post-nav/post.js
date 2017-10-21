@@ -128,6 +128,8 @@ export default Ember.Component.extend({
       let velocity = latestDiffs.reduce((sum, diff) => sum + diff, 0) / Math.min(latestDiffs.length, precision);
 
       const loop = () => {
+        if (!this.element) return;
+
         this.element.scrollTop -= velocity;
 
         if (Math.ceil(this.element.scrollTop + this.element.clientHeight) >= this.element.scrollHeight) return this.element.scrollTop = this.element.scrollHeight - this.element.clientHeight;
