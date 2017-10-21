@@ -21,10 +21,42 @@
   box-shadow: 0 0 $rhythm $dark-gray;
   z-index: 1;
 
+  .reveal-text-toggle {
+    display: none;
+  }
+
   &.hidden {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
+  }
+
+  &.post-nav-slideshow-post-blank {
+    .post-nav-slideshow-panels, .post-nav-resize-toggle {
+      display: none;
+    }
+
+    .post-nav-post {
+      .post-nav-post-constraint {
+        height: 90%;
+        overflow: hidden;
+      }
+
+      .reveal-text-toggle {
+        display: flex;
+      }
+    }
+
+    .post-nav-post.text-revealed {
+      .post-nav-post-constraint {
+        height: inherit;
+        overflow: visible;
+      }
+
+      .reveal-text-toggle {
+        display: none;
+      }
+    }
   }
 }
 

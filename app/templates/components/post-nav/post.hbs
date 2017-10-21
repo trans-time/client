@@ -1,13 +1,17 @@
-<div class="post-nav-post-top-line">
-  <div class="post-nav-post-date">{{moment-format post.date "MMMM DD, YYYY"}} | {{#link-to "users.user"}}{{post.user.username}}{{/link-to}}</div>
+<div class="post-nav-post-constraint">
+  <div class="post-nav-post-top-line">
+    <div class="post-nav-post-date">{{moment-format post.date "MMMM DD, YYYY"}} | {{#link-to "users.user"}}{{post.user.username}}{{/link-to}}</div>
 
-  <div class="post-nav-resize-toggle">
-    <a {{action resizeType}}>
-      {{#liquid-bind resizeType as |iconType|}}
-        {{fa-icon iconType size=1}}
-      {{/liquid-bind}}
-    </a>
+    <div class="post-nav-resize-toggle">
+      <a {{action resizeType}}>
+        {{#liquid-bind resizeType as |iconType|}}
+          {{fa-icon iconType size=1}}
+        {{/liquid-bind}}
+      </a>
+    </div>
   </div>
+
+  {{markdown-render post.text}}
 </div>
 
-{{markdown-render post.text}}
+<a class="reveal-text-toggle" {{action "revealText"}}>{{t "post.more"}}</a>

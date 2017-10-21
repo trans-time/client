@@ -38,6 +38,7 @@ const PanelDecorator = Ember.Object.extend({
 
 const PostDecorator = Ember.Object.extend({
   posts: Ember.computed.oneWay('component.decoratedPosts'),
+  isBlank: Ember.computed.equal('model.panels.length', 0),
 
   isIncoming: Ember.computed('panels.@each.isIncoming', {
     get() {

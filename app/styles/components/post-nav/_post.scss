@@ -1,4 +1,6 @@
 .post-nav-post {
+  display: flex;
+  flex-direction: column;
   flex-shrink: 5;
   height: 100vh;
   min-height: 70px;
@@ -10,6 +12,16 @@
   padding: $rhythm;
   z-index: 3;
   transition: flex-shrink 500ms ease-out;
+
+  .reveal-text-toggle {
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    text-align: center;
+    margin-top: $rhythm / 2;
+    border: 2px dashed $medium-gray;
+    color: $medium-gray;
+  }
 
   &.scroll-locked {
     overflow-y: hidden;

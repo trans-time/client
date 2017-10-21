@@ -5,63 +5,8 @@ auth:
 general:
   cancel: "Cancel"
   submit: "Submit"
-routine:
-  duration:
-    format: "for {duration}"
-    none: "0"
-    hoursOnly: "{hours}h"
-    hoursAndMinutes: "{hours}h{minutes}m"
-    hoursMinutesAndSeconds: "{hours}h{minutes}m{seconds}s"
-    minutesOnly: "{minutes}m"
-    minutesAndSeconds: "{minutes}m{seconds}s"
-    secondsOnly: "{seconds}s"
-    secondsAndMilliseconds: "{seconds}s{milliseconds}ms"
-    millisecondsOnly: "{milliseconds}ms"
-  frequency:
-    format: "{frequency} {frequencyScale}"
-    frequency: "{frequency, plural, =1 {once} =2 {twice} other {# times}}"
-    scale:
-      0: "constantly"
-      1: "hourly"
-      2: "daily"
-      3: "weekly"
-      4: "monthly"
-      5: "yearly"
-  length:
-    none: "0"
-    inches: "{length}\""
-    yards: "{length}yd"
-    miles: "{length} miles"
-    millimeters: "{length}mm"
-    centimeters: "{length}cm"
-    meters: "{length}m"
-    kilometers: "{length}km"
-  level:
-    format:  "<span class='routine-level'><span class='routine-level-values'><span class='routine-level-previous'>{previous}</span><span class='routine-level-new'>{current}</span></span>"
-    up: "{text}<span class='routine-level-up'><i class='fa fa-level-up'></i></span></span>"
-    down: "{text}<span class='routine-level-down'><i class='fa fa-level-down'></i></span></span>"
-  quantity:
-    laps: "{quantity} {currentQuantity, plural, =1 {lap} other {laps}}"
-    reps: "{quantity} {currentQuantity, plural, =1 {rep} other {reps}}"
-    sets: "{quantity} {currentQuantity, plural, =1 {set} other {sets}}"
-  volume:
-    none: "0"
-    teaspoons: "{volume}tsp"
-    tablespoons: "{volume}tbsp"
-    cups: "{volume}cups"
-    gallons: "{volume}gal"
-    microliters: "{volume}μL"
-    milliliters: "{volume}mL"
-    liters: "{volume}L"
-    kiloliters: "{volume}kL"
-  weight:
-    none: "0"
-    ounces: "{weight}oz"
-    pounds: "{weight}lbs"
-    micrograms: "{weight}μg"
-    milligrams: "{weight}mg"
-    grams: "{weight}g"
-    kilograms: "{weight}kg"
+post:
+  more: "more"
 search:
   title: "Search"
 users:

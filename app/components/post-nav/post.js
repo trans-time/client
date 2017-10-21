@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   classNames: ['post-nav-post'],
-  classNameBindings: ['textExpanded:expanded', 'scrollLocked'],
+  classNameBindings: ['textExpanded:expanded', 'scrollLocked', 'textRevealed'],
 
   meta: Ember.inject.service(),
   usingTouch: Ember.computed.alias('meta.usingTouch'),
@@ -39,11 +39,24 @@ export default Ember.Component.extend({
       this.element.addEventListener('mouseup', endEvent);
       this.element.addEventListener('touchstart', removeClickEvents);
     }
+
+    window.addEventListener('resize', this.set('onResize',this._checkTextOverflow.bind(this)));
+    this._checkTextOverflow();
+  },
+
+  willDestroyElement(...args) {
+    window.removeEventListener('resize', this.get('onResize'));
   },
 
   resizeType: Ember.computed('textExpanded', {
     get() {
       return this.get('textExpanded') ? 'compress' : 'expand'
+    }
+  }),
+
+  textRevealed: Ember.computed('userRevealedText', 'textOverflown', {
+    get() {
+      return this.get('userRevealedText') || !this.get('textOverflown');
     }
   }),
 
@@ -129,6 +142,12 @@ export default Ember.Component.extend({
     }
   },
 
+  _checkTextOverflow() {
+    const element = this.$('.post-nav-post-constraint').get(0);
+
+    this.set('textOverflown', element.scrollHeight > element.clientHeight);
+  },
+
   actions: {
     expand() {
       this.attrs.expandText();
@@ -136,6 +155,10 @@ export default Ember.Component.extend({
 
     compress() {
       this.attrs.compressText();
+    },
+
+    revealText() {
+      this.set('userRevealedText', true);
     }
   }
 });
