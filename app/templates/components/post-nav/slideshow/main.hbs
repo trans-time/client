@@ -1,5 +1,5 @@
-{{#each posts as |post|}}
-  {{#each post.panelsWithBlank as |panel|}}
+{{#each decoratedPosts as |post|}}
+  {{#each post.panels as |panel|}}
     {{component panel.postNavComponent
       panel=panel
       navState=navState

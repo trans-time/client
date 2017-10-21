@@ -5,6 +5,6 @@ export default DS.Model.extend({
 
   src: DS.attr('string'),
 
-  isLoaded: false,
-  shouldLoad: false
+  srcIsLoaded: false,
+  srcShouldLoad: false
 });
