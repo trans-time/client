@@ -1,5 +1,6 @@
 .post-nav-post {
-  flex-shrink: 9999;
+  flex-shrink: 5;
+  height: 100vh;
   min-height: 70px;
   overflow-x: hidden;
   overflow-y: auto;
@@ -7,15 +8,20 @@
   border: 1px solid $medium-gray;
   border-bottom: 0;
   padding: $rhythm;
+  z-index: 3;
+  transition: flex-shrink 500ms ease-out;
+
+  &.scroll-locked {
+    overflow-y: hidden;
+  }
+
+  &.expanded {
+    flex-shrink: 1;
+  }
 
   p {
     margin-top: 0;
     margin-bottom: 1em;
-  }
-
-  &.expanded {
-    flex-grow: 1;
-    flex-shrink: initial;
   }
 
   .post-nav-post-top-line {

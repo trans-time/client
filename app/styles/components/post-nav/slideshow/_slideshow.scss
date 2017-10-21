@@ -2,7 +2,6 @@
   position: relative;
   height: 100%;
   width: 100%;
-  max-height: 125vw;
   min-height: 200px;
   perspective: 100px;
   margin: 0 auto;
@@ -10,13 +9,42 @@
   touch-action: manipulation;
   -ms-touch-action: manipulation;
   cursor: pointer;
-  background-color: $medium-gray;
+  user-select: none;
+}
+
+.post-nav-slideshow-post {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  box-shadow: 0 0 $rhythm $dark-gray;
+  z-index: 1;
+
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+.post-nav-slideshow-panels {
+  flex-grow: 1;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  min-height: 200px;
   border: thin solid $medium-gray;
   transition: flex-shrink 750ms ease-in-out;
 
   &.compressed {
     flex-shrink: 1;
   }
+}
+
+.post-nav-slideshow-panel {
+  z-index: 1;
+  background-color: $medium-gray;
 }
 
 @media screen and (min-height: 1350px)

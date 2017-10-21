@@ -39,6 +39,18 @@ const PanelDecorator = Ember.Object.extend({
 const PostDecorator = Ember.Object.extend({
   posts: Ember.computed.oneWay('component.decoratedPosts'),
 
+  isIncoming: Ember.computed('panels.@each.isIncoming', {
+    get() {
+      return this.get('panels').any((panel) => panel.get('isIncoming'));
+    }
+  }),
+
+  isOutgoing: Ember.computed('panels.@each.isOutgoing', {
+    get() {
+      return this.get('panels').any((panel) => panel.get('isOutgoing'));
+    }
+  }),
+
   panels: Ember.computed('model.panels.[]', {
     get() {
       let panels = this.get('model.panels');
@@ -79,7 +91,6 @@ export default Ember.Component.extend({
   tagName: '',
 
   nextPostIndex: 0,
-  textExpanded: false,
 
   decoratedPosts: Ember.computed(() => Ember.A()),
 
@@ -98,18 +109,6 @@ export default Ember.Component.extend({
     this.set('nextPostIndex', posts.get('length'));
   })),
 
-  // decoratedPosts: Ember.computed('posts.[]', {
-  //   get() {
-  //     return Ember.A(this.get('posts').toArray().map((model, index) => {
-  //       return PostDecorator.create({
-  //         index,
-  //         model,
-  //         component: this
-  //       });
-  //     }));
-  //   }
-  // }),
-
   actions: {
     changePost(post) {
       this.set('post', post);
@@ -117,14 +116,6 @@ export default Ember.Component.extend({
 
     loadMorePosts(resolve, reject) {
       this.sendAction('action', resolve, reject)
-    },
-
-    expandText() {
-      this.set('textExpanded', true);
-    },
-
-    compressText() {
-      this.set('textExpanded', false);
     }
   }
 });

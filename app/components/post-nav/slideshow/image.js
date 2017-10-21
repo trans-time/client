@@ -1,7 +1,7 @@
 import Ember from 'ember';
-import PanelComponentMixin from 'client/mixins/panel-component';
+import SlideshowPanelComponentMixin from 'client/mixins/slideshow-panel-component';
 
-export default Ember.Component.extend(PanelComponentMixin, {
+export default Ember.Component.extend(SlideshowPanelComponentMixin, {
   tagName: 'img',
   classNames: ['post-nav-slideshow-image'],
   attributeBindings: ['src'],

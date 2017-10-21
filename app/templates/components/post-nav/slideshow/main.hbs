@@ -1,10 +1,11 @@
 {{#each decoratedPosts as |post|}}
-  {{#each post.panels as |panel|}}
-    {{component panel.postNavComponent
-      panel=panel
-      navState=navState
-    }}
-  {{/each}}
+  {{post-nav/slideshow/post
+    post=post
+    navState=navState
+    textExpanded=textExpanded
+    expandText=(action "expandText")
+    compressText=(action "compressText")
+  }}
 {{/each}}
 
 <div class="post-nav-slideshow-pointer-container">

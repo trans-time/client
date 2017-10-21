@@ -10,8 +10,8 @@ const NavState = Ember.Object.extend({
     set(key, currentPanel) {
       const previousPanel = this.get('_currentPanel');
 
-      if (previousPanel) previousPanel.set('isCurrentPanel', false);
-      currentPanel.set('isCurrentPanel', true);
+      if (previousPanel) previousPanel.set('isOutgoing', false);
+      currentPanel.set('isOutgoing', true);
 
       return this.set('_currentPanel', currentPanel);
     }
@@ -23,8 +23,8 @@ const NavState = Ember.Object.extend({
     set(key, incomingPanel) {
       const previousPanel = this.get('_incomingPanel');
 
-      if (previousPanel && previousPanel !== 'edge') previousPanel.set('isIncomingPanel', false);
-      if (incomingPanel && incomingPanel !== 'edge') incomingPanel.set('isIncomingPanel', true);
+      if (previousPanel && previousPanel !== 'edge') previousPanel.set('isIncoming', false);
+      if (incomingPanel && incomingPanel !== 'edge') incomingPanel.set('isIncoming', true);
 
       return this.set('_incomingPanel', incomingPanel);
     }
@@ -40,11 +40,13 @@ export default Ember.Component.extend(TouchActionMixin, {
   isLoadingMorePosts: Ember.computed.notEmpty('loadingMorePostsPromise'),
 
   pointers: Ember.computed(() => { return {} }),
-  swipeState: Ember.computed(() => { return {} }),
+  swipeState: Ember.computed(() => { return { }}),
   navState: Ember.computed(() => NavState.create({
     progress: 0,
     diffs: []
   })),
+
+  textExpanded: false,
 
   didInsertElement(...args) {
     this._super(...args);
@@ -82,28 +84,16 @@ export default Ember.Component.extend(TouchActionMixin, {
     this._displayPointers();
   },
 
-  willDestroyElement(...args) {
-    this._super(...args);
-
-    const { currentPanel, incomingPanel } = this.get('navState').getProperties('currentPanel', 'incomingPanel');
-
-    if (currentPanel !== 'edge') currentPanel.set('isCurrentPanel', false);
-    if (incomingPanel && incomingPanel !== 'edge') incomingPanel.set('isIncomingPanel', false);
-  },
-
   _touchStart(e) {
     this._startEvent(e.changedTouches[0]);
-    e.preventDefault();
   },
 
   _touchMove(e) {
     this._moveEvent(e.changedTouches[0]);
-    e.preventDefault();
   },
 
   _touchEnd(e) {
     this._endEvent(e.changedTouches[0]);
-    e.preventDefault();
   },
 
   _startEvent(e) {
@@ -117,7 +107,13 @@ export default Ember.Component.extend(TouchActionMixin, {
     swipeState.currentY = e.clientY;
     swipeState.active = true;
 
-    this.set('navState.isSettling', false);
+    if (this.get('navState.isSettling')) {
+      this.set('navState.isSettling', false);
+    } else {
+      swipeState.locked = true;
+      swipeState.lockedX = 0;
+      swipeState.lockedY = 0;
+    }
   },
 
   _moveEvent(e) {
@@ -130,8 +126,26 @@ export default Ember.Component.extend(TouchActionMixin, {
     swipeState.currentY = e.clientY;
 
     const navState = this.get('navState');
+
+    if (swipeState.locked) {
+      swipeState.lockedX += swipeState.diffX;
+      swipeState.lockedY += swipeState.diffY;
+
+      const threshold = 50;
+
+      if (Math.abs(swipeState.lockedX) > threshold && Math.abs(swipeState.lockedX) >= Math.abs(swipeState.lockedY)) {
+        navState.set('axis', 'x');
+        swipeState.locked = false;
+      } else if (Math.abs(swipeState.lockedY) > threshold && Math.abs(swipeState.lockedY) > Math.abs(swipeState.lockedX)) {
+        navState.set('axis', 'y');
+        swipeState.locked = false;
+      } else {
+        return;
+      }
+    }
+
     const previousProgress = navState.get('progress');
-    const horizontalNav = (navState.get('axis') || navState.set('axis', Math.abs(swipeState.diffX) > Math.abs(swipeState.diffY) ? 'x' : 'y')) === 'x';
+    const horizontalNav = navState.get('axis') === 'x';
 
     const percentChange = horizontalNav ? (swipeState.diffX / window.innerWidth) : (swipeState.diffY / window.innerHeight);
     const progress = previousProgress + percentChange;
@@ -166,19 +180,20 @@ export default Ember.Component.extend(TouchActionMixin, {
     const diffs = navState.get('diffs');
     const precision = 5;
     const latestDiffs = diffs.slice(Math.max(0, diffs.length - precision), diffs.length);
+    let velocity = navState.get('progress') > 0.5 ? 0.001 : -0.001;
     if (latestDiffs.length > 0) {
-      let velocity = latestDiffs.reduce((sum, diff) => sum + diff, 0) / Math.min(latestDiffs.length, precision);
+      velocity = latestDiffs.reduce((sum, diff) => sum + diff, 0) / Math.min(latestDiffs.length, precision);
       velocity = velocity > 0 ? Math.max(0.001, Math.min(0.03, velocity)) : Math.min(-0.001, Math.max(-0.03, velocity));
-      if (navState.get('incomingPanel') === 'edge' && this._getNeighbor(navState.get('currentPanel'), velocity < 0 ? this._getDirection(false) : this._getDirection(true)) === 'edge') velocity *= -1;
-
-      navState.setProperties({
-        diffs: [],
-        velocity,
-        isSettling: true
-      });
-
-      this._settle();
     }
+    if (navState.get('incomingPanel') === 'edge' && this._getNeighbor(navState.get('currentPanel'), velocity < 0 ? this._getDirection(false) : this._getDirection(true)) === 'edge') velocity *= -1;
+
+    navState.setProperties({
+      diffs: [],
+      velocity,
+      isSettling: true
+    });
+
+    this._settle();
   },
 
   _settle() {
@@ -314,5 +329,15 @@ export default Ember.Component.extend(TouchActionMixin, {
 
   _getNeighbor(panel, direction) {
     return panel.getNeighbor(direction);
+  },
+
+  actions: {
+    expandText() {
+      this.set('textExpanded', true);
+    },
+
+    compressText() {
+      this.set('textExpanded', false);
+    }
   }
 });

@@ -12,11 +12,6 @@ export default function() {
   );
 
   this.transition(
-    this.childOf('.post-nav-post'),
-    this.use('crossFade', { duration: 150 })
-  );
-
-  this.transition(
     this.childOf('.post-nav-resize-toggle a'),
     this.use('crossFade', { duration: 750 })
   );

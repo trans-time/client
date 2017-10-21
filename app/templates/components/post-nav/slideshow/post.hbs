@@ -1,0 +1,24 @@
+<div class="post-nav-slideshow-panels">
+  {{#each post.panels as |panel|}}
+    {{component panel.postNavComponent
+      panel=panel
+      navState=navState
+    }}
+  {{/each}}
+</div>
+
+{{#if visible}}
+  {{post-nav/post
+    post=post.model
+    textExpanded=textExpanded
+    scrollLocked=(not-eq navState.progress 0)
+    classNames="main-layout-constraint"
+    expandText=expandText
+    compressText=compressText
+  }}
+
+  {{post-nav/controls/main
+    post=post.model
+    classNames="main-layout-constraint"
+  }}
+{{/if}}
