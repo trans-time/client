@@ -5,6 +5,7 @@
   will-change: transform;
   background-color: $light-gray;
   box-shadow: 0 0 $rhythm $dark-gray;
+  will-change: transform, opacity;
 
   &.post-nav-slideshow-image {
     object-fit: cover;

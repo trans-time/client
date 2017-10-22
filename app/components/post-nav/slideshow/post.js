@@ -7,5 +7,6 @@ export default Ember.Component.extend(SlideshowComponentMixin, {
 
   isOutgoing: Ember.computed.oneWay('post.isOutgoing'),
   isIncoming: Ember.computed.oneWay('post.isIncoming'),
-  isBlank: Ember.computed.oneWay('post.isBlank')
+  isBlank: Ember.computed.oneWay('post.isBlank'),
+  shouldRenderPost: Ember.computed.or('visible', 'post.shouldPrerender')
 });

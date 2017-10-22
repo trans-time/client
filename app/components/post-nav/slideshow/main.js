@@ -82,6 +82,7 @@ export default Ember.Component.extend(TouchActionMixin, {
     this.set('navState.currentPanel', currentPanel);
     this.get('_loadNeighborMatrix').perform(currentPanel);
     this._displayPointers();
+    this._boundSettle = this._settle.bind(this);
   },
 
   _touchStart(e) {
@@ -131,7 +132,7 @@ export default Ember.Component.extend(TouchActionMixin, {
       swipeState.lockedX += swipeState.diffX;
       swipeState.lockedY += swipeState.diffY;
 
-      const threshold = 50;
+      const threshold = 5;
 
       if (Math.abs(swipeState.lockedX) > threshold && Math.abs(swipeState.lockedX) >= Math.abs(swipeState.lockedY)) {
         navState.set('axis', 'x');
@@ -181,10 +182,7 @@ export default Ember.Component.extend(TouchActionMixin, {
     const precision = 5;
     const latestDiffs = diffs.slice(Math.max(0, diffs.length - precision), diffs.length);
     let velocity = navState.get('progress') > 0.5 ? 0.001 : -0.001;
-    if (latestDiffs.length > 0) {
-      velocity = latestDiffs.reduce((sum, diff) => sum + diff, 0) / Math.min(latestDiffs.length, precision);
-      velocity = velocity > 0 ? Math.max(0.001, Math.min(0.03, velocity)) : Math.min(-0.001, Math.max(-0.03, velocity));
-    }
+    if (latestDiffs.length > 0) velocity = latestDiffs.reduce((sum, diff) => sum + diff, 0) / Math.min(latestDiffs.length, precision);
     if (navState.get('incomingPanel') === 'edge' && this._getNeighbor(navState.get('currentPanel'), velocity < 0 ? this._getDirection(false) : this._getDirection(true)) === 'edge') velocity *= -1;
 
     navState.setProperties({
@@ -219,15 +217,27 @@ export default Ember.Component.extend(TouchActionMixin, {
       });
     } else if (navState.get('isSettling')) {
       navState.set('progress', progress);
-      requestAnimationFrame(this._settle.bind(this));
+      requestAnimationFrame(this._boundSettle);
     }
   },
 
   _startNextPeek(progress, direction) {
     const navState = this.get('navState');
-    const currentPanel = this._getNeighbor(navState.get('currentPanel'), direction);
+    const previousPanel = navState.get('currentPanel');
+    const currentPanel = this._getNeighbor(previousPanel, direction);
 
     if (currentPanel !== 'edge') {
+      const prerender = (panel, direction, prerender) => {
+        const neighbor = this._getNeighbor(panel, direction);
+
+        if (neighbor !== 'edge') neighbor.set('post.shouldPrerender', prerender);
+      }
+
+      prerender(previousPanel, 'up', false);
+      prerender(previousPanel, 'down', false);
+      prerender(currentPanel, 'up', true);
+      prerender(currentPanel, 'down', true);
+
       const incomingPanel = this._getNeighbor(currentPanel, direction);
 
       navState.setProperties({

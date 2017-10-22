@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Mixin.create({
   classNameBindings: ['hidden'],
-  attributeBindings: ['style'],
+  // attributeBindings: ['style'],
 
   hidden: Ember.computed.not('visible'),
   visible: Ember.computed.or('isOutgoing', 'isIncoming'),
@@ -11,15 +11,17 @@ export default Ember.Mixin.create({
   axis: Ember.computed.oneWay('navState.axis'),
   progress: Ember.computed.oneWay('navState.progress'),
 
-  style: Ember.computed('progress', 'visible', 'isAnimating', function () {
-    if (this.get('hidden') || !this.get('isAnimating')) return;
+  styleObserver: Ember.observer('progress', 'hidden', 'isAnimating', function () {
+    this.element.style = this._generateStyle();
+  }),
+
+  _generateStyle() {
+    if (this.get('hidden') || !this.get('isAnimating')) return this.get('isOutgoing') ? 'z-index: 2;' : ''; // prevent flicker as incoming and outgoing swap
 
     const progress = this.get('progress');
-    const easedProgress = this.easing(Math.abs(progress)) * (progress > 0 ? 1 : -1);
-    const transform = this.get('isOutgoing') ? this.animateOut(easedProgress) : this.animateIn(easedProgress);
 
-    return Ember.String.htmlSafe(transform);
-  }),
+    return this.get('isOutgoing') ? this.animateOut(progress) : this.animateIn(progress);
+  },
 
   animateIn(progress) {
     const { isOutgoing, isIncoming } = this.getProperties('isOutgoing', 'isIncoming');
@@ -36,9 +38,5 @@ export default Ember.Mixin.create({
     const recedeAmount = Math.abs(progress) * -1;
 
     return this.get('axis') === 'x' ? `transform: translate3d(${translateAmount * 0.5}%, 0, ${recedeAmount}px) rotate3d(0, 1, 0, ${rotateAmount}deg); z-index: 1;` : `transform: translate3d(0, ${translateAmount * -0.5}%, ${recedeAmount}px) rotate3d(1, 0, 0, ${rotateAmount}deg); z-index: 1;`;
-  },
-
-  easing(t) {
-    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
   }
 });

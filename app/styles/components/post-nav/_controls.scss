@@ -24,6 +24,7 @@
   &.hidden {
     padding: 0;
     transform: scale3d(0, 0, 0);
+    visibility: hidden;
   }
 
   i {

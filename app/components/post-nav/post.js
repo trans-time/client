@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   classNames: ['post-nav-post'],
-  classNameBindings: ['textExpanded:expanded', 'scrollLocked', 'textRevealed'],
+  classNameBindings: ['textExpanded:expanded', 'textRevealed'],
 
   meta: Ember.inject.service(),
   usingTouch: Ember.computed.alias('meta.usingTouch'),
@@ -93,7 +93,7 @@ export default Ember.Component.extend({
   _moveEvent(event) {
     const e = event.changedTouches ? event.changedTouches[0] : event;
     const swipeState = this.get('swipeState');
-    if (!swipeState.active) return;
+    if (!swipeState.active || this.get('scrollLocked')) return;
 
     swipeState.diffY = e.clientY - swipeState.currentY;
     swipeState.currentY = e.clientY;
@@ -128,7 +128,7 @@ export default Ember.Component.extend({
       let velocity = latestDiffs.reduce((sum, diff) => sum + diff, 0) / Math.min(latestDiffs.length, precision);
 
       const loop = () => {
-        if (!this.element) return;
+        if (!this.element || this.get('scrollLocked')) return;
 
         this.element.scrollTop -= velocity;
 
