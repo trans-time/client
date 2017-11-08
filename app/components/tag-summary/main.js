@@ -1,10 +1,15 @@
-import Ember from 'ember';
+import { A } from '@ember/array';
+import { isEmpty } from '@ember/utils';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
+import { oneWay, gt, filterBy, mapBy } from '@ember/object/computed';
+import EmberObject, { computed } from '@ember/object';
 
-const Tag = Ember.Object.extend({
+const Tag = EmberObject.extend({
   selected: false,
-  selectedPostIds: Ember.computed.oneWay('component.selectedPostIds'),
-  isValid: Ember.computed.gt('amount', 0),
-  amount: Ember.computed('selectedPostIds.[]', {
+  selectedPostIds: oneWay('component.selectedPostIds'),
+  isValid: gt('amount', 0),
+  amount: computed('selectedPostIds.[]', {
     get() {
       const { postIds, selectedPostIds } = this.getProperties('postIds', 'selectedPostIds');
 
@@ -17,19 +22,19 @@ const Tag = Ember.Object.extend({
   })
 })
 
-export default Ember.Component.extend({
+export default Component.extend({
   classNames: ['tag-summary'],
 
-  store: Ember.inject.service(),
+  store: service(),
 
-  selectedTags: Ember.computed.filterBy('tags', 'selected'),
+  selectedTags: filterBy('tags', 'selected'),
 
-  selectedTagIds: Ember.computed.mapBy('selectedTags', 'id'),
-  selectedPostIds: Ember.computed('selectedTags.[]', {
+  selectedTagIds: mapBy('selectedTags', 'id'),
+  selectedPostIds: computed('selectedTags.[]', {
     get() {
       const selectedTags = this.get('selectedTags');
 
-      if (Ember.isEmpty(selectedTags)) return [];
+      if (isEmpty(selectedTags)) return [];
 
       const postIdSets = selectedTags.map((tag) => tag.get('postIds')).sort((a, b) => a.length - b.length);
       const smallestSet = postIdSets.shift();
@@ -38,16 +43,16 @@ export default Ember.Component.extend({
         if (postIdSets.every((postIdSet) => postIdSet.includes(postId))) selectedPostIds.pushObject(postId);
 
         return selectedPostIds;
-      }, Ember.A()).uniq();
+      }, A()).uniq();
     }
   }),
 
-  tags: Ember.computed('tagSummary.summary', {
+  tags: computed('tagSummary.summary', {
     get() {
       const store = this.get('store');
       const tagSummary = this.get('tagSummary.summary');
 
-      return Ember.A(Object.keys(tagSummary).map((id) => {
+      return A(Object.keys(tagSummary).map((id) => {
         const model = store.peekRecord('tag', id);
 
         return Tag.create({

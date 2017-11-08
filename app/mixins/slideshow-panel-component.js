@@ -1,13 +1,14 @@
-import Ember from 'ember';
+import { equal, oneWay } from '@ember/object/computed';
+import Mixin from '@ember/object/mixin';
 import SlideshowComponent from './slideshow-component';
 
-export default Ember.Mixin.create(SlideshowComponent, {
+export default Mixin.create(SlideshowComponent, {
   classNames: ['post-nav-slideshow-panel'],
 
-  isAnimating: Ember.computed.equal('axis', 'x'),
+  isAnimating: equal('axis', 'x'),
 
-  isOutgoing: Ember.computed.oneWay('panel.isOutgoing'),
-  isIncoming: Ember.computed.oneWay('panel.isIncoming'),
+  isOutgoing: oneWay('panel.isOutgoing'),
+  isIncoming: oneWay('panel.isIncoming'),
 
   didInsertElement(...args) {
     this._super(...args);

@@ -1,4 +1,5 @@
 import { Factory, faker } from 'ember-cli-mirage';
+import { A } from '@ember/array';
 
 export default Factory.extend({
   username: faker.internet.userName,
@@ -17,7 +18,7 @@ export default Factory.extend({
       return summary;
     }, {});
 
-    const tagIds = Ember.A(user.posts.models.reduce((tagIds, post) => {
+    const tagIds = A(user.posts.models.reduce((tagIds, post) => {
       return tagIds.concat(post.tagIds);
     }, [])).uniq();
 

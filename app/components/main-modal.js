@@ -1,7 +1,9 @@
-import Ember from 'ember';
+import { oneWay } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
-  modalManager: Ember.inject.service(),
+export default Component.extend({
+  modalManager: service(),
 
-  componentPath: Ember.computed.oneWay('modalManager.componentPath')
+  componentPath: oneWay('modalManager.componentPath')
 });

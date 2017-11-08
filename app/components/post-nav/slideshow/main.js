@@ -1,9 +1,19 @@
-import Ember from 'ember';
+import {
+  Promise as EmberPromise,
+  resolve,
+  all
+} from 'rsvp';
+import { isEmpty } from '@ember/utils';
+import { bind } from '@ember/runloop';
+import { alias, notEmpty } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
+import EmberObject, { computed } from '@ember/object';
 import TouchActionMixin from 'ember-hammertime/mixins/touch-action';
 import { task } from 'ember-concurrency';
 
-const NavState = Ember.Object.extend({
-  currentPanel: Ember.computed({
+const NavState = EmberObject.extend({
+  currentPanel: computed({
     get() {
       return this.get('_currentPanel');
     },
@@ -16,7 +26,7 @@ const NavState = Ember.Object.extend({
       return this.set('_currentPanel', currentPanel);
     }
   }),
-  incomingPanel: Ember.computed({
+  incomingPanel: computed({
     get() {
       return this.get('_incomingPanel');
     },
@@ -31,17 +41,17 @@ const NavState = Ember.Object.extend({
   })
 });
 
-export default Ember.Component.extend(TouchActionMixin, {
+export default Component.extend(TouchActionMixin, {
   classNames: ['post-nav-slideshow-main'],
   classNameBindings: ['textExpanded:compressed'],
 
-  meta: Ember.inject.service(),
-  usingTouch: Ember.computed.alias('meta.usingTouch'),
-  isLoadingMorePosts: Ember.computed.notEmpty('loadingMorePostsPromise'),
+  meta: service(),
+  usingTouch: alias('meta.usingTouch'),
+  isLoadingMorePosts: notEmpty('loadingMorePostsPromise'),
 
-  pointers: Ember.computed(() => { return {} }),
-  swipeState: Ember.computed(() => { return { }}),
-  navState: Ember.computed(() => NavState.create({
+  pointers: computed(() => { return {} }),
+  swipeState: computed(() => { return { }}),
+  navState: computed(() => NavState.create({
     progress: 0,
     diffs: []
   })),
@@ -51,14 +61,14 @@ export default Ember.Component.extend(TouchActionMixin, {
   didInsertElement(...args) {
     this._super(...args);
 
-    this.element.addEventListener('touchstart', Ember.run.bind(this, this._touchStart));
-    this.element.addEventListener('touchmove', Ember.run.bind(this, this._touchMove));
-    this.element.addEventListener('touchend', Ember.run.bind(this, this._touchEnd));
+    this.element.addEventListener('touchstart', bind(this, this._touchStart));
+    this.element.addEventListener('touchmove', bind(this, this._touchMove));
+    this.element.addEventListener('touchend', bind(this, this._touchEnd));
 
     if (!this.get('usingTouch')) {
-      const startEvent = Ember.run.bind(this, this._startEvent);
-      const moveEvent = Ember.run.bind(this, this._moveEvent);
-      const endEvent = Ember.run.bind(this, this._endEvent);
+      const startEvent = bind(this, this._startEvent);
+      const moveEvent = bind(this, this._moveEvent);
+      const endEvent = bind(this, this._endEvent);
       const removeClickEvents = () => {
         this.set('usingTouch', true);
         this.element.removeEventListener('mousedown', startEvent);
@@ -195,7 +205,7 @@ export default Ember.Component.extend(TouchActionMixin, {
   },
 
   _settle() {
-    if (Ember.isEmpty(this.element)) return;
+    if (isEmpty(this.element)) return;
 
     const navState = this.get('navState');
     const previousProgress = navState.get('progress');
@@ -269,7 +279,7 @@ export default Ember.Component.extend(TouchActionMixin, {
     const currentPost = this.get('navState.currentPanel.post');
 
     if (posts.indexOf(currentPost) > posts.length - 5 && !this.get('isLoadingMorePosts') && !this.get('reachedLastPost')) {
-      const loadingMorePostsPromise = new Ember.RSVP.Promise((resolve, reject) => {
+      const loadingMorePostsPromise = new EmberPromise((resolve, reject) => {
         this.attrs.loadMorePosts(resolve, reject);
       });
 
@@ -312,12 +322,12 @@ export default Ember.Component.extend(TouchActionMixin, {
   }).restartable(),
 
   _loadNeighbors(panel) {
-    if (panel === 'edge' || panel.get('hasLoadedNeighbors')) return Ember.RSVP.resolve();
+    if (panel === 'edge' || panel.get('hasLoadedNeighbors')) return resolve();
 
-    const promise = Ember.RSVP.all(['right', 'down', 'up', 'left'].map((direction) => {
+    const promise = all(['right', 'down', 'up', 'left'].map((direction) => {
       const neighbor = this._getNeighbor(panel, direction);
 
-      if (neighbor === 'edge' || neighbor.get('isLoaded')) return Ember.RSVP.resolve();
+      if (neighbor === 'edge' || neighbor.get('isLoaded')) return resolve();
 
       neighbor.set('shouldLoad', true);
 

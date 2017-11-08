@@ -1,12 +1,13 @@
-import Ember from 'ember';
+import { oneWay, or } from '@ember/object/computed';
+import Component from '@ember/component';
 import SlideshowComponentMixin from 'client/mixins/slideshow-component';
 
-export default Ember.Component.extend(SlideshowComponentMixin, {
+export default Component.extend(SlideshowComponentMixin, {
   classNames: ['post-nav-slideshow-post'],
   classNameBindings: ['isBlank:post-nav-slideshow-post-blank'],
 
-  isOutgoing: Ember.computed.oneWay('post.isOutgoing'),
-  isIncoming: Ember.computed.oneWay('post.isIncoming'),
-  isBlank: Ember.computed.oneWay('post.isBlank'),
-  shouldRenderPost: Ember.computed.or('visible', 'post.shouldPrerender')
+  isOutgoing: oneWay('post.isOutgoing'),
+  isIncoming: oneWay('post.isIncoming'),
+  isBlank: oneWay('post.isBlank'),
+  shouldRenderPost: or('visible', 'post.shouldPrerender')
 });

@@ -1,15 +1,18 @@
-import Ember from 'ember';
+import { resolve } from 'rsvp';
+import { isEmpty } from '@ember/utils';
+import { alias } from '@ember/object/computed';
+import Service, { inject as service } from '@ember/service';
 
-export default Ember.Service.extend({
-  session: Ember.inject.service(),
-  store: Ember.inject.service(),
+export default Service.extend({
+  session: service(),
+  store: service(),
 
-  configuration: Ember.computed.alias('user.userConfiguration'),
+  configuration: alias('user.userConfiguration'),
 
   load() {
     const userId = this.get('session.data.authenticated.id');
 
-    if (!Ember.isEmpty(userId)) {
+    if (!isEmpty(userId)) {
       const store = this.get('store');
 
       return store.findRecord('user', userId).then((user) => {
@@ -20,7 +23,7 @@ export default Ember.Service.extend({
         });
       });
     } else {
-      return Ember.RSVP.resolve();
+      return resolve();
     }
   }
 });

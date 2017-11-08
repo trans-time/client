@@ -1,3 +1,5 @@
+import { isPresent } from '@ember/utils';
+
 export default function() {
 
   // These comments are here to help you get started. Feel free to delete them.
@@ -44,7 +46,7 @@ export default function() {
   })
   this.get('/posts', (schema, request) => {
     let posts = schema.posts.where({ userId: request.queryParams.userId });
-    if (Ember.isPresent(request.queryParams.tags)) {
+    if (isPresent(request.queryParams.tags)) {
       posts = posts.filter((post) => {
         return request.queryParams.tags.every((tagId) => post.tagIds.includes(tagId));
       });
@@ -54,7 +56,7 @@ export default function() {
     const startingIndex = page * perPage || 0;
     const postsSegment = posts.slice(startingIndex, startingIndex + perPage);
 
-    if (Ember.isPresent(request.requestHeaders.Authorization)) {
+    if (isPresent(request.requestHeaders.Authorization)) {
       const user = schema.db.users.find(request.requestHeaders.Authorization.match(/id="(.*)"/)[1]);
       postsSegment.models.forEach((post) => {
         if (Math.random() > 0.4) {

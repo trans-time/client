@@ -1,9 +1,10 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
   classNames: ['number-bubble'],
 
-  formattedNumber: Ember.computed('number', {
+  formattedNumber: computed('number', {
     get() {
       const number = this.get('number');
 

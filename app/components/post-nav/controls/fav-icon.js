@@ -1,22 +1,25 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { alias } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 import { task, timeout } from 'ember-concurrency';
 
-export default Ember.Component.extend({
+export default Component.extend({
   tagName: 'a',
   classNames: ['post-nav-controls-element', 'fav-icon'],
   classNameBindings: ['faved', 'hidden', 'disabled'],
   attributeBindings: ['disabled'],
 
-  meta: Ember.inject.service(),
-  usingTouch: Ember.computed.alias('meta.usingTouch'),
+  meta: service(),
+  usingTouch: alias('meta.usingTouch'),
 
-  iconType: Ember.computed('type', {
+  iconType: computed('type', {
     get() {
       return `${this.get('type')}-o`;
     }
   }),
 
-  total: Ember.computed('type', 'shouldDisplayAllTypes', 'post.totalFaves', {
+  total: computed('type', 'shouldDisplayAllTypes', 'post.totalFaves', {
     get() {
       if (!this.get('shouldDisplayAllTypes')) {
         return this.get('post.totalFaves');

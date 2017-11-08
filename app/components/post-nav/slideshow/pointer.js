@@ -1,12 +1,14 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { not } from '@ember/object/computed';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
   classNames: ['post-nav-slideshow-pointer'],
   classNameBindings: ['directionClass', 'hidden'],
 
-  hidden: Ember.computed.not('icon'),
+  hidden: not('icon'),
 
-  directionClass: Ember.computed('direction', {
+  directionClass: computed('direction', {
     get() {
       return `post-nav-slideshow-pointer-${this.get('direction')}`;
     }

@@ -1,13 +1,15 @@
 
-import Ember from 'ember';
+import { helper } from '@ember/component/helper';
+import { htmlSafe } from '@ember/string';
+import { isEmpty } from '@ember/utils';
 import markdownit from 'markdown-it';
 
 export function markdownRender([markdown]) {
-  if (Ember.isEmpty(markdown)) return;
+  if (isEmpty(markdown)) return;
 
   const html = markdownit().render(markdown).replace(/<a /g, '<a target="_blank"');
 
-  return Ember.String.htmlSafe(html);
+  return htmlSafe(html);
 }
 
-export default Ember.Helper.helper(markdownRender);
+export default helper(markdownRender);

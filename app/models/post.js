@@ -1,3 +1,5 @@
+import { A } from '@ember/array';
+import EmberObject, { computed } from '@ember/object';
 import DS from 'ember-data';
 
 export default DS.Model.extend({
@@ -14,17 +16,17 @@ export default DS.Model.extend({
   totalMoons: DS.attr('number'),
   totalFaves: DS.attr('number'),
 
-  panelsWithBlank: Ember.computed('panels.[]', {
+  panelsWithBlank: computed('panels.[]', {
     get() {
       const panels = this.get('panels');
 
-      return panels.get('length') === 0 ? Ember.A([this.get('_blankPanel')]) : Ember.A(panels.toArray());
+      return panels.get('length') === 0 ? A([this.get('_blankPanel')]) : A(panels.toArray());
     }
   }),
 
-  _blankPanel: Ember.computed({
+  _blankPanel: computed({
     get() {
-      return Ember.Object.create({ postNavComponent: 'post-nav/slideshow/blank', post: { content: this } });
+      return EmberObject.create({ postNavComponent: 'post-nav/slideshow/blank', post: { content: this } });
     }
   })
 });

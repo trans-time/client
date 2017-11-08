@@ -1,4 +1,6 @@
-import Ember from 'ember';
+import { or } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 import Changeset from 'ember-changeset';
 import lookupValidator from 'ember-changeset-validations';
 import {
@@ -16,13 +18,13 @@ const SessionValidations = {
   ]
 };
 
-export default Ember.Component.extend({
+export default Component.extend({
   classNames: ['main-modal-content'],
 
-  modalManager: Ember.inject.service(),
-  session: Ember.inject.service(),
+  modalManager: service(),
+  session: service(),
 
-  disabled: Ember.computed.or('changeset.isInvalid', 'changeset.isPristine'),
+  disabled: or('changeset.isInvalid', 'changeset.isPristine'),
 
   didReceiveAttrs(...args) {
     this._super(...args);

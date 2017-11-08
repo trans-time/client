@@ -1,12 +1,14 @@
-import Ember from 'ember';
+import { oneWay } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
   classNames: ['top-bar'],
 
-  meta: Ember.inject.service(),
-  router: Ember.inject.service(),
+  meta: service(),
+  router: service(),
 
-  title: Ember.computed.oneWay('meta.title'),
+  title: oneWay('meta.title'),
 
   actions: {
     back() {

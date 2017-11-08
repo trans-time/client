@@ -1,13 +1,16 @@
-import Ember from 'ember';
+import { assign } from '@ember/polyfills';
+import { hash } from 'rsvp';
+import { inject as service } from '@ember/service';
+import Route from '@ember/routing/route';
 
-export default Ember.Route.extend({
+export default Route.extend({
   queryParams: {
     tags: {
       refreshModel: true
     }
   },
 
-  messageBus: Ember.inject.service(),
+  messageBus: service(),
 
   init(...args) {
     this._super(...args);
@@ -22,7 +25,7 @@ export default Ember.Route.extend({
 
     const user = this.modelFor('users.user').user;
 
-    return Ember.RSVP.hash({
+    return hash({
       posts: this.store.query('post', { userId: user.id, tags: params.tags, direction: params.direction, page: 0, perPage: 10 }),
       user
     });
@@ -30,7 +33,7 @@ export default Ember.Route.extend({
 
   _refreshPosts() {
     const query = this.get('controller.model.posts.query');
-    const originalQueryClone = Ember.assign({}, query);
+    const originalQueryClone = assign({}, query);
 
     query.perPage = (query.page + 1) * query.perPage;
     query.page = 0;

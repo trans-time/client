@@ -1,17 +1,19 @@
-import Ember from 'ember';
+import { observer } from '@ember/object';
+import { not, or, equal, oneWay } from '@ember/object/computed';
+import Mixin from '@ember/object/mixin';
 
-export default Ember.Mixin.create({
+export default Mixin.create({
   classNameBindings: ['hidden'],
   // attributeBindings: ['style'],
 
-  hidden: Ember.computed.not('visible'),
-  visible: Ember.computed.or('isOutgoing', 'isIncoming'),
-  isAnimating: Ember.computed.equal('axis', 'y'),
+  hidden: not('visible'),
+  visible: or('isOutgoing', 'isIncoming'),
+  isAnimating: equal('axis', 'y'),
 
-  axis: Ember.computed.oneWay('navState.axis'),
-  progress: Ember.computed.oneWay('navState.progress'),
+  axis: oneWay('navState.axis'),
+  progress: oneWay('navState.progress'),
 
-  styleObserver: Ember.observer('progress', 'hidden', 'isAnimating', function () {
+  styleObserver: observer('progress', 'hidden', 'isAnimating', function () {
     this.element.style = this._generateStyle();
   }),
 

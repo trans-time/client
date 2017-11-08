@@ -1,12 +1,17 @@
-import Ember from 'ember';
+import { on } from '@ember/object/evented';
+import { A } from '@ember/array';
+import Component from '@ember/component';
+import { isBlank } from '@ember/utils';
+import { alias, oneWay, equal } from '@ember/object/computed';
+import EmberObject, { computed, observer } from '@ember/object';
 
-const PanelDecorator = Ember.Object.extend({
-  isLoaded: Ember.computed.alias('model.srcIsLoaded'),
-  shouldLoad: Ember.computed.alias('model.srcShouldLoad'),
-  loadPromise: Ember.computed.alias('model.loadPromise'),
+const PanelDecorator = EmberObject.extend({
+  isLoaded: alias('model.srcIsLoaded'),
+  shouldLoad: alias('model.srcShouldLoad'),
+  loadPromise: alias('model.loadPromise'),
 
-  postNavComponent: Ember.computed.oneWay('model.postNavComponent'),
-  src: Ember.computed.oneWay('model.src'),
+  postNavComponent: oneWay('model.postNavComponent'),
+  src: oneWay('model.src'),
 
   getNeighbor(direction) {
     return this.get(direction) || this._getNeighbor(direction);
@@ -20,7 +25,7 @@ const PanelDecorator = Ember.Object.extend({
       default: {
         const post = this.get('post').getNeighbor(direction);
 
-        if (Ember.isBlank(post)) return 'edge';
+        if (isBlank(post)) return 'edge';
 
         const panels = post.get('panels');
 
@@ -36,23 +41,23 @@ const PanelDecorator = Ember.Object.extend({
   }
 });
 
-const PostDecorator = Ember.Object.extend({
-  posts: Ember.computed.oneWay('component.decoratedPosts'),
-  isBlank: Ember.computed.equal('model.panels.length', 0),
+const PostDecorator = EmberObject.extend({
+  posts: oneWay('component.decoratedPosts'),
+  isBlank: equal('model.panels.length', 0),
 
-  isIncoming: Ember.computed('panels.@each.isIncoming', {
+  isIncoming: computed('panels.@each.isIncoming', {
     get() {
       return this.get('panels').any((panel) => panel.get('isIncoming'));
     }
   }),
 
-  isOutgoing: Ember.computed('panels.@each.isOutgoing', {
+  isOutgoing: computed('panels.@each.isOutgoing', {
     get() {
       return this.get('panels').any((panel) => panel.get('isOutgoing'));
     }
   }),
 
-  panels: Ember.computed('model.panels.[]', {
+  panels: computed('model.panels.[]', {
     get() {
       let panels = this.get('model.panels');
 
@@ -81,21 +86,21 @@ const PostDecorator = Ember.Object.extend({
     }
   },
 
-  _blankPanel: Ember.computed({
+  _blankPanel: computed({
     get() {
-      return Ember.Object.create({ postNavComponent: 'post-nav/slideshow/blank', post: { content: this.get('model') } });
+      return EmberObject.create({ postNavComponent: 'post-nav/slideshow/blank', post: { content: this.get('model') } });
     }
   })
 });
 
-export default Ember.Component.extend({
+export default Component.extend({
   tagName: '',
 
   nextPostIndex: 0,
 
-  decoratedPosts: Ember.computed(() => Ember.A()),
+  decoratedPosts: computed(() => A()),
 
-  addToDecoratedPosts: Ember.on('init', Ember.observer('posts.[]', function() {
+  addToDecoratedPosts: on('init', observer('posts.[]', function() {
     const { decoratedPosts, posts, nextPostIndex } = this.getProperties('decoratedPosts', 'posts', 'nextPostIndex');
     const newPosts = posts.slice(nextPostIndex).map((model, index) => {
       return PostDecorator.create({

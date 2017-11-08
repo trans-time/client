@@ -1,3 +1,4 @@
+import { deprecatingAlias } from '@ember/object/computed';
 import { Promise } from 'rsvp';
 import { inject } from '@ember/service';
 import { isEmpty } from '@ember/utils';
@@ -19,7 +20,7 @@ export default BaseAuthenticator.extend({
 
   messageBus: inject(),
 
-  rejectWithXhr: computed.deprecatingAlias('rejectWithResponse', {
+  rejectWithXhr: deprecatingAlias('rejectWithResponse', {
     id: `ember-simple-auth.authenticator.reject-with-xhr`,
     until: '2.0.0'
   }),

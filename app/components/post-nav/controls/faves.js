@@ -1,22 +1,26 @@
-import Ember from 'ember';
+import { capitalize } from '@ember/string';
+import { computed } from '@ember/object';
+import { oneWay, alias, notEmpty } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 import AuthenticatedActionMixin from 'client/mixins/authenticated-action';
 
-export default Ember.Component.extend(AuthenticatedActionMixin, {
+export default Component.extend(AuthenticatedActionMixin, {
   tagName: '',
 
   disabled: false,
   types: ['moon', 'star', 'sun'],
 
-  currentUser: Ember.inject.service(),
-  store: Ember.inject.service(),
+  currentUser: service(),
+  store: service(),
 
-  user: Ember.computed.oneWay('currentUser.user'),
+  user: oneWay('currentUser.user'),
 
-  currentUserFav: Ember.computed.alias('post.currentUserFav.content'),
-  faved: Ember.computed.notEmpty('currentUserFav'),
-  selectedCurrentType: Ember.computed.oneWay('currentUserFav.type'),
+  currentUserFav: alias('post.currentUserFav.content'),
+  faved: notEmpty('currentUserFav'),
+  selectedCurrentType: oneWay('currentUserFav.type'),
 
-  currentType: Ember.computed('selectedCurrentType', {
+  currentType: computed('selectedCurrentType', {
     get() {
       return this.get('selectedCurrentType') || 'star';
     }
@@ -49,7 +53,7 @@ export default Ember.Component.extend(AuthenticatedActionMixin, {
     }).save().then((fav) => {
       post.set('currentUserFav', fav);
       post.incrementProperty('totalFaves');
-      post.incrementProperty(`total${Ember.String.capitalize(type)}s`);
+      post.incrementProperty(`total${capitalize(type)}s`);
     }).finally(() => {
       this.setProperties({
         disabled: false,
@@ -66,8 +70,8 @@ export default Ember.Component.extend(AuthenticatedActionMixin, {
       currentUserFav.set('type', newType);
       this.set('disabled', true);
       currentUserFav.save().then(() => {
-        post.decrementProperty(`total${Ember.String.capitalize(previousType)}s`);
-        post.incrementProperty(`total${Ember.String.capitalize(newType)}s`);
+        post.decrementProperty(`total${capitalize(previousType)}s`);
+        post.incrementProperty(`total${capitalize(newType)}s`);
       }).catch(() => {
         currentUserFav.set('type', previousType);
       }).finally(() => {
@@ -89,7 +93,7 @@ export default Ember.Component.extend(AuthenticatedActionMixin, {
     currentUserFav.destroyRecord().then(() => {
       this.set('post.currentUserFav', null);
       post.decrementProperty('totalFaves');
-      post.decrementProperty(`total${Ember.String.capitalize(previousType)}s`);
+      post.decrementProperty(`total${capitalize(previousType)}s`);
     }).finally(() => {
       this.set('disabled', false);
     });

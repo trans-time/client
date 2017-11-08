@@ -1,3 +1,4 @@
+import { A } from '@ember/array';
 import DS from 'ember-data';
 import { computed } from '@ember/object';
 
@@ -12,7 +13,7 @@ export default DS.Model.extend({
 
   tags: computed('posts.@each.tag', {
     get() {
-      return this.get('posts').toArray().reduce((tags, post) => tags.concat(post.get('tags').toArray()), Ember.A()).uniq();
+      return this.get('posts').toArray().reduce((tags, post) => tags.concat(post.get('tags').toArray()), A()).uniq();
     }
   })
 });

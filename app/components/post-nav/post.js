@@ -1,12 +1,16 @@
-import Ember from 'ember';
+import { bind } from '@ember/runloop';
+import { computed } from '@ember/object';
+import { alias } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
   classNames: ['post-nav-post'],
   classNameBindings: ['textExpanded:expanded', 'textRevealed'],
 
-  meta: Ember.inject.service(),
-  usingTouch: Ember.computed.alias('meta.usingTouch'),
-  swipeState: Ember.computed(() => {
+  meta: service(),
+  usingTouch: alias('meta.usingTouch'),
+  swipeState: computed(() => {
     return {
       diffs: []
     }
@@ -15,15 +19,15 @@ export default Ember.Component.extend({
   didInsertElement(...args) {
     this._super(...args);
 
-    this.element.addEventListener('touchstart', Ember.run.bind(this, this._touchStart));
-    this.element.addEventListener('touchmove', Ember.run.bind(this, this._touchMove));
-    this.element.addEventListener('touchend', Ember.run.bind(this, this._touchEnd));
+    this.element.addEventListener('touchstart', bind(this, this._touchStart));
+    this.element.addEventListener('touchmove', bind(this, this._touchMove));
+    this.element.addEventListener('touchend', bind(this, this._touchEnd));
 
     if (!this.get('usingTouch')) {
-      const startEvent = Ember.run.bind(this, this._startEvent);
-      const moveEvent = Ember.run.bind(this, this._moveEvent);
-      const endEvent = Ember.run.bind(this, this._endEvent);
-      const mouseOutEvent = Ember.run.bind(this, this._mouseOut);
+      const startEvent = bind(this, this._startEvent);
+      const moveEvent = bind(this, this._moveEvent);
+      const endEvent = bind(this, this._endEvent);
+      const mouseOutEvent = bind(this, this._mouseOut);
       const removeClickEvents = () => {
         this.set('usingTouch', true);
         this.element.removeEventListener('mousedown', startEvent);
@@ -48,13 +52,13 @@ export default Ember.Component.extend({
     window.removeEventListener('resize', this.get('onResize'));
   },
 
-  resizeType: Ember.computed('textExpanded', {
+  resizeType: computed('textExpanded', {
     get() {
       return this.get('textExpanded') ? 'compress' : 'expand'
     }
   }),
 
-  textRevealed: Ember.computed('userRevealedText', 'textOverflown', {
+  textRevealed: computed('userRevealedText', 'textOverflown', {
     get() {
       return this.get('userRevealedText') || !this.get('textOverflown');
     }

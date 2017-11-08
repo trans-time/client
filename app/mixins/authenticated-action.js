@@ -1,11 +1,13 @@
-import Ember from 'ember';
+import { Promise as EmberPromise } from 'rsvp';
+import { inject as service } from '@ember/service';
+import Mixin from '@ember/object/mixin';
 
-export default Ember.Mixin.create({
-  modalManager: Ember.inject.service(),
-  session: Ember.inject.service(),
+export default Mixin.create({
+  modalManager: service(),
+  session: service(),
 
   authenticatedAction() {
-    return new Ember.RSVP.Promise((resolve, reject) => {
+    return new EmberPromise((resolve, reject) => {
       if (this.get('session.isAuthenticated')) {
         resolve();
       } else {

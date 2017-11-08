@@ -1,9 +1,10 @@
-import Ember from 'ember';
+import { hash } from 'rsvp';
+import Route from '@ember/routing/route';
 import RouteTitleMixin from 'client/mixins/route-title';
 
-export default Ember.Route.extend(RouteTitleMixin, {
+export default Route.extend(RouteTitleMixin, {
   model(params) {
-    return Ember.RSVP.hash({
+    return hash({
       user: this.store.findRecord('user', params.id),
       userTagSummary: this.store.findRecord('user-tag-summary', params.id)
     });
