@@ -2,16 +2,21 @@
   display: flex;
   flex-direction: column;
   flex-shrink: 5;
+  position: relative;
   height: 100vh;
   min-height: 70px;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
   background-color: $white;
   border: 1px solid $medium-gray;
   border-bottom: 0;
-  padding: $rhythm;
   z-index: 3;
   transition: flex-shrink 500ms ease-out;
+
+  .post-nav-post-text {
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: $rhythm;
+  }
 
   .reveal-text-toggle {
     align-items: center;
@@ -50,7 +55,9 @@
   }
 
   .post-nav-resize-toggle {
-    position: relative;
+    position: absolute;
+    top: $rhythm;
+    right: $rhythm * 2;
     margin-left: auto;
     flex-shrink: 0;
     width: 27px;
@@ -61,6 +68,8 @@
       right: -$rhythm;
       display: block;
       padding: $rhythm;
+      background: $white;
+      border-radius: 50%;
     }
 
     i {

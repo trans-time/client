@@ -99,16 +99,18 @@ export default Component.extend({
     const swipeState = this.get('swipeState');
     if (!swipeState.active || this.get('scrollLocked')) return;
 
+    const element = this.get('_constraint');
+
     swipeState.diffY = e.clientY - swipeState.currentY;
     swipeState.currentY = e.clientY;
 
-    this.element.scrollTop -= swipeState.diffY;
+    element.scrollTop -= swipeState.diffY;
 
-    if (Math.ceil(this.element.scrollTop + this.element.clientHeight) >= this.element.scrollHeight) {
-      this.element.scrollTop = this.element.scrollHeight - this.element.clientHeight;
+    if (Math.ceil(element.scrollTop + element.clientHeight) >= element.scrollHeight) {
+      element.scrollTop = element.scrollHeight - element.clientHeight;
       swipeState.active = false;
-    } else if (this.element.scrollTop <= 0) {
-      this.element.scrollTop = 0;
+    } else if (element.scrollTop <= 0) {
+      element.scrollTop = 0;
       swipeState.active = false;
     } else {
       swipeState.diffs.push(swipeState.diffY);
@@ -123,6 +125,8 @@ export default Component.extend({
     const swipeState = this.get('swipeState');
     if (!swipeState.active) return;
 
+    const element = this.get('_constraint');
+
     swipeState.active = false;
 
     const precision = 5;
@@ -134,10 +138,10 @@ export default Component.extend({
       const loop = () => {
         if (!this.element || this.get('scrollLocked')) return;
 
-        this.element.scrollTop -= velocity;
+        element.scrollTop -= velocity;
 
-        if (Math.ceil(this.element.scrollTop + this.element.clientHeight) >= this.element.scrollHeight) return this.element.scrollTop = this.element.scrollHeight - this.element.clientHeight;
-        else if (this.element.scrollTop < 0) return this.element.scrollTop = 0;
+        if (Math.ceil(element.scrollTop + element.clientHeight) >= element.scrollHeight) return element.scrollTop = element.scrollHeight - element.clientHeight;
+        else if (element.scrollTop < 0) return element.scrollTop = 0;
 
         velocity *= 0.95;
 
@@ -149,10 +153,16 @@ export default Component.extend({
   },
 
   _checkTextOverflow() {
-    const element = this.$('.post-nav-post-constraint').get(0);
+    const element = this.get('_constraint');
 
     this.set('textOverflown', element.scrollHeight > element.clientHeight);
   },
+
+  _constraint: computed({
+    get() {
+      return this.$('.post-nav-post-constraint').get(0);
+    }
+  }),
 
   actions: {
     expand() {
