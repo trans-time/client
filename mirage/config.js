@@ -1,4 +1,5 @@
 import { isPresent } from '@ember/utils';
+import { upload } from 'ember-file-upload/mirage';
 
 export default function() {
 
@@ -88,4 +89,13 @@ export default function() {
   this.post('/faves');
   this.patch('/faves/:id')
   this.del('/faves/:id');
+  this.post('/posts', (schema, request) => {
+    return schema.posts.create(JSON.parse(request.requestBody));
+  });
+  this.post('/images');
+  this.post('/images/upload', upload((db, file) => {
+    let { name: filename, size: filesize, url } = file;
+    let photo = db.create('image', { filename, filesize, url, uploadedAt: new Date() });
+    return photo;
+  }));
 }

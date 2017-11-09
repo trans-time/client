@@ -2,11 +2,22 @@ auth:
   join: "Join"
   login: "Login"
   logout: "Logout"
+file:
+  addAnImage: "Add an Image."
+  dragAndDrop: "Drag and drop images onto this area to upload them or"
+  drop: "Drop to upload"
+  invalid: "File is invalid"
+  progress: "Uploading {{length}} files. ({{progress}}%)"
+  uploadImages: "Upload Images"
 general:
   cancel: "Cancel"
   submit: "Submit"
 post:
+  attributes:
+    text:
+      label: "tell us something"
   more: "more"
+  new: "New Post"
 search:
   title: "Search"
 users:

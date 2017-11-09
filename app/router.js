@@ -13,6 +13,9 @@ Router.map(function() {
     });
   });
   this.route('search', function() {});
+  this.route('posts', function() {
+    this.route('new');
+  });
 });
 
 export default Router;
