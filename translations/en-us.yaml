@@ -14,6 +14,8 @@ general:
   submit: "Submit"
 post:
   attributes:
+    date:
+      label: "Date"
     text:
       label: "tell us something"
   more: "more"

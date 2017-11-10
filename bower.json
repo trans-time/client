@@ -1,6 +1,7 @@
 {
   "name": "client",
   "dependencies": {
-    "markdown-it": "^8.4.0"
+    "markdown-it": "^8.4.0",
+    "ember-cli-snap-svg-shim": "^0.0.3"
   }
 }

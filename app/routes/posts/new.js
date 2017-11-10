@@ -13,7 +13,8 @@ export default Route.extend({
     const user = this.get('user');
 
     return this.store.createRecord('post', {
-      user
+      user,
+      date: Date.now()
     });
   },
 
