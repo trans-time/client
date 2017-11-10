@@ -14,6 +14,8 @@ const PostValidations = {
 };
 
 export default Component.extend({
+  view: 'text',
+
   disabled: or('changeset.isInvalid', 'changeset.isPristine'),
 
   didReceiveAttrs(...args) {
@@ -24,8 +26,8 @@ export default Component.extend({
   },
 
   actions: {
-    cancel() {
-
+    transition(view) {
+      this.set('view', view);
     }
   }
 });
