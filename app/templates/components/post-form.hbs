@@ -1,4 +1,4 @@
-{{#paper-form onSubmit=(route-action "submit" post) as |form|}}
+{{#paper-form onSubmit=(route-action "submit" changeset) as |form|}}
   {{#paper-list}}
     {{#paper-subheader class="md-no-sticky"}}{{t "post.new"}}{{/paper-subheader}}
     {{#paper-item}}
@@ -37,15 +37,7 @@
     {{/paper-item}}
 
     {{#paper-item}}
-      {{form.input
-        textarea=true
-        block=true
-        value=changeset.text
-        label=(t "post.attributes.text.label")
-        onChange=(action (mut changeset.text))
-        errors=changeset.error.text.validation
-        passThru=(hash rows=5 maxRows=5)
-      }}
+      {{textarea value=changeset.text}}
     {{/paper-item}}
   {{/paper-list}}
 
