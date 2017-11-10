@@ -18,6 +18,11 @@ export default Component.extend({
     logout() {
       this.attrs.toggleMenu();
       this.get('session').invalidate();
+    },
+
+    newPost() {
+      this.attrs.toggleMenu();
+      this.get('router').transitionTo('posts.new');
     }
   }
 });
