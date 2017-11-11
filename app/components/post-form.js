@@ -1,3 +1,4 @@
+import { computed } from '@ember/object';
 import { or } from '@ember/object/computed';
 import Component from '@ember/component';
 import Changeset from 'ember-changeset';
@@ -24,6 +25,12 @@ export default Component.extend({
     this.set('changeset', new Changeset(this.get('post'), lookupValidator(PostValidations), PostValidations));
     this.get('changeset').validate();
   },
+
+  viewPath: computed('view', {
+    get() {
+      return `post-form/${this.get('view')}`;
+    }
+  }),
 
   actions: {
     transition(view) {

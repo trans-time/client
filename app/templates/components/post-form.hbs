@@ -1,47 +1,6 @@
 {{#paper-form onSubmit=(route-action "submit" changeset) as |form|}}
   {{#paper-list}}
-    {{#liquid-if (eq view "text")}}
-      {{#paper-subheader class="md-no-sticky"}}{{t "post.new"}}{{/paper-subheader}}
-
-      {{#paper-item}}
-        {{paper-datetime-picker
-          timestamp=changeset.date
-        }}
-      {{/paper-item}}
-
-      {{#paper-item}}
-        {{textarea value=changeset.text}}
-      {{/paper-item}}
-    {{else if (eq view "image")}}
-      {{#paper-item}}
-
-        {{#file-dropzone name="photos" as |dropzone queue|}}
-          {{#if dropzone.active}}
-            {{#if dropzone.valid}}
-              {{t "file.drop"}}
-            {{else}}
-              {{t "file.invalid"}}
-            {{/if}}
-          {{else if queue.files.length}}
-            {{t "file.progress" length=queue.files.length progress=queue.progress}}
-          {{else}}
-            <h2>{{t "file.uploadImages"}}</h2>
-            <p>
-              {{#if dropzone.supported}}
-                {{t "file.dragAndDrop"}}
-              {{/if}}
-              {{#file-upload name="imageFile"
-                             accept="image/*"
-                             multiple=true
-                             onfileadd=(route-action "uploadImage")}}
-                <a id="upload-image" tabindex=0>{{t "file.addAnImage"}}</a>
-              {{/file-upload}}
-            </p>
-          {{/if}}
-        {{/file-dropzone}}
-
-      {{/paper-item}}
-    {{/liquid-if}}
+    {{component viewPath changeset=changeset form=form uploadFileToRoute=(route-action "uploadFile")}}
   {{/paper-list}}
 
   <div>
