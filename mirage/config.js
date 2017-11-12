@@ -93,9 +93,9 @@ export default function() {
     return schema.posts.create(JSON.parse(request.requestBody));
   });
   this.post('/images');
-  this.post('/images/upload', upload((db, file) => {
-    let { name: filename, size: filesize, url } = file;
-    let photo = db.create('image', { filename, filesize, url, uploadedAt: new Date() });
+  this.post('/images/upload', upload((db, request) => {
+    let { name: filename, size: filesize, url: src } = request.requestBody.file;
+    let photo = db.create('image', { filename, filesize, src, uploadedAt: new Date() });
     return photo;
   }));
 }

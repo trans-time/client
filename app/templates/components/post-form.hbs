@@ -1,6 +1,6 @@
 {{#paper-form onSubmit=(route-action "submit" changeset) as |form|}}
   {{#paper-list}}
-    {{component viewPath changeset=changeset form=form uploadFileToRoute=(route-action "uploadFile")}}
+    {{component viewPath panels=post.panels changeset=changeset form=form uploadFileToRoute=(route-action "uploadFile")}}
   {{/paper-list}}
 
   <div>

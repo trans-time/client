@@ -34,10 +34,8 @@ export default Route.extend({
         }
       });
 
-      let response = yield file.upload(`${config.rootURL}${type}s/upload`);
-      set(fileModel, 'src', response.headers.Location);
+      yield file.upload(`${config.rootURL}${type}s/upload`);
       post.get('panels').pushObject(fileModel);
-      yield fileModel.save();
     } catch (e) {
       fileModel.deleteRecord();
     }
