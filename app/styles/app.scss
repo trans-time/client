@@ -49,3 +49,36 @@ body > .ember-view:not(.liquid-destination) > .liquid-container > .liquid-child 
 .liquid-destination:not(.default-liquid-destination) {
   z-index: 9;
 }
+
+// .ember-webcam, .ember-webcam-viewer {
+//   width: 100%;
+//   height: 100%;
+//   min-width: 100%;
+//   min-height: 100%;
+//
+//   video {
+//     width: 100%;
+//     height: 100%;
+//   }
+// }
+
+.ember-webrtc-capture {
+  width: 100%;
+  height: 100%;
+
+  video, canvas {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  canvas {
+    display: none;
+  }
+}
+
+.post-form-image-carousel {
+  position: absolute;
+  top: 0;
+}

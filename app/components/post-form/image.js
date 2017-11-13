@@ -41,7 +41,7 @@ export default Component.extend({
       this.attrs.uploadFileToRoute(file, 'image');
     },
 
-    didSnap(dataUri) {
+    takePicture(dataUri) {
       const blob = this._dataURItoBlob(dataUri);
       blob.name = `${this.get('user.username')}-${Date.now()}.jpeg`;
       const [file] = this.get('queue')._addFiles([blob], 'blob');

@@ -1,7 +1,5 @@
 {{#paper-form onSubmit=(route-action "submit" changeset) as |form|}}
-  {{#paper-list}}
-    {{component viewPath panels=post.panels changeset=changeset form=form uploadFileToRoute=(route-action "uploadFile")}}
-  {{/paper-list}}
+  {{component viewPath panels=post.panels changeset=changeset form=form uploadFileToRoute=(route-action "uploadFile")}}
 
   <div>
     <a {{action "transition" "text"}}>{{fa-icon "font"}}</a>

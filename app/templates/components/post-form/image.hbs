@@ -1,13 +1,6 @@
-{{#paper-item}}
-  {{#ember-webcam
-    didSnap=(action 'didSnap')
-    as |camera|}}
-    <button {{action camera.snap}}>
-      Take Snapshot!
-    </button>
-  {{/ember-webcam}}
-
-{{/paper-item}}
+{{ember-webrtc-capture
+  takePicture=(action "takePicture")
+}}
 
 
 
@@ -36,6 +29,8 @@
     {{/if}}
   {{/file-dropzone}}
 
-{{#each panels as |panel|}}
-  <img src={{panel.src}}>
-{{/each}}
+<div class="post-form-image-carousel">
+  {{#each panels as |panel|}}
+    <img src={{panel.src}}>
+  {{/each}}
+</div>
