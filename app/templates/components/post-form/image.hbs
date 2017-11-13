@@ -4,33 +4,38 @@
 
 
 
-  {{#file-dropzone name="photos" as |dropzone queue|}}
-    {{#if dropzone.active}}
-      {{#if dropzone.valid}}
-        {{t "file.drop"}}
-      {{else}}
-        {{t "file.invalid"}}
-      {{/if}}
-    {{else if queue.files.length}}
-      {{t "file.progress" length=queue.files.length progress=queue.progress}}
-    {{else}}
-      <h2>{{t "file.uploadImages"}}</h2>
-      <p>
-        {{#if dropzone.supported}}
-          {{t "file.dragAndDrop"}}
-        {{/if}}
-        {{#file-upload name="imageFile"
-                       accept="image/*"
-                       multiple=true
-                       onfileadd=(action "uploadImage")}}
-          <a id="upload-image" tabindex=0>{{t "file.addAnImage"}}</a>
-        {{/file-upload}}
-      </p>
-    {{/if}}
-  {{/file-dropzone}}
+
 
 <div class="post-form-image-carousel">
+  <div class="post-form-image-carousel-item">
+    {{#file-dropzone name="photos" as |dropzone queue|}}
+      {{#if dropzone.active}}
+        {{#if dropzone.valid}}
+          {{t "file.drop"}}
+        {{else}}
+          {{t "file.invalid"}}
+        {{/if}}
+      {{else if queue.files.length}}
+        {{t "file.progress" length=queue.files.length progress=queue.progress}}
+      {{else}}
+        <h2>{{t "file.uploadImages"}}</h2>
+        <p>
+          {{#if dropzone.supported}}
+            {{t "file.dragAndDrop"}}
+          {{/if}}
+          {{#file-upload name="imageFile"
+                         accept="image/*"
+                         multiple=true
+                         onfileadd=(action "uploadImage")}}
+            <a id="upload-image" tabindex=0>{{t "file.addAnImage"}}</a>
+          {{/file-upload}}
+        </p>
+      {{/if}}
+    {{/file-dropzone}}
+  </div>
   {{#each panels as |panel|}}
-    <img src={{panel.src}}>
+    <div class="post-form-image-carousel-item">
+      <img src={{panel.src}}>
+    </div>
   {{/each}}
 </div>
