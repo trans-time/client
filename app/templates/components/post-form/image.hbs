@@ -1,10 +1,14 @@
-{{ember-webrtc-capture
-  takePicture=(action "takePicture")
-}}
-
-
-
-
+<div class="post-form-image-container" style={{containerStyle}}>
+  <div class="post-form-image-container-curtain">
+    {{#if cameraOn}}
+      {{ember-webrtc-capture
+        takePicture=(action "takePicture")
+      }}
+    {{else if displayImage}}
+      <img class="post-form-display-image" src={{displayImage.src}}>
+    {{/if}}
+  </div>
+</div>
 
 <div class="post-form-image-carousel">
   <div class="post-form-image-carousel-item">
@@ -18,24 +22,21 @@
       {{else if queue.files.length}}
         {{t "file.progress" length=queue.files.length progress=queue.progress}}
       {{else}}
-        <h2>{{t "file.uploadImages"}}</h2>
-        <p>
-          {{#if dropzone.supported}}
-            {{t "file.dragAndDrop"}}
-          {{/if}}
-          {{#file-upload name="imageFile"
-                         accept="image/*"
-                         multiple=true
-                         onfileadd=(action "uploadImage")}}
-            <a id="upload-image" tabindex=0>{{t "file.addAnImage"}}</a>
-          {{/file-upload}}
-        </p>
+        {{#file-upload name="imageFile"
+                       accept="image/*"
+                       multiple=true
+                       onfileadd=(action "uploadImage")}}
+          <a id="upload-image" tabindex=0>{{fa-icon "plus"}}</a>
+        {{/file-upload}}
       {{/if}}
     {{/file-dropzone}}
   </div>
+  <div class="post-form-image-carousel-item">
+    <a {{action "openCamera"}}>{{fa-icon "camera"}}</a>
+  </div>
   {{#each panels as |panel|}}
     <div class="post-form-image-carousel-item">
-      <img src={{panel.src}}>
+      <a {{action "selectImage" panel}}><img src={{panel.src}}></a>
     </div>
   {{/each}}
 </div>

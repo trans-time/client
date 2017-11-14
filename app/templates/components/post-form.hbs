@@ -1,4 +1,4 @@
-{{#paper-form onSubmit=(route-action "submit" changeset) as |form|}}
+{{#paper-form classNames="post-form-form" onSubmit=(route-action "submit" changeset) as |form|}}
   {{component viewPath panels=post.panels changeset=changeset form=form uploadFileToRoute=(route-action "uploadFile")}}
 
   <div>

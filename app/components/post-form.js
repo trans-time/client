@@ -17,6 +17,8 @@ const PostValidations = {
 export default Component.extend({
   view: 'text',
 
+  classNames: ['post-form'],
+
   disabled: or('changeset.isInvalid', 'changeset.isPristine'),
 
   didReceiveAttrs(...args) {

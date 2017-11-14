@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { task, timeout } from 'ember-concurrency';
 
 export default Component.extend({
   classNames: ['ember-webrtc-capture'],
@@ -20,14 +21,14 @@ export default Component.extend({
   },
 
   click() {
-    this._takePicture();
+    this.get('_takePicture').perform();
   },
 
   touchEnd() {
-    this._takePicture();
+    this.get('_takePicture').perform();
   },
 
-  _takePicture() {
+  _takePicture: task(function * () {
     var context = this._canvas.getContext('2d');
     this._canvas.width = this._video.videoWidth;
     this._canvas.height = this._video.videoHeight;
@@ -36,5 +37,7 @@ export default Component.extend({
     var data = this._canvas.toDataURL('image/png');
 
     this.attrs.takePicture(data);
-  }
+
+    yield timeout(100);
+  }).drop()
 });
