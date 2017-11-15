@@ -1,8 +1,9 @@
 import { computed } from '@ember/object';
-import { oneWay } from '@ember/object/computed';
+import { alias, oneWay } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/string';
 import Component from '@ember/component';
+import { task, timeout } from 'ember-concurrency';
 
 export default Component.extend({
   cameraOn: true,
@@ -13,7 +14,9 @@ export default Component.extend({
   currentUser: service(),
   fileQueue: service(),
   messageBus: service(),
+  store: service(),
 
+  panels: alias('post.panels'),
   user: oneWay('currentUser.user'),
 
   init(...args) {
@@ -64,6 +67,23 @@ export default Component.extend({
     return new Blob([binaryData], { type: mimeType });
   },
 
+  _addImage: task(function * (file) {
+    file.readAsDataURL().then((src) => {
+      const post = this.get('post');
+      const image = this.get('store').createRecord('image', {
+        post,
+        file,
+        src,
+        filename: get(file, 'name'),
+        filesize: get(file, 'size')
+      });
+
+      post.get('panels').pushObject(image);
+    });
+
+    yield timeout(50);
+  }).drop(),
+
   actions: {
     openCamera() {
       this.set('cameraOn', true);
@@ -81,11 +101,11 @@ export default Component.extend({
       blob.name = `${this.get('user.username')}-${Date.now()}.jpeg`;
       const [file] = this.get('queue')._addFiles([blob], 'blob');
 
-      this.attrs.uploadFileToRoute(file, 'image');
+      this.get('_addImage').perform(file);
     },
 
     uploadImage(file) {
-      this.attrs.uploadFileToRoute(file, 'image');
+      this.get('_addImage').perform(file);
     }
   }
 });

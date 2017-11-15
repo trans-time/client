@@ -19,25 +19,23 @@ export default Route.extend({
     });
   },
 
-  uploadFileTask: task(function * (file, type) {
-    const post = this.modelFor('posts.new');
-    const fileModel = this.store.createRecord(type, {
-      post,
-      filename: get(file, 'name'),
-      filesize: get(file, 'size')
-    });
+  uploadFileTask: task(function * (panel) {
+    const file = panel.get('file');
+
+    if (isBlank(file)) return;
 
     try {
       file.readAsDataURL().then((src) => {
-        if (isBlank(get(fileModel, 'src'))) {
-          set(fileModel, 'src', src);
+        if (isBlank(get(panel, 'src'))) {
+          set(panel, 'src', src);
         }
       });
 
-      yield file.upload(`${config.rootURL}${type}s/upload`);
-      post.get('panels').pushObject(fileModel);
+      const result = yield file.upload(`${config.rootURL}images/upload`);
+      set(panel, 'src', get(result, 'body.data.attributes.src'));
+      yield panel.save();
     } catch (e) {
-      fileModel.deleteRecord();
+      console.log(e);
     }
   }).maxConcurrency(3).enqueue(),
 
@@ -47,6 +45,9 @@ export default Route.extend({
     },
 
     submit(model) {
+      model.get('panels').forEach((panel) => {
+        get(this, 'uploadFileTask').perform(panel);
+      });
       model.save();
     }
   }
