@@ -32,9 +32,9 @@ export default Component.extend({
       const height = $imageContainer.height();
       const width = $imageContainer.width();
       const idealWidth = height * 0.8;
-  
+
       if (height >= 1350 && width >= 1080) return htmlSafe('');
-      else if (width > idealWidth) return htmlSafe(`width: ${idealWidth}px;`);
+      else if (width > idealWidth) return htmlSafe(`height: ${height}px; width: ${idealWidth}px;`);
       else return htmlSafe(`height: ${width * 1.25}px; width: ${width}px;`);
     }
   }),

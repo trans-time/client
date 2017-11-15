@@ -79,13 +79,33 @@ body > .ember-view:not(.liquid-destination) > .liquid-container > .liquid-child 
   }
 }
 
-.post-form, .post-form-form, .post-form-image {
-  height: 100%;
+.post-form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.post-form-form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.post-form-main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.post-form-image {
+  flex-grow: 1;
+  background-color: $dark-gray;
 }
 
 .post-form-image-container {
   margin: 0 auto;
-  height: 100%;
   width: 100%;
   max-height: 1350px;
   max-width: 1080px;
@@ -130,10 +150,11 @@ body > .ember-view:not(.liquid-destination) > .liquid-container > .liquid-child 
     height: 135px;
     width: 108px;
     flex-shrink: 0;
-    background-color: $dark-gray;
+    background-color: $medium-gray;
     color: $white;
     border-radius: 10px;
-    opacity: 0.68;
+    opacity: 0.38;
+    margin: 1px;
 
     img {
       height: 100%;
@@ -142,4 +163,26 @@ body > .ember-view:not(.liquid-destination) > .liquid-container > .liquid-child 
       object-position: center center;
     }
   }
+}
+
+.post-form-controls {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  background-color: $white;
+  border: 1px solid $medium-gray;
+  border-bottom: 0;
+  padding: 4px;
+  padding-bottom: 0;
+
+  :last-child {
+    margin-left: auto;
+  }
+}
+
+.post-form-controls-element {
+  position: relative;
+  display: inline-block;
+  padding: $rhythm;
 }
