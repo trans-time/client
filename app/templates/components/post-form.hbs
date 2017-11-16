@@ -1,6 +1,6 @@
 {{#paper-form classNames="post-form-form" onSubmit=(route-action "submit" changeset) as |form|}}
   <div class="post-form-main">
-    {{component viewPath post=post changeset=changeset form=form uploadFileToRoute=(route-action "uploadFile")}}
+    {{component viewPath post=post changeset=changeset form=form}}
   </div>
 
   <div class="post-form-controls main-layout-constraint">
