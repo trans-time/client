@@ -5,7 +5,7 @@
         takePicture=(action "takePicture")
       }}
     {{else if displayImage}}
-      <img class="post-form-display-image" src={{displayImage.src}}>
+      {{post-form/image/display-image displayImage=displayImage}}
     {{/if}}
   </div>
 </div>
@@ -36,7 +36,7 @@
   </div>
   {{#each panels as |panel|}}
     <div class="post-form-image-carousel-item">
-      <a {{action "selectImage" panel}}><img src={{panel.src}}></a>
+      <a {{action "selectImage" panel}}>{{post-form/image/carousel-image panel=panel}}</a>
     </div>
   {{/each}}
 </div>

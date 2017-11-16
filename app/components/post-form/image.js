@@ -75,7 +75,11 @@ export default Component.extend({
         file,
         src,
         filename: get(file, 'name'),
-        filesize: get(file, 'size')
+        filesize: get(file, 'size'),
+        positioning: {
+          x: 50,
+          y: 50
+        }
       });
 
       post.get('panels').pushObject(image);

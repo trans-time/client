@@ -34,7 +34,7 @@ export default Component.extend({
     this._canvas.height = this._video.videoHeight;
     context.drawImage(this._video, 0, 0, this._video.videoWidth, this._video.videoHeight);
 
-    var data = this._canvas.toDataURL('image/png');
+    var data = this._canvas.toDataURL('image/jpeg');
 
     this.attrs.takePicture(data);
 
