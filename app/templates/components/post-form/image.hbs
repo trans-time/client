@@ -6,6 +6,7 @@
       }}
     {{else if displayImage}}
       {{post-form/image/display-image displayImage=displayImage}}
+      <a class="post-form-display-image-delete" {{action "deleteImage" displayImage}}>{{fa-icon "close"}}</a>
     {{/if}}
   </div>
 </div>

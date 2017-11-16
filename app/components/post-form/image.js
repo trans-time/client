@@ -89,6 +89,12 @@ export default Component.extend({
   }).drop(),
 
   actions: {
+    deleteImage(image) {
+      this.get('panels').removeObject(image);
+      image.deleteRecord();
+      this.set('cameraOn', true);
+    },
+
     openCamera() {
       this.set('cameraOn', true);
     },
