@@ -50,18 +50,6 @@ body > .ember-view:not(.liquid-destination) > .liquid-container > .liquid-child 
   z-index: 9;
 }
 
-// .ember-webcam, .ember-webcam-viewer {
-//   width: 100%;
-//   height: 100%;
-//   min-width: 100%;
-//   min-height: 100%;
-//
-//   video {
-//     width: 100%;
-//     height: 100%;
-//   }
-// }
-
 .ember-webrtc-capture {
   width: 100%;
   height: 100%;
@@ -97,6 +85,18 @@ body > .ember-view:not(.liquid-destination) > .liquid-container > .liquid-child 
   flex-direction: column;
   flex-grow: 1;
   overflow: hidden;
+}
+
+.post-form-text {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  textarea {
+    resize: none;
+    flex-grow: 1;
+    padding: $rhythm;
+  }
 }
 
 .post-form-image {

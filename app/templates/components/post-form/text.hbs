@@ -1,13 +1,5 @@
-{{#paper-list}}
-  {{#paper-subheader class="md-no-sticky"}}{{t "post.new"}}{{/paper-subheader}}
+{{paper-datetime-picker
+  timestamp=changeset.date
+}}
 
-  {{#paper-item}}
-    {{paper-datetime-picker
-      timestamp=changeset.date
-    }}
-  {{/paper-item}}
-
-  {{#paper-item}}
-    {{textarea value=changeset.text}}
-  {{/paper-item}}
-{{/paper-list}}
+{{textarea value=changeset.text placeholder=(t "post.attributes.text.placeholder")}}

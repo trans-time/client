@@ -5,10 +5,12 @@ import { isBlank, typeOf } from '@ember/utils';
 import Route from '@ember/routing/route';
 import { task } from 'ember-concurrency';
 import config from '../../config/environment';
+import RouteTitleMixin from 'client/mixins/route-title';
 
-export default Route.extend({
+export default Route.extend(RouteTitleMixin, {
   currentUser: service(),
   fileQueue: service(),
+  intl: service(),
 
   user: oneWay('currentUser.user'),
 
@@ -19,6 +21,12 @@ export default Route.extend({
       user,
       date: Date.now()
     });
+  },
+
+  beforeModel(...args) {
+    this._super(...args);
+
+    this.set('title', this.get('intl').t('post.new'));
   },
 
   queue: computed({

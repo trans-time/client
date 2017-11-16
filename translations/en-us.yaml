@@ -17,7 +17,7 @@ post:
     date:
       label: "Date"
     text:
-      label: "tell us something"
+      placeholder: "tell us something"
   more: "more"
   new: "New Post"
 search:
