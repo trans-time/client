@@ -15,6 +15,9 @@ Router.map(function() {
   this.route('search', function() {});
   this.route('posts', function() {
     this.route('new');
+    this.route('post', { path: '/:id' }, function() {
+      this.route('edit');
+    });
   });
 });
 

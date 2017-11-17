@@ -8,7 +8,9 @@ export default Component.extend({
   classNames: ['post-nav-post'],
   classNameBindings: ['textExpanded:expanded', 'textRevealed'],
 
+  currentUser: service(),
   meta: service(),
+  user: alias('currentUser.user'),
   usingTouch: alias('meta.usingTouch'),
   swipeState: computed(() => {
     return {

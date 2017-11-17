@@ -89,6 +89,10 @@ export default function() {
   this.post('/faves');
   this.patch('/faves/:id')
   this.del('/faves/:id');
+  this.get('/posts/:id');
+  this.patch('/posts/:id', (schema, request) => {
+    return schema.db.posts.update(request.params.id, JSON.parse(request.requestBody));
+  });
   this.post('/posts', (schema, request) => {
     return schema.posts.create(JSON.parse(request.requestBody));
   });

@@ -10,7 +10,7 @@ export default DS.Model.extend({
   tags: DS.hasMany('tag'),
 
   text: DS.attr('string'),
-  date: DS.attr('date'),
+  date: DS.attr('number'),
   totalStars: DS.attr('number'),
   totalSuns: DS.attr('number'),
   totalMoons: DS.attr('number'),
