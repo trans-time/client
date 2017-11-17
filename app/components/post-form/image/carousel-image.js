@@ -15,11 +15,5 @@ export default Component.extend({
     get() {
       return htmlSafe(`object-position: ${this.get('positioning.x')}% ${this.get('positioning.y')}%`);
     }
-  }),
-
-  didInsertElement(...args) {
-    this._super(...args);
-
-    this.notifyPropertyChange('style');
-  }
+  })
 });

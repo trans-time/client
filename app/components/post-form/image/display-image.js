@@ -22,12 +22,6 @@ export default Component.extend({
     }
   }),
 
-  didInsertElement(...args) {
-    this._super(...args);
-
-    this.notifyPropertyChange('style');
-  },
-
   mouseDown(...args) {
     this._super(...args);
 
