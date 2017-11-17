@@ -69,8 +69,8 @@ export default Component.extend({
     const dragState = this.get('dragState');
     if (!dragState.active) return;
 
-    e.preventDefault();
-  
+    if (e.preventDefault) e.preventDefault();
+
     dragState.diffX = dragState.currentX - e.clientX;
     dragState.diffY = dragState.currentY - e.clientY;
     dragState.currentX = e.clientX;
