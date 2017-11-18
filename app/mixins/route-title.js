@@ -7,6 +7,6 @@ export default Mixin.create({
   afterModel(...args) {
     this._super(...args);
 
-    this.set('meta.title', this.get('title'));
+    this.set('meta.title', this.get('titleToken'));
   }
 });

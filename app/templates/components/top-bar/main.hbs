@@ -1,5 +1,9 @@
 <div class="top-bar-content top-bar-layout-constraint">
-  <a class="top-bar-element" {{action "back"}}>{{fa-icon "chevron-left" size=2}}</a>
+  {{#liquid-if showSearchBar}}
+    <a class="top-bar-element" {{action "search"}}>{{fa-icon "search" size=2}}</a>
+  {{else}}
+    <a class="top-bar-element" {{action "home"}}>{{fa-icon "home" size=2}}</a>
+  {{/liquid-if}}
   <span class="top-bar-title top-bar-element">{{title}}</span>
   <span class="top-bar-element">{{fa-icon "bell-o" size=2}}</span>
   <a class="top-bar-element" {{action "toggleMenu"}}>{{fa-icon "bars" size=2}}</a>

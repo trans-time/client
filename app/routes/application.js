@@ -11,11 +11,17 @@ export default Route.extend(ApplicationRouteMixin, {
   messageBus: service(),
 
   init() {
+    this.get('intl').setLocale('en-us');
     window.addEventListener('resize', bind(this, this._handleResize), false);
   },
 
+  title: function(tokens) {
+    tokens.push(this.get('intl').t('title'));
+
+    return tokens.join(' | ');
+  },
+
   beforeModel() {
-    this.get('intl').setLocale('en-us');
     return this._loadCurrentUser();
   },
 

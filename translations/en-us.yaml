@@ -12,6 +12,8 @@ file:
 general:
   cancel: "Cancel"
   submit: "Submit"
+home:
+  title: "Home"
 post:
   attributes:
     date:
@@ -23,6 +25,7 @@ post:
   new: "New Post"
 search:
   title: "Search"
+title: "Trans Timelines"
 users:
   attributes:
     email:

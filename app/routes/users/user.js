@@ -11,7 +11,7 @@ export default Route.extend(RouteTitleMixin, {
   },
 
   afterModel(model) {
-    this.set('title', model.user.get('username'));
+    this.set('titleToken', model.user.get('username'));
 
     this._super(...arguments);
   }

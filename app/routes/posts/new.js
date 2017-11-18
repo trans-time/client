@@ -22,6 +22,6 @@ export default Route.extend(ImageUploadMixin, RouteTitleMixin, {
   beforeModel(...args) {
     this._super(...args);
 
-    this.set('title', this.get('intl').t('post.new'));
+    this.set('titleToken', this.get('intl').t('post.new'));
   }
 });

@@ -6,7 +6,7 @@ import RouteTitleMixin from 'client/mixins/route-title';
 export default Route.extend(RouteTitleMixin, {
   intl: service(),
 
-  title: computed({
+  titleToken: computed({
     get() {
       return this.get('intl').t('search.title');
     }
