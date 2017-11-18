@@ -6,6 +6,8 @@ import Component from '@ember/component';
 export default Component.extend({
   classNames: ['top-bar'],
 
+  searchValue: '',
+
   meta: service(),
   router: service(),
 
@@ -23,7 +25,9 @@ export default Component.extend({
     },
 
     search() {
+      const searchValue = this.get('searchValue');
 
+      if (searchValue === '') this.$('input').focus();
     },
 
     toggleMenu() {

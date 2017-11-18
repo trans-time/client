@@ -7,7 +7,7 @@
 
   .top-bar-content {
     display: flex;
-    align-items: baseline;
+    align-items: center;
   }
 
   .top-bar-element {
@@ -15,12 +15,25 @@
     padding: $rhythm;
   }
 
-  .top-bar-title {
+  .top-bar-element-grow {
     flex-grow: 1;
+    overflow: hidden;
+  }
+
+  .top-bar-search {
+    width: 100%;
+    font-size: 1.4em;
+    outline: 0;
+    border: 0;
+    padding: 0;
+  }
+
+  .top-bar-title {
     font-weight: bold;
     font-size: 150%;
     text-overflow: ellipsis;
     overflow: hidden;
+    align-self: flex-end;
   }
 }
 
