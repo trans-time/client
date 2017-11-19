@@ -39,8 +39,8 @@
 
     .post-nav-post {
       .post-nav-post-constraint {
-        height: 90%;
-        overflow: hidden;
+        height: 85%;
+        overflow-y: hidden;
       }
 
       .reveal-text-toggle {
@@ -51,7 +51,7 @@
     .post-nav-post.text-revealed {
       .post-nav-post-constraint {
         height: inherit;
-        overflow: visible;
+        overflow-y: visible;
       }
 
       .reveal-text-toggle {

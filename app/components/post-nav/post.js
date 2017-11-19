@@ -99,7 +99,7 @@ export default Component.extend({
   _moveEvent(event) {
     const e = event.changedTouches ? event.changedTouches[0] : event;
     const swipeState = this.get('swipeState');
-    if (!swipeState.active || this.get('scrollLocked')) return;
+    if (!swipeState.active || this.get('_scollLocked')) return;
 
     const element = this.get('_constraint');
 
@@ -138,7 +138,7 @@ export default Component.extend({
       let velocity = latestDiffs.reduce((sum, diff) => sum + diff, 0) / Math.min(latestDiffs.length, precision);
 
       const loop = () => {
-        if (!this.element || this.get('scrollLocked')) return;
+        if (!this.element || this.get('_scollLocked')) return;
 
         element.scrollTop -= velocity;
 
@@ -159,6 +159,12 @@ export default Component.extend({
 
     this.set('textOverflown', element.scrollHeight > element.clientHeight);
   },
+
+  _scollLocked: computed('scrollLocked', 'isBlank', {
+    get() {
+      return this.get('scrollLocked') || (this.get('isBlank') && !this.get('textRevealed'));
+    }
+  }),
 
   _constraint: computed({
     get() {
