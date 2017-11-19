@@ -46,12 +46,16 @@ export default function() {
     return schema.users.find(request.params.id).userConfiguration;
   })
   this.get('/posts', (schema, request) => {
-    let posts = schema.posts.where({ userId: request.queryParams.userId });
-    if (isPresent(request.queryParams.tags)) {
+    let posts = request.queryParams.userId ? schema.posts.where({ userId: request.queryParams.userId }) : schema.posts.all();
+    const queryTagIds = request.queryParams.query ? schema.tags.where({ name: request.queryParams.query }).models.map((tag) => tag.id) : null;
+    const queryOrTags = request.queryParams.tags || queryTagIds;
+    if (isPresent(queryOrTags)) {
       posts = posts.filter((post) => {
-        return request.queryParams.tags.every((tagId) => post.tagIds.includes(tagId));
+        return queryOrTags.every((tagId) => post.tagIds.includes(tagId));
       });
     }
+
+    if (request.queryParams.direction === 'desc') posts.models.reverse();
     const page = parseInt(request.queryParams.page, 10);
     const perPage = parseInt(request.queryParams.perPage, 10);
     const startingIndex = page * perPage || 0;
@@ -78,8 +82,6 @@ export default function() {
         }
       })
     }
-
-    if (request.queryParams.direction === 'desc') postsSegment.models.reverse();
 
     return postsSegment;
   })

@@ -28,6 +28,9 @@ export default Component.extend({
       const searchValue = this.get('searchValue');
 
       if (searchValue === '') this.$('input').focus();
+      else {
+        this.get('router').transitionTo('search', { queryParams: { query: searchValue }});
+      }
     },
 
     toggleMenu() {

@@ -1,7 +1,7 @@
 <div class="post-nav-post-constraint post-nav-post-text">
   <div class="post-nav-post-content">
     <div class="post-nav-post-top-line">
-      <div class="post-nav-post-date">{{moment-format post.date "MMMM DD, YYYY"}} | {{#link-to "users.user"}}{{post.user.username}}{{/link-to}}{{#if (eq post.user.id user.id)}} | {{#link-to "posts.post.edit" post}}edit{{/link-to}}{{/if}}</div>
+      <div class="post-nav-post-date">{{moment-format post.date "MMMM DD, YYYY"}} | {{#link-to "users.user" post.user.id}}{{post.user.username}}{{/link-to}}{{#if (eq post.user.id user.id)}} | {{#link-to "posts.post.edit" post}}edit{{/link-to}}{{/if}}</div>
     </div>
 
     {{markdown-render post.text}}
