@@ -12,7 +12,6 @@ export default Route.extend(PostNavRouteMixin, RouteTitleMixin, {
     }
   },
 
-  messageBus: service(),
   intl: service(),
 
   _posts: alias('controller.model'),

@@ -10,9 +10,10 @@ export default Route.extend(ApplicationRouteMixin, {
   intl: service(),
   messageBus: service(),
 
-  init() {
+  init(...args) {
     this.get('intl').setLocale('en-us');
     window.addEventListener('resize', bind(this, this._handleResize), false);
+    this._super(...args);
   },
 
   title: function(tokens) {
@@ -21,7 +22,8 @@ export default Route.extend(ApplicationRouteMixin, {
     return tokens.join(' | ');
   },
 
-  beforeModel() {
+  beforeModel(...args) {
+    this._super(...args);
     return this._loadCurrentUser();
   },
 

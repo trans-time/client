@@ -11,7 +11,7 @@ export default Service.extend({
 
   load() {
     const userId = this.get('session.data.authenticated.id');
-
+console.log('load', userId)
     if (!isEmpty(userId)) {
       const store = this.get('store');
 

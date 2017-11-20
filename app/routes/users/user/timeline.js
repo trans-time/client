@@ -1,7 +1,6 @@
 import { assign } from '@ember/polyfills';
 import { alias } from '@ember/object/computed';
 import { hash } from 'rsvp';
-import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 import PostNavRouteMixin from 'client/mixins/post-nav-route';
 
@@ -11,8 +10,6 @@ export default Route.extend(PostNavRouteMixin, {
       refreshModel: true
     }
   },
-
-  messageBus: service(),
 
   _posts: alias('controller.model.posts'),
   _defaultQueryParams: {

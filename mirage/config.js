@@ -46,7 +46,7 @@ export default function() {
     return schema.users.find(request.params.id).userConfiguration;
   })
   this.get('/posts', (schema, request) => {
-    let posts = request.queryParams.userId ? schema.posts.where({ userId: request.queryParams.userId }) : schema.posts.all();
+    let posts = request.queryParams.userId ? schema.posts.where({ userId: request.queryParams.userId }) : request.queryParams.followerId ? schema.posts.all() : schema.posts.where({ userId: 'foo' });
     const queryTagIds = request.queryParams.query ? schema.tags.where({ name: request.queryParams.query }).models.map((tag) => tag.id) : null;
     const queryOrTags = request.queryParams.tags || queryTagIds;
     if (isPresent(queryOrTags)) {

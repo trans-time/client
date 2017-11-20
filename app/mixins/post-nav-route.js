@@ -1,6 +1,10 @@
+import { assign } from '@ember/polyfills';
+import { inject as service } from '@ember/service';
 import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
+  messageBus: service(),
+
   init(...args) {
     this._super(...args);
 

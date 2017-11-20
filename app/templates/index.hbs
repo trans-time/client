@@ -1,0 +1,8 @@
+{{#if (and session.isAuthenticated modelIsPresent)}}
+  {{post-nav/main
+    posts=model
+    action="loadMorePosts"
+  }}
+{{else}}
+  Talk about Trans Timelines!
+{{/if}}
