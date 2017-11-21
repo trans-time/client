@@ -50,6 +50,56 @@ body > .ember-view:not(.liquid-destination) > .liquid-container > .liquid-child 
   z-index: 9;
 }
 
+p {
+  margin: $rhythm 0;
+}
+
+
+
+.profile-header {
+  display: flex;
+  margin: $rhythm;
+}
+
+.profile-header-avatar {
+  width: 38%;
+  height: 38%;
+  object-fit: cover;
+  border-radius: $rhythm;
+  margin-right: $rhythm;
+}
+
+.profile-header-content {
+  width: 100%;
+}
+
+.profile-header-counters {
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  margin-bottom: $rhythm;
+}
+
+.profile-header-counter-count {
+  margin-bottom: $rhythm / 4;
+}
+
+.profile-header-counter-title {
+  font-size: 68%;
+  font-weight: bold;
+}
+
+.profile-header-button {
+  width: 100%;
+  margin: 0;
+  border-radius: $rhythm;
+}
+
+.profile-description {
+  margin: 0 $rhythm;
+}
+
+
 .ember-webrtc-capture {
   width: 100%;
   height: 100%;

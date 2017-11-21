@@ -23,6 +23,12 @@ post:
   edit: "Edit Post"
   more: "more"
   new: "New Post"
+profile:
+  followers: "followers"
+  following: "following"
+  posts: "posts"
+  follow: "Follow"
+  unfollow: "Unfollow"
 search:
   title: "Search"
 title: "Trans Timelines"
