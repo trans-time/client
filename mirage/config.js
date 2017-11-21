@@ -39,8 +39,8 @@ export default function() {
   this.get('/users');
   this.post('/users');
   this.get('/users/:id');
-  this.get('/user-tag-summaries/:id', (schema, request) => {
-    return schema.users.find(request.params.id).userTagSummary;
+  this.get('/user-profiles/:id', (schema, request) => {
+    return schema.users.find(request.params.id).userProfile;
   });
   this.get('/user-configurations/:id', (schema, request) => {
     return schema.users.find(request.params.id).userConfiguration;

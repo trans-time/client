@@ -1,6 +1,6 @@
 import { Model, belongsTo, hasMany } from 'ember-cli-mirage';
 
 export default Model.extend({
-  userProfile: belongsTo('user-profile'),
-  tags: hasMany('tag')
+  user: belongsTo('user'),
+  userTagSummary: belongsTo('user-tag-summary')
 });

@@ -4,6 +4,6 @@ export default Model.extend({
   faves: hasMany('fav'),
   posts: hasMany('post'),
   tags: hasMany('tag'),
-  userTagSummary: belongsTo('user-tag-summary'),
+  userProfile: belongsTo('user-profile'),
   userConfiguration: belongsTo('user-configuration')
 });

@@ -6,7 +6,7 @@ export default Route.extend(RouteTitleMixin, {
   model(params) {
     return hash({
       user: this.store.findRecord('user', params.id),
-      userTagSummary: this.store.findRecord('user-tag-summary', params.id)
+      userProfile: this.store.findRecord('user-profile', params.id)
     });
   },
 

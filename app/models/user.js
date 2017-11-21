@@ -6,7 +6,7 @@ export default DS.Model.extend({
   faves: DS.hasMany('fav'),
   identities: DS.hasMany('identity'),
   posts: DS.hasMany('post', { async: true }),
-  userTagSummary: DS.belongsTo('user-tag-summary'),
+  userProfile: DS.belongsTo('user-profile'),
   userSettings: DS.belongsTo('user-settings'),
 
   username: DS.attr('string'),
