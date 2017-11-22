@@ -1,7 +1,7 @@
 import Mixin from '@ember/object/mixin';
 import { computed, get, set } from '@ember/object';
 import { inject as service } from '@ember/service';
-import { isBlank, typeOf } from '@ember/utils';
+import { isBlank, isPresent, typeOf } from '@ember/utils';
 import Route from '@ember/routing/route';
 import { task } from 'ember-concurrency';
 import { Promise, all } from 'rsvp';
@@ -72,6 +72,23 @@ export default Mixin.create({
   }).maxConcurrency(3).enqueue(),
 
   actions: {
+    willTransition() {
+      const model = this.get('controller.model');
+      const panels = model.get('panels');
+
+      model.rollbackAttributes();
+
+      for (let i = panels.get('length') - 1; i > -1; --i) {
+        const panel = panels.objectAt(i);
+        if (isPresent(panel) && panel.get('isNew')) {
+          panels.removeObject(panel);
+          panel.deleteRecord();
+        }
+      }
+
+      return true;
+    },
+
     submit(model) {
       this.get('uploadAndSave').perform(model);
     }
