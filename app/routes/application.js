@@ -17,7 +17,7 @@ export default Route.extend(ApplicationRouteMixin, {
   },
 
   title: function(tokens) {
-    tokens.push(this.get('intl').t('title'));
+    tokens.unshift(this.get('intl').t('title'));
 
     return tokens.join(' | ');
   },
