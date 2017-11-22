@@ -14,10 +14,17 @@ export default Component.extend({
       video: { width: 5000, height: 8000 },
       audio: false
     }).then((stream) => {
+      this.set('_stream', stream);
       var vendorURL = window.URL || window.webkitURL;
       this._video.src = vendorURL.createObjectURL(stream);
       this._video.play();
     });
+  },
+
+  willDestroyElement(...args) {
+    this._super(...args);
+
+    this.get('_stream').getTracks()[0].stop();
   },
 
   click() {
