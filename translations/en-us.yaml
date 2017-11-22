@@ -1,42 +1,42 @@
 auth:
-  join: "Join"
-  login: "Login"
-  logout: "Logout"
+  join: "join"
+  login: "login"
+  logout: "logout"
 file:
-  addAnImage: "Add an Image."
-  dragAndDrop: "Drag and drop images onto this area to upload them or"
-  drop: "Drop to upload"
-  invalid: "File is invalid"
-  progress: "Uploading {{length}} files. ({{progress}}%)"
-  uploadImages: "Upload Images"
+  addAnImage: "add an Image."
+  dragAndDrop: "drag and drop images onto this area to upload them or"
+  drop: "drop to upload"
+  invalid: "file is invalid"
+  progress: "uploading {{length}} files. ({{progress}}%)"
+  uploadImages: "upload Images"
 general:
-  cancel: "Cancel"
-  submit: "Submit"
+  cancel: "cancel"
+  submit: "submit"
 home:
-  title: "Home"
+  title: "home"
 post:
   attributes:
     date:
-      label: "Date"
+      label: "date"
     text:
       placeholder: "tell us something"
-  edit: "Edit Post"
+  edit: "edit post"
   more: "more"
-  new: "New Post"
+  new: "new post"
 profile:
   followers: "followers"
   following: "following"
   posts: "posts"
-  follow: "Follow"
-  unfollow: "Unfollow"
+  follow: "follow"
+  unfollow: "unfollow"
 search:
-  title: "Search"
-title: "Trans Timelines"
+  title: "search"
+title: "trans time"
 users:
   attributes:
     email:
-      label: "Email"
+      label: "email"
     password:
-      label: "Password"
+      label: "password"
     username:
-      label: "Username"
+      label: "username"
