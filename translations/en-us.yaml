@@ -8,8 +8,8 @@ coverPage:
     trans: "find friends and collaborators in a <strong>trans+</strong> community"
     timeline: "post art, selfies, and writing, then create polytemporal timelines using <strong>#tags</strong> and <strong>@relationships</strong>"
     privacy: "let the whole world follow you, but share <strong>private posts</strong> with just your friends"
-    social: "spread your timelines on other social media platforms like <strong>twitter</strong> and <strong>facebook</strong>"
-  note: "<em>trans time</em> is not a startup. we will not sell your data, advertise to you, or profit off your content. we are <strong>volunteer-run</strong> and committed to keeping the influence of <strong>capital</strong> out of our app."
+    social: "repost your timelines on other social media platforms like <strong>twitter</strong> and <strong>facebook</strong>"
+  note: "<em>trans time</em> is not a <strong>startup</strong>. we will not sell your data, advertise to you, or profit off your content. we are <strong>volunteer-run</strong> and committed to keeping the influence of capital out of our app."
 file:
   addAnImage: "add an Image."
   dragAndDrop: "drag and drop images onto this area to upload them or"
