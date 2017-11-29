@@ -16,7 +16,7 @@
 }
 
 .emojione {
-  @include emojione-size(20px);
+  @include emojione-size(18px);
 }
 
 body > .ember-view:not(.liquid-destination), html, body {
