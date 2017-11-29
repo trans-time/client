@@ -200,10 +200,42 @@ p {
   flex-direction: column;
   flex-grow: 1;
 
-  textarea {
-    resize: none;
+  .post-form-text-emoji-wrapper {
+    display: flex;
     flex-grow: 1;
+    flex-direction: column;
+  }
+
+  .post-form-textarea-container {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .post-form-textarea {
+    flex-grow: 1;
+    resize: none;
     padding: $rhythm;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .post-form-text-emoji-toggler {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: none;
+    border: none;
+    outline: none;
+    opacity: 0.68;
+    padding: $rhythm;
+  }
+
+  .post-form-text-emoji-picker {
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
   }
 }
 

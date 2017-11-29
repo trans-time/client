@@ -2,4 +2,21 @@
   timestamp=changeset.date
 }}
 
-{{textarea value=changeset.text placeholder=(t "post.attributes.text.placeholder")}}
+{{#emoji-picker-wrapper
+  text                = changeset.text
+  inputSelector       = ".post-form-textarea"
+  emojiInsertedAction = (action (mut changeset.text))
+  classNames="post-form-text-emoji-wrapper"
+  as |h|
+}}
+
+  <div class="post-form-textarea-container">
+    {{textarea value=changeset.text placeholder=(t "post.attributes.text.placeholder") class="post-form-textarea"}}
+    {{component h.emojiAssist}}
+
+    {{component h.emojiPickerToggler class="post-form-text-emoji-toggler"}}
+
+    {{component h.emojiPicker class="post-form-text-emoji-picker"}}
+  </div>
+
+{{/emoji-picker-wrapper}}
