@@ -21,7 +21,7 @@
 </div>
 
 <div class="profile-description">
-  {{markdown-render model.userProfile.description}}
+  {{{inject-emoji (markdown-render model.userProfile.description)}}}
 </div>
 
 {{tag-summary/main

@@ -2,6 +2,10 @@
   "name": "client",
   "dependencies": {
     "markdown-it": "^8.4.0",
-    "ember-cli-snap-svg-shim": "^0.0.3"
+    "ember-cli-snap-svg-shim": "^0.0.3",
+    "emojione-js": "https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/lib/js/emojione.js",
+    "emojione-css": "https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/sprites/emojione.sprites.css",
+    "emojione-png": "https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/sprites/emojione.sprites.png",
+    "emojione-defs": "https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/emoji.json"
   }
 }

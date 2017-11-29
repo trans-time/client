@@ -6,6 +6,19 @@
 @import "helpers";
 @import "components";
 
+@import "node_modules/ember-emojione/app/styles/helpers/mixin";
+@import "node_modules/ember-emojione/app/styles/components/emoji-assist";
+@import "node_modules/ember-emojione/app/styles/components/emoji-picker";
+
+@mixin emojione-size ($target-size, $original-size: 64px) {
+  transform: scale(#{$target-size / $original-size});
+  margin: ($target-size - $original-size) / 2;
+}
+
+.emojione {
+  @include emojione-size(20px);
+}
+
 body > .ember-view:not(.liquid-destination), html, body {
   height: 100%;
   width: 100%;
