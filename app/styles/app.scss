@@ -58,13 +58,17 @@ p {
 .cover-page {
   display: flex;
   flex-direction: column;
-  margin: $rhythm;
+  margin: 0 auto;
+  padding: $rhythm;
   height: 100%;
+  max-width: 1200px;
+  max-height: 700px;
 }
 
 .cover-page-lead {
   font-size: 125%;
   text-align: justify;
+  margin-bottom: $rhythm;
 }
 
 .cover-page-feature-list {
