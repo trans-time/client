@@ -4,13 +4,19 @@
     action="loadMorePosts"
   }}
 {{else}}
-  find friends and collaborators in a community of trans+ people.
+  <div class="cover-page">
+    <div class="cover-page-lead">{{{t "coverPage.lead"}}}</div>
 
-  post art, selfies, and words, then create dynamic 360° timelines using #tags and *identities.
+    <ul class="cover-page-feature-list">
+      <li>{{fa-icon "transgender-alt" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.trans"}}}</span></li>
 
-  let the whole world follow you, but share private posts with just your friends.
+      <li>{{fa-icon "hashtag" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.timeline"}}}</span></li>
 
-  spread your timelines on other social media platforms like twitter and facebook.
+      <li>{{fa-icon "rss" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.privacy"}}}</span></li>
 
-  trans time is not a startup. we will not sell your data, advertise to you, or profit off your content. we are volunteer-run and committed to keeping capital out of our app . . . though donations are always welcome to help us cover our expenses.
+      <li>{{fa-icon "retweet" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.social"}}}</span></li>
+    </ul>
+
+    <div class="cover-page-note">{{{t "coverPage.note"}}}</div>
+  </div>
 {{/if}}

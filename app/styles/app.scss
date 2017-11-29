@@ -22,7 +22,7 @@ html, body {
   margin: 0;
   padding: 0;
   color: $text-color;
-  background-color: #fafafa;
+  background-color: #fff;
   font-family: $primary-font-family;
 }
 
@@ -54,6 +54,45 @@ p {
   margin: $rhythm 0;
 }
 
+
+.cover-page {
+  display: flex;
+  flex-direction: column;
+  margin: $rhythm;
+  height: 100%;
+}
+
+.cover-page-lead {
+  font-size: 125%;
+}
+
+.cover-page-feature-list {
+  padding-left: $rhythm;
+  list-style: none;
+  font-size: 95%;
+  margin-bottom: $rhythm;
+
+  li {
+    display: flex;
+    align-items: center;
+    margin-bottom: $rhythm;
+
+    .cover-page-feature-list-icon {
+      margin-right: $rhythm;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.cover-page-note {
+  margin-top: auto;
+  padding-top: $rhythm;
+  border-top: 3px dashed $dark-gray;
+  font-size: 110%;
+}
 
 
 .profile-header {
