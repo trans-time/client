@@ -10,6 +10,7 @@ Router.map(function() {
   this.route('users', function() {
     this.route('user', { path: '/:id' }, function() {
       this.route('timeline');
+      this.route('profile', function() {});
     });
   });
   this.route('search', function() {});
@@ -18,6 +19,10 @@ Router.map(function() {
     this.route('post', { path: '/:id' }, function() {
       this.route('edit');
     });
+  });
+
+  this.route('user', function() {
+    this.route('user', function() {});
   });
 });
 

@@ -3,7 +3,7 @@ import Route from '@ember/routing/route';
 import RouteTitleMixin from 'client/mixins/route-title';
 
 export default Route.extend(RouteTitleMixin, {
-  linkRoute: 'users.user',
+  linkRoute: 'users.user.profile.index',
 
   model(params) {
     const { id } = params;

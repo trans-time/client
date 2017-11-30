@@ -1,13 +1,13 @@
 export default function() {
   this.transition(
-    this.fromRoute('users.user.index'),
+    this.fromRoute('users.user.profile'),
     this.toRoute('users.user.timeline'),
     this.use('toLeft')
   );
 
   this.transition(
     this.fromRoute('users.user.timeline'),
-    this.toRoute('users.user.index'),
+    this.toRoute('users.user.profile'),
     this.use('toRight')
   );
 
