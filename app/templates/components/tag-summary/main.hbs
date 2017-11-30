@@ -1,11 +1,16 @@
-{{#each tags as |tag|}}
-  {{#paper-button
-    raised=true
-    primary=tag.selected
-    disabled=(not tag.isValid)
-    onClick=(action "toggleTag" tag)
-  }}{{tag.model.name}}: {{tag.amount}}{{/paper-button}}
-{{/each}}
+<div class="tag-summary-list">
+  {{#each tags as |tag|}}
+    {{#paper-button
+      raised=true
+      primary=tag.selected
+      disabled=(not tag.isValid)
+      onClick=(action "toggleTag" tag)
+      class="tag-summary-list-item"
+    }}#{{tag.model.name}}: {{tag.amount}}{{/paper-button}}
+  {{/each}}
+</div>
 
-{{#link-to "users.user.timeline" (query-params direction="desc" tags=selectedTagIds)}}From end{{/link-to}}
-{{#link-to "users.user.timeline" (query-params tags=selectedTagIds)}}From beginning{{/link-to}}
+<div class="tag-summary-time-buttons">
+  {{#link-to "users.user.timeline" (query-params tags=selectedTagIds) class="tag-summary-time-button"}}{{t "tagSummary.start"}}: {{fa-icon "clock-o"}} {{fa-icon "arrow-right"}}{{/link-to}}
+  {{#link-to "users.user.timeline" (query-params direction="desc" tags=selectedTagIds) class="tag-summary-time-button"}}{{fa-icon "arrow-left"}} {{fa-icon "clock-o"}} :{{t "tagSummary.start"}}{{/link-to}}
+</div>

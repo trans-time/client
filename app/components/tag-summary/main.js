@@ -23,7 +23,7 @@ const Tag = EmberObject.extend({
 })
 
 export default Component.extend({
-  classNames: ['tag-summary'],
+  tagName: '',
 
   store: service(),
 

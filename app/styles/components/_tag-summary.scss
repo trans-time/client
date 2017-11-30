@@ -1,5 +1,30 @@
-.tag-summary {
-  .hidden-button {
-    opacity: 0;
-  }
+.tag-summary-time-buttons, .tag-summary-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: $rhythm / 2;
+}
+
+.tag-summary-time-button, .tag-summary-list-item {
+  flex-grow: 1;
+  margin: $rhythm / 2;
+  text-transform: none;
+}
+
+.tag-summary-list {
+  overflow-x: auto;
+}
+
+.tag-summary-time-buttons {
+  flex-shrink: 0;
+  margin-top: auto;
+}
+
+.tag-summary-time-button {
+  color: $dark-gray;
+  border: thin solid $light-gray;
+  text-decoration: none;
+  padding: $rhythm * 0.68;
+  border-radius: 3px;
+  text-align: center;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 }

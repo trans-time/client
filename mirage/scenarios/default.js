@@ -1,9 +1,9 @@
 export default function(server) {
-  ['Face', 'Chest', 'Hips'].forEach((name) => {
+  ['face', 'chest', 'hips', 'hair', 'facial_hair', 'voice', 'family', 'work', 'school', 'sports', 'foo', 'bar', 'baz', 'foobar', 'foobaz', 'barbaz', 'boo', 'boofoo', 'boobar', 'boobaz', 'boowho', 'boohoo', 'boobum', 'bottlebrass'].forEach((name) => {
     server.create('tag', { name });
   });
   server.create('tag', { name: 'style' })
-  const symbolTag = server.create('tag', { name: 'Symbol' });
+  const symbolTag = server.create('tag', { name: 'symbol' });
   let sequence = ['male', 'gq', 'female', 'gq'];
   for (let i = 0; i < 2; ++i) {
     sequence = sequence.concat(sequence);

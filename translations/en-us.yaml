@@ -39,6 +39,8 @@ profile:
   unfollow: "unfollow"
 search:
   title: "search"
+tagSummary:
+  start: "start"
 title: "trans time"
 users:
   attributes:

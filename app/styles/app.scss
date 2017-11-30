@@ -114,6 +114,19 @@ p {
 }
 
 
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.profile-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 .profile-header {
   display: flex;
   margin: $rhythm;
