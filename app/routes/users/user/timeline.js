@@ -14,6 +14,7 @@ export default Route.extend(PostNavRouteMixin, {
   _posts: alias('controller.model.posts'),
   _defaultQueryParams: {
     tags: [],
+    relationships: [],
     direction: null
   },
 

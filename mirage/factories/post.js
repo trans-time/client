@@ -12,7 +12,7 @@ export default Factory.extend({
 
   afterCreate(post, server) {
     // if (post.images.length === 0) post.images = server.createList('image', faker.random.number(6));
-    if (post.tags.length === 0) post.tagIds = [...Array(faker.random.number(3))].map(() => {
+    if (post.tags.length === 0) post.tagIds = [...Array(faker.random.number(6))].map(() => {
       return faker.random.number(server.db.tags.length - 1) + 1;
     });
 

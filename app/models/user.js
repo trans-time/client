@@ -5,7 +5,7 @@ import { computed } from '@ember/object';
 export default DS.Model.extend({
   faves: DS.hasMany('fav'),
   identities: DS.hasMany('identity'),
-  posts: DS.hasMany('post', { async: true }),
+  posts: DS.hasMany('post', { async: true, inverse: 'user' }),
   userProfile: DS.belongsTo('user-profile'),
   userSettings: DS.belongsTo('user-settings'),
 

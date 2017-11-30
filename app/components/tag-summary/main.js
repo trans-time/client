@@ -5,7 +5,7 @@ import Component from '@ember/component';
 import { oneWay, gt, filterBy, mapBy } from '@ember/object/computed';
 import EmberObject, { computed } from '@ember/object';
 
-const Tag = EmberObject.extend({
+const Summary = EmberObject.extend({
   selected: false,
   selectedPostIds: oneWay('component.selectedPostIds'),
   isValid: gt('amount', 0),
@@ -27,16 +27,20 @@ export default Component.extend({
 
   store: service(),
 
+  selectedRelationships: filterBy('relationships', 'selected'),
   selectedTags: filterBy('tags', 'selected'),
 
+  selectedRelationshipIds: mapBy('selectedRelationships', 'id'),
   selectedTagIds: mapBy('selectedTags', 'id'),
-  selectedPostIds: computed('selectedTags.[]', {
+
+  selectedPostIds: computed('selectedTags.[]', 'selectedRelationships.[]', {
     get() {
-      const selectedTags = this.get('selectedTags');
+      const { selectedRelationships, selectedTags } = this.getProperties('selectedRelationships', 'selectedTags');
+      const selectedSummaries = selectedRelationships.concat(selectedTags);
 
-      if (isEmpty(selectedTags)) return [];
+      if (isEmpty(selectedSummaries)) return [];
 
-      const postIdSets = selectedTags.map((tag) => tag.get('postIds')).sort((a, b) => a.length - b.length);
+      const postIdSets = selectedSummaries.map((summary) => summary.get('postIds')).sort((a, b) => a.length - b.length);
       const smallestSet = postIdSets.shift();
 
       return smallestSet.reduce((selectedPostIds, postId) => {
@@ -47,15 +51,29 @@ export default Component.extend({
     }
   }),
 
-  tags: computed('tagSummary.summary', {
+  relationships: computed('tagSummary.summary.relationships', {
     get() {
       const store = this.get('store');
-      const tagSummary = this.get('tagSummary.summary');
+      const tagSummary = this.get('tagSummary.summary.relationships');
 
       return A(Object.keys(tagSummary).map((id) => {
-        const model = store.peekRecord('tag', id);
+        return Summary.create({
+          id,
+          model: store.peekRecord('user', id),
+          postIds: tagSummary[id],
+          component: this
+        })
+      }));
+    }
+  }),
 
-        return Tag.create({
+  tags: computed('tagSummary.summary.tags', {
+    get() {
+      const store = this.get('store');
+      const tagSummary = this.get('tagSummary.summary.tags');
+
+      return A(Object.keys(tagSummary).map((id) => {
+        return Summary.create({
           id,
           model: store.peekRecord('tag', id),
           postIds: tagSummary[id],

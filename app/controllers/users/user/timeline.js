@@ -1,7 +1,8 @@
 import Controller from '@ember/controller';
 
 export default Controller.extend({
-  queryParams: ['tags', 'direction'],
+  queryParams: ['tags', 'relationships', 'direction'],
   direction: null,
-  tags: []
+  tags: [],
+  relationships: []
 });

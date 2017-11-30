@@ -1,3 +1,5 @@
+import { A } from '@ember/array';
+
 export default function(server) {
   ['face', 'chest', 'hips', 'hair', 'facial_hair', 'voice', 'family', 'work', 'school', 'sports', 'foo', 'bar', 'baz', 'foobar', 'foobaz', 'barbaz', 'boo', 'boofoo', 'boobar', 'boobaz', 'boowho', 'boohoo', 'boobum', 'bottlebrass'].forEach((name) => {
     server.create('tag', { name });
@@ -31,4 +33,35 @@ export default function(server) {
     posts
   });
   server.createList('user', 3);
+
+  server.db.posts.forEach((post) => {
+    post.relationshipIds = [...Array(faker.random.number(3))].map(() => {
+      return faker.random.number(server.db.users.length - 1) + 1;
+    });
+
+    server.db.posts.update(post.id, post);
+  });
+
+  server.db.userTagSummaries.forEach((userTagSummary) => {
+    const posts = server.db.posts.find(server.db.users.find(server.db.userProfiles.find(userTagSummary.userProfileId).userId).postIds);
+
+    userTagSummary.summary = posts.reduce((summary, post) => {
+      post.tagIds.forEach((tagId) => {
+        summary.tags[tagId] = summary.tags[tagId] || [];
+        summary.tags[tagId].push(post.id);
+      });
+      post.relationshipIds.forEach((relationshipId) => {
+        summary.relationships[relationshipId] = summary.relationships[relationshipId] || [];
+        summary.relationships[relationshipId].push(post.id);
+      });
+
+      return summary;
+    }, { tags: {}, relationships: {} });
+
+    userTagSummary.relationshipIds = A(posts.reduce((relationshipIds, post) => {
+      return relationshipIds.concat(post.relationshipIds);
+    }, [])).uniq();
+
+    server.db.userTagSummaries.update(userTagSummary.id, userTagSummary);
+  })
 }

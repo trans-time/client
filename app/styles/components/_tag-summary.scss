@@ -10,6 +10,12 @@
   text-transform: none;
 }
 
+.tag-summary-list-divider {
+  width: 100%;
+  border: 2px dashed $medium-gray;
+  margin: $rhythm $rhythm / 2;
+}
+
 .tag-summary-list {
   overflow-x: auto;
 }

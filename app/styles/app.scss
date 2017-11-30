@@ -129,6 +129,7 @@ p {
 
 .profile-header {
   display: flex;
+  flex-shrink: 0;
   margin: $rhythm;
 }
 
@@ -167,7 +168,10 @@ p {
 }
 
 .profile-description {
+  flex-shrink: 0;
+  overflow-x: auto;
   margin: 0 $rhythm;
+  max-height: 38%;
 }
 
 

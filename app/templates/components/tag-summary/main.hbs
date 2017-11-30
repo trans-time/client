@@ -8,9 +8,21 @@
       class="tag-summary-list-item"
     }}#{{tag.model.name}}: {{tag.amount}}{{/paper-button}}
   {{/each}}
+
+  <div class="tag-summary-list-divider"></div>
+
+  {{#each relationships as |relationship|}}
+    {{#paper-button
+      raised=true
+      primary=relationship.selected
+      disabled=(not relationship.isValid)
+      onClick=(action "toggleTag" relationship)
+      class="tag-summary-list-item"
+    }}@{{relationship.model.username}}: {{relationship.amount}}{{/paper-button}}
+  {{/each}}
 </div>
 
 <div class="tag-summary-time-buttons">
-  {{#link-to "users.user.timeline" (query-params tags=selectedTagIds) class="tag-summary-time-button"}}{{t "tagSummary.start"}}: {{fa-icon "clock-o"}} {{fa-icon "arrow-right"}}{{/link-to}}
-  {{#link-to "users.user.timeline" (query-params direction="desc" tags=selectedTagIds) class="tag-summary-time-button"}}{{fa-icon "arrow-left"}} {{fa-icon "clock-o"}} :{{t "tagSummary.start"}}{{/link-to}}
+  {{#link-to "users.user.timeline" (query-params tags=selectedTagIds relationships=selectedRelationshipIds) class="tag-summary-time-button"}}{{t "tagSummary.start"}}: {{fa-icon "clock-o"}} {{fa-icon "arrow-right"}}{{/link-to}}
+  {{#link-to "users.user.timeline" (query-params direction="desc" tags=selectedTagIds relationships=selectedRelationshipIds) class="tag-summary-time-button"}}{{fa-icon "arrow-left"}} {{fa-icon "clock-o"}} :{{t "tagSummary.start"}}{{/link-to}}
 </div>

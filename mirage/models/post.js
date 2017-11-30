@@ -5,5 +5,6 @@ export default Model.extend({
   currentUserFav: belongsTo('fav', { inverse: 'currentUserFavPost' }),
   faves: hasMany('fav', { inverse: 'post' }),
   panels: hasMany('panel', { polymorphic: true }),
+  relationships: hasMany('user', { inverse: false }),
   tags: hasMany('tag')
 });
