@@ -168,10 +168,12 @@ p {
 }
 
 .profile-description {
+  z-index: 2;
   flex-shrink: 0;
   overflow-x: auto;
-  margin: 0 $rhythm;
+  padding: 0 $rhythm;
   max-height: 38%;
+  box-shadow: 0 2px 2px 0 $light-gray;
 }
 
 

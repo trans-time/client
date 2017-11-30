@@ -13,7 +13,8 @@
 .tag-summary-list-divider {
   width: 100%;
   border: 2px dashed $medium-gray;
-  margin: $rhythm $rhythm / 2;
+  margin: $rhythm / 1.5 $rhythm / 2;
+  opacity: 0.38;
 }
 
 .tag-summary-list {
@@ -21,8 +22,10 @@
 }
 
 .tag-summary-time-buttons {
+  z-index: 1;
   flex-shrink: 0;
   margin-top: auto;
+  box-shadow: 0 -2px 2px 0 $light-gray;
 }
 
 .tag-summary-time-button {
@@ -30,7 +33,7 @@
   border: thin solid $light-gray;
   text-decoration: none;
   padding: $rhythm * 0.68;
-  border-radius: 3px;
+  border-radius: $button-border-radius;
   text-align: center;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  box-shadow: 0 2px 1px 0 $medium-gray;
 }
