@@ -6,7 +6,11 @@
     </span>
   {{else}}
     <a class="top-bar-element" {{action "home"}}>{{fa-icon "home" size=2}}</a>
-    <span class="top-bar-title top-bar-element top-bar-element-grow">{{title}}</span>
+    {{#if showLink}}
+      {{#link-to linkRoute linkModelId class="top-bar-title top-bar-element top-bar-element-grow"}}{{title}}{{/link-to}}
+    {{else}}
+      <span class="top-bar-title top-bar-element top-bar-element-grow">{{title}}</span>
+    {{/if}}
   {{/if}}
   <span class="top-bar-element">{{fa-icon "bell-o" size=2}}</span>
   <a class="top-bar-element" {{action "toggleMenu"}}>{{fa-icon "bars" size=2}}</a>

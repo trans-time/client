@@ -1,5 +1,5 @@
 import { computed } from '@ember/object';
-import { oneWay } from '@ember/object/computed';
+import { notEmpty, oneWay } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 
@@ -12,6 +12,10 @@ export default Component.extend({
   router: service(),
 
   title: oneWay('meta.title'),
+  linkRoute: oneWay('meta.linkRoute'),
+  linkModelId: oneWay('meta.linkModelId'),
+
+  showLink: notEmpty('linkRoute'),
 
   showSearchBar: computed('router.currentRouteName', {
     get() {
