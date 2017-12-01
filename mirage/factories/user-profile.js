@@ -26,6 +26,8 @@ export default Factory.extend({
       summary
     }).save();
 
+    userProfile.totalPosts = userProfile.user.posts.models.length;
+
     userProfile.save();
   }
 });
