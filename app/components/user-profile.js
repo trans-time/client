@@ -1,11 +1,15 @@
 import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
+import { isBlank } from '@ember/utils';
 import Component from '@ember/component';
 
 export default Component.extend({
   classNames: ['profile'],
 
+  followDisabled: false,
+
+  store: service(),
   currentUser: service(),
   currentUserModel: alias('currentUser.user'),
 
@@ -22,11 +26,29 @@ export default Component.extend({
 
   actions: {
     follow() {
-      this.attrs.follow(this.get('user.user'));
+      this.set('followDisabled', true);
+
+      const followed = this.get('user.user');
+      const follower = this.get('currentUserModel');
+
+      this.get('store').createRecord('follow', {
+        followed,
+        follower
+      }).save().finally(() => {
+        this.set('followDisabled', false);
+      });
     },
 
     unfollow() {
-      this.attrs.unfollow(this.get('currentFollow'));
+      const currentFollow = this.get('currentFollow');
+
+      if (isBlank(currentFollow)) return;
+
+      this.set('followDisabled', true);
+
+      currentFollow.destroyRecord().finally(() => {
+        this.set('followDisabled', false);
+      });
     }
   }
 });
