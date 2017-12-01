@@ -34,6 +34,14 @@ export default function(server) {
   });
   server.createList('user', 3);
 
+  server.db.users.forEach((user) => {
+    if (user.id === currentUser.id) return;
+    server.create('follow', {
+      followerId: currentUser.id,
+      followedId: user.id
+    });
+  });
+
   server.db.posts.forEach((post) => {
     post.relationshipIds = [...Array(faker.random.number(3))].map(() => {
       return faker.random.number(server.db.users.length - 1) + 1;

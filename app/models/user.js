@@ -4,10 +4,11 @@ import { computed } from '@ember/object';
 
 export default DS.Model.extend({
   faves: DS.hasMany('fav'),
+  followeds: DS.hasMany('follow', { inverse: 'follower' }),
+  followers: DS.hasMany('follow', { inverse: 'followed' }),
   identities: DS.hasMany('identity'),
   posts: DS.hasMany('post', { async: true, inverse: 'user' }),
   userProfile: DS.belongsTo('user-profile'),
-  userSettings: DS.belongsTo('user-settings'),
 
   username: DS.attr('string'),
 

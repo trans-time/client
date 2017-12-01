@@ -11,11 +11,9 @@ export default Factory.extend({
       user
     });
 
-    user.userConfiguration = server.create('user-configuration', {
+    user.currentUser = server.create('current-user', {
       user,
-      language: 'en-us',
-      unitSystem: 'english',
-      unitSystemVolume: 'english-us'
+      language: 'en-us'
     });
 
     user.save();

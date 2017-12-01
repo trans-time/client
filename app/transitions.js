@@ -17,6 +17,11 @@ export default function() {
   );
 
   this.transition(
+    this.hasClass('cross-fade'),
+    this.use('crossFade')
+  );
+
+  this.transition(
     this.hasClass('main-modal'),
     this.use('fade')
   );

@@ -7,20 +7,20 @@ export default Service.extend({
   session: service(),
   store: service(),
 
-  configuration: alias('user.userConfiguration'),
-
   load() {
     const userId = this.get('session.data.authenticated.id');
-console.log('load', userId)
+
     if (!isEmpty(userId)) {
       const store = this.get('store');
 
       return store.findRecord('user', userId).then((user) => {
         this.set('user', user);
 
-        store.findRecord('user-configuration', userId).then((userConfiguration) => {
-          user.set('userConfiguration', userConfiguration);
+        store.findRecord('current-user', userId).then((currentUser) => {
+          user.set('currentUser', currentUser);
         });
+
+        store.query('follow', { followerId: user.id });
       });
     } else {
       return resolve();
