@@ -88,7 +88,7 @@ const PostDecorator = EmberObject.extend({
 
   _blankPanel: computed({
     get() {
-      return EmberObject.create({ postNavComponent: 'post-nav/slideshow/blank', post: { content: this.get('model') } });
+      return EmberObject.create({ postNavComponent: 'post-nav/slideshow/post/blank', post: { content: this.get('model') } });
     }
   })
 });

@@ -27,7 +27,7 @@ export default DS.Model.extend({
 
   _blankPanel: computed({
     get() {
-      return EmberObject.create({ postNavComponent: 'post-nav/slideshow/blank', post: { content: this } });
+      return EmberObject.create({ postNavComponent: 'post-nav/slideshow/post/blank', post: { content: this } });
     }
   })
 });

@@ -8,7 +8,7 @@
 </div>
 
 {{#if shouldRenderPost}}
-  {{post-nav/post
+  {{post-nav/slideshow/post/text
     post=post.model
     textExpanded=textExpanded
     isBlank=isBlank
@@ -18,7 +18,7 @@
     compressText=compressText
   }}
 
-  {{post-nav/controls/main
+  {{post-nav/slideshow/post/controls/main
     post=post.model
     classNames="main-layout-constraint"
   }}
