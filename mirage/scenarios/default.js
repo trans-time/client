@@ -1,7 +1,7 @@
 import { A } from '@ember/array';
 
 export default function(server) {
-  ['face', 'chest', 'hips', 'hair', 'facial_hair', 'voice', 'family', 'work', 'school', 'sports', 'foo', 'bar', 'baz', 'foobar', 'foobaz', 'barbaz', 'boo', 'boofoo', 'boobar', 'boobaz', 'boowho', 'boohoo', 'boobum', 'bottlebrass'].forEach((name) => {
+  ['face', 'facial_hair', 'hairline', 'hair', 'shoulders', 'arms', 'hands', 'chest', 'breasts', 'waist', 'hips', 'legs', 'feet', 'voice', 'affect', 'posture', 'art', 'drawing', 'animation', 'poetry', 'story', 'family', 'friends', 'work', 'school', 'sports'].forEach((name) => {
     server.create('tag', { name });
   });
   server.create('tag', { name: 'style' })

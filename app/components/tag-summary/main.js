@@ -63,7 +63,7 @@ export default Component.extend({
           postIds: tagSummary[id],
           component: this
         })
-      }));
+      })).sort((a, b) => b.get('postIds.length') - a.get('postIds.length'));
     }
   }),
 
@@ -79,7 +79,7 @@ export default Component.extend({
           postIds: tagSummary[id],
           component: this
         })
-      }));
+      })).sort((a, b) => b.get('postIds.length') - a.get('postIds.length'));
     }
   }),
 
