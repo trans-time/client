@@ -21,11 +21,11 @@ export default Component.extend(AuthenticatedActionMixin, {
     this.get('messageBus').subscribe('currentUserFollowsAreLoaded', this, () => this.notifyPropertyChange('currentFollow'));
   },
 
-  currentFollow: computed('currentUserModel.followeds.[]', {
+  currentFollow: computed('currentUserModel.followeds.[]', 'user.id', {
     get() {
       const userId = this.get('user.id');
       const currentUser = this.get('currentUserModel');
-
+      
       if (isBlank(currentUser) || currentUser.hasMany('followeds').value() === null) return;
 
       return currentUser.get('followeds').find((follow) => {
