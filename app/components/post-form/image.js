@@ -1,4 +1,4 @@
-import { computed } from '@ember/object';
+import { computed, get } from '@ember/object';
 import { alias, oneWay } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/string';
@@ -58,7 +58,7 @@ export default Component.extend({
     let mimeType = typeInfo.match(/:(.*?);/)[1];
 
     let binaryString = atob(base64String);
-    let binaryData = new Uint8Array(binaryString.length);
+    let binaryData = new window.Uint8Array(binaryString.length);
 
     for (let i = 0, len = binaryString.length; i < len; i++) {
       binaryData[i] = binaryString.charCodeAt(i);

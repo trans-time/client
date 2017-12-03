@@ -1,6 +1,5 @@
 import { resolve } from 'rsvp';
 import { isEmpty } from '@ember/utils';
-import { alias } from '@ember/object/computed';
 import Service, { inject as service } from '@ember/service';
 
 export default Service.extend({

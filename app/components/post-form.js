@@ -4,7 +4,6 @@ import Component from '@ember/component';
 import Changeset from 'ember-changeset';
 import lookupValidator from 'ember-changeset-validations';
 import {
-  validatePresence,
   validateLength
 } from 'ember-changeset-validations/validators';
 

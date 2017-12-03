@@ -33,7 +33,7 @@ export default Component.extend({
     }
   }),
 
-  touchStart(e) {
+  touchStart() {
     this.set('usingTouch', true);
     this.get('countdownToDisplayAllTypesTask').perform();
   },
@@ -42,7 +42,7 @@ export default Component.extend({
     this.endEvent();
   },
 
-  mouseDown(e) {
+  mouseDown() {
     if (!this.get('usingTouch')) this.get('countdownToDisplayAllTypesTask').perform();
   },
 

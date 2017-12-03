@@ -52,6 +52,8 @@ export default Component.extend({
 
   willDestroyElement(...args) {
     window.removeEventListener('resize', this.get('onResize'));
+
+    this._super(...args);
   },
 
   resizeType: computed('textExpanded', {
@@ -122,8 +124,7 @@ export default Component.extend({
     }
   },
 
-  _endEvent(event) {
-    const e = event.changedTouches ? event.changedTouches[0] : event;
+  _endEvent() {
     const swipeState = this.get('swipeState');
     if (!swipeState.active) return;
 

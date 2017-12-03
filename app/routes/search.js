@@ -1,4 +1,3 @@
-import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';

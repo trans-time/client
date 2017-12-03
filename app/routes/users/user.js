@@ -1,5 +1,4 @@
 import { isPresent } from '@ember/utils';
-import { hash } from 'rsvp';
 import Route from '@ember/routing/route';
 import RouteTitleMixin from 'client/mixins/route-title';
 

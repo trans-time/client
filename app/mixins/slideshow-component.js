@@ -28,7 +28,6 @@ export default Mixin.create({
   animateIn(progress) {
     const { isOutgoing, isIncoming } = this.getProperties('isOutgoing', 'isIncoming');
     const translateAmount = isOutgoing ? progress * -100 : isIncoming ? progress < 0 ? Math.abs(progress * 100) - 100 : 100 - (progress * 100) : 0;
-    const blurRadius = Math.abs(progress) * 10;
 
     return this.get('axis') === 'x' ? `transform: translate3d(${translateAmount}%, 0, 0); z-index: 2;` : `transform: translate3d(0, ${-translateAmount}%, 0); z-index: 2;`;
   },

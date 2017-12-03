@@ -1,7 +1,7 @@
-import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { isBlank } from '@ember/utils';
+import { later } from '@ember/runloop';
 import Route from '@ember/routing/route';
 import PostNavRouteMixin from 'client/mixins/post-nav-route';
 
@@ -21,7 +21,7 @@ export default Route.extend(PostNavRouteMixin, {
     this.set('meta.title', null);
   },
 
-  model(params) {
+  model() {
     this.setProperties({
       reachedLastPost: false
     });
@@ -34,6 +34,6 @@ export default Route.extend(PostNavRouteMixin, {
   },
 
   _refreshPosts() {
-    Ember.run.later(() => this.refresh(), 1000);
+    later(() => this.refresh(), 1000);
   }
 });

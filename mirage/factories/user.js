@@ -1,5 +1,4 @@
 import { Factory, faker } from 'ember-cli-mirage';
-import { A } from '@ember/array';
 
 export default Factory.extend({
   username: faker.internet.userName,

@@ -6,7 +6,7 @@ export default DS.Transform.extend({
       case 1: return 'star';
       case 2: return 'sun';
       case 3: return 'moon';
-    };
+    }
   },
 
   serialize(deserialized) {
@@ -14,6 +14,6 @@ export default DS.Transform.extend({
       case 'star': return 1;
       case 'sun': return 2;
       case 'moon': return 3;
-    };
+    }
   }
 });

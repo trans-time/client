@@ -1,4 +1,5 @@
 import { A } from '@ember/array';
+import { faker } from 'ember-cli-mirage';
 
 export default function(server) {
   ['face', 'facial_hair', 'hairline', 'hair', 'shoulders', 'arms', 'hands', 'chest', 'breasts', 'waist', 'hips', 'legs', 'feet', 'voice', 'affect', 'posture', 'art', 'drawing', 'animation', 'poetry', 'story', 'family', 'friends', 'work', 'school', 'sports'].forEach((name) => {

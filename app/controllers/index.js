@@ -1,8 +1,9 @@
+import { notEmpty } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import Controller from '@ember/controller';
 
 export default Controller.extend({
   session: service(),
 
-  modelIsPresent: Ember.computed.notEmpty('model')
+  modelIsPresent: notEmpty('model')
 });

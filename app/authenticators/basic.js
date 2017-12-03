@@ -4,7 +4,6 @@ import { inject } from '@ember/service';
 import { isEmpty } from '@ember/utils';
 import { run, later } from '@ember/runloop';
 import { merge, assign as emberAssign } from '@ember/polyfills';
-import { computed } from '@ember/object';
 import BaseAuthenticator from 'ember-simple-auth/authenticators/base';
 import fetch from 'fetch';
 

@@ -1,8 +1,7 @@
 import Mixin from '@ember/object/mixin';
 import { computed, get, set } from '@ember/object';
 import { inject as service } from '@ember/service';
-import { isBlank, isPresent, typeOf } from '@ember/utils';
-import Route from '@ember/routing/route';
+import { isBlank, isPresent } from '@ember/utils';
 import { task } from 'ember-concurrency';
 import { Promise, all } from 'rsvp';
 import config from '../config/environment';
@@ -67,7 +66,7 @@ export default Mixin.create({
         }
       })
     } catch (e) {
-      console.log(e);
+      console.log(e); // eslint-disable-line 
     }
   }).maxConcurrency(3).enqueue(),
 

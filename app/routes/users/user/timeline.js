@@ -1,4 +1,3 @@
-import { assign } from '@ember/polyfills';
 import { alias } from '@ember/object/computed';
 import { hash } from 'rsvp';
 import Route from '@ember/routing/route';
