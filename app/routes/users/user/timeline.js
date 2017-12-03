@@ -23,7 +23,7 @@ export default Route.extend(PostNavRouteMixin, {
       reachedLastPost: false
     });
 
-    const user = this.modelFor('users.user').user;
+    const user = this.modelFor('users.user');
 
     return hash({
       posts: this.store.query('post', { userId: user.id, tags: params.tags, direction: params.direction, page: 0, perPage: 10 }),

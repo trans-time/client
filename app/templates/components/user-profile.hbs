@@ -3,18 +3,18 @@
 
   <div class="profile-header-content">
     <div class="profile-header-counters">
-      <div class="profile-header-counter">
+      {{#link-to "users.user.profile.index" class="profile-header-counter"}}
         <div class="profile-header-counter-count">{{user.userProfile.totalPosts}}</div>
         <div class="profile-header-counter-title">{{t "profile.posts"}}</div>
-      </div>
-      <div class="profile-header-counter">
+      {{/link-to}}
+      {{#link-to "users.user.profile.followers" class="profile-header-counter"}}
         <div class="profile-header-counter-count">{{fa-icon "hand-lizard-o" flip="horizontal"}}</div>
         <div class="profile-header-counter-title">{{t "profile.followers"}}</div>
-      </div>
-      <div class="profile-header-counter">
+      {{/link-to}}
+      {{#link-to "users.user.profile.following" class="profile-header-counter"}}
         <div class="profile-header-counter-count">{{fa-icon "hand-lizard-o"}}</div>
         <div class="profile-header-counter-title">{{t "profile.following"}}</div>
-      </div>
+      {{/link-to}}
     </div>
     {{#liquid-if currentFollow class="cross-fade"}}
       {{#paper-button onClick="unfollow" raised=true disabled=followDisabled class="profile-header-button"}}{{t "profile.unfollow"}}{{/paper-button}}

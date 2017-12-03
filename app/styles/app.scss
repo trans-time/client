@@ -150,6 +150,11 @@ p {
   text-align: center;
   justify-content: space-between;
   margin-bottom: $rhythm;
+
+  a:any-link, & {
+    color: $text-color;
+    text-decoration: none;
+  }
 }
 
 .profile-header-counter-count {
@@ -173,6 +178,54 @@ p {
   padding: 0 $rhythm;
   max-height: 38%;
   box-shadow: 0 2px 2px 0 $light-gray;
+}
+
+
+.follow-items {
+  margin: 0;
+  padding: 0 $rhythm;
+  overflow-y: auto;
+  overflow-x: hidden;
+  list-style-type: none;
+}
+
+.follow-item {
+  height: 60px;
+  width: 100%;
+  overflow: hidden;
+  margin: $rhythm 0;
+}
+
+.follow-item-link {
+  display: flex;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.follow-item-avatar {
+  height: 100%;
+  object-fit: cover;
+  border-radius: $rhythm;
+  margin-right: $rhythm;
+}
+
+.follow-item-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.follow-item-username {
+  flex-shrink: 0;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.follow-item-description {
+  font-size: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 

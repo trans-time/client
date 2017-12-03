@@ -1,0 +1,7 @@
+{{#link-to "users.user.profile" user.id class="follow-item-link"}}
+  <img src={{user.userProfile.avatar}} class="follow-item-avatar">
+  <div class="follow-item-text">
+    <div class="follow-item-username">{{user.username}}</div>
+    <div class="follow-item-description">{{{inject-emoji (markdown-render user.userProfile.description)}}}</div>
+  </div>
+{{/link-to}}

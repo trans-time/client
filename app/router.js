@@ -10,7 +10,10 @@ Router.map(function() {
   this.route('users', function() {
     this.route('user', { path: '/:id' }, function() {
       this.route('timeline');
-      this.route('profile', function() {});
+      this.route('profile', function() {
+        this.route('followers');
+        this.route('following');
+      });
     });
   });
   this.route('search', function() {});

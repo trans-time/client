@@ -23,7 +23,7 @@ export default Component.extend(AuthenticatedActionMixin, {
 
   currentFollow: computed('currentUserModel.followeds.[]', {
     get() {
-      const userId = this.get('user.user.id');
+      const userId = this.get('user.id');
       const currentUser = this.get('currentUserModel');
 
       if (isBlank(currentUser) || currentUser.hasMany('followeds').value() === null) return;
@@ -48,7 +48,7 @@ export default Component.extend(AuthenticatedActionMixin, {
     follow() {
       this.authenticatedAction().then(() => {
         this._disableFollowUntilResolved((resolve) => {
-          this.attrs.follow(this.get('user.user'), resolve);
+          this.attrs.follow(this.get('user'), resolve);
         });
       });
     },

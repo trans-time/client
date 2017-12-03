@@ -46,7 +46,8 @@ export default function() {
     return schema.users.find(request.params.id).currentUser;
   });
   this.get('/follows', (schema, request) => {
-    return schema.follows.where({ followerId: request.queryParams.followerId });
+    if (isPresent(request.queryParams.followerId)) return schema.follows.where({ followerId: request.queryParams.followerId });
+    else if (isPresent(request.queryParams.followedId)) return schema.follows.where({ followedId: request.queryParams.followedId });
   });
   this.post('/follows');
   this.delete('/follows/:id');
