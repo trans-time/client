@@ -9,17 +9,20 @@
         onChange=(action (mut changeset.username))
         errors=changeset.error.username.validation
         required="style"
+        data-test-join-username-input=""
       }}
     {{/paper-item}}
 
     {{#paper-item}}
       {{form.input
         value=changeset.email
+        type="email"
         autofocus=true
         label=(t "users.attributes.email.label")
         onChange=(action (mut changeset.email))
         errors=changeset.error.email.validation
         required="style"
+        data-test-join-email-input=""
       }}
     {{/paper-item}}
 
@@ -31,6 +34,7 @@
         onChange=(action (mut changeset.password))
         errors=changeset.error.password.validation
         required="style"
+        data-test-join-password-input=""
       }}
     {{/paper-item}}
   {{/paper-list}}
@@ -40,6 +44,7 @@
       label=(t "auth.login")
       onClick=(action "login")
       classNames="form-controls-align-left"
+      data-test-join-login-button=""
     }}
   {{/form-controls}}
 {{/paper-form}}

@@ -3,6 +3,7 @@
 {{paper-button
   label=(t "general.cancel")
   onClick=(action "handleCancel")
+  data-test-form-controls-cancel=""
 }}
 
 {{form.submit-button
@@ -10,4 +11,5 @@
   disabled=form.isInvalid
   raised=true
   primary=true
+  data-test-form-controls-submit=""
 }}

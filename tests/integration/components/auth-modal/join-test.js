@@ -2,23 +2,16 @@ import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
 moduleForComponent('auth-modal/join', 'Integration | Component | auth modal/join', {
-  integration: true
+  integration: true,
+  setup() {
+    this.container.lookup('service:intl').setLocale('en-us');
+  }
 });
 
-test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+test('it begins in a blank, unsubmittable state', function(assert) {
+  assert.expect(1);
 
   this.render(hbs`{{auth-modal/join}}`);
 
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#auth-modal/join}}
-      template block text
-    {{/auth-modal/join}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.ok(this.$('[data-test-form-controls-submit]').attr('disabled'), 'submit button is disabled');
 });
