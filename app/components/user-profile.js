@@ -2,6 +2,7 @@ import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { isBlank } from '@ember/utils';
+import { Promise } from 'rsvp';
 import Component from '@ember/component';
 
 export default Component.extend({
@@ -9,7 +10,6 @@ export default Component.extend({
 
   followDisabled: false,
 
-  store: service(),
   currentUser: service(),
   currentUserModel: alias('currentUser.user'),
 
@@ -24,30 +24,26 @@ export default Component.extend({
     }
   }),
 
+  _disableFollowUntilResolved(cb) {
+    this.set('followDisabled', true);
+
+    new Promise((resolve) => {
+      cb(resolve);
+    }).then(() => {
+      this.set('followDisabled', false);
+    });
+  },
+
   actions: {
     follow() {
-      this.set('followDisabled', true);
-
-      const followed = this.get('user.user');
-      const follower = this.get('currentUserModel');
-
-      this.get('store').createRecord('follow', {
-        followed,
-        follower
-      }).save().finally(() => {
-        this.set('followDisabled', false);
+      this._disableFollowUntilResolved((resolve) => {
+        this.attrs.follow(this.get('user.user'), resolve);
       });
     },
 
     unfollow() {
-      const currentFollow = this.get('currentFollow');
-
-      if (isBlank(currentFollow)) return;
-
-      this.set('followDisabled', true);
-
-      currentFollow.destroyRecord().finally(() => {
-        this.set('followDisabled', false);
+      this._disableFollowUntilResolved((resolve) => {
+        this.attrs.unfollow(this.get('currentFollow'), resolve);
       });
     }
   }
