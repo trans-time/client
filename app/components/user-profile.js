@@ -4,21 +4,31 @@ import { inject as service } from '@ember/service';
 import { isBlank } from '@ember/utils';
 import { Promise } from 'rsvp';
 import Component from '@ember/component';
+import AuthenticatedActionMixin from 'client/mixins/authenticated-action';
 
-export default Component.extend({
+export default Component.extend(AuthenticatedActionMixin, {
   classNames: ['profile'],
 
   followDisabled: false,
 
+  messageBus: service(),
   currentUser: service(),
   currentUserModel: alias('currentUser.user'),
+
+  init(...args) {
+    this._super(...args);
+
+    this.get('messageBus').subscribe('currentUserFollowsAreLoaded', this, () => this.notifyPropertyChange('currentFollow'));
+  },
 
   currentFollow: computed('currentUserModel.followeds.[]', {
     get() {
       const userId = this.get('user.user.id');
-      const follows = this.get('currentUserModel.followeds');
+      const currentUser = this.get('currentUserModel');
 
-      return follows.find((follow) => {
+      if (isBlank(currentUser) || currentUser.hasMany('followeds').value() === null) return;
+
+      return currentUser.get('followeds').find((follow) => {
         return follow.belongsTo('followed').id() === userId;
       });
     }
@@ -36,8 +46,10 @@ export default Component.extend({
 
   actions: {
     follow() {
-      this._disableFollowUntilResolved((resolve) => {
-        this.attrs.follow(this.get('user.user'), resolve);
+      this.authenticatedAction().then(() => {
+        this._disableFollowUntilResolved((resolve) => {
+          this.attrs.follow(this.get('user.user'), resolve);
+        });
       });
     },
 

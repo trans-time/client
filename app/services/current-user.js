@@ -4,6 +4,8 @@ import { alias } from '@ember/object/computed';
 import Service, { inject as service } from '@ember/service';
 
 export default Service.extend({
+  messageBus: service(),
+  modalManager: service(),
   session: service(),
   store: service(),
 
@@ -16,11 +18,13 @@ export default Service.extend({
       return store.findRecord('user', userId).then((user) => {
         this.set('user', user);
 
+        this.get('modalManager').close('resolve');
+
         store.findRecord('current-user', userId).then((currentUser) => {
           user.set('currentUser', currentUser);
         });
 
-        store.query('follow', { followerId: user.id });
+        store.query('follow', { followerId: user.id }).then(() => this.get('messageBus').publish('currentUserFollowsAreLoaded'));
       });
     } else {
       return resolve();

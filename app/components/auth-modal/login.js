@@ -47,8 +47,6 @@ export default Component.extend({
 
       this.get('session').authenticate('authenticator:basic', username, password).catch((reason) => {
         this.set('errorMessage', reason.error || reason);
-      }).then(() => {
-        this.get('modalManager').close('resolve');
       });
     }
   }
