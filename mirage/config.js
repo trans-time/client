@@ -42,6 +42,7 @@ export default function() {
   this.get('/user-profiles/:id', (schema, request) => {
     return schema.users.find(request.params.id).userProfile;
   });
+  this.patch('/user-profiles/:id');
   this.get('/current-users/:id', (schema, request) => {
     return schema.users.find(request.params.id).currentUser;
   });

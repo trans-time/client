@@ -171,13 +171,66 @@ p {
   margin: 0;
 }
 
+.profile-website {
+  flex-shrink: 0;
+  padding: $rhythm / 2 $rhythm;
+
+  a {
+    text-decoration: none;
+  }
+}
+
 .profile-description {
   z-index: 2;
   flex-shrink: 0;
   overflow-x: auto;
-  padding: 0 $rhythm;
-  max-height: 38%;
+  padding: $rhythm / 2 $rhythm;
+  max-height: 32%;
   box-shadow: 0 2px 2px 0 $light-gray;
+}
+
+
+.profile-form-text-emoji-wrapper {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+
+  .profile-description {
+    flex-shrink: 1;
+  }
+}
+
+.profile-form-textarea-container {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  position: relative;
+}
+
+.profile-form-textarea {
+  flex-grow: 1;
+  resize: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.profile-form-text-emoji-toggler {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: none;
+  border: none;
+  outline: none;
+  opacity: 0.68;
+  padding: $rhythm;
+  z-index: 10;
+}
+
+.profile-form-text-emoji-picker {
+  position: absolute;
+  bottom: 2px;
+  left: 2px;
+  z-index: 10;
 }
 
 

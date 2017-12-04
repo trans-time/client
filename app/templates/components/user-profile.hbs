@@ -16,7 +16,12 @@
         <div class="profile-header-counter-title">{{t "profile.following"}}</div>
       {{/link-to}}
     </div>
-    {{#liquid-if currentFollow class="cross-fade"}}
+    {{#liquid-if isEditing class="cross-fade"}}
+      {{#paper-button onClick="cancelEditing" disable=cancelDisabled raised=true class="profile-header-button"}}{{t "profile.cancel"}}{{/paper-button}}
+      {{#paper-button onClick="updateEditing" disabled=updateDisabled raised=true primary=true class="profile-header-button"}}{{t "profile.save"}}{{/paper-button}}
+    {{else if isCurrentUser}}
+      {{#paper-button onClick="startEditing" raised=true class="profile-header-button"}}{{t "profile.edit"}}{{/paper-button}}
+    {{else if currentFollow}}
       {{#paper-button onClick="unfollow" raised=true disabled=followDisabled class="profile-header-button"}}{{t "profile.unfollow"}}{{/paper-button}}
     {{else}}
       {{#paper-button onClick="follow" raised=true primary=true disabled=followDisabled class="profile-header-button"}}{{t "profile.follow"}}{{/paper-button}}
@@ -24,9 +29,53 @@
   </div>
 </div>
 
-<div class="profile-description">
-  {{{inject-emoji (markdown-render user.userProfile.description)}}}
+<div class="profile-website">
+  {{#liquid-if isEditing}}
+    {{paper-input
+      value=changeset.website
+      label=(t "profile.attributes.website.label")
+      onChange=(action (mut changeset.website))
+      errors=changeset.error.website.validation
+    }}
+  {{else if user.userProfile.website}}
+    <a href={{websiteHref}} target="_blank">{{user.userProfile.website}}</a>
+  {{/liquid-if}}
 </div>
+
+{{#if isEditing}}
+  {{#emoji-picker-wrapper
+    text                = changeset.description
+    inputSelector       = ".profile-form-textarea"
+    emojiInsertedAction = (action (mut changeset.description))
+    classNames="profile-form-text-emoji-wrapper"
+    as |h|
+  }}
+
+    <div class="profile-form-textarea-container">
+      <div class="profile-description">
+        {{paper-input
+          value=changeset.description
+          textarea=true
+          block=true
+          label=(t "profile.attributes.description.label")
+          onChange=(action (mut changeset.description))
+          errors=changeset.error.description.validation
+          class="profile-form-textarea"
+        }}
+      </div>
+      {{component h.emojiAssist}}
+
+      {{component h.emojiPickerToggler class="profile-form-text-emoji-toggler"}}
+
+      {{component h.emojiPicker class="profile-form-text-emoji-picker"}}
+    </div>
+
+  {{/emoji-picker-wrapper}}
+{{else}}
+  <div class="profile-description">
+    {{{inject-emoji (markdown-render user.userProfile.description)}}}
+  </div>
+{{/if}}
 
 <div class="profile-body">
   {{outlet}}

@@ -27,16 +27,24 @@ post:
     date:
       label: "date"
     text:
-      placeholder: "tell us something"
+      placeholder: "what's up?"
   edit: "edit post"
   more: "more"
   new: "new post"
 profile:
+  cancel: "cancel"
+  edit: "edit profile"
   followers: "followers"
   following: "following"
   posts: "posts"
   follow: "follow"
+  save: "save"
   unfollow: "unfollow"
+  attributes:
+    description:
+      label: "description"
+    website:
+      label: "website"
 search:
   title: "search"
 tagSummary:

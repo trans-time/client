@@ -4,6 +4,7 @@ import { A } from '@ember/array';
 export default Factory.extend({
   description: faker.lorem.paragraph,
   avatar: faker.image.avatar,
+  website: faker.internet.url,
   totalPosts: faker.random.number,
 
   afterCreate(userProfile, server) {
