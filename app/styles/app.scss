@@ -194,9 +194,11 @@ p {
   display: flex;
   flex-grow: 1;
   flex-direction: column;
+  box-shadow: 0 2px 2px 0 $light-gray;
 
   .profile-description {
     flex-shrink: 1;
+    box-shadow: none;
   }
 }
 
