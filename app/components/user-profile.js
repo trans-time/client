@@ -111,6 +111,7 @@ export default Component.extend(AuthenticatedActionMixin, {
       this.set('isSaving', true);
       this.get('changeset').save().then(() => {
         this._stopEditing();
+      }).finally(() => {
         this.set('isSaving', false);
       });
     }
