@@ -1,7 +1,7 @@
 import { computed, observer } from '@ember/object';
 import { alias, or } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
-import { isBlank } from '@ember/utils';
+import { isBlank, isPresent } from '@ember/utils';
 import { Promise } from 'rsvp';
 import Component from '@ember/component';
 import AuthenticatedActionMixin from 'client/mixins/authenticated-action';
@@ -11,6 +11,7 @@ import {
   validateFormat,
   validateLength
 } from 'ember-changeset-validations/validators';
+import config from '../config/environment';
 
 const ProfileValidations = {
   description: [
@@ -29,6 +30,8 @@ export default Component.extend(AuthenticatedActionMixin, {
   isSaving: false,
 
   messageBus: service(),
+  modalManager: service(),
+  fileQueue: service(),
   currentUser: service(),
   currentUserModel: alias('currentUser.user'),
 
@@ -43,6 +46,14 @@ export default Component.extend(AuthenticatedActionMixin, {
 
   _stopEditing: observer('user', function() {
     this.set('isEditing', false);
+  }),
+
+  queue: computed({
+    get() {
+      const queues = get(this, 'fileQueue');
+      return queues.find('uploadQueue') ||
+             queues.create('uploadQueue');
+    }
   }),
 
   isCurrentUser: computed('currentUserModel', 'user', {
@@ -82,9 +93,46 @@ export default Component.extend(AuthenticatedActionMixin, {
     });
   },
 
+  _uploadAvatar() {
+    try {
+      const dataURL = this.get('changeset.avatar');
+      const img = document.createElement('img');
+      const canvas = document.createElement('canvas');
+      canvas.height = 125;
+      canvas.width = 125;
+      img.src = dataURL;
+
+      img.onload = () => {
+        canvas.toBlob((blob) => {
+          blob.name = `avatar-${this.get('currentUserModel.username')}.jpeg`;
+          const [newFile] = this.get('queue')._addFiles([blob], 'blob');
+          newFile.upload(`${config.rootURL}user-profiles/upload`).then((result) => {
+            this.set('changeset.avatar', get(result, 'body.data.attributes.src'));
+
+            this._saveChanges();
+          });
+        }, 'image/jpeg');
+      }
+    } catch (e) {
+      console.log(e); // eslint-disable-line
+    }
+  },
+
+  _saveChanges() {
+    this.get('changeset').save().then(() => {
+      this._stopEditing();
+    }).finally(() => {
+      this.set('isSaving', false);
+    });
+  },
+
   actions: {
     cancelEditing() {
       this._stopEditing();
+    },
+
+    changeAvatar() {
+      this.get('modalManager').open('user-profile/avatar-editor', null, null, { changeset: this.get('changeset') });
     },
 
     follow() {
@@ -109,11 +157,8 @@ export default Component.extend(AuthenticatedActionMixin, {
 
     updateEditing() {
       this.set('isSaving', true);
-      this.get('changeset').save().then(() => {
-        this._stopEditing();
-      }).finally(() => {
-        this.set('isSaving', false);
-      });
+      if (isPresent(this.get('changeset.avatar'))) this._uploadAvatar();
+      else this._saveChanges();
     }
   }
 });

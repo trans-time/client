@@ -1,0 +1,100 @@
+.image-editor {
+  display: flex;
+  flex-grow: 1;
+  position: relative;
+  background-color: $dark-gray;
+  z-index: 101;
+}
+
+.image-editor-container {
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.image-editor-container-curtain {
+  position: relative;
+  height: 100%;
+}
+
+.image-editor-display-image {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.image-editor-display-image-delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 150%;
+  height: $rhythm * 2;
+  width: $rhythm * 2;
+  margin: $rhythm;
+  padding: $rhythm;
+  background-color: $white;
+  color: $dark-gray;
+  border-radius: 50%;
+  opacity: 0.38;
+}
+
+.image-editor-carousel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  overflow-y: hidden;
+  overflow-x: auto;
+
+  div, a {
+    height: 100%;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+  }
+
+  .image-editor-carousel-item {
+    flex-shrink: 0;
+    background-color: $medium-gray;
+    color: $white;
+    border-radius: 10px;
+    opacity: 0.38;
+    margin: 1px;
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+  }
+}
+
+.user-profile-avatar-editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  z-index: 101;
+
+  .image-editor-container {
+    max-height: 320px;
+    max-width: 320px;
+  }
+
+  .image-editor-carousel-item {
+    height: 100px;
+    width: 100px;
+  }
+}

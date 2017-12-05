@@ -1,0 +1,43 @@
+<div class="image-editor-container" style={{containerStyle}}>
+  <div class="image-editor-container-curtain">
+    {{#if cameraOn}}
+      {{ember-webrtc-capture
+        takePicture=(action "takePicture")
+      }}
+    {{else if displayImage}}
+      {{image-editor/display-image displayImage=displayImage}}
+      <a class="image-editor-display-image-delete" {{action "deleteImage" displayImage}}>{{fa-icon "close"}}</a>
+    {{/if}}
+  </div>
+</div>
+
+<div class="image-editor-carousel">
+  <div class="image-editor-carousel-item">
+    {{#file-dropzone name="photos" as |dropzone queue|}}
+      {{#if dropzone.active}}
+        {{#if dropzone.valid}}
+          {{t "file.drop"}}
+        {{else}}
+          {{t "file.invalid"}}
+        {{/if}}
+      {{else if queue.files.length}}
+        {{t "file.progress" length=queue.files.length progress=queue.progress}}
+      {{else}}
+        {{#file-upload name="imageFile"
+                       accept="image/*"
+                       multiple=true
+                       onfileadd=(action "uploadImage")}}
+          <a id="upload-image" tabindex=0>{{fa-icon "plus"}}</a>
+        {{/file-upload}}
+      {{/if}}
+    {{/file-dropzone}}
+  </div>
+  <div class="image-editor-carousel-item">
+    <a {{action "openCamera"}}>{{fa-icon "camera"}}</a>
+  </div>
+  {{#each panels as |panel|}}
+    <div class="image-editor-carousel-item">
+      <a {{action "selectImage" panel}}>{{image-editor/carousel-image panel=panel width=width height=height}}</a>
+    </div>
+  {{/each}}
+</div>

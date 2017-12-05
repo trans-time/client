@@ -33,6 +33,7 @@ post:
   new: "new post"
 profile:
   cancel: "cancel"
+  changeAvatar: "change your avatar"
   edit: "edit profile"
   followers: "followers"
   following: "following"

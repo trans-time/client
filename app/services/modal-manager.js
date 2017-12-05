@@ -4,9 +4,13 @@ export default Service.extend({
   componentPath: '',
   resolve() {},
   reject() {},
+  options: {},
 
-  open(componentPath, resolve, reject) {
-    this.set('componentPath', componentPath);
+  open(componentPath, resolve, reject, options = {}) {
+    this.setProperties( {
+      componentPath,
+      options
+    });
     if (resolve) this.set('resolve', resolve);
     if (reject) this.set('reject', reject);
   },

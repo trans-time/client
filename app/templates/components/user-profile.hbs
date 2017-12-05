@@ -1,5 +1,13 @@
 <div class="profile-header">
-  <img class="profile-header-avatar" src={{user.userProfile.avatar}}>
+  <div class="profile-header-avatar-container">
+    {{#if user.userProfile.avatar}}<img class="profile-header-avatar" src={{user.userProfile.avatar}}>{{/if}}
+    {{#if isEditing}}
+      <a {{action "changeAvatar"}} class="profile-header-avatar-new-overlay">
+        {{fa-icon "camera" size=2}}
+        <div class="profile-header-avatar-new-overlay-text">{{t "profile.changeAvatar"}}</div>
+      </a>
+    {{/if}}
+  </div>
 
   <div class="profile-header-content">
     <div class="profile-header-counters">

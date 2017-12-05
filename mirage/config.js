@@ -111,4 +111,7 @@ export default function() {
     let photo = db.create('image', { filename, filesize, src, uploadedAt: new Date() });
     return photo;
   }));
+  this.post('/user-profiles/upload', upload((db, request) => {
+    return request.requestBody.file.src;
+  }));
 }
