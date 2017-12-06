@@ -1,13 +1,15 @@
 <div class="profile-header">
-  <div class="profile-header-avatar-container {{if isEditing 'profile-header-avatar-container-full-size'}}">
-    {{#if user.userProfile.avatar}}<img class="profile-header-avatar" src={{user.userProfile.avatar}}>{{/if}}
-    {{#if isEditing}}
-      <a {{action "changeAvatar"}} class="profile-header-avatar-new-overlay">
-        {{fa-icon "camera" size=2}}
-        <div class="profile-header-avatar-new-overlay-text">{{t "profile.changeAvatar"}}</div>
-      </a>
-    {{/if}}
-  </div>
+  {{#if (or user.userProfile.avatar isEditing)}}
+    <div class="profile-header-avatar-container {{if isEditing 'profile-header-avatar-container-full-size'}}">
+      {{#if user.userProfile.avatar}}<img class="profile-header-avatar" src={{user.userProfile.avatar}}>{{/if}}
+      {{#if isEditing}}
+        <a {{action "changeAvatar"}} class="profile-header-avatar-new-overlay">
+          {{fa-icon "camera" size=2}}
+          <div class="profile-header-avatar-new-overlay-text">{{t "profile.changeAvatar"}}</div>
+        </a>
+      {{/if}}
+    </div>
+  {{/if}}
 
   <div class="profile-header-content">
     <div class="profile-header-counters">
@@ -44,7 +46,7 @@
 </div>
 
 {{#if isEditing}}
-  <div class="profile-website-edit">
+  <div class="profile-field">
     {{paper-input
       value=changeset.website
       label=(t "profile.attributes.website.label")
@@ -55,7 +57,7 @@
 {{/if}}
 
 {{#if isEditing}}
-  <div class="profile-pronouns-edit">
+  <div class="profile-field">
     {{paper-input
       value=changeset.pronouns
       label=(t "profile.attributes.pronouns.label")
@@ -79,7 +81,7 @@
   }}
 
     <div class="profile-form-textarea-container">
-      <div class="profile-description">
+      <div class="profile-description profile-field">
         {{paper-input
           value=changeset.description
           textarea=true
