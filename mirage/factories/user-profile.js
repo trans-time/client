@@ -2,10 +2,11 @@ import { Factory, faker } from 'ember-cli-mirage';
 import { A } from '@ember/array';
 
 export default Factory.extend({
-  description: faker.lorem.paragraph,
   avatar: faker.image.avatar,
-  website: faker.internet.url,
+  description: faker.lorem.paragraph,
+  pronouns: faker.list.random('she/her', 'he/him', 'they/them', 'she/her; they/them', 'he/him; they/them', ''),
   totalPosts: faker.random.number,
+  website: faker.internet.url,
 
   afterCreate(userProfile, server) {
     const summary = userProfile.user.posts.models.reduce((summary, post) => {

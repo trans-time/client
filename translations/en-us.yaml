@@ -44,6 +44,8 @@ profile:
   attributes:
     description:
       label: "description"
+    pronouns:
+      label: "pronouns"
     website:
       label: "website"
 search:

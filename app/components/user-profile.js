@@ -17,6 +17,9 @@ const ProfileValidations = {
   description: [
     validateLength({ max: 1000 })
   ],
+  pronouns: [
+    validateLength({ max: 64 })
+  ],
   website: [
     validateFormat({ type: 'url', allowBlank: true })
   ]
