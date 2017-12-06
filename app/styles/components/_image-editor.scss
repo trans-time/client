@@ -89,12 +89,34 @@
   z-index: 101;
 
   .image-editor-container {
-    max-height: 320px;
-    max-width: 320px;
+    max-height: 125px;
+    max-width: 125px;
   }
 
   .image-editor-carousel-item {
-    height: 100px;
-    width: 100px;
+    height: 105px;
+    width: 105px;
   }
+}
+
+.user-profile-avatar-editor-controls {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  background-color: $white;
+  border: 1px solid $medium-gray;
+  border-bottom: 0;
+  padding: 4px;
+  padding-bottom: 0;
+
+  :last-child {
+    margin-left: auto;
+  }
+}
+
+.user-profile-avatar-editor-controls-element {
+  position: relative;
+  display: inline-block;
+  padding: $rhythm;
 }
