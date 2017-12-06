@@ -120,3 +120,20 @@
   display: inline-block;
   padding: $rhythm;
 }
+
+
+.post-form-image-editor {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  .image-editor-container {
+    max-height: 1350px;
+    max-width: 1080px;
+  }
+
+  .image-editor-carousel-item {
+    height: 135px;
+    width: 108px;
+  }
+}
