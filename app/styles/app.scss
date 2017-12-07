@@ -149,6 +149,7 @@ p {
 .follow-item-text {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 }
 
 .follow-item-username {
@@ -156,12 +157,23 @@ p {
   font-weight: bold;
   overflow: hidden;
   text-overflow: ellipsis;
+  height: 19px;
+}
+
+.follow-item-request {
+  color: $medium-gray;
+  font-size: 80%;
+  vertical-align: middle;
 }
 
 .follow-item-description {
   font-size: 80%;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.follow-item-button {
+  margin: 2px 0 0;
 }
 
 

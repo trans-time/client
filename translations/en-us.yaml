@@ -17,6 +17,10 @@ file:
   invalid: "file is invalid"
   progress: "uploading {{length}} files. ({{progress}}%)"
   uploadImages: "upload Images"
+followers:
+  grant: "grant private access"
+  requestedPrivate: "requested private access"
+  revoke: "revoke private access"
 general:
   cancel: "cancel"
   submit: "submit"

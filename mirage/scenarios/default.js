@@ -41,6 +41,11 @@ export default function(server) {
       followerId: currentUser.id,
       followedId: user.id
     });
+    server.create('follow', {
+      followerId: user.id,
+      followedId: currentUser.id,
+      requestedPrivate: true
+    });
   });
 
   server.db.posts.forEach((post) => {

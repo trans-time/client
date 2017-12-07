@@ -1,5 +1,5 @@
 <ul class="follow-items">
   {{#each model as |follow|}}
-    {{follow-item user=follow.follower}}
+    {{follow-item user=follow.follower follow=follow}}
   {{/each}}
 </ul>
