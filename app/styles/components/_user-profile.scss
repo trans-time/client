@@ -19,19 +19,19 @@
 .profile-header-avatar-container {
   position: relative;
   flex-shrink: 0;
-  max-width: 125px;
-  max-height: 125px;
+  max-width: 145px;
+  max-height: 145px;
   margin-right: $rhythm;
 
   &.profile-header-avatar-container-full-size {
-    width: 125px;
-    height: 125px;
+    width: 145px;
+    height: 145px;
   }
 }
 
 .profile-header-avatar {
-  width: 125px;
-  height: 125px;
+  width: 145px;
+  height: 145px;
   object-fit: cover;
   border-radius: $rhythm;
 }
@@ -40,8 +40,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 125px;
-  height: 125px;
+  width: 145px;
+  height: 145px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -89,6 +89,7 @@
 .profile-header-button {
   width: 100%;
   margin: 0;
+  font-size: 75%;
 }
 
 .profile-website {

@@ -39,10 +39,12 @@ profile:
   cancel: "cancel"
   changeAvatar: "change your avatar"
   edit: "edit profile"
+  follow: "follow"
   followers: "followers"
   following: "following"
+  havePrivate: "private posts <i class='fa fa-unlock'></i>"
   posts: "posts"
-  follow: "follow"
+  requestPrivate: "request <i class='fa fa-unlock'></i>"
   save: "save"
   unfollow: "unfollow"
   attributes:

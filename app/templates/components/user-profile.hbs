@@ -32,6 +32,11 @@
     {{else if isCurrentUser}}
       {{#paper-button onClick="startEditing" raised=true class="profile-header-button"}}{{t "profile.edit"}}{{/paper-button}}
     {{else if currentFollow}}
+      {{#if currentFollow.canViewPrivate}}
+        {{#paper-button raised=true disabled=true class="profile-header-button"}}{{{t "profile.havePrivate"}}}{{/paper-button}}
+      {{else}}
+        {{#paper-button onClick="requestPrivate" primary=(not currentFollow.requestedPrivate) raised=true disabled=(or currentFollow.requestedPrivate followDisabled) class="profile-header-button"}}{{{t "profile.requestPrivate"}}}{{/paper-button}}
+      {{/if}}
       {{#paper-button onClick="unfollow" raised=true disabled=followDisabled class="profile-header-button"}}{{t "profile.unfollow"}}{{/paper-button}}
     {{else}}
       {{#paper-button onClick="follow" raised=true primary=true disabled=followDisabled class="profile-header-button"}}{{t "profile.follow"}}{{/paper-button}}

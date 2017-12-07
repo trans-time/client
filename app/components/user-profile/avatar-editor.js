@@ -8,8 +8,8 @@ import Component from '@ember/component';
 import { task, timeout } from 'ember-concurrency';
 
 export default Component.extend({
-  height: 125,
-  width: 125,
+  height: 145,
+  width: 145,
   classNames: ['user-profile-avatar-editor'],
 
   modalManager: service(),

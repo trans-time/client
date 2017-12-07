@@ -39,7 +39,8 @@ export default function(server) {
     if (user.id === currentUser.id) return;
     server.create('follow', {
       followerId: currentUser.id,
-      followedId: user.id
+      followedId: user.id,
+      canViewPrivate: true
     });
     server.create('follow', {
       followerId: user.id,

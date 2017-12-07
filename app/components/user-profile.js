@@ -101,8 +101,8 @@ export default Component.extend(AuthenticatedActionMixin, {
       const dataURL = this.get('changeset.avatar');
       const img = document.createElement('img');
       const canvas = document.createElement('canvas');
-      canvas.height = 125;
-      canvas.width = 125;
+      canvas.height = 145;
+      canvas.width = 145;
       img.src = dataURL;
 
       img.onload = () => {
@@ -155,6 +155,12 @@ export default Component.extend(AuthenticatedActionMixin, {
     unfollow() {
       this._disableFollowUntilResolved((resolve) => {
         this.attrs.unfollow(this.get('currentFollow'), resolve);
+      });
+    },
+
+    requestPrivate() {
+      this._disableFollowUntilResolved((resolve) => {
+        this.attrs.requestPrivate(this.get('currentFollow'), resolve);
       });
     },
 

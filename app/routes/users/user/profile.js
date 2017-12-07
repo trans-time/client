@@ -19,6 +19,16 @@ export default Route.extend({
       });
     },
 
+    requestPrivate(follow, resolve) {
+      if (follow.get('requestedPrivate')) return resolve();
+
+      follow.set('requestedPrivate', true);
+
+      follow.save().finally(() => {
+        resolve();
+      });
+    },
+
     unfollow(follow, resolve) {
       if (isBlank(follow)) return resolve();
 
