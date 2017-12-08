@@ -1,0 +1,18 @@
+<div class="confimation-model-content">
+  {{{options.content}}}
+</div>
+
+<div class="confirmation-modal-buttons">
+  {{paper-button
+    label=(t "confirmation.cancel")
+    onClick=(action "cancel")
+    raised=true
+  }}
+
+  {{paper-button
+    label=(t "confirmation.confirm")
+    onClick=(action "confirm")
+    raised=true
+    primary=true
+  }}
+</div>

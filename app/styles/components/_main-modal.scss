@@ -26,3 +26,25 @@
   z-index: 100;
   background-color: rgba(0, 0, 0, 0.38);
 }
+
+.confirmation-modal {
+  background-color: $white;
+  padding: $rhythm * 2;
+  margin: $rhythm * 2;
+  z-index: 102;
+  border-radius: $rhythm;
+}
+
+.confirmation-modal-buttons {
+  display: flex;
+  margin-top: $rhythm;
+
+  button {
+    flex-grow: 1;
+    margin: 0;
+
+    &:first-child {
+      margin-right: $rhythm;
+    }
+  }
+}

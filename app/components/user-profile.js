@@ -35,6 +35,7 @@ export default Component.extend(AuthenticatedActionMixin, {
   messageBus: service(),
   modalManager: service(),
   fileQueue: service(),
+  intl: service(),
   currentUser: service(),
   currentUserModel: alias('currentUser.user'),
 
@@ -153,8 +154,12 @@ export default Component.extend(AuthenticatedActionMixin, {
     },
 
     unfollow() {
-      this._disableFollowUntilResolved((resolve) => {
-        this.attrs.unfollow(this.get('currentFollow'), resolve);
+      new Promise((resolve, reject) => {
+        this.get('modalManager').open('confirmation-modal', resolve, reject, { content: this.get('intl').t('profile.unfollowConfirmation', { username: this.get('user.username') }) });
+      }).then(() => {
+        this._disableFollowUntilResolved((resolve) => {
+          this.attrs.unfollow(this.get('currentFollow'), resolve);
+        });
       });
     },
 

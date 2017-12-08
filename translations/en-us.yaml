@@ -2,6 +2,9 @@ auth:
   join: "join"
   login: "login"
   logout: "logout"
+confirmation:
+  cancel: "cancel"
+  confirm: "confirm"
 coverPage:
   lead: "<em>trans time</em> is a social platform for trans+ people."
   features:
@@ -47,6 +50,7 @@ profile:
   requestPrivate: "request <i class='fa fa-unlock'></i>"
   save: "save"
   unfollow: "unfollow"
+  unfollowConfirmation: "Are you sure you want to unfollow {username}? If you've been granted access to private posts, that will be lost."
   attributes:
     description:
       label: "description"
