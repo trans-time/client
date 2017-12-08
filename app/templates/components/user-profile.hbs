@@ -50,66 +50,68 @@
   </div>
 </div>
 
-{{#if isEditing}}
-  <div class="profile-field">
-    {{paper-input
-      value=changeset.website
-      label=(t "profile.attributes.website.label")
-      onChange=(action (mut changeset.website))
-      errors=changeset.error.website.validation
-    }}
-  </div>
-{{/if}}
-
-{{#if isEditing}}
-  <div class="profile-field">
-    {{paper-input
-      value=changeset.pronouns
-      label=(t "profile.attributes.pronouns.label")
-      onChange=(action (mut changeset.pronouns))
-      errors=changeset.error.pronouns.validation
-    }}
-  </div>
-{{else if user.userProfile.pronouns}}
-  <div class="profile-pronouns">
-    {{{inject-emoji user.userProfile.pronouns}}}
-  </div>
-{{/if}}
-
-{{#if isEditing}}
-  {{#emoji-picker-wrapper
-    text                = changeset.description
-    inputSelector       = ".profile-form-textarea"
-    emojiInsertedAction = (action (mut changeset.description))
-    classNames="profile-form-text-emoji-wrapper"
-    as |h|
-  }}
-
-    <div class="profile-form-textarea-container">
-      <div class="profile-description profile-field">
-        {{paper-input
-          value=changeset.description
-          textarea=true
-          block=true
-          label=(t "profile.attributes.description.label")
-          onChange=(action (mut changeset.description))
-          errors=changeset.error.description.validation
-          class="profile-form-textarea"
-        }}
-      </div>
-      {{component h.emojiAssist}}
-
-      {{component h.emojiPickerToggler class="profile-form-text-emoji-toggler"}}
-
-      {{component h.emojiPicker class="profile-form-text-emoji-picker"}}
+<div class="profile-additional-content {{if isEditing 'profile-additional-content-full-height'}}">
+  {{#if isEditing}}
+    <div class="profile-field">
+      {{paper-input
+        value=changeset.website
+        label=(t "profile.attributes.website.label")
+        onChange=(action (mut changeset.website))
+        errors=changeset.error.website.validation
+      }}
     </div>
+  {{/if}}
 
-  {{/emoji-picker-wrapper}}
-{{else}}
-  <div class="profile-description">
-    {{{inject-emoji (markdown-render user.userProfile.description)}}}
-  </div>
-{{/if}}
+  {{#if isEditing}}
+    <div class="profile-field">
+      {{paper-input
+        value=changeset.pronouns
+        label=(t "profile.attributes.pronouns.label")
+        onChange=(action (mut changeset.pronouns))
+        errors=changeset.error.pronouns.validation
+      }}
+    </div>
+  {{else if user.userProfile.pronouns}}
+    <div class="profile-pronouns">
+      {{{inject-emoji user.userProfile.pronouns}}}
+    </div>
+  {{/if}}
+
+  {{#if isEditing}}
+    {{#emoji-picker-wrapper
+      text                = changeset.description
+      inputSelector       = ".profile-form-textarea"
+      emojiInsertedAction = (action (mut changeset.description))
+      classNames="profile-form-text-emoji-wrapper"
+      as |h|
+    }}
+
+      <div class="profile-form-textarea-container">
+        <div class="profile-description profile-field">
+          {{paper-input
+            value=changeset.description
+            textarea=true
+            block=true
+            label=(t "profile.attributes.description.label")
+            onChange=(action (mut changeset.description))
+            errors=changeset.error.description.validation
+            class="profile-form-textarea"
+          }}
+        </div>
+        {{component h.emojiAssist}}
+
+        {{component h.emojiPickerToggler class="profile-form-text-emoji-toggler"}}
+
+        {{component h.emojiPicker class="profile-form-text-emoji-picker"}}
+      </div>
+
+    {{/emoji-picker-wrapper}}
+  {{else}}
+    <div class="profile-description">
+      {{{inject-emoji (markdown-render user.userProfile.description)}}}
+    </div>
+  {{/if}}
+</div>
 
 <div class="profile-body">
   {{outlet}}

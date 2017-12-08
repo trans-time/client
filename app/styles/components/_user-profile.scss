@@ -92,6 +92,19 @@
   font-size: 75%;
 }
 
+.profile-additional-content {
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+  box-shadow: 0 2px 2px 0 $light-gray;
+  max-height: 32%;
+
+  &.profile-additional-content-full-height {
+    max-height: none;
+    min-height: 240px;
+  }
+}
+
 .profile-website {
   font-size: 80%;
   padding-top: $rhythm;
@@ -122,27 +135,19 @@
   flex-shrink: 0;
   overflow-x: auto;
   padding: $rhythm / 2 $rhythm;
-  max-height: 32%;
-  box-shadow: 0 2px 2px 0 $light-gray;
 }
 
 
 .profile-form-text-emoji-wrapper {
   display: flex;
-  flex-grow: 1;
   flex-direction: column;
-  box-shadow: 0 2px 2px 0 $light-gray;
 
   .profile-description {
-    flex-shrink: 1;
-    box-shadow: none;
+    overflow-x: visible;
   }
 }
 
 .profile-form-textarea-container {
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
   position: relative;
 }
 
