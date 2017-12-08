@@ -33,6 +33,10 @@ post:
   attributes:
     date:
       label: "date"
+    nsfw:
+      label: "NSFW"
+    private:
+      label: "private"
     text:
       placeholder: "what's up?"
   edit: "edit post"

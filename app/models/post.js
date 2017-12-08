@@ -12,6 +12,8 @@ export default DS.Model.extend({
 
   text: DS.attr('string'),
   date: DS.attr('number'),
+  private: DS.attr('boolean'),
+  nsfw: DS.attr('boolean'),
   totalStars: DS.attr('number'),
   totalSuns: DS.attr('number'),
   totalMoons: DS.attr('number'),

@@ -219,6 +219,24 @@ p {
   flex-direction: column;
   flex-grow: 1;
 
+  .post-form-checkboxes {
+    display: flex;
+    padding: $rhythm;
+    justify-content: space-around;
+    border: thin solid $medium-gray;
+
+    .md-checkbox {
+      margin: 0;
+    }
+  }
+
+  .paper-datetime-picker {
+    .input-container {
+      border: thin solid $medium-gray;
+      border-radius: 0;
+    }
+  }
+
   .post-form-text-emoji-wrapper {
     display: flex;
     flex-grow: 1;

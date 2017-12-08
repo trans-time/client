@@ -1,3 +1,13 @@
+<div class="post-form-checkboxes">
+  {{#paper-checkbox value=changeset.private onChange=(action (mut changeset.private))}}
+    {{t "post.attributes.private.label"}}
+  {{/paper-checkbox}}
+
+  {{#paper-checkbox value=changeset.nsfw onChange=(action (mut changeset.nsfw))}}
+    {{t "post.attributes.nsfw.label"}}
+  {{/paper-checkbox}}
+</div>
+
 {{paper-datetime-picker
   timestamp=changeset.date
 }}
