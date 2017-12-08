@@ -9,7 +9,7 @@ export default Route.extend(RouteTitleMixin, {
     const peekedUser = this.store.peekRecord('user', params.id);
     const fullyLoaded = isPresent(peekedUser) && peekedUser.belongsTo('userProfile').value() !== null && peekedUser.belongsTo('userProfile').value().belongsTo('userTagSummary').value() !== null;
 
-    return fullyLoaded ? peekedUser : this.store.findRecord('user', params.id, { include: 'userProfile, userProfile.userTagSummary', reload: true });
+    return fullyLoaded ? peekedUser : this.store.findRecord('user', params.id, { include: 'userProfile, userProfile.userTagSummary, userProfile.userTagSummary.tags, userProfile.userTagSummary.relationships', reload: true });
   },
 
   afterModel(model) {
