@@ -29,6 +29,12 @@ general:
   submit: "submit"
 home:
   title: "home"
+nsfw:
+  confirmation: "by clicking confirm, i agree that i am familiar with local laws concerning viewing nudity on the internet and accept all responsibility for viewing it on <em>trans time</em>."
+  enable: "enable"
+  header: "nsfw"
+  session: "to temporarily enable nsfw content, click the first button. it will be disabled next time you load the <em>trans time</em>."
+  storage: "to permanently enable nsfw content on this device, click the second button."
 post:
   attributes:
     date:

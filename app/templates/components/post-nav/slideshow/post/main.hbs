@@ -1,10 +1,33 @@
 <div class="post-nav-slideshow-panels">
-  {{#each post.panels as |panel|}}
-    {{component panel.postNavComponent
-      panel=panel
-      navState=navState
-    }}
-  {{/each}}
+  {{#if nsfw}}
+    <div class="post-nav-slideshow-nsfw">
+      <h2>{{t "nsfw.header"}}</h2>
+      <div class="post-nav-slideshow-nsfw-info">{{{t "nsfw.session"}}}</div>
+      <div class="post-nav-slideshow-nsfw-info">{{{t "nsfw.storage"}}}</div>
+
+      <div class="post-nav-slideshow-nsfw-buttons">
+        {{#paper-button
+          raised=true
+          onClick=(action "viewNsfwForSession")
+        }}
+          {{t "nsfw.enable"}} {{fa-icon "clock-o"}}
+        {{/paper-button}}
+        {{#paper-button
+          raised=true
+          onClick=(action "viewNsfwForAlways")
+        }}
+          {{t "nsfw.enable"}} ∞
+        {{/paper-button}}
+      </div>
+    </div>
+  {{else}}
+    {{#each post.panels as |panel|}}
+      {{component panel.postNavComponent
+        panel=panel
+        navState=navState
+      }}
+    {{/each}}
+  {{/if}}
 </div>
 
 {{#if shouldRenderPost}}

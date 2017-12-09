@@ -80,6 +80,37 @@
   background-color: $medium-gray;
 }
 
+.post-nav-slideshow-nsfw {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: $rhythm * 2;
+  box-sizing: border-box;
+  background: $white;
+
+  h2 {
+    margin: 0 0 $rhythm;
+  }
+
+  .post-nav-slideshow-nsfw-info {
+    margin-bottom: $rhythm;
+  }
+
+  .post-nav-slideshow-nsfw-buttons {
+    display: flex;
+    margin-top: auto;
+
+    button {
+      flex-grow: 1;
+      margin: 0;
+
+      &:first-child {
+        margin-right: $rhythm;
+      }
+    }
+  }
+}
+
 // @media screen and (min-height: 1350px)
 // {
 //   .post-nav-slideshow-main {
