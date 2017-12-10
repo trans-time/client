@@ -31,6 +31,7 @@
       {{#paper-button onClick="updateEditing" disabled=updateDisabled raised=true primary=true class="profile-header-button"}}{{t "profile.save"}}{{/paper-button}}
     {{else if isCurrentUser}}
       {{#paper-button onClick="startEditing" raised=true class="profile-header-button"}}{{t "profile.edit"}}{{/paper-button}}
+      {{#paper-button onClick="editIdentities" raised=true class="profile-header-button"}}{{t "profile.editIdentities"}}{{/paper-button}}
     {{else if currentFollow}}
       {{#if currentFollow.canViewPrivate}}
         {{#paper-button raised=true disabled=true class="profile-header-button"}}{{{t "profile.havePrivate"}}}{{/paper-button}}

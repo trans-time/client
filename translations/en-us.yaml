@@ -52,6 +52,7 @@ profile:
   cancel: "cancel"
   changeAvatar: "change your avatar"
   edit: "edit profile"
+  editIdentities: "edit identities"
   follow: "follow"
   followers: "followers"
   following: "following"

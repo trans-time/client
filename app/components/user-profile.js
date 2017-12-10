@@ -36,6 +36,7 @@ export default Component.extend(AuthenticatedActionMixin, {
   modalManager: service(),
   fileQueue: service(),
   intl: service(),
+  router: service(),
   currentUser: service(),
   currentUserModel: alias('currentUser.user'),
 
@@ -137,6 +138,10 @@ export default Component.extend(AuthenticatedActionMixin, {
 
     changeAvatar() {
       this.get('modalManager').open('user-profile/avatar-editor', null, null, { changeset: this.get('changeset') });
+    },
+
+    editIdentities() {
+      this.get('router').transitionTo('users.user.profile.identities.edit');
     },
 
     follow() {

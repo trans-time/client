@@ -13,6 +13,9 @@ Router.map(function() {
       this.route('profile', function() {
         this.route('followers');
         this.route('following');
+        this.route('identities', function() {
+          this.route('edit');
+        });
       });
     });
   });
