@@ -29,6 +29,16 @@ general:
   submit: "submit"
 home:
   title: "home"
+identities:
+  add: "add identity"
+  delete: "delete identity"
+  attributes:
+    endDate:
+      label: "end date"
+    name:
+      label: "name"
+    startDate:
+      label: "start date"
 nsfw:
   confirmation: "by clicking confirm, i agree that i am familiar with local laws concerning viewing nudity on the internet and accept all responsibility for viewing it on <em>trans time</em>."
   enable: "enable"

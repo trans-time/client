@@ -6,3 +6,9 @@ md-input-container {
 md-list-item.md-no-proxy, md-list-item .md-no-style {
   padding: 0px $rhythm;
 }
+
+.md-datepicker-group .datepicker-container {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+}

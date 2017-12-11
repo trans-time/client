@@ -1,0 +1,7 @@
+{{#paper-form classNames="identities-form" onSubmit=(route-action "submit" changeset) as |form|}}
+  {{#each changesets as |userIdentity|}}
+    {{identities-form/identity userIdentity=userIdentity removeUserIdentity=(action "removeUserIdentity" userIdentity)}}
+  {{/each}}
+
+  {{#paper-button onClick="newUserIdentity"}}{{t "identities.add"}}{{/paper-button}}
+{{/paper-form}}

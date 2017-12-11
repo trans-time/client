@@ -1,0 +1,28 @@
+.identities-form-identity {
+  border-bottom: 2px dashed $light-gray;
+  padding-bottom: $rhythm;
+  margin-bottom: $rhythm;
+}
+
+.identities-form-identity-date {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $rhythm;
+
+  label {
+    flex-grow: 1;
+  }
+
+  input {
+    margin-right: $rhythm;
+  }
+}
+
+.identities-form-identity-delete-button {
+  width: 100%;
+  margin: $rhythm 0 $rhythm / 2;
+  font-size: 70%;
+  line-height: 250%;
+  min-height: inherit;
+}

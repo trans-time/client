@@ -1,0 +1,23 @@
+{{paper-input
+  value=userIdentity.name
+  label=(t "identities.attributes.name.label")
+  onChange=(action (mut userIdentity.name))
+  errors=userIdentity.error.name.validation
+  required="style"
+}}
+
+<div class="identities-form-identity-date">
+  <label for={{startDateId}}>{{t "identities.attributes.startDate.label"}}: </label>
+  {{input type="date" value=userIdentity.startDate id=startDateId}}
+
+  <a {{action (mut userIdentity.startDate undefined)}}>{{fa-icon "times"}}</a>
+</div>
+
+<div class="identities-form-identity-date">
+  <label for={{endDateId}}>{{t "identities.attributes.endDate.label"}}: </label>
+  {{input type="date" value=userIdentity.endDate id=endDateId}}
+
+  <a {{action (mut userIdentity.endDate undefined)}}>{{fa-icon "times"}}</a>
+</div>
+
+{{#paper-button onClick=(action "removeUserIdentity") warn=true raised=true class="identities-form-identity-delete-button"}}{{t "identities.delete"}}{{/paper-button}}

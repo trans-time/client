@@ -6,8 +6,8 @@ export default DS.Model.extend({
   faves: DS.hasMany('fav'),
   followeds: DS.hasMany('follow', { inverse: 'follower' }),
   followers: DS.hasMany('follow', { inverse: 'followed' }),
-  identities: DS.hasMany('identity'),
   posts: DS.hasMany('post', { async: true, inverse: 'user' }),
+  userIdentities: DS.hasMany('user-identity'),
   userProfile: DS.belongsTo('user-profile'),
 
   username: DS.attr('string'),
