@@ -34,6 +34,10 @@ identities:
   delete: "delete identity"
   endDateBlank: "*leave blank if this identity is ongoing"
   startDateBlank: "*leave blank if you got this identity at birth"
+  lessOptions: "less options. . . ."
+  moreOptions: "more options. . . ."
+  present: "present"
+  birth: "birth"
   attributes:
     endDate:
       label: "end date"

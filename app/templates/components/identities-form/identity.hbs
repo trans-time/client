@@ -6,20 +6,30 @@
   required="style"
 }}
 
-<div class="identities-form-identity-date">
-  <label for={{endDateId}}>{{t "identities.attributes.endDate.label"}}: </label>
-  {{input type="date" value=userIdentity.endDate id=endDateId}}
+{{#liquid-if expanded}}
+  <div class="identities-form-identity-additional">
+    <a {{action "expand"}} class="identities-form-identity-more-options">{{t "identities.lessOptions"}}</a>
+  </div>
+  <div class="identities-form-identity-date">
+    <label for={{endDateId}}>{{t "identities.attributes.endDate.label"}}: </label>
+    {{input type="date" value=userIdentity.endDate id=endDateId}}
 
-  <a {{action (mut userIdentity.endDate undefined)}}>{{fa-icon "times"}}</a>
-</div>
-<div class="identities-form-identity-date-blank">{{t "identities.endDateBlank"}}</div>
+    <a {{action (mut userIdentity.endDate undefined)}}>{{fa-icon "times"}}</a>
+  </div>
+  <div class="identities-form-identity-date-blank">{{t "identities.endDateBlank"}}</div>
 
-<div class="identities-form-identity-date">
-  <label for={{startDateId}}>{{t "identities.attributes.startDate.label"}}: </label>
-  {{input type="date" value=userIdentity.startDate id=startDateId}}
+  <div class="identities-form-identity-date">
+    <label for={{startDateId}}>{{t "identities.attributes.startDate.label"}}: </label>
+    {{input type="date" value=userIdentity.startDate id=startDateId}}
 
-  <a {{action (mut userIdentity.startDate undefined)}}>{{fa-icon "times"}}</a>
-</div>
-<div class="identities-form-identity-date-blank">{{t "identities.startDateBlank"}}</div>
+    <a {{action (mut userIdentity.startDate undefined)}}>{{fa-icon "times"}}</a>
+  </div>
+  <div class="identities-form-identity-date-blank">{{t "identities.startDateBlank"}}</div>
 
-{{#paper-button onClick=(action "removeUserIdentity") warn=true raised=true class="identities-form-identity-delete-button"}}{{t "identities.delete"}}{{/paper-button}}
+  {{#paper-button onClick=(action "removeUserIdentity") warn=true raised=true class="identities-form-identity-button"}}{{t "identities.delete"}}{{/paper-button}}
+{{else}}
+  <div class="identities-form-identity-additional">
+    <span class="identities-form-identity-additional-dates">{{startDate}} - {{endDate}}</span>
+    <a {{action "expand"}} class="identities-form-identity-more-options">{{t "identities.moreOptions"}}</a>
+  </div>
+{{/liquid-if}}

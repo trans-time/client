@@ -2,9 +2,24 @@
   border-bottom: 2px dashed $light-gray;
   padding-bottom: $rhythm;
   margin-bottom: $rhythm;
+
+  md-input-container {
+    margin-bottom: 0;
+  }
+}
+
+.identities-form-identity-additional {
+  display: flex;
+  font-size: 80%;
+}
+
+.identities-form-identity-more-options {
+  text-decoration: underline;
+  margin-left: auto;
 }
 
 .identities-form-identity-date {
+  margin-top: $rhythm;
   display: flex;
   align-items: flex-end;
 
@@ -24,13 +39,12 @@
 
 .identities-form-identity-date-blank {
   font-size: 80%;
-  margin-bottom: $rhythm;
   margin-top: 3px;
 }
 
-.identities-form-identity-delete-button {
+.identities-form-identity-button {
   width: 100%;
-  margin: $rhythm 0 $rhythm / 2;
+  margin: $rhythm * 2 0 $rhythm / 2;
   font-size: 70%;
   line-height: 250%;
   min-height: inherit;
