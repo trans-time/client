@@ -1,6 +1,6 @@
 import { A } from '@ember/array';
 import { computed } from '@ember/object';
-import { alias, or } from '@ember/object/computed';
+import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import Changeset from 'ember-changeset';
@@ -20,7 +20,6 @@ const UserIdentityValidations = {
 export default Component.extend({
   classNames: ['identities-form-main'],
 
-  disabled: or('changeset.isInvalid', 'changeset.isPristine'),
   userIdentities: alias('user.userIdentities'),
 
   store: service(),
@@ -34,6 +33,14 @@ export default Component.extend({
 
     this.set('changesets', changesets);
   },
+
+  disabled: computed('changesets.@each.isInvalid', 'changesets.@each.isPristine', {
+    get() {
+      const changesets = this.get('changesets');
+
+      return changesets.any((changeset) => changeset.get('isInvalid')) || changesets.every((changeset) => changeset.get('isPristine'));
+    }
+  }),
 
   _generateChangeset(userIdentity) {
     const changeset = new Changeset(userIdentity, lookupValidator(UserIdentityValidations), UserIdentityValidations);

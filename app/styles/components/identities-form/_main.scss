@@ -1,4 +1,39 @@
 .identities-form-main {
-  padding: $rhythm;
   overflow-x: auto;
+  height: 100%;
+}
+
+.identities-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.identities-form-identities {
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: $rhythm;
+}
+
+.identities-form-controls {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: space-between;
+  align-items: center;
+  border-top: thin solid $medium-gray;
+  padding: $rhythm;
+
+  .identities-form-controls-button {
+    margin: 0;
+  }
+
+  .identities-form-controls-anchor {
+    color: $dark-gray;
+    transition: opacity 500ms;
+
+    &.identities-form-controls-anchor-disabled {
+      opacity: 0.68;
+    }
+  }
 }
