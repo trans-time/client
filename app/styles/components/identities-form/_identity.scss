@@ -6,17 +6,26 @@
 
 .identities-form-identity-date {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: $rhythm;
+  align-items: flex-end;
 
   label {
-    flex-grow: 1;
+    width: 100px;
   }
 
   input {
+    flex-grow: 1;
     margin-right: $rhythm;
   }
+
+  a {
+    align-self: center;
+  }
+}
+
+.identities-form-identity-date-blank {
+  font-size: 80%;
+  margin-bottom: $rhythm;
+  margin-top: 3px;
 }
 
 .identities-form-identity-delete-button {

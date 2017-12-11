@@ -32,6 +32,8 @@ home:
 identities:
   add: "add identity"
   delete: "delete identity"
+  endDateBlank: "*leave blank if this identity is ongoing"
+  startDateBlank: "*leave blank if you got this identity at birth"
   attributes:
     endDate:
       label: "end date"
