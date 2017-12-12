@@ -115,4 +115,23 @@ export default function() {
   this.post('/user-profiles/upload', upload((db, request) => {
     return request.requestBody.file.src;
   }));
+  this.post('/user-identities', (schema, request) => {
+    const body = JSON.parse(request.requestBody);
+    const name = body.data.attributes.name;
+    const identity = schema.identities.where({ name }).models[0] || schema.identities.create({ name });
+
+    body.data.relationships.identity = { data: { type: 'identity', id: identity.id }};
+
+    return schema.userIdentities.create(body);
+  });
+  this.patch('/user-identities/:id', (schema, request) => {
+    const id = request.params.id;
+    const body = JSON.parse(request.requestBody);
+    const name = body.data.attributes.name;
+    const identity = schema.identities.where({ name }).models[0] || schema.identities.create({ name });
+
+    body.data.relationships.identity = { data: { type: 'identity', id: identity.id }};
+
+    return schema.db.userIdentities.update(id, body);
+  });
 }

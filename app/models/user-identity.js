@@ -8,7 +8,7 @@ export default DS.Model.extend({
   startDate: DS.attr('number'),
   endDate: DS.attr('number'),
 
-  name: computed('_name', {
+  name: computed('_name', 'identity.name', {
     get() {
       return this.get('_name') || this.get('identity.name');
     },
