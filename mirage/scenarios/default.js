@@ -5,7 +5,10 @@ export default function(server) {
   ['face', 'facial_hair', 'hairline', 'hair', 'shoulders', 'arms', 'hands', 'chest', 'breasts', 'waist', 'hips', 'legs', 'feet', 'voice', 'affect', 'posture', 'art', 'drawing', 'animation', 'poetry', 'story', 'family', 'friends', 'work', 'school', 'sports'].forEach((name) => {
     server.create('tag', { name });
   });
-  server.create('tag', { name: 'style' })
+  server.create('tag', { name: 'style' });
+  ['trans_woman', 'trans_woman', 'nonbinary', 'genderqueer', 'asexual', 'bisexual', 'queer', 'vegan'].forEach((name) => {
+    server.create('identity', { name });
+  });
   const symbolTag = server.create('tag', { name: 'symbol' });
   let sequence = ['male', 'gq', 'female', 'gq'];
   for (let i = 0; i < 2; ++i) {

@@ -78,6 +78,14 @@
     </div>
   {{/if}}
 
+  {{#if (and (not isEditing) currentIdentities)}}
+    <div class="profile-user-identities">
+      {{#each currentIdentities as |userIdentity|}}
+        *<a class="profile-user-identity" {{action "searchIdentity" userIdentity.identity.name}}>{{userIdentity.identity.name}}</a>
+      {{/each}}
+    </div>
+  {{/if}}
+
   {{#if isEditing}}
     {{#emoji-picker-wrapper
       text                = changeset.description

@@ -1,3 +1,4 @@
+import { A } from '@ember/array';
 import { Factory, faker } from 'ember-cli-mirage';
 
 export default Factory.extend({
@@ -14,6 +15,10 @@ export default Factory.extend({
       user,
       language: 'en-us'
     });
+
+    user.userIdentityIds = A([...Array(faker.random.number(4))].map(() => {
+      return server.db.userIdentities.firstOrCreate({ identityId: faker.random.number(server.db.identities.length - 1) + 1 }).id;
+    })).uniq();
 
     user.save();
   }

@@ -1,7 +1,7 @@
 import { computed, observer } from '@ember/object';
-import { alias, or } from '@ember/object/computed';
+import { alias, filter, or } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
-import { isBlank, isPresent } from '@ember/utils';
+import { isBlank, isNone, isPresent } from '@ember/utils';
 import { Promise } from 'rsvp';
 import Component from '@ember/component';
 import AuthenticatedActionMixin from 'client/mixins/authenticated-action';
@@ -80,6 +80,10 @@ export default Component.extend(AuthenticatedActionMixin, {
     }
   }),
 
+  currentIdentities: filter('user.userIdentities', (userIdentity) => {
+    return isNone(userIdentity.get('endDate'));
+  }),
+
   websiteHref: computed('user.userProfile.website', {
     get() {
       const website = this.get('user.userProfile.website');
@@ -141,7 +145,7 @@ export default Component.extend(AuthenticatedActionMixin, {
     },
 
     editIdentities() {
-      this.get('router').transitionTo('users.user.profile.identities.edit');
+      this.get('router').transitionTo('users.user.identities.edit');
     },
 
     follow() {
@@ -150,6 +154,10 @@ export default Component.extend(AuthenticatedActionMixin, {
           this.attrs.follow(this.get('user'), resolve);
         });
       });
+    },
+
+    searchIdentity(identity) {
+      this.get('router').transitionTo('search', { queryParams: { query: `*${identity}` }});
     },
 
     startEditing() {
