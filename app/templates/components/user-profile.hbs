@@ -78,11 +78,17 @@
     </div>
   {{/if}}
 
-  {{#if (and (not isEditing) currentIdentities)}}
+
+  {{#if (and (not isEditing) user.userIdentities)}}
     <div class="profile-user-identities">
-      {{#each currentIdentities as |userIdentity|}}
-        *<a class="profile-user-identity" {{action "searchIdentity" userIdentity.identity.name}}>{{userIdentity.identity.name}}</a>
-      {{/each}}
+      {{#if (not-eq currentIdentities.length user.userIdentities.length)}}
+        {{#link-to "users.user.identities.index" class="profile-user-identity profile-user-identity-history"}}{{fa-icon "map-o"}}{{/link-to}}
+      {{/if}}
+      {{#if currentIdentities}}
+        {{#each currentIdentities as |userIdentity|}}
+          *<a class="profile-user-identity" {{action "searchIdentity" userIdentity.identity.name}}>{{userIdentity.identity.name}}</a>
+        {{/each}}
+      {{/if}}
     </div>
   {{/if}}
 

@@ -77,7 +77,7 @@ profile:
   requestPrivate: "request <i class='fa fa-unlock'></i>"
   save: "save"
   unfollow: "unfollow"
-  unfollowConfirmation: "Are you sure you want to unfollow {username}? If you've been granted access to private posts, that will be lost."
+  unfollowConfirmation: "are you sure you want to unfollow {username}? if you've been granted access to private posts, that will be lost."
   attributes:
     description:
       label: "description"
