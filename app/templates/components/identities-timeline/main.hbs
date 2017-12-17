@@ -1,0 +1,6 @@
+{{#each-in userIdentityGroups as |name userIdentityGroup|}}
+  <h2>{{name}}</h2>
+  {{#each userIdentityGroup as |userIdentity|}}
+    {{identities-timeline/identity userIdentity=userIdentity}}
+  {{/each}}
+{{/each-in}}

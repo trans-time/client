@@ -17,8 +17,8 @@ export default Factory.extend({
     });
 
     user.userIdentityIds = A([...Array(faker.random.number(4) + 1)].map(() => {
-      const startDate = faker.random.number(100) > 50 ? undefined : Date.now();
-      const endDate = faker.random.number(100) > 50 ? undefined : Date.now();
+      const startDate = faker.random.number(100) > 50 ? undefined : faker.random.number(100000000000);
+      const endDate = faker.random.number(100) > 50 ? undefined : (startDate || 0) + 999999999 + faker.random.number(1000000000000);
       return server.db.userIdentities.firstOrCreate({ startDate, endDate, identityId: faker.random.number(server.db.identities.length - 1) + 1 }).id;
     })).uniq();
 

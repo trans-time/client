@@ -1,9 +1,0 @@
-{{#each-in userIdentityGroups as |name userIdentityGroup|}}
-  {{name}}:
-  {{#each userIdentityGroup as |userIdentity|}}
-    {{userIdentity.startDate}} - {{userIdentity.endDate}}
-  {{/each}};
-{{/each-in}}
-
-earliest: {{earliestDate}}
-latest: {{latestDate}}

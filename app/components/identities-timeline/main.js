@@ -3,6 +3,8 @@ import { isNone } from '@ember/utils';
 import Component from '@ember/component';
 
 export default Component.extend({
+  classNames: ['identities-timeline-main'],
+
   userIdentityGroups: computed({
     get() {
       const userIdentities = this.get('userIdentities').sortBy('identity.name');
@@ -24,29 +26,5 @@ export default Component.extend({
 
       return groups;
     }
-  }),
-
-  earliestDate: computed({
-    get() {
-      return this._determineDateBracket(Math.min);
-    }
-  }),
-
-  latestDate: computed({
-    get() {
-      return this._determineDateBracket(Math.max);
-    }
-  }),
-
-  _determineDateBracket(minOrMax) {
-    const groups = this.get('userIdentityGroups');
-
-    return Object.keys(groups).reduce((overallDate, key) => {
-      return groups.get(key).reduce((groupDate, userIdentity) => {
-        const { endDate, startDate } = userIdentity.getProperties('endDate', 'startDate');
-        const date = isNone(endDate) ? startDate : isNone(startDate) ? endDate : minOrMax(endDate, startDate);
-        return isNone(groupDate) ? date : isNone(date) ? groupDate : minOrMax(date, groupDate);
-      }, overallDate);
-    }, null);
-  }
+  })
 });
