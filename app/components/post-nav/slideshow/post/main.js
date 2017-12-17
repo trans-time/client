@@ -27,7 +27,6 @@ export default Component.extend(SlideshowComponentMixin, {
 
   nsfw: computed({
     get() {
-      console.log(this.get('post.model.nsfw'), localStorage.getItem('showNsfwContent') || sessionStorage.getItem('showNsfwContent'))
       return this.get('post.model.nsfw') && !(localStorage.getItem('showNsfwContent') || sessionStorage.getItem('showNsfwContent'));
     }
   }),
@@ -36,7 +35,7 @@ export default Component.extend(SlideshowComponentMixin, {
     toggleChat() {
       this.attrs.toggleChat();
     },
-  
+
     viewNsfwForSession() {
       new Promise((resolve, reject) => {
         this.get('modalManager').open('confirmation-modal', resolve, reject, { content: this.get('intl').t('nsfw.confirmation') });

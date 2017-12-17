@@ -1,4 +1,5 @@
 {{#liquid-if chatIsOpen class="cross-fade"}}
+  {{post-nav/chat/content post=post}}
 {{else}}
   <div class="post-nav-chat-spinner">
     {{fa-icon "spinner" pulse=true size=5}}

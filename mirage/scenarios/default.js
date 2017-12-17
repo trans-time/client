@@ -57,6 +57,13 @@ export default function(server) {
       return faker.random.number(server.db.users.length - 1) + 1;
     });
 
+    post.commentIds = [...Array(faker.random.number(10))].map(() => {
+      return server.create('comment', {
+        postId: post.id,
+        userId: faker.random.number(server.db.users.length - 1) + 1
+      }).id;
+    });
+
     server.db.posts.update(post.id, post);
   });
 

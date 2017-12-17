@@ -1,0 +1,4 @@
+{{#each comments as |comment|}}
+  {{moment-format comment.date "MMMM DD, YYYY"}} | {{#link-to "users.user.profile.index" comment.user.id}}{{comment.user.username}}{{/link-to}}
+  {{{inject-emoji (markdown-render comment.text)}}}
+{{/each}}
