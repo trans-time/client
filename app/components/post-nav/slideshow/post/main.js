@@ -33,6 +33,10 @@ export default Component.extend(SlideshowComponentMixin, {
   }),
 
   actions: {
+    toggleChat() {
+      this.attrs.toggleChat();
+    },
+  
     viewNsfwForSession() {
       new Promise((resolve, reject) => {
         this.get('modalManager').open('confirmation-modal', resolve, reject, { content: this.get('intl').t('nsfw.confirmation') });

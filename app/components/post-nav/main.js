@@ -94,7 +94,8 @@ const PostDecorator = EmberObject.extend({
 });
 
 export default Component.extend({
-  tagName: '',
+  classNames: ['post-nav'],
+  classNameBindings: ['chatIsOpen'],
 
   nextPostIndex: 0,
 
@@ -122,6 +123,10 @@ export default Component.extend({
 
     loadMorePosts(resolve, reject) {
       this.sendAction('action', resolve, reject)
+    },
+
+    toggleChat() {
+      this.toggleProperty('chatIsOpen');
     }
   }
 });

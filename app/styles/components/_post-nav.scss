@@ -1,3 +1,22 @@
+@import "post-nav/chat";
 @import "post-nav/controls";
 @import "post-nav/post";
 @import "post-nav/slideshow";
+
+.post-nav {
+  height: 100%;
+
+  .post-nav-slideshow-main, .post-nav-chat-main {
+    transition: transform 750ms;
+  }
+
+  &.chat-is-open {
+    .post-nav-slideshow-main {
+      transform: translate3d(-80%, 0, 0);
+    }
+
+    .post-nav-chat-main {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+}

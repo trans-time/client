@@ -358,6 +358,10 @@ export default Component.extend(TouchActionMixin, {
 
     compressText() {
       this.set('textExpanded', false);
+    },
+
+    toggleChat() {
+      this.attrs.toggleChat();
     }
   }
 });
