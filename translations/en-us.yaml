@@ -38,6 +38,7 @@ identities:
   moreOptions: "more options. . . ."
   present: "present"
   birth: "birth"
+  timeline: "identities timeline"
   attributes:
     endDate:
       label: "end date"
