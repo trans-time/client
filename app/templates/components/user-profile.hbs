@@ -72,22 +72,17 @@
         errors=changeset.error.pronouns.validation
       }}
     </div>
-  {{else if user.userProfile.pronouns}}
-    <div class="profile-pronouns">
-      {{{inject-emoji user.userProfile.pronouns}}}
-    </div>
-  {{/if}}
+  {{else if (or user.userProfile.pronouns user.userIdentities)}}
+    <div class="profile-pronouns-and-identities">
+      <span class="profile-pronouns">{{{inject-emoji user.userProfile.pronouns}}}</span>
 
-
-  {{#if (and (not isEditing) user.userIdentities)}}
-    <div class="profile-user-identities">
-      {{#if (not-eq currentIdentities.length user.userIdentities.length)}}
-        {{#link-to "users.user.identities.index" class="profile-user-identity profile-user-identity-history"}}{{fa-icon "map-o"}}{{/link-to}}
-      {{/if}}
       {{#if currentIdentities}}
         {{#each currentIdentities as |userIdentity|}}
-          *<a class="profile-user-identity" {{action "searchIdentity" userIdentity.identity.name}}>{{userIdentity.identity.name}}</a>
+          <a class="profile-user-identity" {{action "searchIdentity" userIdentity.identity.name}}>*<span class="profile-user-identity-content">{{userIdentity.identity.name}}</span></a>
         {{/each}}
+      {{/if}}
+      {{#if (not-eq currentIdentities.length user.userIdentities.length)}}
+        {{#link-to "users.user.identities.index" class="profile-user-identity profile-user-identity-history"}}{{fa-icon "map-o"}}{{/link-to}}
       {{/if}}
     </div>
   {{/if}}
@@ -121,7 +116,7 @@
       </div>
 
     {{/emoji-picker-wrapper}}
-  {{else}}
+  {{else if user.userProfile.description}}
     <div class="profile-description">
       {{{inject-emoji (markdown-render user.userProfile.description)}}}
     </div>
