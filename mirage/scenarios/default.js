@@ -57,11 +57,21 @@ export default function(server) {
       return faker.random.number(server.db.users.length - 1) + 1;
     });
 
-    post.commentIds = [...Array(faker.random.number(10))].map(() => {
-      return server.create('comment', {
+    post.commentIds = [...Array(faker.random.number(3))].map(() => {
+      const comment = server.create('comment', {
         postId: post.id,
         userId: faker.random.number(server.db.users.length - 1) + 1
-      }).id;
+      });
+
+      comment.childrenIds = [...Array(faker.random.number(2))].map(() => {
+        return server.create('comment', {
+          postId: post.id,
+          userId: faker.random.number(server.db.users.length - 1) + 1,
+          parentId: comment.id
+        });
+      });
+
+      return comment.id;
     });
 
     server.db.posts.update(post.id, post);

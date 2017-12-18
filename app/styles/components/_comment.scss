@@ -15,21 +15,21 @@
   flex-shrink: 0;
   align-items: center;
   flex-direction: column;
-  width: 50px;
+  width: 40px;
   overflow: hidden;
   margin-right: $rhythm / 2;
   text-decoration: none;
 }
 
 .comment-avatar {
-  width: 45px;
-  height: 45px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   margin-bottom: $rhythm / 2;
 }
 
 .comment-pronouns {
-  font-size: 50%;
+  font-size: 45%;
   color: $medium-gray;
   font-weight: bold;
   text-align: center;
@@ -45,6 +45,7 @@
 
 .comment-text {
   font-size: 80%;
+  min-height: 33px;
 
   p {
     margin: $rhythm / 2 0 0;
@@ -59,5 +60,13 @@
   margin-top: $rhythm / 4;
   padding-top: $rhythm / 4;
   color: $medium-gray;
-  font-size: 70%;
+  font-size: 60%;
+}
+
+.comment-children {
+  margin-top: $rhythm;
+
+  > div:last-child {
+    margin-bottom: 0;
+  }
 }

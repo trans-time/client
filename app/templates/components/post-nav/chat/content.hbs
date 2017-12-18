@@ -1,17 +1,9 @@
-{{#each comments as |comment|}}
-  <div class="comment">
-    {{#link-to "users.user.profile.index" comment.user.id class="comment-profile"}}
-      <img class="comment-avatar" src={{comment.user.userProfile.avatar}}>
-      <div class="comment-pronouns">{{comment.user.userProfile.pronouns}}</div>
-    {{/link-to}}
-    <div class="comment-main">
-      <div class="comment-text">
-        {{#link-to "users.user.profile.index" comment.user.id class="comment-user-link"}}{{comment.user.username}}{{/link-to}}
-        {{{inject-emoji (markdown-render comment.text)}}}
-      </div>
-      <div class="comment-controls">
-        {{moment-format comment.date "MM/DD/YYYY"}} | like | reply | edit
-      </div>
-    </div>
+{{#if isLoaded}}
+  {{#each ownComments as |comment|}}
+    {{post-nav/chat/comment comment=comment}}
+  {{/each}}
+{{else}}
+  <div class="post-nav-chat-spinner">
+    {{fa-icon "spinner" pulse=true size=5}}
   </div>
-{{/each}}
+{{/if}}
