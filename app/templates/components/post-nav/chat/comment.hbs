@@ -1,7 +1,7 @@
-{{#link-to "users.user.profile.index" comment.user.id class="comment-profile"}}
-  <img class="comment-avatar" src={{comment.user.userProfile.avatar}}>
+<div class="comment-profile">
+  {{#link-to "users.user.profile.index" comment.user.id}}<img class="comment-avatar" src={{comment.user.userProfile.avatar}}>{{/link-to}}
   <div class="comment-pronouns">{{comment.user.userProfile.pronouns}}</div>
-{{/link-to}}
+</div>
 
 <div class="comment-main">
   <div class="comment-text {{if textIsOverflown 'comment-text-is-overflown'}}">
