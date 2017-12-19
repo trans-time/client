@@ -76,7 +76,25 @@
   text-decoration: underline;
 }
 
-.comment.is-collapsed {
+.comment-text.comment-text-is-overflown {
+  position: relative;
+  height: 100px;
+  overflow: hidden;
+
+  .comment-text-expand-overflow {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.9);
+    padding: $rhythm / 1.5;
+    border: 2px dashed $medium-gray;
+    text-align: center;
+    color: $medium-gray;
+  }
+}
+
+.comment.is-collapsed-child {
   font-size: 95%;
   margin-bottom: $rhythm / 2;
 

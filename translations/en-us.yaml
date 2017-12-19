@@ -3,7 +3,8 @@ auth:
   login: "login"
   logout: "logout"
 comments:
-  loadMore: "show more. . . ."
+  expandOverflow: "expand full text. . . ."
+  loadMore: "view more. . . ."
   noCommentsYet: "be the first to comment"
 confirmation:
   cancel: "cancel"

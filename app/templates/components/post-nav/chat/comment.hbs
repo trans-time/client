@@ -4,9 +4,13 @@
 {{/link-to}}
 
 <div class="comment-main">
-  <div class="comment-text">
+  <div class="comment-text {{if textIsOverflown 'comment-text-is-overflown'}}">
     {{#link-to "users.user.profile.index" comment.user.id class="comment-user-link"}}{{comment.user.username}}{{/link-to}}
     {{{inject-emoji (markdown-render comment.text)}}}
+
+    {{#if textIsOverflown}}
+      <a {{action "expandOverflow"}} class="comment-text-expand-overflow">{{t "comments.expandOverflow"}}</a>
+    {{/if}}
   </div>
   <div class="comment-controls">
     {{moment-format comment.date "MM/DD/YYYY"}} | fav | reply | edit
@@ -15,7 +19,7 @@
   {{#if comment.children}}
     <div class="comment-children">
       {{#each comment.children as |child|}}
-        {{post-nav/chat/comment comment=child isCollapsed=childrenAreCollapsed wasClicked=(action "expandChildren")}}
+        {{post-nav/chat/comment comment=child isCollapsedChild=childrenAreCollapsed wasClicked=(action "expandChildren")}}
       {{/each}}
 
       {{#if childrenAreCollapsed}}
