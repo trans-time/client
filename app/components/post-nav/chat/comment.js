@@ -1,4 +1,5 @@
 import { computed } from '@ember/object';
+import { sort } from '@ember/object/computed';
 import Component from '@ember/component';
 
 export default Component.extend({
@@ -6,6 +7,10 @@ export default Component.extend({
   classNameBindings: ['isCollapsedChild'],
 
   childrenAreCollapsed: true,
+
+  orderedChildren: sort('comment.children', (a, b) => {
+    return a.get('date').getTime() > b.get('date').getTime();
+  }),
 
   textIsOverflown: computed('comment.text', 'overflowIsExpanded', {
     get() {

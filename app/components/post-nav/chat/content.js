@@ -1,4 +1,5 @@
 import { computed } from '@ember/object';
+import { sort } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { isNone } from '@ember/utils';
 import Component from '@ember/component';
@@ -9,6 +10,10 @@ export default Component.extend({
   store: service(),
 
   comments: computed(() => []),
+
+  orderedComments: sort('ownComments', (a, b) => {
+    return a.get('date').getTime() > b.get('date').getTime();
+  }),
 
   didReceiveAttrs(...args) {
     this._super(...args);

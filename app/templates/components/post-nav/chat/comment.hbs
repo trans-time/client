@@ -16,9 +16,9 @@
     {{moment-format comment.date "MM/DD/YYYY"}} | fav | reply | edit
   </div>
 
-  {{#if comment.children}}
+  {{#if orderedChildren}}
     <div class="comment-children">
-      {{#each comment.children as |child|}}
+      {{#each orderedChildren as |child|}}
         {{post-nav/chat/comment comment=child isCollapsedChild=childrenAreCollapsed wasClicked=(action "expandChildren")}}
       {{/each}}
 
