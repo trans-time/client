@@ -77,6 +77,9 @@
 }
 
 .comment.is-collapsed {
+  font-size: 95%;
+  margin-bottom: $rhythm / 2;
+
   .comment-profile {
     width: 20px;
   }
@@ -94,5 +97,9 @@
   .comment-main {
     max-height: 15px;
     overflow: hidden;
+  }
+
+  .comment-user-link {
+    margin-right: $rhythm / 4;
   }
 }
