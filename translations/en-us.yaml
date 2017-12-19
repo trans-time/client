@@ -2,6 +2,8 @@ auth:
   join: "join"
   login: "login"
   logout: "logout"
+comments:
+  loadMore: "show more. . . ."
 confirmation:
   cancel: "cancel"
   confirm: "confirm"

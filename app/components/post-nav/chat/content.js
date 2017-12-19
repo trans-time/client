@@ -13,6 +13,8 @@ export default Component.extend({
   didReceiveAttrs(...args) {
     this._super(...args);
 
+    this.set('isLoaded', false);
+
     this.get('store').query('comment', { postId: this.get('post.id'), include: 'user, user.userProfile' }).then((comments) => {
       this.setProperties({
         comments,

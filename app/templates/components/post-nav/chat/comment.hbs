@@ -15,8 +15,12 @@
   {{#if comment.children}}
     <div class="comment-children">
       {{#each comment.children as |child|}}
-        {{post-nav/chat/comment comment=child}}
+        {{post-nav/chat/comment comment=child isCollapsed=childrenAreCollapsed wasClicked=(action "expandChildren")}}
       {{/each}}
+
+      {{#if childrenAreCollapsed}}
+        <a {{action "expandChildren"}} class="comment-load-more">{{t "comments.loadMore"}}</a>
+      {{/if}}
     </div>
   {{/if}}
 </div>

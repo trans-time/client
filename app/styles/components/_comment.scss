@@ -60,7 +60,7 @@
   margin-top: $rhythm / 4;
   padding-top: $rhythm / 4;
   color: $medium-gray;
-  font-size: 60%;
+  font-size: 65%;
 }
 
 .comment-children {
@@ -68,5 +68,31 @@
 
   > div:last-child {
     margin-bottom: 0;
+  }
+}
+
+.comment-load-more {
+  font-size: 80%;
+  text-decoration: underline;
+}
+
+.comment.is-collapsed {
+  .comment-profile {
+    width: 20px;
+  }
+
+  .comment-avatar {
+    width: 15px;
+    height: 15px;
+    margin-bottom: 0;
+  }
+
+  .comment-pronouns {
+    display: none;
+  }
+
+  .comment-main {
+    max-height: 15px;
+    overflow: hidden;
   }
 }

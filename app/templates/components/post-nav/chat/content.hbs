@@ -1,6 +1,6 @@
 {{#if isLoaded}}
   {{#each ownComments as |comment|}}
-    {{post-nav/chat/comment comment=comment}}
+    {{post-nav/chat/comment comment=comment isCollapsed=false}}
   {{/each}}
 {{else}}
   <div class="post-nav-chat-spinner">
