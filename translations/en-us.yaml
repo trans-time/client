@@ -4,6 +4,7 @@ auth:
   logout: "logout"
 comments:
   loadMore: "show more. . . ."
+  noCommentsYet: "be the first to comment"
 confirmation:
   cancel: "cancel"
   confirm: "confirm"

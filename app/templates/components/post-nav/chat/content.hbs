@@ -1,6 +1,11 @@
 {{#if isLoaded}}
   {{#each ownComments as |comment|}}
     {{post-nav/chat/comment comment=comment isCollapsed=false}}
+  {{else}}
+    <div class="post-nav-chat-spinner post-nav-first-to-comment">
+      {{t "comments.noCommentsYet"}}
+      <div class="post-nav-first-to-comment-icons">{{fa-icon "moon-o" size=2}} {{fa-icon "star-o" size=2}} {{fa-icon "sun-o" size=2}}</div>
+    </div>
   {{/each}}
 {{else}}
   <div class="post-nav-chat-spinner">
