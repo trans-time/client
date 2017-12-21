@@ -13,7 +13,11 @@
     {{/if}}
   </div>
   <div class="comment-controls">
-    {{moment-format comment.date "MM/DD/YYYY"}} | fav | reply | edit
+    {{#if showRelativeDate}}
+      {{moment-from-now comment.date interval=1000}}
+    {{else}}
+      {{moment-format comment.date "MM/DD/YYYY"}}
+    {{/if}} | fav | reply | edit
   </div>
 
   {{#if orderedChildren}}
