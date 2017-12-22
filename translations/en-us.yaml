@@ -6,6 +6,10 @@ comments:
   expandOverflow: "expand full text. . . ."
   loadMore: "view more. . . ."
   noCommentsYet: "be the first to comment"
+  submit: "submit"
+  attributes:
+    text:
+      placeholder: "leave your comment"
 confirmation:
   cancel: "cancel"
   confirm: "confirm"

@@ -7,5 +7,5 @@ export default DS.Model.extend({
   children: DS.hasMany('comment', { inverse: 'parent' }),
 
   text: DS.attr('string'),
-  date: DS.attr('date')
+  date: DS.attr('number')
 });

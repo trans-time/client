@@ -9,7 +9,7 @@ export default Component.extend({
   childrenAreCollapsed: true,
 
   orderedChildren: sort('comment.children', (a, b) => {
-    return a.get('date').getTime() > b.get('date').getTime();
+    return a.get('date') > b.get('date');
   }),
 
   textIsOverflown: computed('comment.text', 'overflowIsExpanded', {
