@@ -1,3 +1,4 @@
+import { computed, observer } from '@ember/object';
 import { alias, or } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
@@ -26,14 +27,27 @@ export default Component.extend({
   didReceiveAttrs(...args) {
     this._super(...args);
 
-    const comment = this.get('store').createRecord('comment', {
-      post: this.get('post'),
-      parent: this.get('parent')
-    });
+    this._resetChangeset();
+  },
+
+  commentable: computed({
+    get() {
+      return this.get('parent') || this.get('post');
+    }
+  }),
+
+  _resetChangeset() {
+    const comment = this.get('store').createRecord('comment', this.getProperties('post', 'parent'));
+
+    comment.set('text', this.get('commentable.commentDraft'));
 
     this.set('changeset', new Changeset(comment, lookupValidator(CommentValidations), CommentValidations));
     this.get('changeset').validate();
   },
+
+  _setCommentableDraftComment: observer('changeset.text', function() {
+    this.set('commentable.commentDraft', this.get('changeset.text'));
+  }),
 
   actions: {
     submit() {
@@ -43,9 +57,11 @@ export default Component.extend({
         user: this.get('user'),
         date: Date.now()
       });
-  
+
       changeset.save().then((comment) => {
         this.attrs.addComment(comment);
+        this.set('commentable.commentDraft', undefined);
+        this._resetChangeset();
       });
     }
   }
