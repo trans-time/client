@@ -68,7 +68,8 @@ export default function(server) {
         return server.create('comment', {
           postId: post.id,
           userId: faker.random.number(server.db.users.length - 1) + 1,
-          parentId: comment.id
+          parentId: comment.id,
+          date: Date.now()
         });
       });
 

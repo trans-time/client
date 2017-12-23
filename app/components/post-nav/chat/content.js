@@ -10,8 +10,6 @@ export default Component.extend({
 
   store: service(),
 
-  comments: computed(() => A()),
-
   orderedComments: sort('ownComments', (a, b) => {
     return a.get('date') > b.get('date');
   }),
@@ -19,13 +17,24 @@ export default Component.extend({
   didReceiveAttrs(...args) {
     this._super(...args);
 
-    this.set('isLoaded', false);
+    const loadedComments = this.get('post.loadedComments');
+
+    if (isNone(loadedComments)) {
+      this.set('isLoaded', false);
+    } else {
+      this.setProperties({
+        isLoaded: true,
+        comments: loadedComments
+      });
+    }
 
     this.get('store').query('comment', { postId: this.get('post.id'), include: 'user, user.userProfile' }).then((comments) => {
       this.setProperties({
         comments: A(comments.toArray()),
         isLoaded: true
       });
+
+      this.set('post.loadedComments', comments);
     });
   },
 
