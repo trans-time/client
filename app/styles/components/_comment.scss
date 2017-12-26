@@ -12,8 +12,11 @@
 }
 
 .comment {
-  display: flex;
   margin-bottom: $rhythm;
+}
+
+.comment-content {
+  display: flex;
 }
 
 .comment-profile {
@@ -71,6 +74,7 @@
 
 .comment-children {
   margin-top: $rhythm;
+  margin-left: 40px + $rhythm / 2;
 
   > div:last-child {
     margin-bottom: 0;

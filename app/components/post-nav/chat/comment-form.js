@@ -37,19 +37,23 @@ export default Component.extend({
   }),
 
   _resetChangeset() {
-    const comment = this.get('store').createRecord('comment', this.getProperties('post', 'parent'));
+    const comment = this.get('comment') || this.get('store').createRecord('comment', this.getProperties('post', 'parent'));
 
-    comment.set('text', this.get('commentable.commentDraft'));
+    if (this.get('commentable')) comment.set('text', this.get('commentable.commentDraft'));
 
     this.set('changeset', new Changeset(comment, lookupValidator(CommentValidations), CommentValidations));
     this.get('changeset').validate();
   },
 
   _setCommentableDraftComment: observer('changeset.text', function() {
-    this.set('commentable.commentDraft', this.get('changeset.text'));
+    if (this.get('commentable')) this.set('commentable.commentDraft', this.get('changeset.text'));
   }),
 
   actions: {
+    cancel() {
+      this.attrs.cancel();
+    },
+
     submit() {
       const changeset = this.get('changeset');
 
@@ -60,7 +64,7 @@ export default Component.extend({
 
       changeset.save().then((comment) => {
         this.attrs.addComment(comment);
-        this.set('commentable.commentDraft', undefined);
+        if (this.get('commentable')) this.set('commentable.commentDraft', undefined);
         this._resetChangeset();
       });
     }

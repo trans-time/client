@@ -41,6 +41,14 @@ export default Component.extend({
 
     expandOverflow() {
       this.set('overflowIsExpanded', true);
+    },
+
+    startEditing() {
+      this.set('isEditing', true);
+    },
+
+    stopEditing() {
+      this.set('isEditing', false);
     }
   }
 });

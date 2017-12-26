@@ -1,30 +1,42 @@
-<div class="comment-profile">
-  {{#link-to "users.user.profile.index" comment.user.id}}<img class="comment-avatar" src={{comment.user.userProfile.avatar}}>{{/link-to}}
-  <div class="comment-pronouns">{{comment.user.userProfile.pronouns}}</div>
-</div>
+{{#liquid-if isEditing}}
+  {{post-nav/chat/comment-form
+    comment=comment
+    cancelable=true
+    classNames="comment-form-edit"
+    cancel=(action "stopEditing")
+    addComment=(action "stopEditing")
+  }}
+{{else}}
+  <div class="comment-content">
+    <div class="comment-profile">
+      {{#link-to "users.user.profile.index" comment.user.id}}<img class="comment-avatar" src={{comment.user.userProfile.avatar}}>{{/link-to}}
+      <div class="comment-pronouns">{{comment.user.userProfile.pronouns}}</div>
+    </div>
 
-<div class="comment-main">
-  <div class="comment-text {{if textIsOverflown 'comment-text-is-overflown'}}">
-    {{#link-to "users.user.profile.index" comment.user.id class="comment-user-link"}}{{comment.user.username}}{{/link-to}}
-    {{{inject-emoji (markdown-render comment.text)}}}
+    <div class="comment-main">
+      <div class="comment-text {{if textIsOverflown 'comment-text-is-overflown'}}">
+        {{#link-to "users.user.profile.index" comment.user.id class="comment-user-link"}}{{comment.user.username}}{{/link-to}}
+        {{{inject-emoji (markdown-render comment.text)}}}
 
-    {{#if textIsOverflown}}
-      <a {{action "expandOverflow"}} class="comment-text-expand-overflow">{{t "comments.expandOverflow"}}</a>
+        {{#if textIsOverflown}}
+          <a {{action "expandOverflow"}} class="comment-text-expand-overflow">{{t "comments.expandOverflow"}}</a>
+        {{/if}}
+      </div>
+      <div class="comment-controls">
+        {{sometimes-relative-date date=comment.date}} | fav | reply | <a {{action "startEditing"}}>edit</a>
+      </div>
+    </div>
+  </div>
+{{/liquid-if}}
+
+{{#if orderedChildren}}
+  <div class="comment-children">
+    {{#each orderedChildren as |child|}}
+      {{post-nav/chat/comment comment=child isCollapsedChild=childrenAreCollapsed wasClicked=(action "expandChildren")}}
+    {{/each}}
+
+    {{#if childrenAreCollapsed}}
+      <a {{action "expandChildren"}} class="comment-load-more">{{t "comments.loadMore"}}</a>
     {{/if}}
   </div>
-  <div class="comment-controls">
-    {{sometimes-relative-date date=comment.date}} | fav | reply | edit
-  </div>
-
-  {{#if orderedChildren}}
-    <div class="comment-children">
-      {{#each orderedChildren as |child|}}
-        {{post-nav/chat/comment comment=child isCollapsedChild=childrenAreCollapsed wasClicked=(action "expandChildren")}}
-      {{/each}}
-
-      {{#if childrenAreCollapsed}}
-        <a {{action "expandChildren"}} class="comment-load-more">{{t "comments.loadMore"}}</a>
-      {{/if}}
-    </div>
-  {{/if}}
-</div>
+{{/if}}

@@ -3,6 +3,7 @@ auth:
   login: "login"
   logout: "logout"
 comments:
+  cancel: "cancel"
   expandOverflow: "expand full text. . . ."
   loadMore: "view more. . . ."
   noCommentsYet: "be the first to comment"

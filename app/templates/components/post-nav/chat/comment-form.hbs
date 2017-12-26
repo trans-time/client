@@ -18,3 +18,4 @@
 {{/emoji-picker-wrapper}}
 
 {{#paper-button onClick="submit" disabled=disabled raised=true primary=true class="comment-form-submit"}}{{t "comments.submit"}}{{/paper-button}}
+{{#if cancelable}}{{#paper-button onClick="cancel" raised=true class="comment-form-submit"}}{{t "comments.cancel"}}{{/paper-button}}{{/if}}
