@@ -1,5 +1,6 @@
 import { computed } from '@ember/object';
 import { sort } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 
 export default Component.extend({
@@ -7,6 +8,8 @@ export default Component.extend({
   classNameBindings: ['isCollapsedChild'],
 
   childrenAreCollapsed: true,
+
+  currentUser: service(),
 
   orderedChildren: sort('comment.children', (a, b) => {
     return a.get('date') > b.get('date');

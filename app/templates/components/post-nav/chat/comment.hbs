@@ -23,7 +23,10 @@
         {{/if}}
       </div>
       <div class="comment-controls">
-        {{sometimes-relative-date date=comment.date}} | fav | reply | <a {{action "startEditing"}}>edit</a>
+        {{sometimes-relative-date date=comment.date}} | fav | reply
+        {{#if (eq currentUser.user.id comment.user.id)}}
+          | <a {{action "startEditing"}}>edit</a>
+        {{/if}}
       </div>
     </div>
   </div>
