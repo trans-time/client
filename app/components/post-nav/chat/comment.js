@@ -1,6 +1,7 @@
 import { computed } from '@ember/object';
 import { sort } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
+import { next } from '@ember/runloop';
 import Component from '@ember/component';
 
 export default Component.extend({
@@ -48,6 +49,7 @@ export default Component.extend({
 
     startEditing() {
       this.set('isEditing', true);
+      next(() => this.$('textarea').focus());
     },
 
     stopEditing() {
