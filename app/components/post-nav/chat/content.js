@@ -47,6 +47,11 @@ export default Component.extend({
   actions: {
     addComment(comment) {
       this.get('comments').pushObject(comment);
+    },
+
+    removeComment(comment) {
+      this.get('comments').removeObject(comment);
+      comment.destroyRecord();
     }
   }
 });

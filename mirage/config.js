@@ -57,6 +57,7 @@ export default function() {
     return schema.comments.where({ postId: request.queryParams.postId });
   });
   this.post('/comments');
+  this.delete('/comments/:id');
   this.patch('/comments/:id');
   this.get('/posts', (schema, request) => {
     let posts = request.queryParams.userId ? schema.posts.where({ userId: request.queryParams.userId }) : request.queryParams.followerId ? schema.posts.all() : schema.posts.where({ userId: 'foo' });

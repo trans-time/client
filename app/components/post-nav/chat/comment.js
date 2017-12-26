@@ -11,6 +11,8 @@ export default Component.extend({
   childrenAreCollapsed: true,
 
   currentUser: service(),
+  modalManager: service(),
+  intl: service(),
 
   orderedChildren: sort('comment.children', (a, b) => {
     return a.get('date') > b.get('date');
@@ -38,7 +40,31 @@ export default Component.extend({
     if (this.attrs.wasClicked) this.attrs.wasClicked();
   },
 
+  _disableDeleteUntilResolved(cb) {
+    this.set('deleteDisabled', true);
+
+    new Promise((resolve) => {
+      cb(resolve);
+    }).then(() => {
+      this.set('deleteDisabled', false);
+    });
+  },
+
   actions: {
+    delete(comment) {
+      new Promise((resolve, reject) => {
+        this.get('modalManager').open('confirmation-modal', resolve, reject, { content: this.get('intl').t('comments.deleteCommentConfirmation') });
+      }).then(() => {
+        this._disableDeleteUntilResolved((resolve) => {
+          this.attrs.removeComment(comment);
+        });
+      });
+    },
+
+    removeComment(comment) {
+      this.attrs.removeComment(comment);
+    },
+
     expandChildren() {
       this.set('childrenAreCollapsed', false);
     },

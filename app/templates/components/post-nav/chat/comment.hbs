@@ -25,7 +25,8 @@
       <div class="comment-controls">
         {{sometimes-relative-date date=comment.date}} | fav | reply
         {{#if (eq currentUser.user.id comment.user.id)}}
-          | <a {{action "startEditing"}}>edit</a>
+          | <a {{action "startEditing"}} disabled={{deleteDisabled}}>{{t "comments.edit"}}</a>
+          | <a {{action "delete" comment}} disabled={{deleteDisabled}}>{{t "comments.delete"}}</a>
         {{/if}}
       </div>
     </div>
@@ -35,7 +36,7 @@
 {{#if orderedChildren}}
   <div class="comment-children">
     {{#each orderedChildren as |child|}}
-      {{post-nav/chat/comment comment=child isCollapsedChild=childrenAreCollapsed wasClicked=(action "expandChildren")}}
+      {{post-nav/chat/comment comment=child isCollapsedChild=childrenAreCollapsed wasClicked=(action "expandChildren") removeComment=(action "removeComment")}}
     {{/each}}
 
     {{#if childrenAreCollapsed}}
