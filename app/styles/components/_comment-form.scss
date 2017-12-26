@@ -1,0 +1,72 @@
+.comment-form-post-reply {
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.comment-form-checkboxes {
+  display: flex;
+  padding: $rhythm;
+  justify-content: space-around;
+  border: thin solid $medium-gray;
+
+  .md-checkbox {
+    margin: 0;
+  }
+}
+
+.paper-datetime-picker {
+  .input-container {
+    border: thin solid $medium-gray;
+    border-radius: 0;
+  }
+}
+
+.comment-form-text-emoji-wrapper {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.comment-form-textarea-container {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  position: relative;
+}
+
+.comment-form-textarea {
+  flex-grow: 1;
+  resize: none;
+  padding: $rhythm;
+  width: 100%;
+  box-sizing: border-box;
+  transition: height 250ms;
+  height: 50px;
+
+  &:focus {
+    height: 25vh;
+  }
+}
+
+.comment-form-text-emoji-toggler {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: none;
+  border: none;
+  outline: none;
+  opacity: 0.68;
+  padding: $rhythm / 2;
+}
+
+.comment-form-text-emoji-picker {
+  position: absolute;
+  bottom: 2px;
+  left: 2px;
+}
+
+.comment-form-submit {
+  margin: 0;
+  width: 100%;
+  border-radius: 0;
+}

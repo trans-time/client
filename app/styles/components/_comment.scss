@@ -1,7 +1,13 @@
 .comments {
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
   height: 100%;
   border-left: dashed 2px $medium-gray;
+}
+
+.comments-container {
+  flex-grow: 1;
+  overflow: auto;
   padding: $rhythm / 2;
 }
 

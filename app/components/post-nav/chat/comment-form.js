@@ -10,7 +10,7 @@ import {
 
 const CommentValidations = {
   text: [
-    validateLength({ max: 63206 })
+    validateLength({ max: 63206, min: 1 })
   ]
 };
 

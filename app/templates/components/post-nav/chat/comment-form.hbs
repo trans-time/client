@@ -17,4 +17,4 @@
 
 {{/emoji-picker-wrapper}}
 
-<button {{action "submit"}} disabled={{disabled}}>{{t "comments.submit"}}</button>
+{{#paper-button onClick="submit" disabled=disabled raised=true primary=true class="comment-form-submit"}}{{t "comments.submit"}}{{/paper-button}}
