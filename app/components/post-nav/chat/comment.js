@@ -1,5 +1,5 @@
 import { computed } from '@ember/object';
-import { sort } from '@ember/object/computed';
+import { filter, sort } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { next } from '@ember/runloop';
 import Component from '@ember/component';
@@ -14,7 +14,9 @@ export default Component.extend({
   modalManager: service(),
   intl: service(),
 
-  orderedChildren: sort('comment.children', (a, b) => {
+  savedChildren: filter('comment.children', (comment) => !comment.get('isNew')),
+
+  orderedChildren: sort('savedChildren', (a, b) => {
     return a.get('date') > b.get('date');
   }),
 
@@ -71,6 +73,14 @@ export default Component.extend({
 
     expandOverflow() {
       this.set('overflowIsExpanded', true);
+    },
+
+    reply() {
+      this.set('replying', true);
+    },
+
+    closeReply() {
+      this.set('replying', false);
     },
 
     startEditing() {

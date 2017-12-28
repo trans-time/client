@@ -23,7 +23,8 @@
         {{/if}}
       </div>
       <div class="comment-controls">
-        {{sometimes-relative-date date=comment.date}} | fav | reply
+        {{sometimes-relative-date date=comment.date}} | fav
+        | <a {{action "reply"}}>{{t "comments.reply"}}</a>
         {{#if (eq currentUser.user.id comment.user.id)}}
           | <a {{action "startEditing"}} disabled={{deleteDisabled}}>{{t "comments.edit"}}</a>
           | <a {{action "delete" comment}} disabled={{deleteDisabled}}>{{t "comments.delete"}}</a>
@@ -32,6 +33,17 @@
     </div>
   </div>
 {{/liquid-if}}
+
+{{#if replying}}
+  {{post-nav/chat/comment-form
+    post=post
+    parent=comment
+    cancelable=true
+    classNames="comment-form-reply"
+    cancel=(action "closeReply")
+    addComment=(action "closeReply")
+  }}
+{{/if}}
 
 {{#if orderedChildren}}
   <div class="comment-children">
