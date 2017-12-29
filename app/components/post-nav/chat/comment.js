@@ -2,6 +2,7 @@ import { computed } from '@ember/object';
 import { filter, sort } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { next } from '@ember/runloop';
+import { isPresent } from '@ember/utils';
 import Component from '@ember/component';
 
 export default Component.extend({
@@ -23,6 +24,18 @@ export default Component.extend({
   textIsOverflown: computed('comment.text', 'overflowIsExpanded', {
     get() {
       return !this.get('overflowIsExpanded') && this.get('comment.text.length') > 500;
+    }
+  }),
+
+  replyParent: computed({
+    get() {
+      return this.get('comment.parent.content') || this.get('comment');
+    }
+  }),
+
+  wouldDeepReply: computed({
+    get() {
+      return isPresent(this.get('comment.parent.content'));
     }
   }),
 

@@ -37,7 +37,9 @@
 {{#if replying}}
   {{post-nav/chat/comment-form
     post=post
-    parent=comment
+    parent=replyParent
+    commentable=comment
+    isDeepReply=wouldDeepReply
     cancelable=true
     classNames="comment-form-reply"
     cancel=(action "closeReply")

@@ -30,16 +30,17 @@ export default Component.extend({
     this._resetChangeset();
   },
 
-  commentable: computed({
-    get() {
-      return this.get('parent') || this.get('post');
-    }
-  }),
+  // commentable: computed({
+  //   get() {
+  //     return this.get('parent') || this.get('post');
+  //   }
+  // }),
 
   _resetChangeset() {
     const comment = this.get('comment') || this.get('store').createRecord('comment', this.getProperties('post', 'parent'));
 
-    if (this.get('commentable')) comment.set('text', this.get('commentable.commentDraft'));
+    if (this.get('isDeepReply')) comment.set('text', `@${this.get('commentable.user.username')} `);
+    if (this.get('commentable.commentDraft')) comment.set('text', this.get('commentable.commentDraft'));
 
     this.set('changeset', new Changeset(comment, lookupValidator(CommentValidations), CommentValidations));
     this.get('changeset').validate();
