@@ -1,3 +1,4 @@
+import { computed } from '@ember/object';
 import DS from 'ember-data';
 
 export default DS.Model.extend({
@@ -6,6 +7,19 @@ export default DS.Model.extend({
   parent: DS.belongsTo('comment', { inverse: 'children' }),
   children: DS.hasMany('comment', { inverse: 'parent' }),
 
+  date: DS.attr('number'),
+  deleted: DS.attr('boolean'),
   text: DS.attr('string'),
-  date: DS.attr('number')
+
+  nondeletedChildren: computed('children.@each.deleted', {
+    get() {
+      return this.get('children').filterBy('deleted', false);
+    }
+  }),
+
+  shouldDisplay: computed('deleted', 'nondeletedChildren.length', {
+    get() {
+      return !this.get('deleted') || this.get('nondeletedChildren.length') > 0;
+    }
+  })
 });

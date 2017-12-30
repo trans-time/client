@@ -5,6 +5,7 @@ auth:
 comments:
   cancel: "cancel"
   delete: "delete"
+  deleted: "<this comment was deleted>"
   edit: "edit"
   expandOverflow: "expand full text. . . ."
   loadMore: "view more. . . ."

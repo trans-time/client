@@ -40,7 +40,7 @@ export default Component.extend({
 
   ownComments: computed('comments.[]', {
     get() {
-      return this.get('comments').filter((comment) => isNone(comment.get('parent.content')));
+      return this.get('comments').filter((comment) => isNone(comment.get('parent.content')) && comment.get('shouldDisplay'));
     }
   }),
 
@@ -50,7 +50,7 @@ export default Component.extend({
     },
 
     removeComment(comment) {
-      this.get('comments').removeObject(comment);
+      if (comment.get('nondeletedChildren.length') === 0) this.get('comments').removeObject(comment);
       comment.destroyRecord();
     }
   }

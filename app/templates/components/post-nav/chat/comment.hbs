@@ -6,6 +6,8 @@
     cancel=(action "stopEditing")
     addComment=(action "stopEditing")
   }}
+{{else if comment.deleted}}
+  <div class="comment-content comment-deleted">{{t "comments.deleted"}}</div>
 {{else}}
   <div class="comment-content">
     <div class="comment-profile">

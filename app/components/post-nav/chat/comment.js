@@ -15,9 +15,9 @@ export default Component.extend({
   modalManager: service(),
   intl: service(),
 
-  savedChildren: filter('comment.children', (comment) => !comment.get('isNew')),
+  visibleChildren: filter('comment.children', (comment) => !comment.get('isNew') && comment.get('shouldDisplay')),
 
-  orderedChildren: sort('savedChildren', (a, b) => {
+  orderedChildren: sort('visibleChildren', (a, b) => {
     return a.get('date') > b.get('date');
   }),
 

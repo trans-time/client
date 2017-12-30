@@ -15,6 +15,11 @@
   margin-bottom: $rhythm;
 }
 
+.comment-deleted {
+  margin-left: $rhythm;
+  color: $light-gray;
+}
+
 .comment-content {
   display: flex;
 }

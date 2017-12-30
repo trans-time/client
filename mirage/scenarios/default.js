@@ -61,11 +61,12 @@ export default function(server) {
 
     post.commentIds = [...Array(faker.random.number(3))].map(() => {
       post.totalComments++;
-      
+
       const comment = server.create('comment', {
         postId: post.id,
         userId: faker.random.number(server.db.users.length - 1) + 1,
-        date: Date.now()
+        date: Date.now(),
+        deleted: faker.random.number(10) > 5
       });
 
       comment.childrenIds = [...Array(faker.random.number(2))].map(() => {
