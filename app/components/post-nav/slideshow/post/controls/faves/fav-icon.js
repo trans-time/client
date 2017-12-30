@@ -8,7 +8,7 @@ export default Component.extend({
   tagName: 'a',
   classNames: ['post-nav-controls-element', 'fav-icon'],
   classNameBindings: ['faved', 'hidden', 'disabled'],
-  attributeBindings: ['disabled'],
+  attributeBindings: ['disabled', 'oncontextmenu'],
 
   meta: service(),
   usingTouch: alias('meta.usingTouch'),
@@ -32,6 +32,10 @@ export default Component.extend({
       }
     }
   }),
+
+  oncontextmenu() {
+    return false;
+  },
 
   touchStart() {
     this.set('usingTouch', true);
