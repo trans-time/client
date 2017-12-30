@@ -57,7 +57,11 @@ export default function(server) {
       return faker.random.number(server.db.users.length - 1) + 1;
     });
 
+    post.totalComments = 0;
+
     post.commentIds = [...Array(faker.random.number(3))].map(() => {
+      post.totalComments++;
+      
       const comment = server.create('comment', {
         postId: post.id,
         userId: faker.random.number(server.db.users.length - 1) + 1,
@@ -65,6 +69,8 @@ export default function(server) {
       });
 
       comment.childrenIds = [...Array(faker.random.number(2))].map(() => {
+        post.totalComments++;
+
         return server.create('comment', {
           postId: post.id,
           userId: faker.random.number(server.db.users.length - 1) + 1,

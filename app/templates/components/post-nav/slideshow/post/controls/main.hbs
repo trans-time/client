@@ -1,6 +1,6 @@
 {{post-nav/slideshow/post/controls/faves/main post=post}}
 
 <a class="post-nav-controls-element post-nav-chat-icon" {{action "toggleChat"}}>
-  {{number-bubble number=0 classNames="chat-total"}}
+  {{number-bubble number=post.totalComments classNames="chat-total"}}
   {{fa-icon "comment-o" size=2 flip="horizontal"}}
 </a>
