@@ -1,7 +1,8 @@
 import { computed } from '@ember/object';
 import DS from 'ember-data';
+import Favable from './favable';
 
-export default DS.Model.extend({
+export default Favable.extend({
   user: DS.belongsTo('user'),
   post: DS.belongsTo('post'),
   parent: DS.belongsTo('comment', { inverse: 'children' }),

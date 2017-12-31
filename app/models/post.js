@@ -1,12 +1,11 @@
 import { A } from '@ember/array';
 import EmberObject, { computed } from '@ember/object';
 import DS from 'ember-data';
+import Favable from './favable';
 
-export default DS.Model.extend({
-  currentUserFav: DS.belongsTo('fav'),
+export default Favable.extend({
   user: DS.belongsTo('user', { inverse: 'posts' }),
   comments: DS.hasMany('comment'),
-  faves: DS.hasMany('fav', { inverse: 'post' }),
   panels: DS.hasMany('panel', { polymorphic: true }),
   relationships: DS.hasMany('user', { inverse: false }),
   tags: DS.hasMany('tag'),
@@ -16,10 +15,6 @@ export default DS.Model.extend({
   private: DS.attr('boolean'),
   nsfw: DS.attr('boolean'),
   totalComments: DS.attr('number'),
-  totalStars: DS.attr('number'),
-  totalSuns: DS.attr('number'),
-  totalMoons: DS.attr('number'),
-  totalFaves: DS.attr('number'),
 
   panelsWithBlank: computed('panels.[]', {
     get() {

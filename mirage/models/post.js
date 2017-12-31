@@ -1,10 +1,10 @@
 import { Model, belongsTo, hasMany } from 'ember-cli-mirage';
+import Favable from './favable';
 
-export default Model.extend({
+export default Favable.extend({
   user: belongsTo('user'),
   currentUserFav: belongsTo('fav', { inverse: 'currentUserFavPost' }),
   comments: hasMany('comment'),
-  faves: hasMany('fav', { inverse: 'post' }),
   panels: hasMany('panel', { polymorphic: true }),
   relationships: hasMany('user', { inverse: false }),
   tags: hasMany('tag')

@@ -1,6 +1,7 @@
-import { Model, hasMany, belongsTo } from 'ember-cli-mirage';
+import { hasMany, belongsTo } from 'ember-cli-mirage';
+import Favable from './favable';
 
-export default Model.extend({
+export default Favable.extend({
   post: belongsTo('post'),
   user: belongsTo('user'),
   parent: belongsTo('comment', { inverse: 'children' }),

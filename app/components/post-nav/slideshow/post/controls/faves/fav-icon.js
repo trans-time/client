@@ -19,15 +19,15 @@ export default Component.extend({
     }
   }),
 
-  total: computed('type', 'shouldDisplayAllTypes', 'post.totalFaves', {
+  total: computed('type', 'shouldDisplayAllTypes', 'favable.totalFaves', {
     get() {
       if (!this.get('shouldDisplayAllTypes')) {
-        return this.get('post.totalFaves');
+        return this.get('favable.totalFaves');
       } else {
         switch (this.get('type')) {
-          case 'star': return this.get('post.totalStars');
-          case 'sun': return this.get('post.totalSuns');
-          case 'moon': return this.get('post.totalMoons')
+          case 'star': return this.get('favable.totalStars');
+          case 'sun': return this.get('favable.totalSuns');
+          case 'moon': return this.get('favable.totalMoons')
         }
       }
     }

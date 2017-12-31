@@ -2,5 +2,5 @@ import { Model, belongsTo } from 'ember-cli-mirage';
 
 export default Model.extend({
   user: belongsTo('user'),
-  post: belongsTo('post')
+  favable: belongsTo('favable', { polymorphic: true })
 });

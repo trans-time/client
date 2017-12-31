@@ -16,7 +16,7 @@ export default Component.extend(AuthenticatedActionMixin, {
 
   user: oneWay('currentUser.user'),
 
-  currentUserFav: alias('post.currentUserFav.content'),
+  currentUserFav: alias('favable.currentUserFav.content'),
   faved: notEmpty('currentUserFav'),
   selectedCurrentType: oneWay('currentUserFav.type'),
 
@@ -27,33 +27,33 @@ export default Component.extend(AuthenticatedActionMixin, {
   }),
 
   _handleSelection(type) {
-    const { post, user }= this.getProperties('post', 'user');
+    const { favable, user }= this.getProperties('favable', 'user');
 
     if (this.get('shouldDisplayAllTypes')) {
       if (this.get('faved')) {
-        this._changeFavType(type, post);
+        this._changeFavType(type, favable);
       } else {
-        this._createNewFav(type, user, post);
+        this._createNewFav(type, user, favable);
       }
     } else {
       if (this.get('faved')) {
-        this._destroyFav(post);
+        this._destroyFav(favable);
       } else {
-        this._createNewFav(type, user, post);
+        this._createNewFav(type, user, favable);
       }
     }
   },
 
-  _createNewFav(type, user, post) {
+  _createNewFav(type, user, favable) {
     this.set('disabled', true);
     this.get('store').createRecord('fav', {
       user,
-      post,
+      favable,
       type
     }).save().then((fav) => {
-      post.set('currentUserFav', fav);
-      post.incrementProperty('totalFaves');
-      post.incrementProperty(`total${capitalize(type)}s`);
+      favable.set('currentUserFav', fav);
+      favable.incrementProperty('totalFaves');
+      favable.incrementProperty(`total${capitalize(type)}s`);
     }).finally(() => {
       this.setProperties({
         disabled: false,
@@ -62,7 +62,7 @@ export default Component.extend(AuthenticatedActionMixin, {
     });
   },
 
-  _changeFavType(newType, post) {
+  _changeFavType(newType, favable) {
     const currentUserFav = this.get('currentUserFav');
     const previousType = currentUserFav.get('type');
 
@@ -70,8 +70,8 @@ export default Component.extend(AuthenticatedActionMixin, {
       currentUserFav.set('type', newType);
       this.set('disabled', true);
       currentUserFav.save().then(() => {
-        post.decrementProperty(`total${capitalize(previousType)}s`);
-        post.incrementProperty(`total${capitalize(newType)}s`);
+        favable.decrementProperty(`total${capitalize(previousType)}s`);
+        favable.incrementProperty(`total${capitalize(newType)}s`);
       }).catch(() => {
         currentUserFav.set('type', previousType);
       }).finally(() => {
@@ -85,15 +85,15 @@ export default Component.extend(AuthenticatedActionMixin, {
     }
   },
 
-  _destroyFav(post) {
+  _destroyFav(favable) {
     const currentUserFav = this.get('currentUserFav');
     const previousType = currentUserFav.get('type');
 
     this.set('disabled', true);
     currentUserFav.destroyRecord().then(() => {
-      this.set('post.currentUserFav', null);
-      post.decrementProperty('totalFaves');
-      post.decrementProperty(`total${capitalize(previousType)}s`);
+      this.set('favable.currentUserFav', null);
+      favable.decrementProperty('totalFaves');
+      favable.decrementProperty(`total${capitalize(previousType)}s`);
     }).finally(() => {
       this.set('disabled', false);
     });

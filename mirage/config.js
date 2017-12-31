@@ -84,7 +84,7 @@ export default function() {
       postsSegment.models.forEach((post) => {
         if (Math.random() > 0.4) {
           const fav = schema.faves.create({
-            postId: post.id,
+            favable: post,
             userId: user.id,
             type: Math.ceil(Math.random() * 3)
           }).attrs;
@@ -106,8 +106,12 @@ export default function() {
   this.get('/tags', (schema, request) => {
     return schema.tags.where({ userId: request.queryParams.userId });
   });
-  this.post('/faves');
-  this.patch('/faves/:id')
+  this.post('/faves', (schema, request) => {
+    return schema.faves.create(JSON.parse(request.requestBody));
+  });
+  this.patch('/faves/:id', (schema, request) => {
+    return schema.db.faves.update(request.params.id, JSON.parse(request.requestBody));
+  });
   this.del('/faves/:id');
   this.get('/posts/:id');
   this.patch('/posts/:id', (schema, request) => {
