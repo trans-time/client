@@ -1,6 +1,7 @@
 import { capitalize } from '@ember/string';
 import { computed } from '@ember/object';
 import { oneWay, alias, notEmpty } from '@ember/object/computed';
+import { guidFor } from '@ember/object/internals';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import AuthenticatedActionMixin from 'client/mixins/authenticated-action';
@@ -23,6 +24,18 @@ export default Component.extend(AuthenticatedActionMixin, {
   currentType: computed('selectedCurrentType', {
     get() {
       return this.get('selectedCurrentType') || 'star';
+    }
+  }),
+
+  currentFavId: computed({
+    get() {
+      return `${guidFor(this)}_current_fav`;
+    }
+  }),
+
+  currentFavIdHash: computed('currentFavId', {
+    get() {
+      return `#${this.get('currentFavId')}`
     }
   }),
 

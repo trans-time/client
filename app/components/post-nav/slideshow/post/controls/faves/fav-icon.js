@@ -7,7 +7,7 @@ import { task, timeout } from 'ember-concurrency';
 export default Component.extend({
   tagName: 'a',
   classNames: ['post-nav-controls-element', 'fav-icon'],
-  classNameBindings: ['faved', 'hidden', 'disabled'],
+  classNameBindings: ['faved', 'disabled'],
   attributeBindings: ['disabled', 'oncontextmenu'],
 
   meta: service(),

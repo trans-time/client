@@ -13,25 +13,18 @@
 
 .post-nav-controls-element {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
   padding: $rhythm;
 }
 
 .fav-icon {
   position: relative;
-  padding: 25px;
-  transition: padding 500ms, transform 500ms, opacity 500ms;
-
-  &.hidden {
-    padding: 0;
-    transform: scale3d(0, 0, 0);
-    visibility: hidden;
-  }
+  transition: opacity 500ms;
 
   i {
-    position: absolute;
-    top: 24%;
-    left: 25%;
     transition: color 500ms, text-shadow 500ms;
   }
 
@@ -48,8 +41,36 @@
   }
 }
 
+.fav-selector {
+  border-radius: 25px;
+  box-shadow: 1px 1px 3px $dark-gray;
+  background-color: $white;
+  padding: $rhythm / 1.5 $rhythm 0;
+}
+
 .post-nav-chat-icon {
   .chat-total {
+  }
+}
+
+.comment-controls {
+  .post-nav-controls-element {
+    padding: 0 $rhythm;
+  }
+
+  .number-bubble {
+    position: relative;
+    top: -3px;
+    right: 0;
+    box-shadow: none;
+    font-size: 125%;
+    display: inline;
+    width: initial;
+  }
+
+  .fa {
+    position: relative;
+    font-size: 175%;
   }
 }
 

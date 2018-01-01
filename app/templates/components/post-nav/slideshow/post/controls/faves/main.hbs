@@ -1,14 +1,34 @@
-{{#each types as |type|}}
-  {{post-nav/slideshow/post/controls/faves/fav-icon
-    favable=favable
-    type=type
-    disabled=disabled
-    isOpeningDisplayAllTypes=isOpeningDisplayAllTypes
-    shouldDisplayAllTypes=shouldDisplayAllTypes
-    faved=(and (eq currentType type) faved)
-    hidden=(and (not shouldDisplayAllTypes) (not-eq currentType type))
-    completeDisplayAllTypes=(action "completeDisplayAllTypes")
-    displayAllTypes=(action "displayAllTypes")
-    selectType=(action "selectType" type)
+{{post-nav/slideshow/post/controls/faves/fav-icon
+  id=currentFavId
+  favable=favable
+  type=currentType
+  disabled=disabled
+  isOpeningDisplayAllTypes=isOpeningDisplayAllTypes
+  faved=(and (eq currentType currentType) faved)
+  completeDisplayAllTypes=(action "completeDisplayAllTypes")
+  displayAllTypes=(action "displayAllTypes")
+  selectType=(action "selectType" currentType)
+}}
+
+{{#if shouldDisplayAllTypes}}
+  {{#liquid-tether
+    target=currentFavIdHash
+    attachment="bottom right"
+    targetAttachment="middle middle"
+    class="fav-selector"
   }}
-{{/each}}
+    {{#each types as |type|}}
+      {{post-nav/slideshow/post/controls/faves/fav-icon
+        favable=favable
+        type=type
+        disabled=disabled
+        isOpeningDisplayAllTypes=isOpeningDisplayAllTypes
+        shouldDisplayAllTypes=shouldDisplayAllTypes
+        faved=(and (eq currentType type) faved)
+        completeDisplayAllTypes=(action "completeDisplayAllTypes")
+        displayAllTypes=(action "displayAllTypes")
+        selectType=(action "selectType" type)
+      }}
+    {{/each}}
+  {{/liquid-tether}}
+{{/if}}
