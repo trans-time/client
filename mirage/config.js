@@ -73,11 +73,20 @@ export default function() {
       });
     }
 
-    if (request.queryParams.direction === 'desc') posts.models.reverse();
-    const page = parseInt(request.queryParams.page, 10);
     const perPage = parseInt(request.queryParams.perPage, 10);
-    const startingIndex = page * perPage || 0;
-    const postsSegment = posts.slice(startingIndex, startingIndex + perPage);
+    const shouldProgress = request.queryParams.shouldProgress === 'true';
+    const isInitial = request.queryParams.shouldProgress === undefined;
+    let initialPostIndex = 0;
+
+    if (request.queryParams.fromPostId) {
+      initialPostIndex = posts.models.indexOf(posts.models.find((post) => post.id === request.queryParams.fromPostId)) || 0;
+    }
+
+    const startingIndex = Math.max(0, isInitial ? initialPostIndex - 5 : shouldProgress ? initialPostIndex - perPage : initialPostIndex + 1);
+    const endingIndex = Math.min(posts.length - 1, isInitial ? initialPostIndex + 5 : shouldProgress ? initialPostIndex : initialPostIndex + perPage + 1);
+    const postsSegment = posts.slice(startingIndex, endingIndex);
+
+    console.log(startingIndex, endingIndex, postsSegment.length)
 
     if (isPresent(request.requestHeaders.Authorization)) {
       const user = schema.db.users.find(request.requestHeaders.Authorization.match(/id="(.*)"/)[1]);

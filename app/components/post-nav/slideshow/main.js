@@ -10,7 +10,7 @@ import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import EmberObject, { computed } from '@ember/object';
 import TouchActionMixin from 'ember-hammertime/mixins/touch-action';
-import { task } from 'ember-concurrency';
+import { task, timeout } from 'ember-concurrency';
 
 const NavState = EmberObject.extend({
   currentPanel: computed({
@@ -85,7 +85,8 @@ export default Component.extend(TouchActionMixin, {
       this.element.addEventListener('touchstart', removeClickEvents);
     }
 
-    const post = this.get('decoratedPosts.firstObject');
+    const initialPostId = this.get('initialPostId');
+    const post = initialPostId ? this.get('decoratedPosts').find((decoratedPost) => decoratedPost.model.id === initialPostId) : this.get('decoratedPosts.firstObject');
     const currentPanel = post.get('panels.firstObject');
 
     this.attrs.changePost(post.get('model'));
@@ -277,28 +278,37 @@ export default Component.extend(TouchActionMixin, {
   _checkNeedToLoadMorePosts() {
     const posts = this.get('decoratedPosts');
     const currentPost = this.get('navState.currentPanel.post');
+    const index = posts.indexOf(currentPost);
+    const nearingEnd = index > posts.length - 3;
 
-    if (posts.indexOf(currentPost) > posts.length - 5 && !this.get('isLoadingMorePosts') && !this.get('reachedLastPost')) {
+    if (((nearingEnd && !this.get('reachedLastPost')) || (index < 2 && !this.get('reachedFirstPost'))) && !this.get('isLoadingMorePosts')) {
+      console.log(index, posts.length)
       const loadingMorePostsPromise = new EmberPromise((resolve, reject) => {
-        this.attrs.loadMorePosts(resolve, reject);
+        this.attrs.loadMorePosts(resolve, reject, !nearingEnd, nearingEnd ? posts.get('lastObject.model.id') : posts.get('firstObject.model.id'));
       });
 
       this.set('loadingMorePostsPromise', loadingMorePostsPromise);
 
-      loadingMorePostsPromise.then((reachedLastPost) => {
-        this.set('reachedLastPost', reachedLastPost);
+      loadingMorePostsPromise.then((newProperties) => {
+        this.setProperties(newProperties);
         this.get('_loadNeighborMatrix').perform(this.get('navState.currentPanel'));
 
         if (this.get('navState.incomingPanel') === 'edge') {
           this.set('navState.incomingPanel', this._getNeighbor(this.get('navState.currentPanel'), this.get('navState.direction')));
         }
       }).finally(() => {
-        this.set('loadingMorePostsPromise', null);
-        this._checkNeedToLoadMorePosts();
-        this._displayPointers();
+        this.get('_completePostLoadTask').perform();
       });
     }
   },
+
+  _completePostLoadTask: task(function * () {
+    yield timeout(100);
+
+    this.set('loadingMorePostsPromise', null);
+    this._checkNeedToLoadMorePosts();
+    this._displayPointers();
+  }),
 
   _displayPointers() {
     const currentPanel = this.get('navState.currentPanel');

@@ -30,15 +30,18 @@ export default Mixin.create({
       controller.setProperties(this.get('_defaultQueryParams'));
     },
 
-    loadMorePosts(resolve, reject) {
+    loadMorePosts(resolve, reject, shouldProgress, fromPostId) {
       const query = this.get('_posts.query');
 
-      query.page++;
+      query.shouldProgress = shouldProgress;
+      query.fromPostId = fromPostId;
 
       this.store.query('post', query).then((posts) => {
         this.get('_posts').pushObjects(posts.get('content'));
 
-        resolve(posts.get('content.length') < query.perPage);
+        const reachedEnd = posts.get('content.length') < query.perPage;
+
+        resolve(shouldProgress ? { reachedFirstPost: reachedEnd } : { reachedLastPost: reachedEnd });
       }).catch(() => {
         reject();
       });

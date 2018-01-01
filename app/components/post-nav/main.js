@@ -1,3 +1,4 @@
+import { sort } from '@ember/object/computed';
 import { on } from '@ember/object/evented';
 import { A } from '@ember/array';
 import Component from '@ember/component';
@@ -78,7 +79,7 @@ const PostDecorator = EmberObject.extend({
   },
 
   _getNeighbor(direction) {
-    const index = this.get('index');
+    const index = this.get('posts').indexOf(this);
 
     switch(direction) {
       case 'up': return this.set(direction, this.get('posts')[index - 1]);
@@ -99,19 +100,19 @@ export default Component.extend({
 
   nextPostIndex: 0,
 
-  decoratedPosts: computed(() => A()),
+  unorderedDecoratedPosts: computed(() => A()),
+  decoratedPosts: sort('unorderedDecoratedPosts', (a, b) => a.get('model.date') - b.get('model.date')),
 
   addToDecoratedPosts: on('init', observer('posts.[]', function() {
-    const { decoratedPosts, posts, nextPostIndex } = this.getProperties('decoratedPosts', 'posts', 'nextPostIndex');
+    const { unorderedDecoratedPosts, posts, nextPostIndex } = this.getProperties('unorderedDecoratedPosts', 'posts', 'nextPostIndex');
     const newPosts = posts.slice(nextPostIndex).map((model, index) => {
       return PostDecorator.create({
         model,
-        index: index + nextPostIndex,
         component: this
       });
     });
 
-    decoratedPosts.pushObjects(newPosts);
+    unorderedDecoratedPosts.pushObjects(newPosts);
 
     this.set('nextPostIndex', posts.get('length'));
   })),
@@ -119,10 +120,11 @@ export default Component.extend({
   actions: {
     changePost(post) {
       this.set('post', post);
+      this.attrs.changePost(post);
     },
 
-    loadMorePosts(resolve, reject) {
-      this.sendAction('action', resolve, reject)
+    loadMorePosts(...args) {
+      this.sendAction('action', ...args);
     },
 
     toggleChat() {
