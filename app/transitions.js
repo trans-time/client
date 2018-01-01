@@ -37,4 +37,9 @@ export default function() {
     this.toValue((toValue) => toValue === null),
     this.use('to-up')
   );
+
+  this.transition(
+    this.hasClass('fav-selector-modal'),
+    this.use('fade', { duration: 100 })
+  )
 }
