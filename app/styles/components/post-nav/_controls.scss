@@ -55,13 +55,13 @@
 
 .comment-controls {
   .post-nav-controls-element {
-    padding: 0 $rhythm;
+    padding: 0 $rhythm / 2;
   }
 
   .number-bubble {
     position: relative;
     top: -3px;
-    right: 0;
+    right: -2px;
     box-shadow: none;
     font-size: 125%;
     display: inline;
