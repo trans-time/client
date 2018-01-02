@@ -79,6 +79,7 @@ post:
   edit: "edit post"
   more: "more"
   new: "new post"
+  none: "sorry, there are no posts to load"
 profile:
   cancel: "cancel"
   changeAvatar: "change your avatar"

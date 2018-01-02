@@ -1,16 +1,22 @@
-{{post-nav/slideshow/main
-  direction=direction
-  decoratedPosts=decoratedPosts
-  tag=tag
-  post=post
-  initialPostId=initialPostId
-  loadMorePosts=(action "loadMorePosts")
-  changePost=(action "changePost")
-  toggleChat=(action "toggleChat")
-  classNames="main-layout-constraint"
-}}
+{{#if decoratedPosts}}
+  {{post-nav/slideshow/main
+    direction=direction
+    decoratedPosts=decoratedPosts
+    tag=tag
+    post=post
+    initialPostId=initialPostId
+    loadMorePosts=(action "loadMorePosts")
+    changePost=(action "changePost")
+    toggleChat=(action "toggleChat")
+    classNames="main-layout-constraint"
+  }}
 
-{{post-nav/chat/main
-  chatIsOpen=chatIsOpen
-  post=post
-}}
+  {{post-nav/chat/main
+    chatIsOpen=chatIsOpen
+    post=post
+  }}
+{{else}}
+  <div class="post-nav-none">
+    {{t "post.none"}}
+  </div>
+{{/if}}
