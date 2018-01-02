@@ -100,8 +100,7 @@ export default Component.extend({
 
   nextPostIndex: 0,
 
-  unorderedDecoratedPosts: computed(() => A()),
-  decoratedPosts: sort('unorderedDecoratedPosts', (a, b) => a.get('model.date') - b.get('model.date')),
+  decoratedPosts: computed(() => A()),
 
   didReceiveAttrs(...args) {
     this._super(...args);
@@ -110,7 +109,7 @@ export default Component.extend({
   },
 
   addToDecoratedPosts: on('init', observer('posts.[]', function() {
-    const { unorderedDecoratedPosts, posts, nextPostIndex } = this.getProperties('unorderedDecoratedPosts', 'posts', 'nextPostIndex');
+    const { decoratedPosts, posts, nextPostIndex } = this.getProperties('decoratedPosts', 'posts', 'nextPostIndex');
     const newPosts = posts.slice(nextPostIndex).map((model, index) => {
       return PostDecorator.create({
         model,
@@ -118,7 +117,7 @@ export default Component.extend({
       });
     });
 
-    unorderedDecoratedPosts.pushObjects(newPosts);
+    decoratedPosts.get('lastObject.model.date') < newPosts[0].get('model.date') ? decoratedPosts.pushObjects(newPosts) : decoratedPosts.unshiftObjects(newPosts);
 
     this.set('nextPostIndex', posts.get('length'));
   })),

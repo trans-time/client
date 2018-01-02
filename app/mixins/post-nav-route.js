@@ -42,6 +42,8 @@ export default Mixin.create({
     loadMorePosts(resolve, reject, shouldProgress, fromPostId) {
       const query = this.get('_posts.query');
 
+      if (query.shouldProgress === shouldProgress && query.fromPostId === fromPostId) return reject();
+
       query.shouldProgress = shouldProgress;
       query.fromPostId = fromPostId;
 
