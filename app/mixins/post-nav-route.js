@@ -4,6 +4,7 @@ import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
   messageBus: service(),
+  router: service(),
 
   init(...args) {
     this._super(...args);
@@ -28,6 +29,8 @@ export default Mixin.create({
       const controller = this.controllerFor('users.user.timeline');
 
       controller.setProperties(this.get('_defaultQueryParams'));
+
+      this.get('router.location').setURL(window.location.href);
     },
 
     loadMorePosts(resolve, reject, shouldProgress, fromPostId) {

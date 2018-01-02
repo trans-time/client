@@ -7,6 +7,9 @@ export default Route.extend(PostNavRouteMixin, {
   queryParams: {
     tags: {
       refreshModel: true
+    },
+    postId: {
+      replace: true
     }
   },
 
