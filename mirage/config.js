@@ -84,7 +84,7 @@ export default function() {
 
     const startingIndex = Math.max(0, isInitial ? initialPostIndex - 5 : shouldProgress ? initialPostIndex - perPage : initialPostIndex + 1);
     const endingIndex = Math.min(posts.length - 1, isInitial ? initialPostIndex + 5 : shouldProgress ? initialPostIndex : initialPostIndex + perPage + 1);
-    const postsSegment = posts.slice(startingIndex, endingIndex);
+    const postsSegment = posts.sort((a, b) => a.date - b.date).slice(startingIndex, endingIndex);
 
     if (isPresent(request.requestHeaders.Authorization)) {
       const user = schema.db.users.find(request.requestHeaders.Authorization.match(/id="(.*)"/)[1]);

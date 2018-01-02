@@ -5,7 +5,7 @@ export default Factory.extend({
   username: faker.internet.userName,
 
   afterCreate(user, server) {
-    if (user.posts.length === 0) user.posts = server.createList('post', 10);
+    if (user.posts.length === 0) user.posts = server.createList('post', 10, { date: 99999999999 });
 
     user.userProfile = server.create('user-profile', {
       user
