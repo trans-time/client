@@ -3,12 +3,6 @@
 @import "post-nav/post";
 @import "post-nav/slideshow";
 
-.post-nav-outer-container {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-}
-
 .post-nav-none {
   display: flex;
   align-items: center;
@@ -18,7 +12,9 @@
 }
 
 .post-nav {
-  height: 100%;
+  position: relative;
+  display: flex;
+  flex-grow: 1;
 
   .post-nav-slideshow-main, .post-nav-chat-main {
     transition: transform 750ms;
