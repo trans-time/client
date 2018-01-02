@@ -1,4 +1,11 @@
-{{post-nav/main
-  posts=model
-  action="loadMorePosts"
-}}
+<div class="post-nav-outer-container">
+  {{post-nav/main
+    posts=model
+    initialPostId=postId
+    commentsAreOpen=comments
+    action="loadMorePosts"
+    changePost=(action "changePost")
+    openComments=(action "openComments")
+    closeComments=(action "closeComments")
+  }}
+</div>

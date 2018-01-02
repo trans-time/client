@@ -1,8 +1,15 @@
 {{#if (and session.isAuthenticated modelIsPresent)}}
-  {{post-nav/main
-    posts=model
-    action="loadMorePosts"
-  }}
+  <div class="post-nav-outer-container">
+    {{post-nav/main
+      posts=model
+      initialPostId=postId
+      commentsAreOpen=comments
+      action="loadMorePosts"
+      changePost=(action "changePost")
+      openComments=(action "openComments")
+      closeComments=(action "closeComments")
+    }}
+  </div>
 {{else}}
   <div class="cover-page">
     <div class="cover-page-lead">{{{t "coverPage.lead"}}}</div>

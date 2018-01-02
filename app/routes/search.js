@@ -15,7 +15,9 @@ export default Route.extend(PostNavRouteMixin, RouteTitleMixin, {
 
   _posts: alias('controller.model'),
   _defaultQueryParams: {
-    query: ''
+    query: '',
+    postId: null,
+    comments: null
   },
 
   afterModel(...args) {
@@ -26,9 +28,10 @@ export default Route.extend(PostNavRouteMixin, RouteTitleMixin, {
 
   model(params) {
     this.setProperties({
+      reachedFirstPost: false,
       reachedLastPost: false
     });
 
-    return this.store.query('post', { query: params.query, page: 0, perPage: 10 });
+    return this.store.query('post', { query: params.query, fromPostId: params.postId, perPage: 5 });
   }
 });

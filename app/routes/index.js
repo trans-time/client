@@ -13,6 +13,8 @@ export default Route.extend(PostNavRouteMixin, {
   user: alias('currentUser.user'),
   _posts: alias('controller.model'),
   _defaultQueryParams: {
+    postId: null,
+    comments: null
   },
 
   afterModel(...args) {
@@ -21,8 +23,9 @@ export default Route.extend(PostNavRouteMixin, {
     this.set('meta.title', null);
   },
 
-  model() {
+  model(params) {
     this.setProperties({
+      reachedFirstPost: false,
       reachedLastPost: false
     });
 
@@ -30,7 +33,7 @@ export default Route.extend(PostNavRouteMixin, {
 
     if (isBlank(user)) return;
 
-    return this.store.query('post', { followerId: user.get('id'), page: 0, perPage: 10 });
+    return this.store.query('post', { followerId: user.get('id'), fromPostId: params.postId, perPage: 5 });
   },
 
   _refreshPosts() {

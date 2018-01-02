@@ -7,9 +7,6 @@ export default Route.extend(PostNavRouteMixin, {
   queryParams: {
     tags: {
       refreshModel: true
-    },
-    postId: {
-      replace: true
     }
   },
 
@@ -24,6 +21,7 @@ export default Route.extend(PostNavRouteMixin, {
 
   model(params) {
     this.setProperties({
+      reachedFirstPost: false,
       reachedLastPost: false
     });
 

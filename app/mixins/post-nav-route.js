@@ -3,6 +3,12 @@ import { inject as service } from '@ember/service';
 import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
+  queryParams: {
+    postId: {
+      replace: true
+    }
+  },
+
   messageBus: service(),
   router: service(),
 
