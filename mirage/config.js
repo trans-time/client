@@ -86,8 +86,6 @@ export default function() {
     const endingIndex = Math.min(posts.length - 1, isInitial ? initialPostIndex + 5 : shouldProgress ? initialPostIndex : initialPostIndex + perPage + 1);
     const postsSegment = posts.slice(startingIndex, endingIndex);
 
-    console.log(startingIndex, endingIndex, postsSegment.length)
-
     if (isPresent(request.requestHeaders.Authorization)) {
       const user = schema.db.users.find(request.requestHeaders.Authorization.match(/id="(.*)"/)[1]);
       postsSegment.models.forEach((post) => {

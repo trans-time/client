@@ -103,6 +103,12 @@ export default Component.extend({
   unorderedDecoratedPosts: computed(() => A()),
   decoratedPosts: sort('unorderedDecoratedPosts', (a, b) => a.get('model.date') - b.get('model.date')),
 
+  didReceiveAttrs(...args) {
+    this._super(...args);
+
+    if (this.get('commentsAreOpen')) this.set('chatIsOpen', true);
+  },
+
   addToDecoratedPosts: on('init', observer('posts.[]', function() {
     const { unorderedDecoratedPosts, posts, nextPostIndex } = this.getProperties('unorderedDecoratedPosts', 'posts', 'nextPostIndex');
     const newPosts = posts.slice(nextPostIndex).map((model, index) => {
@@ -129,6 +135,8 @@ export default Component.extend({
 
     toggleChat() {
       this.toggleProperty('chatIsOpen');
+
+      this.get('chatIsOpen') ? this.attrs.openComments() : this.attrs.closeComments();
     }
   }
 });

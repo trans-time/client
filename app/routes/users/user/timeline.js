@@ -15,7 +15,8 @@ export default Route.extend(PostNavRouteMixin, {
     tags: [],
     relationships: [],
     direction: null,
-    postId: null
+    postId: null,
+    comments: null
   },
 
   model(params) {

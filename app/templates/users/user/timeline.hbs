@@ -1,6 +1,9 @@
 {{post-nav/main
   posts=model.posts
   initialPostId=postId
+  commentsAreOpen=comments
   action="loadMorePosts"
   changePost=(action "changePost")
+  openComments=(action "openComments")
+  closeComments=(action "closeComments")
 }}

@@ -282,7 +282,6 @@ export default Component.extend(TouchActionMixin, {
     const nearingEnd = index > posts.length - 3;
 
     if (((nearingEnd && !this.get('reachedLastPost')) || (index < 2 && !this.get('reachedFirstPost'))) && !this.get('isLoadingMorePosts')) {
-      console.log(index, posts.length)
       const loadingMorePostsPromise = new EmberPromise((resolve, reject) => {
         this.attrs.loadMorePosts(resolve, reject, !nearingEnd, nearingEnd ? posts.get('lastObject.model.id') : posts.get('firstObject.model.id'));
       });
