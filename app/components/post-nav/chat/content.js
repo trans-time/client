@@ -10,9 +10,13 @@ export default Component.extend({
 
   store: service(),
 
-  orderedComments: sort('ownComments', (a, b) => {
-    return a.get('date') > b.get('date');
-  }),
+  messageBus: service(),
+
+  init(...args) {
+    this._super(...args);
+
+    this.get('messageBus').subscribe('userWasAuthenticated', this, this._loadComments);
+  },
 
   didReceiveAttrs(...args) {
     this._super(...args);
@@ -28,6 +32,10 @@ export default Component.extend({
       });
     }
 
+    this._loadComments();
+  },
+
+  _loadComments() {
     this.get('store').query('comment', { postId: this.get('post.id'), include: 'user, user.userProfile' }).then((comments) => {
       this.setProperties({
         comments: A(comments.toArray()),
@@ -37,6 +45,10 @@ export default Component.extend({
       this.set('post.loadedComments', comments);
     });
   },
+
+  orderedComments: sort('ownComments', (a, b) => {
+    return a.get('date') > b.get('date');
+  }),
 
   ownComments: computed('comments.[]', {
     get() {
