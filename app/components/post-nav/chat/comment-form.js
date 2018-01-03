@@ -7,6 +7,7 @@ import lookupValidator from 'ember-changeset-validations';
 import {
   validateLength
 } from 'ember-changeset-validations/validators';
+import AuthenticatedActionMixin from 'client/mixins/authenticated-action';
 
 const CommentValidations = {
   text: [
@@ -14,7 +15,7 @@ const CommentValidations = {
   ]
 };
 
-export default Component.extend({
+export default Component.extend(AuthenticatedActionMixin, {
   classNames: ['comment-form'],
 
   currentUser: service(),
@@ -22,7 +23,7 @@ export default Component.extend({
 
   user: alias('currentUser.user'),
 
-  disabled: or('changeset.isInvalid', 'changeset.isPristine'),
+  disabled: or('changeset.isInvalid', 'changeset.isPristine', 'isSaving'),
 
   didReceiveAttrs(...args) {
     this._super(...args);
@@ -50,17 +51,24 @@ export default Component.extend({
     },
 
     submit() {
-      const changeset = this.get('changeset');
+      this.set('isSaving', true);
 
-      changeset.setProperties({
-        user: this.get('user'),
-        date: Date.now()
-      });
+      this.authenticatedAction().then(() => {
+        const changeset = this.get('changeset');
 
-      changeset.save().then((comment) => {
-        this.attrs.addComment(comment);
-        if (this.get('commentable')) this.set('commentable.commentDraft', undefined);
-        this._resetChangeset();
+        changeset.setProperties({
+          user: this.get('user'),
+          date: Date.now()
+        });
+
+        changeset.save().then((comment) => {
+          this.attrs.addComment(comment);
+          if (this.get('commentable')) this.set('commentable.commentDraft', undefined);
+          this._resetChangeset();
+          this.set('isSaving', false);
+        });
+      }).catch(() => {
+        this.set('isSaving', false);
       });
     }
   }
