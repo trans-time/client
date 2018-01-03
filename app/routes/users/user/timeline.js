@@ -14,7 +14,7 @@ export default Route.extend(PostNavRouteMixin, {
   _defaultQueryParams: {
     tags: [],
     relationships: [],
-    direction: null,
+    lastPost: null,
     postId: null,
     comments: null
   },
@@ -28,7 +28,7 @@ export default Route.extend(PostNavRouteMixin, {
     const user = this.modelFor('users.user');
 
     return hash({
-      posts: this.store.query('post', { userId: user.id, tags: params.tags, direction: params.direction, fromPostId: params.postId, perPage: 5 }),
+      posts: this.store.query('post', { userId: user.id, tags: params.tags, direction: params.direction, fromPostId: params.postId, lastPost: params.lastPost, perPage: 5 }),
       user
     });
   }

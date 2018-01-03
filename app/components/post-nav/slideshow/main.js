@@ -86,7 +86,7 @@ export default Component.extend(TouchActionMixin, {
     }
 
     const initialPostId = this.get('initialPostId');
-    const post = initialPostId ? this.get('decoratedPosts').find((decoratedPost) => decoratedPost.model.id === initialPostId) : this.get('decoratedPosts.firstObject');
+    const post = initialPostId ? this.get('decoratedPosts').find((decoratedPost) => decoratedPost.model.id === initialPostId) : this.get('lastPost') ? this.get('decoratedPosts.lastObject') : this.get('decoratedPosts.firstObject');
     const currentPanel = post.get('panels.firstObject');
 
     this.attrs.changePost(post.get('model'));
