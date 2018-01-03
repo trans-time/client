@@ -22,8 +22,7 @@ export default Mixin.create({
     const query = this.get('_posts.query');
     const originalQueryClone = assign({}, query);
 
-    query.perPage = (query.page + 1) * query.perPage;
-    query.page = 0;
+    query.refreshPostIds = this.get('_posts.content').map((post) => post.id).join(',');
 
     this.store.query('post', query).then(() => {
       this.set('_posts.query', originalQueryClone);
