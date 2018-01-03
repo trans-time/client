@@ -46,6 +46,7 @@
     "ember-font-awesome": "^4.0.0-alpha.10",
     "ember-hammertime": "^1.2.4",
     "ember-intl": "^2.31.1",
+    "ember-keyboard": "^2.3.0",
     "ember-load-initializers": "^1.0.0",
     "ember-markdown-it": "^0.0.6",
     "ember-message-bus": "^0.3.5",

@@ -9,8 +9,10 @@ import { alias, notEmpty } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import EmberObject, { computed } from '@ember/object';
+import { on } from '@ember/object/evented';
 import TouchActionMixin from 'ember-hammertime/mixins/touch-action';
 import { task, timeout } from 'ember-concurrency';
+import { EKMixin, EKOnInsertMixin, keyDown } from 'ember-keyboard';
 
 const NavState = EmberObject.extend({
   currentPanel: computed({
@@ -41,7 +43,7 @@ const NavState = EmberObject.extend({
   })
 });
 
-export default Component.extend(TouchActionMixin, {
+export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   classNames: ['post-nav-slideshow-main'],
   classNameBindings: ['textExpanded:compressed'],
 
@@ -94,6 +96,50 @@ export default Component.extend(TouchActionMixin, {
     this.get('_loadNeighborMatrix').perform(currentPanel);
     this._displayPointers();
     this._boundSettle = this._settle.bind(this);
+  },
+
+  _keyNavDown: on(keyDown('ArrowDown'), function() {
+    this._keyNav('down', 'y', -1);
+  }),
+
+  _keyNavLeft: on(keyDown('ArrowLeft'), function() {
+    this._keyNav('left', 'x', -1);
+  }),
+
+  _keyNavRight: on(keyDown('ArrowRight'), function() {
+    this._keyNav('right', 'x', 1);
+  }),
+
+  _keyNavUp: on(keyDown('ArrowUp'), function() {
+    this._keyNav('up', 'y', 1);
+  }),
+
+  _keyNav(direction, axis, velocityDirection) {
+    const navState = this.get('navState');
+    const progress = navState.get('progress');
+
+    if (progress === 0) {
+      this._swapPeek(navState.set('progress', 0.001 * velocityDirection), direction);
+      navState.set('axis', axis);
+    }
+
+    if (navState.get('axis') === axis) {
+      const hadBeenSettling = navState.get('isSettling');
+
+      navState.setProperties({
+        diffs: [],
+        isSettling: true
+      });
+
+      if (velocityDirection === -1) {
+        navState.get('progress') > 0 ? navState.set('velocity', -0.01) : navState.incrementProperty('velocity', -0.03);
+      } else {
+        navState.get('progress') < 0 ? navState.set('velocity', 0.01) : navState.incrementProperty('velocity', 0.03);
+      }
+
+
+      if (!hadBeenSettling) this._settle();
+    }
   },
 
   _touchStart(e) {
@@ -217,14 +263,16 @@ export default Component.extend(TouchActionMixin, {
       navState.setProperties({
         isSettling: false,
         incomingPanel: null,
-        axis: null
+        axis: null,
+        velocity: 0
       });
     } else if ((previousProgress >= 0 && progress < 0) || (previousProgress < 0 && progress >= 0)) {
       navState.setProperties({
         isSettling: false,
         progress: 0,
         incomingPanel: null,
-        axis: null
+        axis: null,
+        velocity: 0
       });
     } else if (navState.get('isSettling')) {
       navState.set('progress', progress);
