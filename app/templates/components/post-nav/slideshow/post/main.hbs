@@ -35,6 +35,7 @@
     post=post.model
     textExpanded=textExpanded
     isBlank=isBlank
+    isCurrentPost=isCurrentPost
     scrollLocked=(not-eq navState.progress 0)
     classNames="main-layout-constraint"
     expandText=expandText
@@ -43,6 +44,7 @@
 
   {{post-nav/slideshow/post/controls/main
     post=post.model
+    isCurrentPost=isCurrentPost
     classNames="main-layout-constraint"
     toggleChat=(action "toggleChat")
   }}

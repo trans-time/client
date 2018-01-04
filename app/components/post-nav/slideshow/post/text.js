@@ -1,10 +1,13 @@
 import { bind } from '@ember/runloop';
 import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
+import { on } from '@ember/object/evented';
+import { next } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
+import { EKMixin, keyDown } from 'ember-keyboard';
 
-export default Component.extend({
+export default Component.extend(EKMixin, {
   classNames: ['post-nav-post'],
   classNameBindings: ['textExpanded:expanded', 'textRevealed'],
 
@@ -12,6 +15,7 @@ export default Component.extend({
   meta: service(),
   user: alias('currentUser.user'),
   usingTouch: alias('meta.usingTouch'),
+  keyboardActivated: alias('isCurrentPost'),
   swipeState: computed(() => {
     return {
       diffs: []
@@ -50,11 +54,23 @@ export default Component.extend({
     this._checkTextOverflow();
   },
 
+  didReceiveAttrs(...args) {
+    this._super(...args);
+
+    if (this.get('isCurrentPost')) next(() => this.$('.post-nav-post-text').focus());
+  },
+
   willDestroyElement(...args) {
     window.removeEventListener('resize', this.get('onResize'));
 
     this._super(...args);
   },
+
+  _keyExpandCompressText: on(keyDown('KeyX'), keyDown('Enter'), function() {
+    this.$('.post-nav-post-text').focus();
+    this.get('textExpanded') ? this.attrs.compressText() : this.attrs.expandText();
+    this.set('userRevealedText', true);
+  }),
 
   resizeType: computed('textExpanded', {
     get() {

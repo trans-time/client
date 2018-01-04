@@ -98,19 +98,23 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     this._boundSettle = this._settle.bind(this);
   },
 
-  _keyNavDown: on(keyDown('ArrowDown'), function() {
+  _keyToggleChat: on(keyDown('KeyC'), function() {
+    this.attrs.toggleChat();
+  }),
+
+  _keyNavDown: on(keyDown('shift+ArrowDown'), function() {
     this._keyNav('down', 'y', -1);
   }),
 
-  _keyNavLeft: on(keyDown('ArrowLeft'), function() {
+  _keyNavLeft: on(keyDown('shift+ArrowLeft'), function() {
     this._keyNav('left', 'x', -1);
   }),
 
-  _keyNavRight: on(keyDown('ArrowRight'), function() {
+  _keyNavRight: on(keyDown('shift+ArrowRight'), function() {
     this._keyNav('right', 'x', 1);
   }),
 
-  _keyNavUp: on(keyDown('ArrowUp'), function() {
+  _keyNavUp: on(keyDown('shift+ArrowUp'), function() {
     this._keyNav('up', 'y', 1);
   }),
 

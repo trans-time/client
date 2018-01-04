@@ -3,11 +3,12 @@
   favable=favable
   type=currentType
   disabled=disabled
+  keyboardActivated=keyboardActivated
   isOpeningDisplayAllTypes=isOpeningDisplayAllTypes
   faved=(and (eq currentType currentType) faved)
   completeDisplayAllTypes=(action "completeDisplayAllTypes")
   displayAllTypes=(action "displayAllTypes")
-  selectType=(action "selectType" currentType)
+  selectType=(action "selectType")
 }}
 
 {{#if shouldDisplayAllTypes}}
@@ -27,7 +28,7 @@
         faved=(and (eq currentType type) faved)
         completeDisplayAllTypes=(action "completeDisplayAllTypes")
         displayAllTypes=(action "displayAllTypes")
-        selectType=(action "selectType" type)
+        selectType=(action "selectType")
       }}
     {{/each}}
   {{/liquid-tether}}

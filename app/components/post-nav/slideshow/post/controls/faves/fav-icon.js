@@ -1,10 +1,12 @@
 import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
+import { on } from '@ember/object/evented';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { task, timeout } from 'ember-concurrency';
+import { EKMixin, keyUp } from 'ember-keyboard';
 
-export default Component.extend({
+export default Component.extend(EKMixin, {
   tagName: 'a',
   classNames: ['post-nav-controls-element', 'fav-icon'],
   classNameBindings: ['faved', 'disabled'],
@@ -12,6 +14,18 @@ export default Component.extend({
 
   meta: service(),
   usingTouch: alias('meta.usingTouch'),
+
+  _activateMoonKey: on(keyUp('KeyA'), function() {
+    this.attrs.selectType('moon');
+  }),
+
+  _activateStarKey: on(keyUp('KeyS'), function() {
+    this.attrs.selectType('star');
+  }),
+
+  _activateSunKey: on(keyUp('KeyD'), function() {
+    this.attrs.selectType('sun');
+  }),
 
   iconType: computed('type', {
     get() {
@@ -68,7 +82,7 @@ export default Component.extend({
     if (this.get('isOpeningDisplayAllTypes')) {
       this.attrs.completeDisplayAllTypes();
     } else {
-      this.attrs.selectType();
+      this.attrs.selectType(this.get('type'));
     }
   }
 });

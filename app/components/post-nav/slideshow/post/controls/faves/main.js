@@ -1,12 +1,15 @@
 import { capitalize } from '@ember/string';
 import { computed } from '@ember/object';
 import { oneWay, alias, notEmpty } from '@ember/object/computed';
+import { on } from '@ember/object/evented';
 import { guidFor } from '@ember/object/internals';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import AuthenticatedActionMixin from 'client/mixins/authenticated-action';
+import { task, timeout } from 'ember-concurrency';
+import { EKMixin, keyDown, keyUp } from 'ember-keyboard';
 
-export default Component.extend(AuthenticatedActionMixin, {
+export default Component.extend(AuthenticatedActionMixin, EKMixin, {
   tagName: '',
 
   disabled: false,
@@ -20,6 +23,39 @@ export default Component.extend(AuthenticatedActionMixin, {
   currentUserFav: alias('favable.currentUserFav.content'),
   faved: notEmpty('currentUserFav'),
   selectedCurrentType: oneWay('currentUserFav.type'),
+  keyboardActivated: alias('isCurrentPost'),
+
+  _startFavKeyAction: on(keyDown('KeyZ'), function() {
+    if (this.get('shouldDisplayAllTypes')) this.set('_startClosingFavKey', true);
+    else this.get('_favKeyStartTask').perform();
+  }),
+
+  _endFavKeyAction: on(keyUp('KeyZ'), function() {
+    if (!this.get('shouldDisplayAllTypes')) {
+      this.set('_favKeyStarted', false);
+      this._selectType(this.get('currentType'));
+    } else if (this.get('_startClosingFavKey2')) {
+      this.setProperties({
+        shouldDisplayAllTypes: false,
+        _startClosingFavKey: false,
+        _startClosingFavKey2: false
+      });
+    } else if (this.get('_startClosingFavKey')) {
+      this.set('_startClosingFavKey2', true);
+    }
+  }),
+
+  _favKeyStartTask: task(function * () {
+    this.setProperties({
+      _favKeyStarted: true,
+      _startClosingFavKey: false,
+      _startClosingFavKey2: false
+    });
+
+    yield timeout(300);
+
+    if (this.get('_favKeyStarted')) this.set('shouldDisplayAllTypes', true);
+  }).drop(),
 
   currentType: computed('selectedCurrentType', {
     get() {
@@ -39,6 +75,17 @@ export default Component.extend(AuthenticatedActionMixin, {
     }
   }),
 
+  _selectType(type) {
+    this.authenticatedAction().then(() => {
+      if (!this.get('disabled')) this._handleSelection(type);
+    }).catch(() => {
+      this.setProperties({
+        currentType: type,
+        shouldDisplayAllTypes: false
+      });
+    });
+  },
+
   _handleSelection(type) {
     const { favable, user }= this.getProperties('favable', 'user');
 
@@ -50,7 +97,11 @@ export default Component.extend(AuthenticatedActionMixin, {
       }
     } else {
       if (this.get('faved')) {
-        this._destroyFav(favable);
+        if (type === this.get('currentType')) {
+          this._destroyFav(favable);
+        } else {
+          this._changeFavType(type, favable);
+        }
       } else {
         this._createNewFav(type, user, favable);
       }
@@ -125,14 +176,7 @@ export default Component.extend(AuthenticatedActionMixin, {
     },
 
     selectType(type) {
-      this.authenticatedAction().then(() => {
-        if (!this.get('disabled')) this._handleSelection(type);
-      }).catch(() => {
-        this.setProperties({
-          currentType: type,
-          shouldDisplayAllTypes: false
-        });
-      });
+      this._selectType(type);
     }
   }
 });

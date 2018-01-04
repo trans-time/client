@@ -25,6 +25,12 @@ export default Component.extend(SlideshowComponentMixin, {
     this.get('messageBus').subscribe('enabledNsfw', this, () => this.notifyPropertyChange('nsfw'));
   },
 
+  isCurrentPost: computed('post', 'navState.currentPanel.post', {
+    get() {
+      return this.get('post') === this.get('navState.currentPanel.post');
+    }
+  }),
+
   nsfw: computed({
     get() {
       return this.get('post.model.nsfw') && !(localStorage.getItem('showNsfwContent') || sessionStorage.getItem('showNsfwContent'));
