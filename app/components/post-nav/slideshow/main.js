@@ -118,7 +118,7 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     const navState = this.get('navState');
     const progress = navState.get('progress');
 
-    if (progress === 0) {
+    if (progress === 0 && this._getNeighbor(navState.get('currentPanel'), direction) !== 'edge') {
       this._swapPeek(navState.set('progress', 0.001 * velocityDirection), direction);
       navState.set('axis', axis);
     }
