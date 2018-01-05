@@ -8,6 +8,7 @@ import config from '../config/environment';
 
 export default Mixin.create({
   fileQueue: service(),
+  modalManager: service(),
 
   queue: computed({
     get() {
@@ -73,6 +74,18 @@ export default Mixin.create({
   }).maxConcurrency(3).enqueue(),
 
   actions: {
+    cancel(model) {
+      new Promise((resolve, reject) => {
+        this.get('modalManager').open('confirmation-modal', resolve, reject, { content: this.get('intl').t('post.cancel') });
+      }).then(() => {
+        if (isPresent(model.get('id'))) {
+          this.transitionTo('users.user.timeline', model.get('user'), { queryParams: { postId: model.get('id') } });
+        } else {
+          this.transitionTo('index');
+        }
+      });
+    },
+
     willTransition() {
       const model = this.get('controller.model');
       const panels = model.get('panels');

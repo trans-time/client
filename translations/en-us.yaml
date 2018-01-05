@@ -76,6 +76,7 @@ post:
       label: "private"
     text:
       placeholder: "what's up?"
+  cancel: "are you sure? all changes will be lost."
   edit: "edit post"
   more: "more"
   new: "new post"
