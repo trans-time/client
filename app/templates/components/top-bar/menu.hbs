@@ -1,6 +1,6 @@
 {{#if session.isAuthenticated}}
-  <li class="top-bar-menu-item"><a {{action "toProfile"}}>{{t "profile.profile"}}</a></li>
   <li class="top-bar-menu-item"><a {{action "newPost"}}>{{fa-icon "plus-circle"}} {{t "post.new"}}</a></li>
+  <li class="top-bar-menu-item"><a {{action "toProfile"}}>{{t "profile.profile"}}</a></li>
   <li class="top-bar-menu-item"><a {{action "toAccount"}}>{{t "account.account"}}</a></li>
   <li class="top-bar-menu-item"><a {{action "logout"}}>{{t "auth.logout"}}</a></li>
 {{else}}
