@@ -6,3 +6,17 @@
 .form-controls-align-left {
   margin-right: auto;
 }
+
+.form-message {
+  margin: $rhythm;
+  font-size: 80%;
+  text-align: right;
+}
+
+.form-message-success {
+  color: green;
+}
+
+.form-message-failure {
+  color: red;
+}

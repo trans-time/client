@@ -1,3 +1,21 @@
+account:
+  account: "account"
+  changeEmail: "change email"
+  changePassword: "change password"
+  emailChangeSuccess: "email successfully updated"
+  passwordChangeSuccess: "password successfully updated"
+  submit: "submit"
+  attributes:
+    email:
+      label: "email"
+    password:
+      label: "password"
+    newPassword:
+      label: "new password"
+    newPasswordConfirmation:
+      label: "confirm new password"
+    previousPassword:
+      label: "previous password"
 auth:
   join: "join"
   login: "login"
@@ -91,6 +109,7 @@ profile:
   following: "following"
   havePrivate: "private posts <i class='fa fa-unlock'></i>"
   posts: "posts"
+  profile: "my profile"
   requestPrivate: "request <i class='fa fa-unlock'></i>"
   save: "save"
   unfollow: "unfollow"

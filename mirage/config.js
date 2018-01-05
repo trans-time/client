@@ -39,6 +39,8 @@ export default function() {
   this.get('/users');
   this.post('/users');
   this.get('/users/:id');
+  this.post('/password-changes');
+  this.post('/email-changes');
   this.get('/user-profiles/:id', (schema, request) => {
     return schema.users.find(request.params.id).userProfile;
   });

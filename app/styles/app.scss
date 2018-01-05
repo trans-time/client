@@ -67,6 +67,9 @@ p {
   margin: $rhythm 0;
 }
 
+.main-content {
+  overflow: auto;
+}
 
 .cover-page {
   display: flex;

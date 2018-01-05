@@ -5,6 +5,7 @@ export default Component.extend({
   tagName: 'ul',
   classNames: ['top-bar-menu'],
 
+  currentUser: service(),
   modalManager: service(),
   router: service(),
   session: service(),
@@ -18,6 +19,16 @@ export default Component.extend({
     logout() {
       this.attrs.toggleMenu();
       this.get('session').invalidate();
+    },
+
+    toAccount() {
+      this.attrs.toggleMenu();
+      this.get('router').transitionTo('account');
+    },
+
+    toProfile() {
+      this.attrs.toggleMenu();
+      this.get('router').transitionTo('users.user.profile', this.get('currentUser.user'));
     },
 
     newPost() {

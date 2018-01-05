@@ -1,0 +1,11 @@
+<div class="main-content">
+  {{account/password-form
+    passwordChange=model.passwordChange
+    submit=(route-action "changePassword")
+  }}
+
+  {{account/email-form
+    emailChange=model.emailChange
+    submit=(route-action "changeEmail")
+  }}
+</div>

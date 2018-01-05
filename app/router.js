@@ -30,6 +30,7 @@ Router.map(function() {
   this.route('user', function() {
     this.route('user', function() {});
   });
+  this.route('account');
 });
 
 export default Router;
