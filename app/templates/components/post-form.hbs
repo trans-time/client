@@ -4,8 +4,8 @@
   </div>
 
   <div class="post-form-controls main-layout-constraint">
-    <a class="post-form-controls-element" {{action "transition" "text"}}>{{fa-icon "font" size=2}}</a>
-    <a class="post-form-controls-element" {{action "transition" "image"}}>{{fa-icon "camera" size=2}}</a>
-    <a class="post-form-controls-element" {{action (route-action "submit" changeset)}}>{{fa-icon "check" size=2}}</a>
+    <button class="post-form-controls-element" {{action "transition" "text"}}>{{fa-icon "font" size=2}}</button>
+    <button class="post-form-controls-element" {{action "transition" "image"}}>{{fa-icon "camera" size=2}}</button>
+    <button class="post-form-controls-element" {{action (route-action "submit" changeset)}} disabled={{disabled}}>{{fa-icon "check" size=2}}</button>
   </div>
 {{/paper-form}}

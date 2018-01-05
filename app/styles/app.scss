@@ -284,7 +284,6 @@ p {
   background-color: $white;
   border: 1px solid $medium-gray;
   border-bottom: 0;
-  padding: 4px;
   padding-bottom: 0;
 
   :last-child {
@@ -296,4 +295,6 @@ p {
   position: relative;
   display: inline-block;
   padding: $rhythm;
+  background: none;
+  border: none;
 }
