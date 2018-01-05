@@ -48,3 +48,8 @@
   list-style-type: none;
   background-color: $white;
 }
+
+.top-bar-menu-item {
+  white-space: nowrap;
+  padding: $rhythm;
+}

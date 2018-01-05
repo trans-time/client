@@ -38,6 +38,11 @@ export default Route.extend(AuthenticatedRouteMixin, RouteTitleMixin, {
       }).catch((...args) => {
         reject(...args);
       });
+    },
+
+    willTransition(...args) {
+      this.store.unloadAll('email-change');
+      this.store.unloadAll('password-change');
     }
   }
 });
