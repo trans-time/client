@@ -2,7 +2,7 @@
   {{#if showSearchBar}}
     <a class="top-bar-element" {{action "search"}}>{{fa-icon "search" size=2}}</a>
     <span class="top-bar-element top-bar-element-grow">
-      {{input classNames="top-bar-search" value=searchValue}}
+      {{top-bar/search classNames="top-bar-search" value=searchValue performSearch=(action "search")}}
     </span>
   {{else}}
     <a class="top-bar-element" {{action "home"}}>{{fa-icon "home" size=2}}</a>
