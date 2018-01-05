@@ -89,7 +89,7 @@ export default function() {
 
     const startingIndex = Math.max(0, isInitial ? initialPostIndex - 5 : shouldProgress ? initialPostIndex - perPage : initialPostIndex + 1);
     const endingIndex = Math.min(posts.length - 1, isInitial ? initialPostIndex + 5 : shouldProgress ? initialPostIndex : initialPostIndex + perPage + 1);
-    const postsSegment = posts.slice(startingIndex, endingIndex);
+    const postsSegment = posts.slice(startingIndex, endingIndex + 1);
 
     if (isPresent(request.requestHeaders.Authorization)) {
       const user = schema.db.users.find(request.requestHeaders.Authorization.match(/id="(.*)"/)[1]);
@@ -129,9 +129,7 @@ export default function() {
   this.patch('/posts/:id', (schema, request) => {
     return schema.db.posts.update(request.params.id, JSON.parse(request.requestBody));
   });
-  this.post('/posts', (schema, request) => {
-    return schema.posts.create(JSON.parse(request.requestBody));
-  });
+  this.post('/posts');
   this.post('/images');
   this.post('/images/upload', upload((db, request) => {
     let { name: filename, size: filesize, url: src } = request.requestBody.file;

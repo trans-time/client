@@ -23,7 +23,9 @@ export default Mixin.create({
       promises.push(get(this, 'uploadImageTask').perform(panel));
     });
     yield all(promises);
-    model.save();
+    model.save().then((post) => {
+      this.transitionTo('users.user.timeline', post.get('user.content'), { queryParams: { postId: post.id } });
+    });
   }),
 
   uploadImageTask: task(function * (panel) {
@@ -66,7 +68,7 @@ export default Mixin.create({
         }
       })
     } catch (e) {
-      console.log(e); // eslint-disable-line 
+      console.log(e); // eslint-disable-line
     }
   }).maxConcurrency(3).enqueue(),
 
