@@ -1,13 +1,8 @@
 import { Factory, faker } from 'ember-cli-mirage';
 
 export default Factory.extend({
+  deleted: false,
   text: faker.lorem.paragraphs,
-  totalStars: faker.random.number,
-  totalSuns: faker.random.number,
-  totalMoons: faker.random.number,
-  totalFaves() {
-    return this.totalStars + this.totalSuns + this.totalMoons;
-  },
 
   afterCreate(post, server) {
     // if (post.images.length === 0) post.images = server.createList('image', faker.random.number(6));

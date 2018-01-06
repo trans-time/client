@@ -1,4 +1,3 @@
-import { capitalize } from '@ember/string';
 import { computed } from '@ember/object';
 import { oneWay, alias, notEmpty } from '@ember/object/computed';
 import { on } from '@ember/object/evented';
@@ -116,8 +115,6 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
       type
     }).save().then((fav) => {
       favable.set('currentUserFav', fav);
-      favable.incrementProperty('totalFaves');
-      favable.incrementProperty(`total${capitalize(type)}s`);
     }).finally(() => {
       this.setProperties({
         disabled: false,
@@ -133,10 +130,7 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
     if (previousType !== newType) {
       currentUserFav.set('type', newType);
       this.set('disabled', true);
-      currentUserFav.save().then(() => {
-        favable.decrementProperty(`total${capitalize(previousType)}s`);
-        favable.incrementProperty(`total${capitalize(newType)}s`);
-      }).catch(() => {
+      currentUserFav.save().catch(() => {
         currentUserFav.set('type', previousType);
       }).finally(() => {
         this.setProperties({
@@ -156,8 +150,6 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
     this.set('disabled', true);
     currentUserFav.destroyRecord().then(() => {
       this.set('favable.currentUserFav', null);
-      favable.decrementProperty('totalFaves');
-      favable.decrementProperty(`total${capitalize(previousType)}s`);
     }).finally(() => {
       this.set('disabled', false);
     });

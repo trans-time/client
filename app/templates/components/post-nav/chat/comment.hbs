@@ -17,8 +17,9 @@
 
     <div class="comment-main">
       <div class="comment-text {{if textIsOverflown 'comment-text-is-overflown'}}">
-        {{#link-to "users.user.profile.index" comment.user.username class="comment-user-link" disabled=isCollapsedChild}}{{comment.user.username}}{{/link-to}}
-        {{rich-text text=comment.text}}
+        {{#rich-text text=comment.text}}
+          {{#link-to "users.user.profile.index" comment.user.username class="comment-user-link" disabled=isCollapsedChild}}{{comment.user.username}}{{/link-to}}
+        {{/rich-text}}
 
         {{#if textIsOverflown}}
           <a {{action "expandOverflow"}} class="comment-text-expand-overflow">{{t "comments.expandOverflow"}}</a>

@@ -109,13 +109,6 @@ export default function() {
           }).attrs;
 
           post.currentUserFavId = fav.id;
-          post.totalFaves++;
-
-          switch (fav.type) {
-            case 1: post.totalStars++; break;
-            case 2: post.totalSuns++; break;
-            case 3: post.totalMoons++; break;
-          }
         }
       })
     }

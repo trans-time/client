@@ -33,20 +33,6 @@ export default Component.extend(EKMixin, {
     }
   }),
 
-  total: computed('type', 'shouldDisplayAllTypes', 'favable.totalFaves', {
-    get() {
-      if (!this.get('shouldDisplayAllTypes')) {
-        return this.get('favable.totalFaves');
-      } else {
-        switch (this.get('type')) {
-          case 'star': return this.get('favable.totalStars');
-          case 'sun': return this.get('favable.totalSuns');
-          case 'moon': return this.get('favable.totalMoons')
-        }
-      }
-    }
-  }),
-
   oncontextmenu() {
     return false;
   },

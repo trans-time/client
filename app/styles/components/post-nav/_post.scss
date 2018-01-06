@@ -48,7 +48,7 @@
   .post-nav-post-date {
     opacity: 0.8;
     margin-bottom: $rhythm / 2;
-    color: $medium-gray;
+    color: $dark-gray;
     font-size: 68%;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -56,7 +56,7 @@
     padding-top: 1px;
 
     a {
-      color: $medium-gray;
+      color: $dark-gray;
       text-decoration: none;
     }
   }
