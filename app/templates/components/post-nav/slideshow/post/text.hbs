@@ -3,15 +3,15 @@
       <div class="post-nav-post-date">
         {{sometimes-relative-date date=post.date}}
         | {{#link-to "users.user.profile.index" post.user.username}}{{post.user.username}}{{/link-to}}
+        {{#if (eq post.user.id user.id)}}
+          | {{#link-to "posts.post.edit" post disabled=controlsDisabled}}{{t "post.edit"}}{{/link-to}}
+          | <a {{action "delete"}} disabled={{controlsDisabled}} tabindex="0" class="link">{{t "post.delete"}}</a>
+        {{/if}}
         {{#if post.nsfw}}
           | {{t "post.nsfw"}}
         {{/if}}
         {{#if post.private}}
           | {{t "post.private"}}
-        {{/if}}
-        {{#if (eq post.user.id user.id)}}
-          | {{#link-to "posts.post.edit" post disabled=controlsDisabled}}{{t "post.edit"}}{{/link-to}}
-          | <a {{action "delete"}} disabled={{controlsDisabled}} tabindex="0" class="link">{{t "post.delete"}}</a>
         {{/if}}
       </div>
     </div>
