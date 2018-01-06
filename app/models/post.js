@@ -9,6 +9,7 @@ export default Favable.extend({
   panels: DS.hasMany('panel', { polymorphic: true }),
   relationships: DS.hasMany('user', { inverse: false }),
   tags: DS.hasMany('tag'),
+  textVersions: DS.hasMany('text-version'),
 
   text: DS.attr('string'),
   date: DS.attr('number'),

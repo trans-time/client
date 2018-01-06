@@ -7,6 +7,7 @@ export default Favable.extend({
   post: DS.belongsTo('post'),
   parent: DS.belongsTo('comment', { inverse: 'children' }),
   children: DS.hasMany('comment', { inverse: 'parent' }),
+  textVersions: DS.hasMany('text-version'),
 
   date: DS.attr('number'),
   deleted: DS.attr('boolean'),
