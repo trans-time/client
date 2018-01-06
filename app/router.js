@@ -24,10 +24,16 @@ Router.map(function() {
     this.route('new');
     this.route('post', { path: '/:id' }, function() {
       this.route('edit');
+      this.route('faves');
     });
   });
 
   this.route('account');
+  this.route('comments', function() {
+    this.route('comment', { path: '/:id' }, function() {
+      this.route('faves');
+    });
+  });
 });
 
 export default Router;

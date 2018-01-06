@@ -26,6 +26,7 @@ comments:
   deleted: "<this comment was deleted>"
   edit: "edit"
   expandOverflow: "expand full text. . . ."
+  faves: "comment faves"
   loadMore: "view more. . . ."
   noCommentsYet: "be the first to comment"
   reply: "reply"
@@ -45,6 +46,8 @@ coverPage:
     privacy: "let the whole world follow you, but share <strong>private posts</strong> with just your friends"
     social: "repost your timelines on other social media platforms like <strong>twitter</strong> and <strong>facebook</strong>"
   note: "<em>trans time</em> is not a <strong>startup</strong>. we will not sell your data, advertise to you, or profit off your content. we are <strong>volunteer-run</strong> and committed to keeping the influence of capital out of our app."
+faves:
+  viewAll: "view all"
 file:
   addAnImage: "add an Image."
   dragAndDrop: "drag and drop images onto this area to upload them or"
@@ -89,6 +92,7 @@ post:
   delete: "delete"
   deleteConfirmation: "are you sure you want to delete this post?"
   edit: "edit"
+  faves: "post faves"
   more: "more"
   new: "new post"
   none: "sorry, there are no posts to load"

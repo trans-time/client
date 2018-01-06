@@ -15,6 +15,7 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
   types: ['moon', 'star', 'sun'],
 
   currentUser: service(),
+  router: service(),
   store: service(),
 
   user: oneWay('currentUser.user'),
@@ -71,6 +72,14 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
   currentFavIdHash: computed('currentFavId', {
     get() {
       return `#${this.get('currentFavId')}`
+    }
+  }),
+
+  tetherAttachment: computed({
+    get() {
+      const type = this.get('favable').constructor.modelName;
+
+      return type === 'post' ? 'bottom right' : 'bottom middle';
     }
   }),
 
@@ -169,6 +178,13 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
 
     selectType(type) {
       this._selectType(type);
+    },
+
+    viewAllFaves() {
+      const favable = this.get('favable');
+      const type = favable.constructor.modelName;
+
+      this.get('router').transitionTo(`${type}s.${type}.faves`, favable);
     }
   }
 });

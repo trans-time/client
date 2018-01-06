@@ -1,0 +1,63 @@
+.fav-items {
+  margin: 0;
+  padding: 0 $rhythm;
+  list-style-type: none;
+}
+
+.fav-item {
+  height: 60px;
+  width: 100%;
+  overflow: hidden;
+  margin: $rhythm 0;
+}
+
+.fav-item-link {
+  display: flex;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.fav-item-avatar {
+  height: 100%;
+  object-fit: cover;
+  border-radius: $rhythm;
+  margin-right: $rhythm;
+}
+
+.fav-item-text {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.fav-item-username {
+  flex-shrink: 0;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 19px;
+}
+
+.fav-item-request {
+  color: $medium-gray;
+  font-size: 80%;
+  vertical-align: middle;
+}
+
+.fav-item-description {
+  font-size: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fav-item-fav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  align-self: center;
+  width: 50px;
+  color: $highlight-color;
+  text-shadow: 0px 0px $rhythm $highlight-color;
+}

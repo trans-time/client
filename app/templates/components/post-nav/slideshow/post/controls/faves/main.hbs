@@ -14,7 +14,7 @@
 {{#if shouldDisplayAllTypes}}
   {{#liquid-tether
     target=currentFavIdHash
-    attachment="bottom right"
+    attachment=tetherAttachment
     targetAttachment="middle middle"
     class="fav-selector-modal"
   }}
@@ -31,5 +31,6 @@
         selectType=(action "selectType")
       }}
     {{/each}}
+    <a {{action "viewAllFaves"}} class="fav-selector-modal-view-all">{{t "faves.viewAll"}}</a>
   {{/liquid-tether}}
 {{/if}}

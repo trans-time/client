@@ -53,7 +53,7 @@ export default function(server) {
     });
   });
 
-  server.db.posts.forEach((post) => {
+  server.db.posts.forEach((post, index) => {
     post.relationshipIds = [...Array(faker.random.number(3))].map(() => {
       return faker.random.number(server.db.users.length - 1) + 1;
     });
@@ -83,6 +83,8 @@ export default function(server) {
 
       return comment.id;
     });
+
+    post.favIds = server.createList('fav', 2, { userId: 2, type: (index % 3) + 1, favableId: { id: post.id, type: 'post' } }).map((fav) => fav.id);
 
     server.db.posts.update(post.id, post);
   });

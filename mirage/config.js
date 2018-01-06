@@ -40,10 +40,6 @@ export default function() {
     return schema.users.findBy({ username: request.queryParams.username });
   });
   this.post('/users');
-  // this.get('/users/:username', (schema, request) => {
-  //   debugger
-  //   return schema.users.where({ username: request.params.username })[0];
-  // });
   this.post('/password-changes');
   this.post('/email-changes');
   this.get('/user-profiles/:id', (schema, request) => {
@@ -64,6 +60,7 @@ export default function() {
     return schema.comments.where({ postId: request.queryParams.postId });
   });
   this.post('/comments');
+  this.get('/comments/:id');
   this.delete('/comments/:id', (schema, request) => {
     schema.db.comments.update(request.params.id, { deleted: true });
 
@@ -115,6 +112,7 @@ export default function() {
 
     return postsSegment;
   });
+  this.get('/posts/:id');
   this.delete('/posts/:id', (schema, request) => {
     schema.db.posts.update(request.params.id, { deleted: true });
 
@@ -123,6 +121,9 @@ export default function() {
   this.get('/tags', (schema, request) => {
     return schema.tags.where({ userId: request.queryParams.userId });
   });
+  this.get('/faves', (schema, request) => {
+    return schema.faves.where({ favableId: { id: request.queryParams.favableId, type: request.queryParams.favableType } });
+  })
   this.post('/faves', (schema, request) => {
     return schema.faves.create(JSON.parse(request.requestBody));
   });

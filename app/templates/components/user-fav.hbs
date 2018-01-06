@@ -1,0 +1,8 @@
+{{#link-to "users.user.profile" user.username class="fav-item-link"}}
+  <img src={{user.userProfile.avatar}} class="fav-item-avatar">
+  <div class="fav-item-text">
+    <div class="fav-item-username">{{user.username}}</div>
+    <div class="fav-item-description">{{rich-text text=user.userProfile.description}}</div>
+  </div>
+  <div class="fav-item-fav">{{fa-icon iconType size=2 flip="horizontal"}}</div>
+{{/link-to}}

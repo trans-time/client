@@ -39,10 +39,17 @@
 }
 
 .fav-selector-modal {
+  display: flex;
+  align-items: center;
   border-radius: 25px;
   box-shadow: 1px 1px 3px $dark-gray;
   background-color: $white;
   padding: 0 $rhythm / 2;
+
+  .fav-selector-modal-view-all {
+    margin-left: $rhythm * 2;
+    margin-right: $rhythm / 2;
+  }
 }
 
 .post-nav-chat-icon {
