@@ -71,9 +71,14 @@ p {
   overflow: auto;
 }
 
-.linked-resource {
+.link {
   color: blue;
   cursor: pointer;
+  text-decoration: underline;
+}
+
+.undecorated {
+  text-decoration: none;
 }
 
 .cover-page {

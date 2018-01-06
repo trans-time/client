@@ -38,6 +38,10 @@ export default Mixin.create({
       this.get('router.location').setURL(window.location.href);
     },
 
+    deletePost(post, resolve) {
+      post.destroyRecord().finally(() => resolve());
+    },
+
     loadMorePosts(resolve, reject, shouldProgress, fromPostId) {
       const query = this.get('_posts.query');
 

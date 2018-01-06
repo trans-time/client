@@ -85,6 +85,13 @@ nsfw:
   session: "to temporarily enable nsfw content, click the first button. it will be disabled next time you load the <em>trans time</em>."
   storage: "to permanently enable nsfw content on this device, click the second button."
 post:
+  cancel: "are you sure? all changes will be lost."
+  delete: "delete"
+  deleteConfirmation: "are you sure you want to delete this post?"
+  edit: "edit"
+  more: "more"
+  new: "new post"
+  none: "sorry, there are no posts to load"
   attributes:
     date:
       label: "date"
@@ -94,11 +101,6 @@ post:
       label: "private"
     text:
       placeholder: "what's up?"
-  cancel: "are you sure? all changes will be lost."
-  edit: "edit post"
-  more: "more"
-  new: "new post"
-  none: "sorry, there are no posts to load"
 profile:
   cancel: "cancel"
   changeAvatar: "change your avatar"

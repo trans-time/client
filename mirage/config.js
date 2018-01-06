@@ -121,7 +121,12 @@ export default function() {
     }
 
     return postsSegment;
-  })
+  });
+  this.delete('/posts/:id', (schema, request) => {
+    schema.db.posts.update(request.params.id, { deleted: true });
+
+    return schema.posts.find(request.params.id);
+  });
   this.get('/tags', (schema, request) => {
     return schema.tags.where({ userId: request.queryParams.userId });
   });

@@ -6,13 +6,16 @@ import { next } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { EKMixin, keyDown } from 'ember-keyboard';
+import { Promise } from 'rsvp';
 
 export default Component.extend(EKMixin, {
   classNames: ['post-nav-post'],
   classNameBindings: ['textExpanded:expanded', 'textRevealed'],
 
   currentUser: service(),
+  intl: service(),
   meta: service(),
+  modalManager: service(),
   user: alias('currentUser.user'),
   usingTouch: alias('meta.usingTouch'),
   keyboardActivated: alias('isCurrentPost'),
@@ -190,6 +193,20 @@ export default Component.extend(EKMixin, {
   }),
 
   actions: {
+    delete(comment) {
+      new Promise((resolve, reject) => {
+        this.get('modalManager').open('confirmation-modal', resolve, reject, { content: this.get('intl').t('post.deleteConfirmation') });
+      }).then(() => {
+        this.set('controlsDisabled', true);
+
+        new Promise((resolve) => {
+          this.attrs.deletePost(this.get('post'), resolve);
+        }).then(() => {
+          this.attrs.removePost();
+        }).finally(() => this.set('controlsDisabled', false));
+      });
+    },
+
     expand() {
       this.attrs.expandText();
     },

@@ -102,23 +102,23 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     this.attrs.toggleChat();
   }),
 
-  _keyNavDown: on(keyDown('shift+ArrowDown'), function() {
-    this._keyNav('down', 'y', -1);
+  _navDown: on(keyDown('shift+ArrowDown'), function() {
+    this._manualNav('down', 'y', -1);
   }),
 
-  _keyNavLeft: on(keyDown('shift+ArrowLeft'), function() {
-    this._keyNav('left', 'x', -1);
+  _navLeft: on(keyDown('shift+ArrowLeft'), function() {
+    this._manualNav('left', 'x', -1);
   }),
 
-  _keyNavRight: on(keyDown('shift+ArrowRight'), function() {
-    this._keyNav('right', 'x', 1);
+  _navRight: on(keyDown('shift+ArrowRight'), function() {
+    this._manualNav('right', 'x', 1);
   }),
 
-  _keyNavUp: on(keyDown('shift+ArrowUp'), function() {
-    this._keyNav('up', 'y', 1);
+  _navUp: on(keyDown('shift+ArrowUp'), function() {
+    this._manualNav('up', 'y', 1);
   }),
 
-  _keyNav(direction, axis, velocityDirection) {
+  _manualNav(direction, axis, velocityDirection) {
     const navState = this.get('navState');
     const progress = navState.get('progress');
 
@@ -419,6 +419,12 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
 
     compressText() {
       this.set('textExpanded', false);
+    },
+
+    removePost(post) {
+      this.attrs.removePost(post);
+      if (this.get('navState.currentPanel').getNeighbor('up') !== 'edge') this._navUp();
+      else if (this.get('navState.currentPanel').getNeighbor('down') !== 'edge') this._navDown();
     },
 
     toggleChat() {

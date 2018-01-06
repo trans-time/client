@@ -2,7 +2,7 @@ import { sort } from '@ember/object/computed';
 import { on } from '@ember/object/evented';
 import { A } from '@ember/array';
 import Component from '@ember/component';
-import { isBlank } from '@ember/utils';
+import { isBlank, isPresent } from '@ember/utils';
 import { alias, oneWay, equal } from '@ember/object/computed';
 import EmberObject, { computed, observer } from '@ember/object';
 
@@ -15,10 +15,10 @@ const PanelDecorator = EmberObject.extend({
   src: oneWay('model.src'),
 
   getNeighbor(direction) {
-    return this.get(direction) || this._getNeighbor(direction);
+    return this.get(direction) || this.resetNeighbor(direction);
   },
 
-  _getNeighbor(direction) {
+  resetNeighbor(direction) {
     const index = this.get('index');
     switch(direction) {
       case 'right': return this.set(direction, this._getHorizontalNeighbor(index + 1, 'firstObject'));
@@ -75,10 +75,10 @@ const PostDecorator = EmberObject.extend({
   }),
 
   getNeighbor(direction) {
-    return this.get(direction) || this._getNeighbor(direction);
+    return this.get(direction) || this.resetNeighbor(direction);
   },
 
-  _getNeighbor(direction) {
+  resetNeighbor(direction) {
     const index = this.get('posts').indexOf(this);
 
     switch(direction) {
@@ -110,6 +110,9 @@ export default Component.extend({
 
   addToDecoratedPosts: on('init', observer('posts.[]', function() {
     const { decoratedPosts, posts, nextPostIndex } = this.getProperties('decoratedPosts', 'posts', 'nextPostIndex');
+    if (decoratedPosts.get('length') > posts.get('length')) {
+      return;
+    }
     const newPosts = posts.slice(nextPostIndex).map((model, index) => {
       return PostDecorator.create({
         model,
@@ -130,6 +133,23 @@ export default Component.extend({
 
     loadMorePosts(...args) {
       this.sendAction('action', ...args);
+    },
+
+    removePost(post) {
+      const upNeighbor = post.getNeighbor('up');
+      const downNeighbor = post.getNeighbor('down');
+      this.get('decoratedPosts').removeObject(post);
+
+      if (isPresent(upNeighbor) && upNeighbor !== 'edge') {
+        upNeighbor.resetNeighbor('down');
+        upNeighbor.get('panels').forEach((panel) => panel.resetNeighbor('down'));
+      }
+      if (isPresent(downNeighbor) && downNeighbor !== 'edge') {
+        downNeighbor.resetNeighbor('up');
+        downNeighbor.get('panels').forEach((panel) => panel.resetNeighbor('up'));
+      }
+
+      this.decrementProperty('nextPostIndex');
     },
 
     toggleChat() {
