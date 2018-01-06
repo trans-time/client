@@ -96,6 +96,8 @@ post:
   more: "more"
   new: "new post"
   none: "sorry, there are no posts to load"
+  nsfw: "nsfw"
+  private: "private"
   attributes:
     date:
       label: "date"
