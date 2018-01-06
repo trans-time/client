@@ -28,7 +28,7 @@ export default Component.extend({
 
     toProfile() {
       this.attrs.toggleMenu();
-      this.get('router').transitionTo('users.user.profile', this.get('currentUser.user'));
+      this.get('router').transitionTo('users.user.profile', this.get('currentUser.user.username'));
     },
 
     newPost() {

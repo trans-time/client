@@ -31,14 +31,19 @@ export default function() {
     return {
       user: {
         token: 'foo',
-        id: 1
+        username: 'celeste'
       }
     }
   });
 
-  this.get('/users');
+  this.get('/users', (schema, request) => {
+    return schema.users.findBy({ username: request.queryParams.username });
+  });
   this.post('/users');
-  this.get('/users/:id');
+  // this.get('/users/:username', (schema, request) => {
+  //   debugger
+  //   return schema.users.where({ username: request.params.username })[0];
+  // });
   this.post('/password-changes');
   this.post('/email-changes');
   this.get('/user-profiles/:id', (schema, request) => {
@@ -94,7 +99,7 @@ export default function() {
     const postsSegment = posts.slice(startingIndex, endingIndex + 1);
 
     if (isPresent(request.requestHeaders.Authorization)) {
-      const user = schema.db.users.find(request.requestHeaders.Authorization.match(/id="(.*)"/)[1]);
+      const user = schema.users.findBy({ username: request.requestHeaders.Authorization.match(/username="(.*)"/)[1] });
       postsSegment.models.forEach((post) => {
         if (Math.random() > 0.4) {
           const fav = schema.faves.create({

@@ -15,7 +15,7 @@ export default BaseAuthenticator.extend({
   serverTokenEndpoint: '/auth',
   resourceName: 'user',
   tokenAttributeName: 'token',
-  identificationAttributeName: 'id',
+  identificationAttributeName: 'username',
 
   messageBus: inject(),
 

@@ -1,9 +1,9 @@
 <div class="post-nav-post-constraint post-nav-post-text" tabindex="-1">
     <div class="post-nav-post-top-line">
-      <div class="post-nav-post-date">{{sometimes-relative-date date=post.date}} | {{#link-to "users.user.profile.index" post.user.id}}{{post.user.username}}{{/link-to}}{{#if (eq post.user.id user.id)}} | {{#link-to "posts.post.edit" post}}edit{{/link-to}}{{/if}}</div>
+      <div class="post-nav-post-date">{{sometimes-relative-date date=post.date}} | {{#link-to "users.user.profile.index" post.user.username}}{{post.user.username}}{{/link-to}}{{#if (eq post.user.id user.id)}} | {{#link-to "posts.post.edit" post}}edit{{/link-to}}{{/if}}</div>
     </div>
 
-    {{{inject-emoji (markdown-render post.text)}}}
+    {{rich-text text=post.text}}
 </div>
 
 <div class="post-nav-resize-toggle">

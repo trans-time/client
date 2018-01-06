@@ -118,7 +118,7 @@
     {{/emoji-picker-wrapper}}
   {{else if user.userProfile.description}}
     <div class="profile-description">
-      {{{inject-emoji (markdown-render user.userProfile.description)}}}
+      {{rich-text text=user.userProfile.description}}
     </div>
   {{/if}}
 </div>

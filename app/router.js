@@ -8,7 +8,7 @@ const Router = EmberRouter.extend({
 
 Router.map(function() {
   this.route('users', function() {
-    this.route('user', { path: '/:id' }, function() {
+    this.route('user', { path: '/:username' }, function() {
       this.route('timeline');
       this.route('identities', function() {
         this.route('edit');
@@ -27,9 +27,6 @@ Router.map(function() {
     });
   });
 
-  this.route('user', function() {
-    this.route('user', function() {});
-  });
   this.route('account');
 });
 

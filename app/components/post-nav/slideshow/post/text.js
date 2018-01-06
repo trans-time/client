@@ -66,7 +66,7 @@ export default Component.extend(EKMixin, {
     this._super(...args);
   },
 
-  _keyExpandCompressText: on(keyDown('KeyX'), keyDown('Enter'), function() {
+  _keyExpandCompressText: on(keyDown('KeyX'), function() {
     this.$('.post-nav-post-text').focus();
     this.get('textExpanded') ? this.attrs.compressText() : this.attrs.expandText();
     this.set('userRevealedText', true);

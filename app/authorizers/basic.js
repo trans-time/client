@@ -34,7 +34,7 @@ export default BaseAuthorizer.extend({
     @default 'email'
     @public
   */
-  identificationAttributeName: 'id',
+  identificationAttributeName: 'username',
 
   /**
     Includes the user's token (see

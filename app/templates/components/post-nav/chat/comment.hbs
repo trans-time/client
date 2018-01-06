@@ -11,14 +11,14 @@
 {{else}}
   <div class="comment-content">
     <div class="comment-profile">
-      {{#link-to "users.user.profile.index" comment.user.id disabled=isCollapsedChild}}<img class="comment-avatar" src={{comment.user.userProfile.avatar}}>{{/link-to}}
+      {{#link-to "users.user.profile.index" comment.user.username disabled=isCollapsedChild}}<img class="comment-avatar" src={{comment.user.userProfile.avatar}}>{{/link-to}}
       <div class="comment-pronouns">{{comment.user.userProfile.pronouns}}</div>
     </div>
 
     <div class="comment-main">
       <div class="comment-text {{if textIsOverflown 'comment-text-is-overflown'}}">
-        {{#link-to "users.user.profile.index" comment.user.id class="comment-user-link" disabled=isCollapsedChild}}{{comment.user.username}}{{/link-to}}
-        {{{inject-emoji (markdown-render comment.text)}}}
+        {{#link-to "users.user.profile.index" comment.user.username class="comment-user-link" disabled=isCollapsedChild}}{{comment.user.username}}{{/link-to}}
+        {{rich-text text=comment.text}}
 
         {{#if textIsOverflown}}
           <a {{action "expandOverflow"}} class="comment-text-expand-overflow">{{t "comments.expandOverflow"}}</a>

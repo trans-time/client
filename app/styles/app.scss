@@ -71,6 +71,11 @@ p {
   overflow: auto;
 }
 
+.linked-resource {
+  color: blue;
+  cursor: pointer;
+}
+
 .cover-page {
   display: flex;
   flex-direction: column;

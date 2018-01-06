@@ -9,17 +9,17 @@ export default Service.extend({
   store: service(),
 
   load() {
-    const userId = this.get('session.data.authenticated.id');
+    const username = this.get('session.data.authenticated.username');
 
-    if (!isEmpty(userId)) {
+    if (!isEmpty(username)) {
       const store = this.get('store');
 
-      return store.findRecord('user', userId).then((user) => {
+      return store.queryRecord('user', { username }).then((user) => {
         this.set('user', user);
 
         this.get('modalManager').close('resolve');
 
-        store.findRecord('current-user', userId).then((currentUser) => {
+        store.findRecord('current-user', user.id).then((currentUser) => {
           user.set('currentUser', currentUser);
         });
 
