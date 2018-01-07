@@ -1,5 +1,7 @@
-<ul class="follow-items">
+<ul id="infinite_content" class="follow-items">
   {{#each model as |follow|}}
     {{follow-item user=follow.follower follow=follow}}
   {{/each}}
+
+  {{infinity-loader infinityModel=model scrollable="#infinite_content"}}
 </ul>

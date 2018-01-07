@@ -50,8 +50,16 @@ export default function() {
     return schema.users.find(request.params.id).currentUser;
   });
   this.get('/follows', (schema, request) => {
-    if (isPresent(request.queryParams.followerId)) return schema.follows.where({ followerId: request.queryParams.followerId });
-    else if (isPresent(request.queryParams.followedId)) return schema.follows.where({ followedId: request.queryParams.followedId });
+    const query = request.queryParams.followerId ? { followerId: request.queryParams.followerId } : { followedId: request.queryParams.followedId };
+    const follows = schema.follows.where(query);
+    const startingIndex = (request.queryParams.page - 1) * request.queryParams.per_page;
+    follows.models = follows.models.slice(startingIndex, startingIndex + parseInt(request.queryParams.per_page, 10));
+    const json = this.serializerOrRegistry.serialize(follows);
+
+    json.meta = {
+      total_pages: 0
+    };
+    return json;
   });
   this.post('/follows');
   this.delete('/follows/:id');
