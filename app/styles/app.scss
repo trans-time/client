@@ -81,6 +81,16 @@ p {
   text-decoration: none;
 }
 
+.true-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.infinite-loader {
+  height: 50px;
+}
+
 .cover-page {
   display: flex;
   flex-direction: column;

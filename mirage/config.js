@@ -122,7 +122,15 @@ export default function() {
     return schema.tags.where({ userId: request.queryParams.userId });
   });
   this.get('/faves', (schema, request) => {
-    return schema.faves.where({ favableId: { id: request.queryParams.favableId, type: request.queryParams.favableType } });
+    const faves = schema.faves.where({ favableId: { id: request.queryParams.favableId, type: request.queryParams.favableType } });
+    const startingIndex = (request.queryParams.page - 1) * request.queryParams.per_page;
+    faves.models = faves.models.slice(startingIndex, startingIndex + parseInt(request.queryParams.per_page, 10));
+    const json = this.serializerOrRegistry.serialize(faves);
+
+    json.meta = {
+      total_pages: Math.ceil(schema.faves.all().length / request.queryParams.per_page)
+    };
+    return json;
   })
   this.post('/faves', (schema, request) => {
     return schema.faves.create(JSON.parse(request.requestBody));

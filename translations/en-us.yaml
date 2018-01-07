@@ -117,7 +117,7 @@ profile:
   following: "following"
   havePrivate: "private posts <i class='fa fa-unlock'></i>"
   posts: "posts"
-  profile: "my profile"
+  profile: "profile"
   requestPrivate: "request <i class='fa fa-unlock'></i>"
   save: "save"
   unfollow: "unfollow"
