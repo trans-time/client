@@ -12,7 +12,7 @@ import {
 
 const UserIdentityValidations = {
   name: [
-    validateFormat({ regex: /^\S*$/ }),
+    validateFormat({ regex: /^[a-zA-Z0-9_-]*$/ }),
     validateLength({ max: 64 })
   ]
 };

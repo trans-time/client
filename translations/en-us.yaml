@@ -46,6 +46,15 @@ coverPage:
     privacy: "let the whole world follow you, but share <strong>private posts</strong> with just your friends"
     social: "repost your timelines on other social media platforms like <strong>twitter</strong> and <strong>facebook</strong>"
   note: "<em>trans time</em> is not a <strong>startup</strong>. we will not sell your data, advertise to you, or profit off your content. we are <strong>volunteer-run</strong> and committed to keeping the influence of capital out of our app."
+errors:
+  validations:
+    confirmation: "doesn't match"
+    email: "must be a valid email address"
+    invalid: "can only include letters, numbers, _ and -"
+    present: "can't be blank"
+    tooLong: "is too long"
+    tooShort: "is too short"
+    url: "must be a valid url"
 faves:
   viewAll: "view all"
 file:

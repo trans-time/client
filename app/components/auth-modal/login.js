@@ -4,6 +4,7 @@ import Component from '@ember/component';
 import Changeset from 'ember-changeset';
 import lookupValidator from 'ember-changeset-validations';
 import {
+  validateFormat,
   validatePresence,
   validateLength
 } from 'ember-changeset-validations/validators';
@@ -14,6 +15,7 @@ const SessionValidations = {
     validateLength({ min: 6 })
   ],
   username: [
+    validateFormat({ regex: /^[a-zA-Z0-9_-]*$/ }),
     validatePresence(true)
   ]
 };
