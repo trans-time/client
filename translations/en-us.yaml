@@ -134,6 +134,8 @@ profile:
   attributes:
     description:
       label: "description"
+    displayName:
+      label: "display name"
     pronouns:
       label: "pronouns"
     website:

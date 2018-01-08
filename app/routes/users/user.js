@@ -13,9 +13,19 @@ export default Route.extend(RouteTitleMixin, {
   },
 
   afterModel(model) {
-    this.set('linkModelId', model.get('username'));
-    this.set('titleToken', model.get('username'));
+    this.setProperties({
+      emojiTitle: model.get('userProfile.displayName'),
+      linkModelId: model.get('username'),
+      titleToken: model.get('username')
+    });
 
     this._super(...arguments);
+  },
+
+  actions: {
+    updateTitle(emojiTitle) {
+      this.set('emojiTitle', emojiTitle);
+      this.set('meta.emojiTitle', emojiTitle);
+    }
   }
 });

@@ -11,6 +11,7 @@ export default Mixin.create({
 
     meta.setProperties({
       title: this.get('titleToken'),
+      emojiTitle: this.get('emojiTitle'),
       linkRoute: this.get('linkRoute'),
       linkModelId: this.get('linkModelId')
     });

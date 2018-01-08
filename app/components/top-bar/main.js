@@ -14,6 +14,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
   router: service(),
 
   title: oneWay('meta.title'),
+  emojiTitle: oneWay('meta.emojiTitle'),
   linkRoute: oneWay('meta.linkRoute'),
   linkModelId: oneWay('meta.linkModelId'),
 

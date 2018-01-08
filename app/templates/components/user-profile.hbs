@@ -55,15 +55,20 @@
   {{#if isEditing}}
     <div class="profile-field">
       {{paper-input
+        value=changeset.displayName
+        label=(t "profile.attributes.displayName.label")
+        onChange=(action (mut changeset.displayName))
+        errors=changeset.error.displayName.validation
+      }}
+    </div>
+    <div class="profile-field">
+      {{paper-input
         value=changeset.website
         label=(t "profile.attributes.website.label")
         onChange=(action (mut changeset.website))
         errors=changeset.error.website.validation
       }}
     </div>
-  {{/if}}
-
-  {{#if isEditing}}
     <div class="profile-field">
       {{paper-input
         value=changeset.pronouns

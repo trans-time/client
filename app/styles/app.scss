@@ -183,16 +183,20 @@ p {
   height: 19px;
 }
 
-.follow-item-request {
+.follow-item-secondary-title {
   color: $medium-gray;
   font-size: 80%;
-  vertical-align: middle;
+  vertical-align: top;
 }
 
 .follow-item-description {
   font-size: 80%;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  p:first-child {
+    margin-top: 0;
+  }
 }
 
 .follow-item-button {

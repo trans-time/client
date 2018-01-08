@@ -39,7 +39,7 @@
   height: 19px;
 }
 
-.fav-item-request {
+.fav-item-secondary-title {
   color: $medium-gray;
   font-size: 80%;
   vertical-align: middle;
@@ -49,6 +49,10 @@
   font-size: 80%;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  p:first-child {
+    margin-top: 0;
+  }
 }
 
 .fav-item-fav {

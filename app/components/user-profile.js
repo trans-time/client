@@ -17,6 +17,9 @@ const ProfileValidations = {
   description: [
     validateLength({ max: 1000 })
   ],
+  displayName: [
+    validateLength({ max: 100 })
+  ],
   pronouns: [
     validateLength({ max: 64 })
   ],
@@ -128,8 +131,9 @@ export default Component.extend(AuthenticatedActionMixin, {
   },
 
   _saveChanges() {
-    this.get('changeset').save().then(() => {
+    this.get('changeset').save().then((model) => {
       this._stopEditing();
+      this.attrs.updateTitle(model.get('displayName'));
     }).finally(() => {
       this.set('isSaving', false);
     });
