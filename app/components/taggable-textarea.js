@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/string';
 import { task } from 'ember-concurrency';
@@ -8,6 +9,13 @@ export default Component.extend({
   store: service(),
 
   classNames: ['taggable-textarea'],
+
+  cache: computed(() => {
+    return {
+      tag: {},
+      user: {}
+    }
+  }),
 
   didInsertElement(...args) {
     this._super(...args);
@@ -44,23 +52,25 @@ export default Component.extend({
   _searchTags(index, startOfWordIndex, value) {
     const word = this._getWord(index, startOfWordIndex, value);
 
-    if (word.length > 0) this.get('_searchTask').perform('tag', { name: word, perPage: 5 });
+    if (word.length > 0) this.get('_searchTask').perform('tag', word, { name: word, perPage: 5 });
   },
 
   _searchUsers(index, startOfWordIndex, value) {
     const word = this._getWord(index, startOfWordIndex, value);
 
-    if (word.length > 0) this.get('_searchTask').perform('user', { username: word, perPage: 5 });
+    if (word.length > 0) this.get('_searchTask').perform('user', word, { username: word, perPage: 5 });
   },
 
-  _searchTask: task(function * (type, query) {
-    const options = yield this.get('store').query(type, query);
+  _searchTask: task(function * (type, word, query) {
+    const cache = this.get(`cache.${type}.${word}`);
+    const options = yield cache || this.get('store').query(type, query);
     const textarea = this.get('textarea');
     const position = textareaCaretPosition(textarea, this.get('startOfWordIndex'));
     this.setProperties({
       options,
       optionsStyle: htmlSafe(`top: ${position.top + 20}px; left: ${position.left}px;`)
     });
+    this.set(`cache.${type}.${word}`, options);
   }).restartable(),
 
   _getWord(index, startOfWordIndex, value) {
