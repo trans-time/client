@@ -273,12 +273,15 @@ p {
     position: relative;
   }
 
+  .post-form-taggable-textarea {
+    display: flex;
+    flex-grow: 1;
+  }
+
   .post-form-textarea {
     flex-grow: 1;
     resize: none;
     padding: $rhythm;
-    width: 100%;
-    box-sizing: border-box;
   }
 
   .post-form-text-emoji-toggler {

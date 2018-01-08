@@ -37,7 +37,11 @@ export default function() {
   });
 
   this.get('/users', (schema, request) => {
-    return schema.users.findBy({ username: request.queryParams.username });
+    if (request.queryParams.perPage) {
+      return schema.users.all().filter((user) => user.username.includes(request.queryParams.username)).slice(0, request.queryParams.perPage);
+    } else {
+      return schema.users.findBy({ username: request.queryParams.username });
+    }
   });
   this.post('/users');
   this.post('/password-changes');
@@ -127,7 +131,7 @@ export default function() {
     return schema.posts.find(request.params.id);
   });
   this.get('/tags', (schema, request) => {
-    return schema.tags.where({ userId: request.queryParams.userId });
+    return schema.tags.all().filter((tag) => tag.name.includes(request.queryParams.name)).slice(0, request.queryParams.perPage);
   });
   this.get('/faves', (schema, request) => {
     const faves = schema.faves.where({ favableId: { id: request.queryParams.favableId, type: request.queryParams.favableType } });

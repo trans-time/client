@@ -1,0 +1,13 @@
+{{yield}}
+
+{{#if options}}
+  <ul class="taggable-textarea-options" style={{optionsStyle}}>
+    {{#each options as |option|}}
+      {{#if (eq option.constructor.modelName "tag")}}
+        <li class="taggable-textarea-option" {{action "select" option.name}}>#{{option.name}}</li>
+      {{else if (eq option.constructor.modelName "user")}}
+        <li class="taggable-textarea-option" {{action "select" option.username}}>@{{option.username}}</li>
+      {{/if}}
+    {{/each}}
+  </ul>
+{{/if}}

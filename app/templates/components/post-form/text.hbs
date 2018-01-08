@@ -21,7 +21,9 @@
 }}
 
   <div class="post-form-textarea-container">
-    {{textarea value=changeset.text placeholder=(t "post.attributes.text.placeholder") class="post-form-textarea"}}
+    {{#taggable-textarea classNames="post-form-taggable-textarea"}}
+      {{textarea value=changeset.text placeholder=(t "post.attributes.text.placeholder") class="post-form-textarea"}}
+    {{/taggable-textarea}}
     {{component h.emojiAssist}}
 
     {{component h.emojiPickerToggler class="post-form-text-emoji-toggler"}}
