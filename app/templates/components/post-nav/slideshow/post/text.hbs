@@ -19,12 +19,4 @@
     {{rich-text text=post.text}}
 </div>
 
-<div class="post-nav-resize-toggle">
-  <a {{action resizeType}}>
-    {{#liquid-bind resizeType as |iconType|}}
-      {{fa-icon iconType size=1}}
-    {{/liquid-bind}}
-  </a>
-</div>
-
 <a class="reveal-text-toggle" {{action "revealText"}}>{{t "post.more"}}</a>

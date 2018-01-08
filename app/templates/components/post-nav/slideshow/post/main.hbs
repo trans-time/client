@@ -28,6 +28,14 @@
       }}
     {{/each}}
   {{/if}}
+
+  <div class="post-nav-resize-toggle">
+    <a {{action resizeType}}>
+      {{#liquid-bind resizeType as |iconType|}}
+        {{fa-icon iconType size=1}}
+      {{/liquid-bind}}
+    </a>
+  </div>
 </div>
 
 {{#if shouldRenderPost}}
@@ -38,8 +46,6 @@
     isCurrentPost=isCurrentPost
     scrollLocked=(not-eq navState.progress 0)
     classNames="main-layout-constraint"
-    expandText=expandText
-    compressText=compressText
     removePost=removePost
     deletePost=(route-action "deletePost")
   }}

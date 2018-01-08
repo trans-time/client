@@ -1,14 +1,12 @@
 import { bind } from '@ember/runloop';
 import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
-import { on } from '@ember/object/evented';
 import { next } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
-import { EKMixin, keyDown } from 'ember-keyboard';
 import { Promise } from 'rsvp';
 
-export default Component.extend(EKMixin, {
+export default Component.extend({
   classNames: ['post-nav-post'],
   classNameBindings: ['textExpanded:expanded', 'textRevealed'],
 
@@ -18,7 +16,6 @@ export default Component.extend(EKMixin, {
   modalManager: service(),
   user: alias('currentUser.user'),
   usingTouch: alias('meta.usingTouch'),
-  keyboardActivated: alias('isCurrentPost'),
   swipeState: computed(() => {
     return {
       diffs: []
@@ -68,18 +65,6 @@ export default Component.extend(EKMixin, {
 
     this._super(...args);
   },
-
-  _keyExpandCompressText: on(keyDown('KeyX'), function() {
-    this.$('.post-nav-post-text').focus();
-    this.get('textExpanded') ? this.attrs.compressText() : this.attrs.expandText();
-    this.set('userRevealedText', true);
-  }),
-
-  resizeType: computed('textExpanded', {
-    get() {
-      return this.get('textExpanded') ? 'compress' : 'expand'
-    }
-  }),
 
   textRevealed: computed('userRevealedText', 'textOverflown', {
     get() {
@@ -205,14 +190,6 @@ export default Component.extend(EKMixin, {
           this.attrs.removePost();
         }).finally(() => this.set('controlsDisabled', false));
       });
-    },
-
-    expand() {
-      this.attrs.expandText();
-    },
-
-    compress() {
-      this.attrs.compressText();
     },
 
     revealText() {

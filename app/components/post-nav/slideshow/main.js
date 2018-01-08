@@ -58,7 +58,8 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     diffs: []
   })),
 
-  textExpanded: false,
+  panelCompressed: false,
+  textExpanded: alias('panelCompressed'),
 
   didInsertElement(...args) {
     this._super(...args);
@@ -414,11 +415,11 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
 
   actions: {
     expandText() {
-      this.set('textExpanded', true);
+      this.set('panelCompressed', true);
     },
 
     compressText() {
-      this.set('textExpanded', false);
+      this.set('panelCompressed', false);
     },
 
     removePost(post) {

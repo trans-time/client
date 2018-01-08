@@ -59,29 +59,6 @@
       color: $medium-gray;
     }
   }
-
-  .post-nav-resize-toggle {
-    position: absolute;
-    top: $rhythm;
-    right: $rhythm * 2;
-    margin-left: auto;
-    flex-shrink: 0;
-    width: 27px;
-
-    a {
-      position: absolute;
-      top: -$rhythm;
-      right: -$rhythm;
-      display: block;
-      padding: $rhythm;
-      border-radius: 50%;
-      text-shadow: 1px 1px rgba(0, 0, 0, 0.38);
-    }
-
-    i {
-      font-size: 20px;
-    }
-  }
 }
 
 @media screen and (max-height: 800px) {

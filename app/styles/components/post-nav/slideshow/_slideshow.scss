@@ -109,6 +109,30 @@
   }
 }
 
+.post-nav-resize-toggle {
+  position: absolute;
+  bottom: $rhythm / 2;
+  right: $rhythm;
+  width: 27px;
+  height: 27px;
+  z-index: 3;
+  opacity: 0.62;
+
+  a {
+    position: absolute;
+    top: -$rhythm;
+    right: -$rhythm;
+    display: block;
+    padding: $rhythm;
+    border-radius: 50%;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.38);
+  }
+
+  i {
+    font-size: 20px;
+  }
+}
+
 // @media screen and (min-height: 1350px)
 // {
 //   .post-nav-slideshow-main {
