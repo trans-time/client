@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
+import { next } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/string';
 import { task } from 'ember-concurrency';
@@ -32,16 +33,22 @@ export default Component.extend({
     const index = textarea.selectionStart;
     const value = textarea.value;
     const startOfWordIndex = value.slice(0, index).search(/[^a-zA-Z0-9_-](?=[a-zA-Z0-9_-]*$)/);
+    let endOfWordIndex = value.slice(index).search(/[^a-zA-Z0-9_-]/);
+    endOfWordIndex === -1 ? endOfWordIndex = value.length : endOfWordIndex = endOfWordIndex + index;
+
 
     if (textarea.value[startOfWordIndex] === '#') {
-      this._searchTags(index, startOfWordIndex + 1, value);
+      this._searchTags(index, startOfWordIndex + 1, endOfWordIndex);
     } else if (textarea.value[startOfWordIndex] === '@') {
-      this._searchUsers(index, startOfWordIndex + 1, value);
+      this._searchUsers(index, startOfWordIndex + 1, endOfWordIndex);
     } else {
       this._endSearch();
     }
 
-    this.set('startOfWordIndex', startOfWordIndex);
+    this.setProperties({
+      startOfWordIndex,
+      endOfWordIndex
+     });
   },
 
   _endSearch() {
@@ -49,14 +56,14 @@ export default Component.extend({
     this.set('options', undefined);
   },
 
-  _searchTags(index, startOfWordIndex, value) {
-    const word = this._getWord(index, startOfWordIndex, value);
+  _searchTags(index, startOfWordIndex, endOfWordIndex) {
+    const word = this._getWord(index, startOfWordIndex, endOfWordIndex);
 
     if (word.length > 0) this.get('_searchTask').perform('tag', word, { name: word, perPage: 5 });
   },
 
-  _searchUsers(index, startOfWordIndex, value) {
-    const word = this._getWord(index, startOfWordIndex, value);
+  _searchUsers(index, startOfWordIndex, endOfWordIndex) {
+    const word = this._getWord(index, startOfWordIndex, endOfWordIndex);
 
     if (word.length > 0) this.get('_searchTask').perform('user', word, { username: word, perPage: 5, include: 'userProfile' });
   },
@@ -65,25 +72,37 @@ export default Component.extend({
     const cache = this.get(`cache.${type}.${word}`);
     const options = yield cache || this.get('store').query(type, query);
     const textarea = this.get('textarea');
-    const position = textareaCaretPosition(textarea, this.get('startOfWordIndex'));
-    this.setProperties({
-      options,
-      optionsStyle: htmlSafe(`top: ${position.top + 20}px; left: ${position.left}px;`)
-    });
     this.set(`cache.${type}.${word}`, options);
+    next(() => {
+      let optionsStyle;
+      let position = textareaCaretPosition(textarea, this.get('startOfWordIndex'));
+      if (position.left > textarea.clientWidth / 2) {
+        position = textareaCaretPosition(textarea, this.get('endOfWordIndex'));
+        optionsStyle = `right:${textarea.clientWidth - position.left}px;`;
+      } else {
+        optionsStyle = `left:${position.left}px;`;
+      }
+      if (position.top + 20 > textarea.clientHeight / 2) {
+        optionsStyle += `bottom:${textarea.clientHeight - position.top}px`;
+      } else {
+        optionsStyle += `top:${position.top + 20}px`;
+      }
+      this.setProperties({
+        options,
+        optionsStyle: htmlSafe(optionsStyle)
+      });
+    });
   }).restartable(),
 
-  _getWord(index, startOfWordIndex, value) {
-    let endOfWordIndex = value.slice(index).search(/[^a-zA-Z0-9_-]/);
-    endOfWordIndex === -1 ? endOfWordIndex = undefined : endOfWordIndex = endOfWordIndex + index;
-    return /[a-zA-Z0-9_-]*$/.exec(value.slice(startOfWordIndex, endOfWordIndex))[0];
+  _getWord(index, startOfWordIndex, endOfWordIndex) {
+    return /[a-zA-Z0-9_-]*$/.exec(this.get('textarea').value.slice(startOfWordIndex, endOfWordIndex))[0];
   },
 
   actions: {
     select(word) {
       const textarea = this.get('textarea');
       const startOfWordIndex = this.get('startOfWordIndex') + 1;
-      const endOfWordIndex = textarea.value.slice(startOfWordIndex).search(/[^a-zA-Z0-9_-]|$/) + startOfWordIndex;
+      const endOfWordIndex = this.get('endOfWordIndex');
 
       textarea.value = `${textarea.value.slice(0, startOfWordIndex)}${word}${textarea.value.slice(endOfWordIndex)}`;
       textarea.focus();
