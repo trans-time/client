@@ -13,5 +13,18 @@
 }
 
 .taggable-textarea-option {
+  padding: 0 $rhythm / 2;
+  display: flex;
+  align-items: center;
+}
+
+.taggable-textarea-option-text {
+  display: inline-block;
   padding: $rhythm;
+}
+
+.taggable-textarea-option-avatar {
+  height: 30px;
+  width: 30px;
+  border-radius: 10px;
 }

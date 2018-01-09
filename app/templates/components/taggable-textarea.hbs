@@ -4,9 +4,15 @@
   <ul class="taggable-textarea-options" style={{optionsStyle}}>
     {{#each options as |option|}}
       {{#if (eq option.constructor.modelName "tag")}}
-        <li class="taggable-textarea-option" {{action "select" option.name}}>#{{option.name}}</li>
+        <li class="taggable-textarea-option" {{action "select" option.name}}>
+          <span class="taggable-textarea-option-text">#{{option.name}}</span>
+        </li>
       {{else if (eq option.constructor.modelName "user")}}
-        <li class="taggable-textarea-option" {{action "select" option.username}}>@{{option.username}}</li>
+        <li class="taggable-textarea-option" {{action "select" option.username}}>
+          {{#if option.userProfile.avatar}}<img src={{option.userProfile.avatar}} class="taggable-textarea-option-avatar">{{/if}}
+          <span class="taggable-textarea-option-text">{{#if option.userProfile.displayName}}{{option.userProfile.displayName}}{{/if}}
+          <span class="at-username">@{{option.username}}</span></span>
+        </li>
       {{/if}}
     {{/each}}
   </ul>
