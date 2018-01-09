@@ -103,15 +103,19 @@
 
       <div class="profile-form-textarea-container">
         <div class="profile-description profile-field">
-          {{paper-input
-            value=changeset.description
-            textarea=true
-            block=true
-            label=(t "profile.attributes.description.label")
-            onChange=(action (mut changeset.description))
-            errors=changeset.error.description.validation
-            class="profile-form-textarea"
-          }}
+
+          {{#taggable-textarea classNames="comment-form-taggable-textarea"}}
+
+            {{paper-input
+              value=changeset.description
+              textarea=true
+              block=true
+              label=(t "profile.attributes.description.label")
+              onChange=(action (mut changeset.description))
+              errors=changeset.error.description.validation
+              class="profile-form-textarea"
+            }}
+          {{/taggable-textarea}}
         </div>
         {{component h.emojiAssist}}
 
