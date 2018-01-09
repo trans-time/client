@@ -20,8 +20,10 @@ export default Mixin.create({
 
   resetController(controller) {
     controller.setProperties(this.get('_defaultQueryParams'));
-console.log(window.location.href)
+
     this.get('router.location').setURL(window.location.href);
+
+    this._super(...arguments);
   },
 
   _refreshPosts() {
