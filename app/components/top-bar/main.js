@@ -10,13 +10,12 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
 
   searchValue: '',
 
-  meta: service(),
+  topBarManager: service(),
   router: service(),
 
-  title: oneWay('meta.title'),
-  emojiTitle: oneWay('meta.emojiTitle'),
-  linkRoute: oneWay('meta.linkRoute'),
-  linkModelId: oneWay('meta.linkModelId'),
+  title: oneWay('topBarManager.title.name'),
+  linkRoute: oneWay('topBarManager.title.linkRoute'),
+  linkModelId: oneWay('topBarManager.title.linkModelId'),
 
   showLink: notEmpty('linkRoute'),
 

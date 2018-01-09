@@ -1,14 +1,17 @@
 import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 import ImageUploadMixin from 'client/mixins/image-upload';
-import RouteTitleMixin from 'client/mixins/route-title';
 
-export default Route.extend(ImageUploadMixin, RouteTitleMixin, {
+export default Route.extend(ImageUploadMixin, {
   intl: service(),
+  topBarManager: service(),
 
   beforeModel(...args) {
     this._super(...args);
-    
-    this.set('titleToken', this.get('intl').t('post.edit'));
+
+    const title = this.get('intl').t('post.edit');
+
+    this.set('titleToken', title);
+    this.get('topBarManager').setTitle(title);
   }
 });

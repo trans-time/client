@@ -133,7 +133,7 @@ export default Component.extend(AuthenticatedActionMixin, {
   _saveChanges() {
     this.get('changeset').save().then((model) => {
       this._stopEditing();
-      this.attrs.updateTitle(model.get('displayName'));
+      this.attrs.updateModel(model);
     }).finally(() => {
       this.set('isSaving', false);
     });

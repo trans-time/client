@@ -1,15 +1,18 @@
 import Route from '@ember/routing/route';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
-import RouteTitleMixin from 'client/mixins/route-title';
 import { inject as service } from '@ember/service';
 
-export default Route.extend(AuthenticatedRouteMixin, RouteTitleMixin, {
+export default Route.extend(AuthenticatedRouteMixin, {
   intl: service(),
+  topBarManager: service(),
 
   beforeModel(...args) {
     this._super(...args);
 
-    this.set('titleToken', this.get('intl').t('account.account'));
+    const title = this.get('intl').t('account.account');
+
+    this.set('titleToken', title);
+    this.get('topBarManager').setTitle(title);
   },
 
   model() {

@@ -1,9 +1,9 @@
-import { isPresent } from '@ember/utils';
 import Route from '@ember/routing/route';
-import RouteTitleMixin from 'client/mixins/route-title';
+import { inject as service } from '@ember/service';
+import { isPresent } from '@ember/utils';
 
-export default Route.extend(RouteTitleMixin, {
-  linkRoute: 'users.user.profile.index',
+export default Route.extend({
+  topBarManager: service(),
 
   model(params) {
     const peekedUser = this.store.peekAll('user').find((user) => user.get('username') === params.username);
@@ -13,19 +13,19 @@ export default Route.extend(RouteTitleMixin, {
   },
 
   afterModel(model) {
-    this.setProperties({
-      emojiTitle: model.get('userProfile.displayName'),
-      linkModelId: model.get('username'),
-      titleToken: `@${model.get('username')}`
-    });
+    this.set('titleToken', model.get('username'));
+    this._setTopBar(model);
 
     this._super(...arguments);
   },
 
+  _setTopBar(model) {
+    this.get('topBarManager').setTitleLink(`${model.get('userProfile.displayName')} @${model.get('username')}`, 'users.user.profile.index', model.get('username'));
+  },
+
   actions: {
-    updateTitle(emojiTitle) {
-      this.set('emojiTitle', emojiTitle);
-      this.set('meta.emojiTitle', emojiTitle);
+    updateModel(model) {
+      this._setTopBar(model);
     }
   }
 });

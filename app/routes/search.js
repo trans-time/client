@@ -2,9 +2,8 @@ import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 import PostNavRouteMixin from 'client/mixins/post-nav-route';
-import RouteTitleMixin from 'client/mixins/route-title';
 
-export default Route.extend(PostNavRouteMixin, RouteTitleMixin, {
+export default Route.extend(PostNavRouteMixin, {
   queryParams: {
     query: {
       refreshModel: true
@@ -12,6 +11,7 @@ export default Route.extend(PostNavRouteMixin, RouteTitleMixin, {
   },
 
   intl: service(),
+  topBarManager: service(),
 
   _posts: alias('controller.model'),
   _defaultQueryParams: {
@@ -23,7 +23,10 @@ export default Route.extend(PostNavRouteMixin, RouteTitleMixin, {
   afterModel(...args) {
     this._super(...args);
 
-    this.set('meta.title', args[1].queryParams.query);
+    const title = args[1].queryParams.query;
+
+    this.set('titleToken', title);
+    this.get('topBarManager').setTitle(title);
   },
 
   model(params) {

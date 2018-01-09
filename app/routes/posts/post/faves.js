@@ -1,12 +1,10 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import InfinityRoute from "ember-infinity/mixins/route";
-import RouteTitleMixin from 'client/mixins/route-title';
 
-export default Route.extend(InfinityRoute, RouteTitleMixin, {
-  linkRoute: 'posts.post',
-
+export default Route.extend(InfinityRoute, {
   intl: service(),
+  topBarManager: service(),
 
   model() {
     return this.infinityModel('fav', { perPage: 12, startingPage: 1, favableId: this.modelFor('posts.post').id, favableType: 'post', include: 'user, user.userProfile' });
@@ -15,7 +13,9 @@ export default Route.extend(InfinityRoute, RouteTitleMixin, {
   beforeModel(...args) {
     this._super(...args);
 
-    this.set('linkModelId', this.modelFor('posts.post').id);
-    this.set('titleToken', this.get('intl').t('post.faves'));
+    const title = this.get('intl').t('post.faves');
+
+    this.get('topBarManager').setTitleLink(title, 'posts.post', this.modelFor('posts.post').id);
+    this.set('titleToken', title);
   }
 });
