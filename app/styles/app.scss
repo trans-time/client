@@ -91,6 +91,12 @@ p {
   height: 50px;
 }
 
+.at-username {
+  color: $medium-gray;
+  font-weight: normal;
+}
+
+
 .cover-page {
   display: flex;
   flex-direction: column;
@@ -180,13 +186,14 @@ p {
   font-weight: bold;
   overflow: hidden;
   text-overflow: ellipsis;
-  height: 19px;
+  height: 17px;
+  font-size: 80%;
 }
 
 .follow-item-secondary-title {
   color: $medium-gray;
   font-size: 80%;
-  vertical-align: top;
+  vertical-align: middle;
 }
 
 .follow-item-description {

@@ -18,7 +18,7 @@
     <div class="comment-main">
       <div class="comment-text {{if textIsOverflown 'comment-text-is-overflown'}}">
         {{#rich-text text=comment.text}}
-          {{#link-to "users.user.profile.index" comment.user.username class="comment-user-link" disabled=isCollapsedChild}}{{comment.user.username}}{{#if comment.user.userProfile.displayName}} ({{{inject-emoji comment.user.userProfile.displayName}}}){{/if}}{{/link-to}}
+          {{#link-to "users.user.profile.index" comment.user.username class="comment-user-link" disabled=isCollapsedChild classNames="comment-username-link"}}{{#if comment.user.userProfile.displayName}}{{{inject-emoji comment.user.userProfile.displayName}}} {{/if}}<span class="at-username">@{{comment.user.username}}</span>{{/link-to}}
         {{/rich-text}}
 
         {{#if textIsOverflown}}

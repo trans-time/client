@@ -113,6 +113,10 @@
   font-size: 95%;
   margin-bottom: $rhythm / 2;
 
+  .comment-username-link {
+    display: none;
+  }
+
   .comment-profile {
     width: 20px;
   }

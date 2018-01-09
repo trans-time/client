@@ -16,7 +16,7 @@ export default Route.extend(RouteTitleMixin, {
     this.setProperties({
       emojiTitle: model.get('userProfile.displayName'),
       linkModelId: model.get('username'),
-      titleToken: model.get('username')
+      titleToken: `@${model.get('username')}`
     });
 
     this._super(...arguments);
