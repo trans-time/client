@@ -26,6 +26,7 @@ export default Component.extend({
     ['keyup', 'mouseup', 'touchend'].forEach((type) => {
       textarea.addEventListener(type, this._currentSelectionSearch.bind(this));
     });
+    textarea.addEventListener('scroll', this._endSearch.bind(this));
   },
 
   _currentSelectionSearch() {
@@ -35,7 +36,6 @@ export default Component.extend({
     const startOfWordIndex = value.slice(0, index).search(/[^a-zA-Z0-9_-](?=[a-zA-Z0-9_-]*$)/);
     let endOfWordIndex = value.slice(index).search(/[^a-zA-Z0-9_-]/);
     endOfWordIndex === -1 ? endOfWordIndex = value.length : endOfWordIndex = endOfWordIndex + index;
-
 
     if (textarea.value[startOfWordIndex] === '#') {
       this._searchTags(index, startOfWordIndex + 1, endOfWordIndex);
@@ -48,7 +48,7 @@ export default Component.extend({
     this.setProperties({
       startOfWordIndex,
       endOfWordIndex
-     });
+    });
   },
 
   _endSearch() {
@@ -76,16 +76,16 @@ export default Component.extend({
     next(() => {
       let optionsStyle;
       let position = textareaCaretPosition(textarea, this.get('startOfWordIndex'));
-      if (position.left > textarea.clientWidth / 2) {
+      if (position.left > this.element.clientWidth / 2) {
         position = textareaCaretPosition(textarea, this.get('endOfWordIndex'));
-        optionsStyle = `right:${textarea.clientWidth - position.left}px;`;
+        optionsStyle = `right:${this.element.clientWidth - position.left}px;`;
       } else {
         optionsStyle = `left:${position.left}px;`;
       }
-      if (position.top + 20 > textarea.clientHeight / 2) {
-        optionsStyle += `bottom:${textarea.clientHeight - position.top}px`;
+      if (position.top + 20 > this.element.clientHeight / 2) {
+        optionsStyle += `bottom:${this.element.clientHeight - (position.top - textarea.scrollTop)}px`;
       } else {
-        optionsStyle += `top:${position.top + 20}px`;
+        optionsStyle += `top:${position.top + 20 - textarea.scrollTop}px`;
       }
       this.setProperties({
         options,

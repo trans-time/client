@@ -181,6 +181,19 @@
   position: relative;
 }
 
+
+.profile-form-textarea-container {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  position: relative;
+}
+
+.profile-form-taggable-textarea {
+  display: flex;
+  flex-grow: 1;
+}
+
 .profile-form-textarea {
   flex-grow: 1;
   resize: none;
