@@ -8,48 +8,29 @@ import { EKMixin, EKOnInsertMixin, keyUp } from 'ember-keyboard';
 export default Component.extend(EKMixin, EKOnInsertMixin, {
   classNames: ['top-bar'],
 
-  searchValue: '',
-
   topBarManager: service(),
   router: service(),
 
-  title: oneWay('topBarManager.title.name'),
-  linkRoute: oneWay('topBarManager.title.linkRoute'),
+  canSearch: oneWay('topBarManager.canSearch'),
+  icon: oneWay('topBarManager.icon.name'),
+  iconArgs: oneWay('topBarManager.icon.args'),
   linkModelId: oneWay('topBarManager.title.linkModelId'),
+  linkRoute: oneWay('topBarManager.title.linkRoute'),
+  title: oneWay('topBarManager.title.name'),
 
   showLink: notEmpty('linkRoute'),
 
-  _triggerTopBarButton: on(keyUp('KeyW'), function() {
-    if (this.get('showSearchBar')) this._focusSearch();
-    else this._goHome();
-  }),
-
-  showSearchBar: computed('router.currentRouteName', {
-    get() {
-      return this.get('router.currentRouteName') === 'index';
-    }
+  _iconAction: on(keyUp('KeyW'), function() {
+    this.get('topBarManager.icon.action')(this.get('iconArgs'));
   }),
 
   _goHome() {
     this.get('router').transitionTo('application');
   },
 
-  _focusSearch() {
-    this.$('input').focus();
-  },
-
   actions: {
-    home() {
-      this._goHome();
-    },
-
-    search() {
-      const searchValue = this.get('searchValue');
-
-      if (searchValue === '') this._focusSearch();
-      else {
-        this.get('router').transitionTo('search', { queryParams: { query: searchValue }});
-      }
+    iconAction() {
+      this._iconAction();
     },
 
     toggleMenu() {

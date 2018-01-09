@@ -18,6 +18,12 @@ export default Mixin.create({
     this.get('messageBus').subscribe('userWasAuthenticated', this, this._refreshPosts);
   },
 
+  resetController(controller) {
+    controller.setProperties(this.get('_defaultQueryParams'));
+console.log(window.location.href)
+    this.get('router.location').setURL(window.location.href);
+  },
+
   _refreshPosts() {
     const query = this.get('_posts.query');
     const originalQueryClone = assign({}, query);
@@ -30,11 +36,6 @@ export default Mixin.create({
   },
 
   actions: {
-    willTransition() {
-      this.get('controller').setProperties(this.get('_defaultQueryParams'));
-
-      this.get('router.location').setURL(window.location.href);
-    },
 
     deletePost(post, resolve) {
       post.destroyRecord().finally(() => resolve());

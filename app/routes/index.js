@@ -9,6 +9,7 @@ export default Route.extend(PostNavRouteMixin, {
   currentUser: service(),
   intl: service(),
   meta: service(),
+  topBarManager: service(),
 
   user: alias('currentUser.user'),
   _posts: alias('controller.model'),
@@ -20,7 +21,7 @@ export default Route.extend(PostNavRouteMixin, {
   afterModel(...args) {
     this._super(...args);
 
-    this.set('meta.title', null);
+    this.get('topBarManager').showSearchBar();
   },
 
   model(params) {
