@@ -31,9 +31,7 @@ export default Mixin.create({
 
   actions: {
     willTransition() {
-      const controller = this.controllerFor('users.user.timeline');
-
-      controller.setProperties(this.get('_defaultQueryParams'));
+      this.get('controller').setProperties(this.get('_defaultQueryParams'));
 
       this.get('router.location').setURL(window.location.href);
     },
