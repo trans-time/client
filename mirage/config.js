@@ -162,6 +162,15 @@ export default function() {
     let photo = db.create('image', { filename, filesize, src, uploadedAt: new Date() });
     return photo;
   }));
+  this.get('/search-queries', (schema, request) => {
+    const query = request.queryParams.query;
+
+    return schema.searchQueries.create({
+      identityIds: schema.db.identities.filter((identity) => identity.name.includes(query)).slice(0, 5).map((identity) => identity.id),
+      tagIds: schema.db.tags.filter((tag) => tag.name.includes(query)).slice(0, 5).map((tag) => tag.id),
+      userIds: schema.db.users.filter((user) => user.username.includes(query)).slice(0, 5).map((user) => user.id)
+    });
+  })
   this.post('/user-profiles/upload', upload((db, request) => {
     return request.requestBody.file.src;
   }));

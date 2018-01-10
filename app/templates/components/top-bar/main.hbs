@@ -1,9 +1,7 @@
 <div class="top-bar-content top-bar-layout-constraint">
   <a class="top-bar-element" {{action "iconAction"}}>{{fa-icon icon size=2}}</a>
   {{#if canSearch}}
-    <span class="top-bar-element top-bar-element-grow">
-      {{top-bar/search id="top_bar_search" classNames="top-bar-search" value=iconArgs.searchValue performSearch=(action "iconAction")}}
-    </span>
+    {{top-bar/search/main value=iconArgs.searchValue performSearch=(action "iconAction") classNames="top-bar-element top-bar-element-grow"}}
   {{else if showLink}}
     {{#link-to linkRoute linkModelId class="top-bar-title top-bar-element top-bar-element-grow"}}
       {{{inject-emoji title}}}

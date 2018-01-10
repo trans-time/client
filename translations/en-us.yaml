@@ -142,7 +142,10 @@ profile:
     website:
       label: "website"
 search:
+  identities: "identities"
+  tags: "tags"
   title: "search"
+  users: "users"
 tagSummary:
   start: "start"
 title: "trans time"

@@ -6,6 +6,7 @@ export default Model.extend({
   followers: hasMany('follow', { inverse: 'followed' }),
   followeds: hasMany('follow', { inverse: 'follower' }),
   posts: hasMany('post', { inverse: 'user' }),
+  searchQueries: hasMany('search-query'),
   tags: hasMany('tag'),
   userIdentities: hasMany('user-identity'),
 

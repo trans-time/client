@@ -1,6 +1,7 @@
 import { Model, hasMany } from 'ember-cli-mirage';
 
 export default Model.extend({
-  searchQueries: hasMany('search-query'),
-  userIdentities: hasMany('user-identity')
+  identities: hasMany('identity'),
+  tags: hasMany('tag'),
+  users: hasMany('user')
 });

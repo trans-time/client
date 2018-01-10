@@ -1,0 +1,44 @@
+{{top-bar/search/field id="top_bar_search" classNames="top-bar-search" value=value performSearch=performSearch lookupAutocomplete=(action "lookupAutocomplete")}}
+
+<ul class="search-bar-results">
+  {{#if results.tags}}
+    <li class="search-bar-results-group">
+      <span class="search-bar-results-group-name">{{t "search.tags"}}</span>
+      <ul class="search-bar-results-group-items">
+        {{#each results.tags as |tag|}}
+          <li class="search-bar-results-group-item" {{action "selectTag" tag.name}}>
+            <span class="search-bar-results-group-item-text">#{{tag.name}}</span>
+          </li>
+        {{/each}}
+      </ul>
+    </li>
+  {{/if}}
+
+  {{#if results.users}}
+    <li class="search-bar-results-group">
+      <span class="search-bar-results-group-name">{{t "search.users"}}</span>
+      <ul class="search-bar-results-group-items">
+        {{#each results.users as |user|}}
+          <li class="search-bar-results-group-item" {{action "selectUser" user.username}}>
+            {{#if user.userProfile.avatar}}<img src={{user.userProfile.avatar}} class="search-bar-results-group-item-avatar">{{/if}}
+            <span class="search-bar-results-group-item-text">{{#if user.userProfile.displayName}}{{user.userProfile.displayName}}{{/if}}
+            <span class="at-username">@{{user.username}}</span></span>
+          </li>
+        {{/each}}
+      </ul>
+    </li>
+  {{/if}}
+
+  {{#if results.identities}}
+    <li class="search-bar-results-group">
+      <span class="search-bar-results-group-name">{{t "search.identities"}}</span>
+      <ul class="search-bar-results-group-items">
+        {{#each results.identities as |identity|}}
+          <li class="search-bar-results-group-item" {{action "selectIdentity" identity.name}}>
+            <span class="search-bar-results-group-item-text">*{{identity.name}}</span>
+          </li>
+        {{/each}}
+      </ul>
+    </li>
+  {{/if}}
+</ul>
