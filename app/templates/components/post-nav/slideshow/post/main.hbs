@@ -21,7 +21,7 @@
       </div>
     </div>
   {{else}}
-    {{#each post.panels as |panel|}}
+    {{#each sortedPanels as |panel|}}
       {{component panel.postNavComponent
         panel=panel
         navState=navState

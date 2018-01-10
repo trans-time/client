@@ -25,9 +25,10 @@ export default function(server) {
     posts.push(server.create('post', {
       date: index * 1000000000,
       tags: [symbolTag],
-      panels: [0, 45, 90, 135, 180, 225, 270, 315].map((orientation) => {
+      panels: [0, 45, 90, 135, 180, 225, 270, 315].map((orientation, index) => {
         return server.create('image', {
-          src: `/dev/${gender}-${orientation}.png`
+          src: `/dev/${gender}-${orientation}.png`,
+          order: index
         })
       })
     }))

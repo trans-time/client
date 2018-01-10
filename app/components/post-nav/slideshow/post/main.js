@@ -1,5 +1,5 @@
 import { computed } from '@ember/object';
-import { oneWay, or } from '@ember/object/computed';
+import { oneWay, or, sort } from '@ember/object/computed';
 import { on } from '@ember/object/evented';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
@@ -15,6 +15,7 @@ export default Component.extend(EKMixin, SlideshowComponentMixin, {
   isBlank: oneWay('post.isBlank'),
   keyboardActivated: oneWay('isCurrentPost'),
   shouldRenderPost: or('visible', 'post.shouldPrerender'),
+  sortedPanels: sort('post.panels', (a, b) => a.get('model.order') - b.get('model.order')),
 
   intl: service(),
   messageBus: service(),
