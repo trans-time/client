@@ -18,7 +18,7 @@ export default Route.extend(PostNavRouteMixin, {
     comments: null
   },
 
-  afterModel(...args) {
+  beforeModel(...args) {
     this._super(...args);
 
     this.get('topBarManager').showSearchBar();
@@ -35,9 +35,5 @@ export default Route.extend(PostNavRouteMixin, {
     if (isBlank(user)) return;
 
     return this.store.query('post', { followerId: user.get('id'), fromPostId: params.postId, perPage: 5 });
-  },
-
-  _refreshPosts() {
-    later(() => this.refresh(), 1000);
   }
 });

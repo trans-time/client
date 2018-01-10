@@ -11,17 +11,17 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
   topBarManager: service(),
   router: service(),
 
-  canSearch: oneWay('topBarManager.canSearch'),
-  icon: oneWay('topBarManager.icon.name'),
-  iconArgs: oneWay('topBarManager.icon.args'),
-  linkModelId: oneWay('topBarManager.title.linkModelId'),
-  linkRoute: oneWay('topBarManager.title.linkRoute'),
-  title: oneWay('topBarManager.title.name'),
+  canSearch: oneWay('topBarManager.state.canSearch'),
+  icon: oneWay('topBarManager.state.icon.name'),
+  iconArgs: oneWay('topBarManager.state.icon.args'),
+  linkModelId: oneWay('topBarManager.state.title.linkModelId'),
+  linkRoute: oneWay('topBarManager.state.title.linkRoute'),
+  title: oneWay('topBarManager.state.title.name'),
 
   showLink: notEmpty('linkRoute'),
 
   _iconAction: on(keyUp('KeyW'), function() {
-    this.get('topBarManager.icon.action')(this.get('iconArgs'));
+    this.get('topBarManager.state.icon.action')(this.get('iconArgs'));
   }),
 
   _goHome() {

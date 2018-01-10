@@ -1,10 +1,11 @@
-import { sort } from '@ember/object/computed';
-import { on } from '@ember/object/evented';
-import { A } from '@ember/array';
 import Component from '@ember/component';
-import { isBlank, isPresent } from '@ember/utils';
-import { alias, oneWay, equal } from '@ember/object/computed';
+import { A } from '@ember/array';
+import { on } from '@ember/object/evented';
 import EmberObject, { computed, observer } from '@ember/object';
+import { alias, oneWay, equal, sort } from '@ember/object/computed';
+import { next } from '@ember/runloop';
+import { inject as service } from '@ember/service';
+import { isBlank, isPresent } from '@ember/utils';
 
 const PanelDecorator = EmberObject.extend({
   isLoaded: alias('model.srcIsLoaded'),
@@ -100,12 +101,27 @@ export default Component.extend({
 
   nextPostIndex: 0,
 
+  messageBus: service(),
+  topBarManager: service(),
+
   decoratedPosts: computed(() => A()),
+
+  init(...args) {
+    this._super(...args);
+
+    this.get('messageBus').subscribe('closeComments', this, this._toggleComments);
+  },
 
   didReceiveAttrs(...args) {
     this._super(...args);
 
-    if (this.get('commentsAreOpen')) this.set('chatIsOpen', true);
+    if (this.get('commentsAreOpen')) {
+      this.set('chatIsOpen', true);
+      next(() => this.get('topBarManager').showCloseComments());
+    } else {
+      this.set('chatIsOpen', false);
+      if (this.get('topBarManager.state.showingCloseComments')) next(() => this.get('topBarManager').restorePreviousState());
+    }
   },
 
   addToDecoratedPosts: on('init', observer('posts.[]', function() {
@@ -124,6 +140,16 @@ export default Component.extend({
 
     this.set('nextPostIndex', posts.get('length'));
   })),
+
+  _toggleComments() {
+    this.toggleProperty('chatIsOpen');
+
+    if (this.get('chatIsOpen')) {
+      this.attrs.openComments();
+    } else {
+      this.attrs.closeComments();
+    }
+  },
 
   actions: {
     changePost(post) {
@@ -153,9 +179,7 @@ export default Component.extend({
     },
 
     toggleChat() {
-      this.toggleProperty('chatIsOpen');
-
-      this.get('chatIsOpen') ? this.attrs.openComments() : this.attrs.closeComments();
+      this._toggleComments();
     }
   }
 });

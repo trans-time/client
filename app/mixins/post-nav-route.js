@@ -6,6 +6,9 @@ export default Mixin.create({
   queryParams: {
     postId: {
       replace: true
+    },
+    comments: {
+      replace: true
     }
   },
 
