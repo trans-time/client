@@ -34,6 +34,28 @@ export default Component.extend({
       else this._clearResults();
     },
 
+    navDown() {
+      const $items = this.$('.search-bar-results-group-item');
+      const focusIndex = $items.index(document.activeElement);
+      const $newItem = $items[focusIndex + 1];
+
+      ($newItem || this.$('input')).focus();
+    },
+
+    navUp() {
+      const $items = this.$('.search-bar-results-group-item');
+      const focusIndex = $items.index(document.activeElement);
+
+      if (focusIndex === -1) $items[$items.length - 1].focus();
+      else if (focusIndex === 0) this.$('input').focus();
+      else $items[focusIndex - 1].focus();
+    },
+
+    selectIdentity(identity) {
+      this.get('resolveSelection')(`*${identity}`);
+      this._clearResults();
+    },
+
     selectTag(tag) {
       this.get('resolveSelection')(`#${tag}`);
       this._clearResults();

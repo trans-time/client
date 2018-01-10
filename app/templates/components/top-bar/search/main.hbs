@@ -1,44 +1,61 @@
-{{top-bar/search/field id="top_bar_search" classNames="top-bar-search" value=value performSearch=performSearch lookupAutocomplete=(action "lookupAutocomplete")}}
+{{top-bar/search/field
+  id="top_bar_search"
+  classNames="top-bar-search"
+  value=value
+  performSearch=performSearch
+  lookupAutocomplete=(action "lookupAutocomplete")
+  navDown=(action "navDown")
+  navUp=(action "navUp")
+}}
 
 <ul class="search-bar-results">
-  {{#if results.tags}}
-    <li class="search-bar-results-group">
-      <span class="search-bar-results-group-name">{{t "search.tags"}}</span>
-      <ul class="search-bar-results-group-items">
-        {{#each results.tags as |tag|}}
-          <li class="search-bar-results-group-item" {{action "selectTag" tag.name}}>
-            <span class="search-bar-results-group-item-text">#{{tag.name}}</span>
-          </li>
-        {{/each}}
-      </ul>
-    </li>
-  {{/if}}
+  {{#top-bar/search/result-group
+    group=results.tags
+    name=(t "search.tags")
+    as |group|
+  }}
+    {{#each group as |tag|}}
+      {{#top-bar/search/result
+        choose=(action "selectTag" tag.name)
+        navDown=(action "navDown")
+        navUp=(action "navUp")
+      }}
+        <span class="search-bar-results-group-item-text">#{{tag.name}}</span>
+      {{/top-bar/search/result}}
+    {{/each}}
+  {{/top-bar/search/result-group}}
 
-  {{#if results.users}}
-    <li class="search-bar-results-group">
-      <span class="search-bar-results-group-name">{{t "search.users"}}</span>
-      <ul class="search-bar-results-group-items">
-        {{#each results.users as |user|}}
-          <li class="search-bar-results-group-item" {{action "selectUser" user.username}}>
-            {{#if user.userProfile.avatar}}<img src={{user.userProfile.avatar}} class="search-bar-results-group-item-avatar">{{/if}}
-            <span class="search-bar-results-group-item-text">{{#if user.userProfile.displayName}}{{user.userProfile.displayName}}{{/if}}
-            <span class="at-username">@{{user.username}}</span></span>
-          </li>
-        {{/each}}
-      </ul>
-    </li>
-  {{/if}}
+  {{#top-bar/search/result-group
+    group=results.users
+    name=(t "search.users")
+    as |group|
+  }}
+    {{#each group as |user|}}
+      {{#top-bar/search/result
+        choose=(action "selectUser" user.username)
+        navDown=(action "navDown")
+        navUp=(action "navUp")
+      }}
+        {{#if user.userProfile.avatar}}<img src={{user.userProfile.avatar}} class="search-bar-results-group-item-avatar">{{/if}}
+        <span class="search-bar-results-group-item-text">{{#if user.userProfile.displayName}}{{user.userProfile.displayName}}{{/if}}
+        <span class="at-username">@{{user.username}}</span></span>
+      {{/top-bar/search/result}}
+    {{/each}}
+  {{/top-bar/search/result-group}}
 
-  {{#if results.identities}}
-    <li class="search-bar-results-group">
-      <span class="search-bar-results-group-name">{{t "search.identities"}}</span>
-      <ul class="search-bar-results-group-items">
-        {{#each results.identities as |identity|}}
-          <li class="search-bar-results-group-item" {{action "selectIdentity" identity.name}}>
-            <span class="search-bar-results-group-item-text">*{{identity.name}}</span>
-          </li>
-        {{/each}}
-      </ul>
-    </li>
-  {{/if}}
+  {{#top-bar/search/result-group
+    group=results.identities
+    name=(t "search.identities")
+    as |group|
+  }}
+    {{#each group as |identity|}}
+      {{#top-bar/search/result
+        choose=(action "selectIdentity" identity.name)
+        navDown=(action "navDown")
+        navUp=(action "navUp")
+      }}
+        <span class="search-bar-results-group-item-text">*{{identity.name}}</span>
+      {{/top-bar/search/result}}
+    {{/each}}
+  {{/top-bar/search/result-group}}
 </ul>

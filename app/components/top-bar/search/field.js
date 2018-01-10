@@ -9,6 +9,14 @@ export default TextField.extend(EKOnFocusMixin, {
     this.attrs.performSearch();
   }),
 
+  _navDown: on(keyDown('ArrowDown'), function() {
+    this.attrs.navDown();
+  }),
+
+  _navUp: on(keyDown('ArrowUp'), function() {
+    this.attrs.navUp();
+  }),
+
   keyUp(...args) {
     this._super(...args);
 
