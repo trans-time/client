@@ -1,0 +1,19 @@
+<div class={{if (not fullShare) "share-modal-muted"}}>{{t "share.timeline"}}</div>
+
+<div class="share-modal-timeline-options">
+  {{#paper-button disabled=(not fullShare) raised=true primary=(eq selected 0) onClick=(action "selectBeginning")}}{{t "share.beginning"}}{{/paper-button}}
+  {{#paper-button disabled=(not fullShare) raised=true primary=(eq selected 1) onClick=(action "selectHere")}}{{t "share.here"}}{{/paper-button}}
+  {{#paper-button disabled=(not fullShare) raised=true primary=(eq selected 2) onClick=(action "selectEnd")}}{{t "share.end"}}{{/paper-button}}
+</div>
+
+<div>{{t "share.orPost"}}</div>
+
+{{#paper-button raised=true primary=(eq selected 3) onClick=(action "selectPost") classNames="share-modal-full-width-button"}}{{t "share.post"}}{{/paper-button}}
+
+{{#copy-button
+  clipboardText=copyUrl
+  success=(action "copied")
+  classNames="md-default-theme md-button share-modal-clipboard md-raised ember-view md-ink-ripple"
+}}
+  {{fa-icon "clipboard"}} {{t "share.clipboard"}}
+{{/copy-button}}

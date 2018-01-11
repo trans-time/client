@@ -9,6 +9,10 @@
   padding: 4px;
   padding-bottom: 0;
   font-size: 85%;
+
+  :first-child {
+    margin-right: auto;
+  }
 }
 
 .post-nav-controls-element {

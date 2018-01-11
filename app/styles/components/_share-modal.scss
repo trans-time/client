@@ -1,0 +1,31 @@
+.share-modal {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding-top: $rhythm * 3;
+
+  button {
+    margin: $rhythm 1px;
+  }
+
+  .share-modal-clipboard {
+    margin-top: $rhythm * 2;
+    margin-left: auto;
+  }
+}
+
+.share-modal-muted {
+  color: $light-gray;
+}
+
+.share-modal-timeline-options {
+  display: flex;
+
+  :first-child, :last-child {
+    flex-grow: 3;
+  }
+}
+
+.share-modal-full-width-button {
+  width: 100%;
+}

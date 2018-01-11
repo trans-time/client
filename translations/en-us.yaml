@@ -146,6 +146,14 @@ search:
   tags: "tags"
   title: "search"
   users: "users"
+share:
+  timeline: "share whole timeline from:"
+  beginning: "beginning"
+  here: "here"
+  end: "end"
+  orPost: "— or —"
+  post: "just this post"
+  clipboard: "copy url"
 tagSummary:
   start: "start"
 title: "trans time"
