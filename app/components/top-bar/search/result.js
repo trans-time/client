@@ -31,5 +31,5 @@ export default Component.extend(EKMixin, EKOnFocusMixin, {
 
   _navUp: on(keyDown('ArrowUp'), function() {
     this.attrs.navUp();
-  }),
+  })
 });

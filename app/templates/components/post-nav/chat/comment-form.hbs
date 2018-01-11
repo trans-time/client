@@ -7,9 +7,9 @@
 }}
 
   <div class="comment-form-textarea-container">
-    {{#taggable-textarea classNames="comment-form-taggable-textarea"}}
+    {{#taggable-textarea/main classNames="comment-form-taggable-textarea"}}
       {{textarea value=changeset.text placeholder=(t "comments.attributes.text.placeholder") class="comment-form-textarea"}}
-    {{/taggable-textarea}}
+    {{/taggable-textarea/main}}
     {{component h.emojiAssist}}
 
     {{component h.emojiPickerToggler class="comment-form-text-emoji-toggler"}}

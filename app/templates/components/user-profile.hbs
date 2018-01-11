@@ -104,7 +104,7 @@
       <div class="profile-form-textarea-container">
         <div class="profile-description profile-field">
 
-          {{#taggable-textarea classNames="profile-form-taggable-textarea"}}
+          {{#taggable-textarea/main classNames="profile-form-taggable-textarea"}}
 
             {{paper-input
               value=changeset.description
@@ -115,7 +115,7 @@
               errors=changeset.error.description.validation
               class="profile-form-textarea"
             }}
-          {{/taggable-textarea}}
+          {{/taggable-textarea/main}}
         </div>
         {{component h.emojiAssist}}
 

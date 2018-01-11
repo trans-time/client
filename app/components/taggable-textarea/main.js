@@ -4,6 +4,7 @@ import { next } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/string';
 import { task } from 'ember-concurrency';
+import { getCode } from 'ember-keyboard';
 import textareaCaretPosition from 'client/utils/textarea-caret-position';
 
 export default Component.extend({
@@ -29,7 +30,14 @@ export default Component.extend({
     textarea.addEventListener('scroll', this._endSearch.bind(this));
   },
 
-  _currentSelectionSearch() {
+  _currentSelectionSearch(event) {
+    const options = this.get('options');
+    const code = getCode(event);
+
+    if (options && code === 'Escape') return next(() => this._cancel(event.preventDefault()));
+    else if (options && code === 'ArrowDown') return next(() => this._navDown(event.preventDefault()));
+    else if (options && code === 'ArrowUp') return next(() => this._navUp(event.preventDefault()));
+
     const textarea = this.get('textarea');
     const index = textarea.selectionStart;
     const value = textarea.value;
@@ -98,16 +106,55 @@ export default Component.extend({
     return /[a-zA-Z0-9_-]*$/.exec(this.get('textarea').value.slice(startOfWordIndex, endOfWordIndex))[0];
   },
 
+  _cancel() {
+    this._returnFocus(this.get('endOfWordIndex'));
+    this._endSearch();
+  },
+
+  _navDown() {
+    const $items = this.$('.taggable-textarea-option');
+    const focusIndex = $items.index(document.activeElement);
+    const $newItem = $items[focusIndex + 1];
+
+    $newItem ? $newItem.focus() : this._returnFocus(this.get('endOfWordIndex'));
+  },
+
+  _navUp() {
+    const $items = this.$('.taggable-textarea-option');
+    const focusIndex = $items.index(document.activeElement);
+
+    if (focusIndex === -1) $items[$items.length - 1].focus();
+    else if (focusIndex === 0) this._returnFocus(this.get('endOfWordIndex'));
+    else $items[focusIndex - 1].focus();
+  },
+
+  _returnFocus(index) {
+    const textarea = this.get('textarea');
+    textarea.focus();
+    textarea.selectionStart = index;
+    textarea.selectionEnd = textarea.selectionStart;
+  },
+
   actions: {
+    cancel() {
+      this._cancel();
+    },
+
+    navDown() {
+      this._navDown();
+    },
+
+    navUp() {
+      this._navUp();
+    },
+
     select(word) {
       const textarea = this.get('textarea');
       const startOfWordIndex = this.get('startOfWordIndex') + 1;
       const endOfWordIndex = this.get('endOfWordIndex');
 
       textarea.value = `${textarea.value.slice(0, startOfWordIndex)}${word}${textarea.value.slice(endOfWordIndex)}`;
-      textarea.focus();
-      textarea.selectionStart = startOfWordIndex + word.length;
-      textarea.selectionEnd = textarea.selectionStart;
+      this._returnFocus(startOfWordIndex + word.length);
       this._endSearch();
     }
   }
