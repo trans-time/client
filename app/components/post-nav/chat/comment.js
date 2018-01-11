@@ -21,11 +21,25 @@ export default Component.extend({
     return a.get('date') > b.get('date');
   }),
 
+  showAsDeleted: computed('comment.deleted', {
+    get() {
+      const routeComment = this.get('routeComment');
+
+      return this.get('comment.deleted') && !this.get('isRouteComment') && !this.get('comment.children').any((comment) => comment === routeComment);
+    }
+  }),
+
+  isRouteComment: computed('routeComment', 'comment', {
+    get() {
+      return this.get('routeComment') === this.get('comment');
+    }
+  }),
+
   orderedFilteredChildren: computed('orderedChildren.[]', 'currentUser.user.blockers', {
     get() {
       const blockers = this.get('currentUser.user.blockers.content');
 
-      return isEmpty(blockers) || this.get('post.user') === this.get('currentUser.user') ? this.get('orderedChildren') : this.get('orderedChildren').filter((comment) => {
+      return isEmpty(blockers) || this.get('post.user') === this.get('currentUser.user') || this.get('routeComment') ? this.get('orderedChildren') : this.get('orderedChildren').filter((comment) => {
         return !blockers.includes(comment.get('user'));
       });
     }

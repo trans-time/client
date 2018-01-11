@@ -6,10 +6,10 @@
     cancel=(action "stopEditing")
     addComment=(action "stopEditing")
   }}
-{{else if comment.deleted}}
+{{else if showAsDeleted}}
   <div class="comment-content comment-deleted">{{t "comments.deleted"}}</div>
 {{else}}
-  <div class="comment-content">
+  <div class="comment-content {{if isRouteComment 'is-route-comment'}} {{if comment.deleted 'comment-muted'}}">
     <div class="comment-profile">
       {{#link-to "users.user.profile.index" comment.user.username disabled=isCollapsedChild}}<img class="comment-avatar" src={{comment.user.userProfile.avatar}}>{{/link-to}}
       <div class="comment-pronouns">{{comment.user.userProfile.pronouns}}</div>
@@ -54,7 +54,7 @@
 {{#if orderedFilteredChildren}}
   <div class="comment-children">
     {{#each orderedFilteredChildren as |child|}}
-      {{post-nav/chat/comment comment=child isCollapsedChild=childrenAreCollapsed wasClicked=(action "expandChildren") removeComment=(action "removeComment")}}
+      {{post-nav/chat/comment comment=child isCollapsedChild=childrenAreCollapsed routeComment=routeComment wasClicked=(action "expandChildren") removeComment=(action "removeComment")}}
     {{/each}}
 
     {{#if childrenAreCollapsed}}

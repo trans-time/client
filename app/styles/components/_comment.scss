@@ -14,9 +14,19 @@
   margin-bottom: $rhythm;
 }
 
+.is-route-comment {
+  background: $highlight-color;
+  border-radius: $rhythm / 2;
+  padding: $rhythm / 2;
+}
+
 .comment-deleted {
   margin-left: $rhythm;
   color: $light-gray;
+}
+
+.comment-muted {
+  opacity: 0.5;
 }
 
 .comment-content {

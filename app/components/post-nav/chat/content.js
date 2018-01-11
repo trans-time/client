@@ -46,7 +46,7 @@ export default Component.extend({
     });
   },
 
-  orderedComments: sort('ownComments', (a, b) => {
+  orderedComments: sort('filteredComments', (a, b) => {
     return a.get('date') > b.get('date');
   }),
 
@@ -60,9 +60,12 @@ export default Component.extend({
     }
   }),
 
-  ownComments: computed('comments.[]', {
+  filteredComments: computed('comments.[]', {
     get() {
-      return this.get('comments').filter((comment) => isNone(comment.get('parent.content')) && comment.get('shouldDisplay'));
+      const routeComment = this.get('routeComment');
+      return this.get('comments').filter((comment) => {
+        return isNone(comment.get('parent.content')) && (!comment.get('deleted') || comment.get('nondeletedChildren.length') > 0 || comment === routeComment || comment.get('children').includes(routeComment));
+      });
     }
   }),
 
