@@ -153,6 +153,9 @@ export default function() {
     return schema.db.faves.update(request.params.id, JSON.parse(request.requestBody));
   });
   this.del('/faves/:id');
+  this.post('/flags', (schema, request) => {
+    return schema.flags.create(JSON.parse(request.requestBody));
+  });
   this.get('/posts/:id');
   this.patch('/posts/:id', (schema, request) => {
     return schema.db.posts.update(request.params.id, JSON.parse(request.requestBody));

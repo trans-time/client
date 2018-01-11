@@ -1,0 +1,55 @@
+{{#paper-form onSubmit=(action "submit") as |form|}}
+  {{#paper-subheader class="md-no-sticky"}}{{t "flags.report"}}{{/paper-subheader}}
+  {{#paper-checkbox
+    value=changeset.bigotry
+    onChange=(action (mut changeset.bigotry))
+  }}
+    <span class="flag-modal-checkbox-label-name">{{t "flags.attributes.bigotry.name"}}</span> <span class="flag-modal-checkbox-label-description">{{t "flags.attributes.bigotry.description"}}</span>
+  {{/paper-checkbox}}
+
+  {{#paper-checkbox
+    value=changeset.bot
+    onChange=(action (mut changeset.bot))
+  }}
+    <span class="flag-modal-checkbox-label-name">{{t "flags.attributes.bot.name"}}</span> <span class="flag-modal-checkbox-label-description">{{t "flags.attributes.bot.description"}}</span>
+  {{/paper-checkbox}}
+
+  {{#paper-checkbox
+    value=changeset.harassment
+    onChange=(action (mut changeset.harassment))
+  }}
+    <span class="flag-modal-checkbox-label-name">{{t "flags.attributes.harassment.name"}}</span> <span class="flag-modal-checkbox-label-description">{{t "flags.attributes.harassment.description"}}</span>
+  {{/paper-checkbox}}
+
+  {{#paper-checkbox
+    value=changeset.sleaze
+    onChange=(action (mut changeset.sleaze))
+  }}
+    <span class="flag-modal-checkbox-label-name">{{t "flags.attributes.sleaze.name"}}</span> <span class="flag-modal-checkbox-label-description">{{t "flags.attributes.sleaze.description"}}</span>
+  {{/paper-checkbox}}
+
+  {{#paper-checkbox
+    value=changeset.threat
+    onChange=(action (mut changeset.threat))
+  }}
+    <span class="flag-modal-checkbox-label-name">{{t "flags.attributes.threat.name"}}</span> <span class="flag-modal-checkbox-label-description">{{t "flags.attributes.threat.description"}}</span>
+  {{/paper-checkbox}}
+
+  {{#paper-checkbox
+    value=changeset.unmarkedNSFW
+    onChange=(action (mut changeset.unmarkedNSFW))
+  }}
+    <span class="flag-modal-checkbox-label-name">{{t "flags.attributes.unmarkedNSFW.name"}}</span> <span class="flag-modal-checkbox-label-description">{{t "flags.attributes.unmarkedNSFW.description"}}</span>
+  {{/paper-checkbox}}
+
+  {{paper-input
+    value=changeset.text
+    textarea=true
+    block=true
+    label=(t "flags.attributes.text.label")
+    onChange=(action (mut changeset.text))
+    errors=changeset.error.text.validation
+  }}
+
+  {{form-controls form=form cancel=(action "cancel")}}
+{{/paper-form}}

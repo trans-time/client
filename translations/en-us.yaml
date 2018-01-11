@@ -66,6 +66,29 @@ file:
   invalid: "file is invalid"
   progress: "uploading {{length}} files. ({{progress}}%)"
   uploadImages: "upload Images"
+flags:
+  report: "report violation"
+  attributes:
+    bigotry:
+      name: "bigotry"
+      description: "slurs and hate speech; reductive and essentializing statements"
+    bot:
+      name: "bot"
+      description: "content that appears to be made by a bot; spam"
+    harassment:
+      name: "harassment"
+      description: "insults and shaming (except when calling someone out for bigotry or abuse)"
+    sleaze:
+      name: "sleaze"
+      description: "sexual comments without consent"
+    threat:
+      name: "threat"
+      description: "threatening physical, psychological, or social harm"
+    unmarkedNSFW:
+      name: "unmarked NSFW"
+      description: "NSFW content that wasn't marked"
+    text:
+      label: "additional comments"
 followers:
   grant: "grant private access"
   requestedPrivate: "requested private access"
@@ -109,6 +132,7 @@ post:
   none: "sorry, there are no posts to load"
   nsfw: "nsfw"
   private: "private"
+  report: "report"
   viewPost: "view post"
   attributes:
     date:

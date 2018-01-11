@@ -5,8 +5,9 @@ import { next } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { Promise } from 'rsvp';
+import AuthenticatedActionMixin from 'client/mixins/authenticated-action';
 
-export default Component.extend({
+export default Component.extend(AuthenticatedActionMixin, {
   classNames: ['post-nav-post'],
   classNameBindings: ['textExpanded:expanded', 'textRevealed'],
 
@@ -14,6 +15,7 @@ export default Component.extend({
   intl: service(),
   meta: service(),
   modalManager: service(),
+  store: service(),
   user: alias('currentUser.user'),
   usingTouch: alias('meta.usingTouch'),
   swipeState: computed(() => {
@@ -189,6 +191,23 @@ export default Component.extend({
         }).then(() => {
           this.attrs.removePost();
         }).finally(() => this.set('controlsDisabled', false));
+      });
+    },
+
+    report() {
+      this.authenticatedAction().then(() => {
+        new Promise((resolve, reject) => {
+          this.get('modalManager').open('flag-modal', resolve, reject, {
+            flag: this.get('store').createRecord('flag', {
+              user: this.get('currentUser.user'),
+              flaggable: this.get('post')
+            })
+          });
+        }).then((flag) => {
+          this.set('controlsDisabled', true);
+
+          flag.save().finally(() => this.set('controlsDisabled', false));
+        });
       });
     },
 

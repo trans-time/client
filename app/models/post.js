@@ -6,6 +6,7 @@ import Favable from './favable';
 export default Favable.extend({
   user: DS.belongsTo('user', { inverse: 'posts' }),
   comments: DS.hasMany('comment'),
+  flags: DS.hasMany('flag', { inverse: 'flaggable' }),
   panels: DS.hasMany('panel', { polymorphic: true }),
   relationships: DS.hasMany('user', { inverse: false }),
   tags: DS.hasMany('tag'),

@@ -1,6 +1,7 @@
-import { Model, belongsTo } from 'ember-cli-mirage';
+import { belongsTo } from 'ember-cli-mirage';
+import Flaggable from './flaggable';
 
-export default Model.extend({
+export default Flaggable.extend({
   user: belongsTo('user'),
   favable: belongsTo('favable', { polymorphic: true })
 });

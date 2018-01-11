@@ -15,8 +15,8 @@ export default Service.extend({
     if (reject) this.set('reject', reject);
   },
 
-  close(resolveOrReject) {
-    if (resolveOrReject) this.get(resolveOrReject)();
+  close(resolveOrReject, ...args) {
+    if (resolveOrReject) this.get(resolveOrReject)(...args);
 
     this.setProperties({
       componentPath: '',
