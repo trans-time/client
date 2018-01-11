@@ -79,11 +79,7 @@ export default Mixin.create({
       new Promise((resolve, reject) => {
         this.get('modalManager').open('confirmation-modal', resolve, reject, { content: this.get('intl').t('post.cancel') });
       }).then(() => {
-        if (isPresent(model.get('id'))) {
-          this.transitionTo('users.user.timeline', model.get('user'), { queryParams: { postId: model.get('id') } });
-        } else {
-          this.transitionTo('index');
-        }
+        history.back();
       });
     },
 
