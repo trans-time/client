@@ -3,6 +3,7 @@
   classNames="top-bar-search"
   value=value
   performSearch=performSearch
+  cancel=(action "cancel")
   lookupAutocomplete=(action "lookupAutocomplete")
   navDown=(action "navDown")
   navUp=(action "navUp")
@@ -16,6 +17,7 @@
   }}
     {{#each group as |tag|}}
       {{#top-bar/search/result
+        cancel=(action "cancel")
         choose=(action "selectTag" tag.name)
         navDown=(action "navDown")
         navUp=(action "navUp")
@@ -32,6 +34,7 @@
   }}
     {{#each group as |user|}}
       {{#top-bar/search/result
+        cancel=(action "cancel")
         choose=(action "selectUser" user.username)
         navDown=(action "navDown")
         navUp=(action "navUp")
@@ -50,6 +53,7 @@
   }}
     {{#each group as |identity|}}
       {{#top-bar/search/result
+        cancel=(action "cancel")
         choose=(action "selectIdentity" identity.name)
         navDown=(action "navDown")
         navUp=(action "navUp")

@@ -55,7 +55,8 @@ export default Component.extend({
 
     this.setProperties({
       startOfWordIndex,
-      endOfWordIndex
+      endOfWordIndex,
+      cursorIndex: index
     });
   },
 
@@ -107,7 +108,7 @@ export default Component.extend({
   },
 
   _cancel() {
-    this._returnFocus(this.get('endOfWordIndex'));
+    this._returnFocus(this.get('cursorIndex'));
     this._endSearch();
   },
 
@@ -116,7 +117,7 @@ export default Component.extend({
     const focusIndex = $items.index(document.activeElement);
     const $newItem = $items[focusIndex + 1];
 
-    $newItem ? $newItem.focus() : this._returnFocus(this.get('endOfWordIndex'));
+    $newItem ? $newItem.focus() : this._returnFocus(this.get('cursorIndex'));
   },
 
   _navUp() {
@@ -124,7 +125,7 @@ export default Component.extend({
     const focusIndex = $items.index(document.activeElement);
 
     if (focusIndex === -1) $items[$items.length - 1].focus();
-    else if (focusIndex === 0) this._returnFocus(this.get('endOfWordIndex'));
+    else if (focusIndex === 0) this._returnFocus(this.get('cursorIndex'));
     else $items[focusIndex - 1].focus();
   },
 

@@ -21,15 +21,21 @@ export default Component.extend(EKMixin, EKOnFocusMixin, {
     this.attrs.choose();
   },
 
+  _cancel: on(keyDown('Escape'), function() {
+    this.attrs.cancel();
+  }),
+
   _choose: on(keyDown('Enter'), function() {
     this.attrs.choose();
   }),
 
-  _navDown: on(keyDown('ArrowDown'), function() {
+  _navDown: on(keyDown('ArrowDown'), function(event) {
+    event.preventDefault();
     this.attrs.navDown();
   }),
 
-  _navUp: on(keyDown('ArrowUp'), function() {
+  _navUp: on(keyDown('ArrowUp'), function(event) {
+    event.preventDefault();
     this.attrs.navUp();
   })
 });

@@ -9,11 +9,17 @@ export default TextField.extend(EKOnFocusMixin, {
     this.attrs.performSearch();
   }),
 
-  _navDown: on(keyDown('ArrowDown'), function() {
+  _cancel: on(keyDown('Escape'), function() {
+    this.attrs.cancel();
+  }),
+
+  _navDown: on(keyDown('ArrowDown'), function(event) {
+    event.preventDefault();
     this.attrs.navDown();
   }),
 
-  _navUp: on(keyDown('ArrowUp'), function() {
+  _navUp: on(keyDown('ArrowUp'), function(event) {
+    event.preventDefault();
     this.attrs.navUp();
   }),
 
@@ -41,11 +47,12 @@ export default TextField.extend(EKOnFocusMixin, {
     const startOfWordIndex = value.slice(0, index).search(/[\s](?=[^\s]*$)/) + 1;
     let length = value.slice(index).search(/[\s]/);
     length = length === -1 ? undefined : length + index - startOfWordIndex;
+    const endOfWordIndex = length ? startOfWordIndex + length : this.element.value.length;
 
     new Promise((resolve) => {
-      this.attrs.lookupAutocomplete(value.slice(startOfWordIndex, length), resolve);
+      this.attrs.lookupAutocomplete(value.slice(startOfWordIndex, length), index, resolve);
     }).then((word) => {
-      this.element.value = `${this.element.value.slice(0, startOfWordIndex)}${word}${this.element.value.slice(length ? startOfWordIndex + length : this.element.value.length)}`;
+      this.element.value = `${this.element.value.slice(0, startOfWordIndex)}${word}${this.element.value.slice(endOfWordIndex)}`;
       this.element.focus();
       this.element.selectionStart = startOfWordIndex + word.length;
       this.element.selectionEnd = this.element.selectionStart;

@@ -14,10 +14,11 @@ export default Component.extend({
     return {}
   }),
 
-  _searchTask: task(function * (query, resolveSelection) {
+  _searchTask: task(function * (query, cursorIndex, resolveSelection) {
     const results = yield this.get(`_cache.${query}`) || this.get('store').queryRecord('search-query', { query, include: 'identities, tags, users' });
 
     this.setProperties({
+      cursorIndex,
       results,
       resolveSelection
     });
@@ -25,12 +26,25 @@ export default Component.extend({
   }).restartable(),
 
   _clearResults() {
+    this.get('_searchTask').cancelAll();
     this.set('results', undefined);
   },
 
+  _focusInput() {
+    const input = this.element.querySelector('input');
+    input.focus();
+    input.selectionStart = this.get('cursorIndex');
+    input.selectionEnd = input.selectionStart;
+  },
+
   actions: {
-    lookupAutocomplete(query, resolve) {
-      if (isPresent(query)) this.get('_searchTask').perform(query, resolve);
+    cancel() {
+      this._clearResults();
+      this._focusInput();
+    },
+
+    lookupAutocomplete(query, cursorIndex, resolve) {
+      if (isPresent(query)) this.get('_searchTask').perform(query, cursorIndex, resolve);
       else this._clearResults();
     },
 
@@ -39,7 +53,7 @@ export default Component.extend({
       const focusIndex = $items.index(document.activeElement);
       const $newItem = $items[focusIndex + 1];
 
-      ($newItem || this.$('input')).focus();
+      $newItem ? $newItem.focus() : this._focusInput();
     },
 
     navUp() {
@@ -47,7 +61,7 @@ export default Component.extend({
       const focusIndex = $items.index(document.activeElement);
 
       if (focusIndex === -1) $items[$items.length - 1].focus();
-      else if (focusIndex === 0) this.$('input').focus();
+      else if (focusIndex === 0) this._focusInput();
       else $items[focusIndex - 1].focus();
     },
 
