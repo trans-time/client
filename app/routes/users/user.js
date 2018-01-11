@@ -20,7 +20,9 @@ export default Route.extend({
   },
 
   _setTopBar(model) {
-    this.get('topBarManager').setTitleLink(`${model.get('userProfile.displayName')} @${model.get('username')}`, 'users.user.profile.index', model.get('username'));
+    let title = `@${model.get('username')}`;
+    if (model.get('userProfile.displayName')) title = `${model.get('userProfile.displayName')} ${title}`;
+    this.get('topBarManager').setTitleLink(title, 'users.user.profile.index', model.get('username'));
   },
 
   actions: {

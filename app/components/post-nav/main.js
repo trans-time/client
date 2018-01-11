@@ -106,6 +106,12 @@ export default Component.extend({
 
   decoratedPosts: computed(() => A()),
 
+  posts: computed('post', {
+    get() {
+      return A([this.get('post')])
+    }
+  }),
+
   init(...args) {
     this._super(...args);
 

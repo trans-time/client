@@ -41,7 +41,6 @@ export default Mixin.create({
   },
 
   actions: {
-
     deletePost(post, resolve) {
       post.destroyRecord().finally(() => resolve());
     },
