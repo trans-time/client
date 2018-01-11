@@ -25,7 +25,7 @@ export default Component.extend({
     get() {
       const routeComment = this.get('routeComment');
 
-      return this.get('comment.deleted') && !this.get('isRouteComment') && !this.get('comment.children').any((comment) => comment === routeComment);
+      return this.get('comment.deleted') && !this.get('isRouteComment');
     }
   }),
 
