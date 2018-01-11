@@ -14,7 +14,7 @@ export default Service.extend({
     if (!isEmpty(username)) {
       const store = this.get('store');
 
-      return store.queryRecord('user', { username, include: 'followeds, blockeds' }).then((user) => {
+      return store.queryRecord('user', { username, include: 'followeds, blockeds, blockers' }).then((user) => {
         this.set('user', user);
 
         this.get('modalManager').close('resolve');

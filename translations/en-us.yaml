@@ -28,6 +28,7 @@ comments:
   edit: "edit"
   expandOverflow: "expand full text. . . ."
   faves: "comment faves"
+  lackPermission: "<comment hidden>"
   loadMore: "view more. . . ."
   noCommentsYet: "be the first to comment"
   reply: "reply"

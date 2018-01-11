@@ -2,15 +2,15 @@ import { A } from '@ember/array';
 import { computed } from '@ember/object';
 import { sort } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
-import { isNone } from '@ember/utils';
+import { isEmpty, isNone } from '@ember/utils';
 import Component from '@ember/component';
 
 export default Component.extend({
   classNames: ['comments'],
 
-  store: service(),
-
+  currentUser: service(),
   messageBus: service(),
+  store: service(),
 
   init(...args) {
     this._super(...args);
@@ -48,6 +48,16 @@ export default Component.extend({
 
   orderedComments: sort('ownComments', (a, b) => {
     return a.get('date') > b.get('date');
+  }),
+
+  orderedFilteredComments: computed('orderedComments.[]', 'currentUser.user.blockers', {
+    get() {
+      const blockers = this.get('currentUser.user.blockers.content');
+
+      return isEmpty(blockers) || this.get('post.user') === this.get('currentUser.user') ? this.get('orderedComments') : this.get('orderedComments').filter((comment) => {
+        return !blockers.includes(comment.get('user'));
+      });
+    }
   }),
 
   ownComments: computed('comments.[]', {

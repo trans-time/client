@@ -54,6 +54,11 @@ export default function(server) {
     });
   });
 
+  server.create('block', {
+    blockerId: 2,
+    blockedId: currentUser.id
+  });
+
   server.db.posts.forEach((post, index) => {
     post.relationshipIds = [...Array(faker.random.number(3))].map(() => {
       return faker.random.number(server.db.users.length - 1) + 1;

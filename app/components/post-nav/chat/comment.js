@@ -2,7 +2,7 @@ import { computed } from '@ember/object';
 import { filter, sort } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { next } from '@ember/runloop';
-import { isPresent } from '@ember/utils';
+import { isEmpty, isPresent } from '@ember/utils';
 import Component from '@ember/component';
 
 export default Component.extend({
@@ -19,6 +19,16 @@ export default Component.extend({
 
   orderedChildren: sort('visibleChildren', (a, b) => {
     return a.get('date') > b.get('date');
+  }),
+
+  orderedFilteredChildren: computed('orderedChildren.[]', 'currentUser.user.blockers', {
+    get() {
+      const blockers = this.get('currentUser.user.blockers.content');
+
+      return isEmpty(blockers) || this.get('post.user') === this.get('currentUser.user') ? this.get('orderedChildren') : this.get('orderedChildren').filter((comment) => {
+        return !blockers.includes(comment.get('user'));
+      });
+    }
   }),
 
   textIsOverflown: computed('comment.text', 'overflowIsExpanded', {
