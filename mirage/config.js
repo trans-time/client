@@ -68,6 +68,8 @@ export default function() {
   this.post('/follows');
   this.delete('/follows/:id');
   this.patch('/follows/:id');
+  this.post('/blocks');
+  this.delete('/blocks/:id');
   this.get('/comments', (schema, request) => {
     return schema.comments.where({ postId: request.queryParams.postId });
   });

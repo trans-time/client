@@ -3,6 +3,8 @@ import DS from 'ember-data';
 import { computed } from '@ember/object';
 
 export default DS.Model.extend({
+  blockeds: DS.hasMany('block', { inverse: 'blocker' }),
+  blockers: DS.hasMany('block', { inverse: 'blocked' }),
   comments: DS.hasMany('comment'),
   faves: DS.hasMany('fav'),
   followeds: DS.hasMany('follow', { inverse: 'follower' }),

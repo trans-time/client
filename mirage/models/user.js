@@ -1,6 +1,8 @@
 import { Model, hasMany, belongsTo } from 'ember-cli-mirage';
 
 export default Model.extend({
+  blockers: hasMany('block', { inverse: 'blocked' }),
+  blockeds: hasMany('block', { inverse: 'blocker' }),
   comments: hasMany('comment'),
   faves: hasMany('fav'),
   followers: hasMany('follow', { inverse: 'followed' }),

@@ -70,6 +70,19 @@ export default Component.extend(AuthenticatedActionMixin, {
     }
   }),
 
+  currentBlock: computed('currentUserModel.blockeds.[]', 'user.id', {
+    get() {
+      const userId = this.get('user.id');
+      const currentUser = this.get('currentUserModel');
+
+      if (isBlank(currentUser) || currentUser.hasMany('blockeds').value() === null) return;
+
+      return currentUser.get('blockeds').find((block) => {
+        return block.belongsTo('blocked').id() === userId;
+      });
+    }
+  }),
+
   currentFollow: computed('currentUserModel.followeds.[]', 'user.id', {
     get() {
       const userId = this.get('user.id');
@@ -140,6 +153,14 @@ export default Component.extend(AuthenticatedActionMixin, {
   },
 
   actions: {
+    block() {
+      this.authenticatedAction().then(() => {
+        this._disableFollowUntilResolved((resolve) => {
+          this.attrs.block(this.get('user'), resolve);
+        });
+      });
+    },
+
     cancelEditing() {
       this._stopEditing();
     },
@@ -168,6 +189,12 @@ export default Component.extend(AuthenticatedActionMixin, {
       this.set('changeset', new Changeset(this.get('user.userProfile'), lookupValidator(ProfileValidations), ProfileValidations));
       this.get('changeset').validate();
       this.set('isEditing', true);
+    },
+
+    unblock() {
+      this._disableFollowUntilResolved((resolve) => {
+        this.attrs.unblock(this.get('currentBlock'), resolve);
+      });
     },
 
     unfollow() {

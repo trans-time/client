@@ -118,6 +118,7 @@ post:
     text:
       placeholder: "what's up?"
 profile:
+  block: "block"
   cancel: "cancel"
   changeAvatar: "change your avatar"
   edit: "edit profile"
@@ -130,6 +131,7 @@ profile:
   profile: "profile"
   requestPrivate: "request <i class='fa fa-unlock'></i>"
   save: "save"
+  unblock: "unblock"
   unfollow: "unfollow"
   unfollowConfirmation: "are you sure you want to unfollow {username}? if you've been granted access to private posts, that will be lost."
   attributes:

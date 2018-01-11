@@ -8,6 +8,17 @@ export default Route.extend({
   currentUserModel: alias('currentUser.user'),
 
   actions: {
+    block(blocked, resolve) {
+      const blocker = this.get('currentUserModel');
+
+      this.store.createRecord('block', {
+        blocked,
+        blocker
+      }).save().finally(() => {
+        resolve();
+      });
+    },
+
     follow(followed, resolve) {
       const follower = this.get('currentUserModel');
 
@@ -25,6 +36,14 @@ export default Route.extend({
       follow.set('requestedPrivate', true);
 
       follow.save().finally(() => {
+        resolve();
+      });
+    },
+
+    unblock(block, resolve) {
+      if (isBlank(block)) return resolve();
+
+      block.destroyRecord().finally(() => {
         resolve();
       });
     },
