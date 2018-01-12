@@ -4,16 +4,19 @@ import { inject as service } from '@ember/service';
 import { next } from '@ember/runloop';
 import { isEmpty, isPresent } from '@ember/utils';
 import Component from '@ember/component';
+import { Promise } from 'rsvp';
+import AuthenticatedActionMixin from 'client/mixins/authenticated-action';
 
-export default Component.extend({
+export default Component.extend(AuthenticatedActionMixin, {
   classNames: ['comment'],
   classNameBindings: ['isCollapsedChild'],
 
   childrenAreCollapsed: true,
 
   currentUser: service(),
-  modalManager: service(),
   intl: service(),
+  modalManager: service(),
+  store: service(),
 
   visibleChildren: filter('comment.children', (comment) => !comment.get('isNew') && comment.get('shouldDisplay')),
 
@@ -114,6 +117,19 @@ export default Component.extend({
 
     reply() {
       this.set('replying', true);
+    },
+
+    report() {
+      this.authenticatedAction().then(() => {
+        new Promise((resolve, reject) => {
+          this.get('modalManager').open('flag-modal', resolve, reject, {
+            flag: this.get('store').createRecord('flag', {
+              user: this.get('currentUser.user'),
+              flaggable: this.get('comment')
+            })
+          });
+        });
+      });
     },
 
     closeReply() {

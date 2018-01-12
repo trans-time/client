@@ -32,6 +32,8 @@
         {{#if (eq currentUser.user.id comment.user.id)}}
           | <a {{action "startEditing"}} disabled={{deleteDisabled}}>{{t "comments.edit"}}</a>
           | <a {{action "delete" comment}} disabled={{deleteDisabled}}>{{t "comments.delete"}}</a>
+        {{else}}
+          | <a {{action "report"}}>{{t "comments.report"}}</a>
         {{/if}}
       </div>
     </div>

@@ -14,7 +14,9 @@
         {{#if post.private}}
           | {{t "post.private"}}
         {{/if}}
-        | <a {{action "report"}} disabled={{controlsDisabled}} tabindex="0" class="link">{{t "post.report"}}</a>
+        {{#if (not-eq post.user.id user.id)}}
+          | <a {{action "report"}} disabled={{controlsDisabled}} tabindex="0" class="link">{{t "post.report"}}</a>
+        {{/if}}
       </div>
     </div>
 
