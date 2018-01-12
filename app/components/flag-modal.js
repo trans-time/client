@@ -15,7 +15,9 @@ const FlagValidations = {
 export default Component.extend({
   classNames: ['main-modal-content'],
 
+  intl: service(),
   modalManager: service(),
+  paperToaster: service(),
 
   didReceiveAttrs(...args) {
     this._super(...args);
@@ -30,7 +32,16 @@ export default Component.extend({
     },
 
     submit() {
-      this.get('modalManager').close('resolve', this.get('changeset'));
+      this.get('changeset').save().then(() => {
+        this.get('modalManager').close('resolve');
+        this.get('paperToaster').show(this.get('intl').t('flags.successful'), {
+          duration: 4000
+        });
+      }).catch(() => {
+        this.get('paperToaster').show(this.get('intl').t('flags.unsuccessful'), {
+          duration: 4000
+        });
+      });
     }
   }
 });

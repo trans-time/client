@@ -203,10 +203,6 @@ export default Component.extend(AuthenticatedActionMixin, {
               flaggable: this.get('post')
             })
           });
-        }).then((flag) => {
-          this.set('controlsDisabled', true);
-
-          flag.save().finally(() => this.set('controlsDisabled', false));
         });
       });
     },

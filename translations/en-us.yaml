@@ -68,6 +68,8 @@ file:
   uploadImages: "upload Images"
 flags:
   report: "report violation"
+  successful: "report successfully submitted"
+  unsuccessful: "something went wrong, but please try again in a few minutes"
   attributes:
     bigotry:
       name: "bigotry"
