@@ -9,9 +9,11 @@ export default DS.Model.extend({
   faves: DS.hasMany('fav'),
   followeds: DS.hasMany('follow', { inverse: 'follower' }),
   followers: DS.hasMany('follow', { inverse: 'followed' }),
+  indictions: DS.hasMany('violation-report', { inverse: 'indicted' }),
   posts: DS.hasMany('post', { async: true, inverse: 'user' }),
   userIdentities: DS.hasMany('user-identity'),
   userProfile: DS.belongsTo('user-profile'),
+  violationReports: DS.hasMany('violation-report', { inverse: 'moderator' }),
 
   username: DS.attr('string'),
 

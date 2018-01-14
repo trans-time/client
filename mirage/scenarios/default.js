@@ -116,5 +116,22 @@ export default function(server) {
     }, [])).uniq();
 
     server.db.userTagSummaries.update(userTagSummary.id, userTagSummary);
-  })
+  });
+
+  const violatingPost = server.db.posts.find(30);
+  const violatingComment = server.db.comments.find(60);
+
+  server.create('violation-report', {
+    flagIds: server.createList('flag', 5).map((flag) => flag.id),
+    moderatorId: 1,
+    flaggableId: { type: 'post', id: violatingPost.id },
+    indictedId: violatingPost.userId
+  });
+
+  server.create('violation-report', {
+    flagIds: server.createList('flag', 5).map((flag) => flag.id),
+    moderatorId: 1,
+    flaggableId: { type: 'comment', id: violatingComment.id },
+    indictedId: violatingComment.userId
+  });
 }

@@ -36,6 +36,13 @@
   {{/paper-checkbox}}
 
   {{#paper-checkbox
+    value=changeset.unconsentingImage
+    onChange=(action (mut changeset.unconsentingImage))
+  }}
+    <span class="flag-modal-checkbox-label-name">{{t "flags.attributes.unconsentingImage.name"}}</span> <span class="flag-modal-checkbox-label-description">{{t "flags.attributes.unconsentingImage.description"}}</span>
+  {{/paper-checkbox}}
+
+  {{#paper-checkbox
     value=changeset.unmarkedNSFW
     onChange=(action (mut changeset.unmarkedNSFW))
   }}
