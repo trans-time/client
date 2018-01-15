@@ -55,3 +55,42 @@
     margin-top: 0;
   }
 }
+
+.moderation-panel {
+  display: flex;
+  flex-direction: column;
+  padding: $rhythm;
+  max-height: 45%;
+  overflow-x: auto;
+  border-top: thin solid $dark-gray;
+}
+
+.moderation-panel-flags {
+  overflow-x: auto;
+}
+
+.moderation-panel-flag-count {
+  font-weight: bold;
+  margin-bottom: $rhythm;
+}
+
+.moderation-panel-comment {
+  border-top: thin solid $light-gray;
+}
+
+.moderation-panel-form {
+  flex-shrink: 0;
+  margin-top: $rhythm;
+
+  textarea {
+    max-height: 100px;
+  }
+}
+
+.moderation-panel-controls {
+  display: flex;
+
+  button {
+    flex-grow: 1;
+  }
+}

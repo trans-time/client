@@ -120,7 +120,7 @@ export default function(server) {
   });
 
   const violatingPost = server.db.posts.find(30);
-  const violatingComment = server.db.comments.find(60);
+  const violatingComment = server.db.comments.find(10);
 
   server.create('violation-report', {
     flagIds: server.createList('flag', 5).map((flag) => flag.id),

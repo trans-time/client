@@ -6,7 +6,7 @@ export default DS.Model.extend({
   indicted: DS.belongsTo('user', { inverse: 'indictions' }),
   moderator: DS.belongsTo('user', { inverse: 'violationReports' }),
 
-  moderatorComment: DS.attr('text'),
+  moderatorComment: DS.attr('string'),
   resolved: DS.attr('boolean'),
   wasViolation: DS.attr('boolean')
 });

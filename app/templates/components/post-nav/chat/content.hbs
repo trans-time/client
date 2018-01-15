@@ -1,7 +1,7 @@
 <div class="comments-container">
   {{#if isLoaded}}
     {{#each orderedFilteredComments as |comment|}}
-      {{post-nav/chat/comment comment=comment post=post isCollapsedChild=false routeComment=routeComment removeComment=(action "removeComment")}}
+      {{post-nav/chat/comment comment=comment post=post isCollapsedChild=false routeComment=routeComment isModerating=isModerating removeComment=(action "removeComment")}}
     {{else}}
       <div class="post-nav-chat-spinner post-nav-first-to-comment">
         {{t "comments.noCommentsYet"}}

@@ -200,4 +200,8 @@ export default function() {
     return schema.db.userIdentities.update(id, body);
   });
   this.get('/violation-reports');
+  this.get('/violation-reports/:id');
+  this.patch('/violation-reports/:id', (schema, request) => {
+    return schema.db.violationReports.update(request.params.id, JSON.parse(request.requestBody));
+  });
 }

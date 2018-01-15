@@ -1,0 +1,38 @@
+<div class="moderation-panel-flags">
+  <div class="moderation-panel-flag-count">
+    {{#each-in violations as |type amount|}}
+      {{type}}: {{amount}};
+    {{/each-in}}
+  </div>
+
+  {{#each additionalComments as |text|}}
+    <div class="moderation-panel-comment">{{rich-text text=text}}</div>
+  {{/each}}
+</div>
+
+<div class="moderation-panel-form">
+  {{#paper-form as |form|}}
+    {{paper-input
+      value=changeset.moderatorComment
+      textarea=true
+      block=true
+      label=(t "violationReport.attributes.moderatorComment.label")
+      onChange=(action (mut changeset.moderatorComment))
+      errors=changeset.error.moderatorComment.validation
+    }}
+
+    <div class="moderation-panel-controls">
+      {{paper-button
+        raised=true
+        label=(t "moderation.notViolation")
+        onClick=(action "markAsNotViolation")
+      }}
+
+      {{paper-button
+        raised=true
+        label=(t "moderation.violation")
+        onClick=(action "markAsViolation")
+      }}
+    </div>
+  {{/paper-form}}
+</div>

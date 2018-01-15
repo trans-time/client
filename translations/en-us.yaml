@@ -123,6 +123,9 @@ identities:
       label: "start date"
 moderation:
   moderation: "moderation"
+  notViolation: "not violation"
+  report: "report"
+  violation: "violation"
 nsfw:
   confirmation: "by clicking confirm, i agree that i am familiar with local laws concerning viewing nudity on the internet and accept all responsibility for viewing it on <em>trans time</em>."
   enable: "enable"
@@ -201,3 +204,9 @@ users:
       label: "password"
     username:
       label: "username"
+violationReport:
+  successful: "report successfully submitted"
+  unsuccessful: "something went wrong, but please try again in a few minutes"
+  attributes:
+    moderatorComment:
+      label: "comment"

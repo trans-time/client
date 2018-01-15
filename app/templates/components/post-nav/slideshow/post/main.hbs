@@ -47,14 +47,17 @@
     scrollLocked=(not-eq navState.progress 0)
     classNames="main-layout-constraint"
     removePost=removePost
+    isModerating=isModerating
     deletePost=(route-action "deletePost")
   }}
 
-  {{post-nav/slideshow/post/controls/main
-    post=post.model
-    isCurrentPost=isCurrentPost
-    fullShare=fullShare
-    classNames="main-layout-constraint"
-    toggleChat=(action "toggleChat")
-  }}
+  {{#if (not isModerating)}}
+    {{post-nav/slideshow/post/controls/main
+      post=post.model
+      isCurrentPost=isCurrentPost
+      fullShare=fullShare
+      classNames="main-layout-constraint"
+      toggleChat=(action "toggleChat")
+    }}
+  {{/if}}
 {{/if}}

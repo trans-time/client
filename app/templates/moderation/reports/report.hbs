@@ -1,1 +1,26 @@
-{{outlet}}
+{{#if isComment}}
+  {{post-nav/main
+    post=model.flaggable.post
+    routeComment=model.flaggable.content
+    commentsAreOpen=true
+    isModerating=true
+    action="loadMorePosts"
+    changePost=(action "changePost")
+    openComments=(action "openComments")
+    closeComments=(action "closeComments")
+  }}
+{{else}}
+  {{post-nav/main
+    post=model.flaggable
+    commentsAreOpen=false
+    isModerating=true
+    action="loadMorePosts"
+    changePost=(action "changePost")
+    openComments=(action "openComments")
+    closeComments=(action "closeComments")
+  }}
+{{/if}}
+
+{{moderation-panel
+  report=model
+}}

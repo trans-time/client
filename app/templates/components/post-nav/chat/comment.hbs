@@ -56,7 +56,7 @@
 {{#if orderedFilteredChildren}}
   <div class="comment-children">
     {{#each orderedFilteredChildren as |child|}}
-      {{post-nav/chat/comment comment=child isCollapsedChild=childrenAreCollapsed routeComment=routeComment wasClicked=(action "expandChildren") removeComment=(action "removeComment")}}
+      {{post-nav/chat/comment comment=child isCollapsedChild=childrenAreCollapsed routeComment=routeComment isModerating=isModerating wasClicked=(action "expandChildren") removeComment=(action "removeComment")}}
     {{/each}}
 
     {{#if childrenAreCollapsed}}
