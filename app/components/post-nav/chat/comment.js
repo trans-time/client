@@ -101,6 +101,10 @@ export default Component.extend(AuthenticatedActionMixin, {
       });
     },
 
+    hideHistory() {
+      this.set('historyIsRevealed', false);
+    },
+
     removeComment(comment) {
       this.attrs.removeComment(comment);
     },
@@ -141,6 +145,10 @@ export default Component.extend(AuthenticatedActionMixin, {
 
     stopEditing() {
       this.set('isEditing', false);
+    },
+
+    viewHistory() {
+      this.set('historyIsRevealed', true);
     }
   }
 });

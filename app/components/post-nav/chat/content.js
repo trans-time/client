@@ -36,7 +36,9 @@ export default Component.extend({
   },
 
   _loadComments() {
-    this.get('store').query('comment', { postId: this.get('post.id'), include: 'user, user.userProfile' }).then((comments) => {
+    let include = 'user, user.userProfile';
+    if (this.get('isModerating')) include += ', textVersions';
+    this.get('store').query('comment', { postId: this.get('post.id'), include }).then((comments) => {
       this.setProperties({
         comments: A(comments.toArray()),
         isLoaded: true

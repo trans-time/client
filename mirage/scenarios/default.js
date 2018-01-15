@@ -129,6 +129,13 @@ export default function(server) {
 
   server.db.posts.update(violatingPost.id, violatingPost);
 
+  violatingComment.textVersionIds = server.createList('text-version', 4, {
+    attribute: 'text',
+    flaggableId: { type: 'comment', id: violatingComment.id }
+  }).map((version) => version.id);
+
+  server.db.comments.update(violatingComment.id, violatingComment);
+
   server.create('violation-report', {
     flagIds: server.createList('flag', 5).map((flag) => flag.id),
     moderatorId: 1,

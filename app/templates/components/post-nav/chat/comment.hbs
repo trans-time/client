@@ -17,6 +17,15 @@
 
     <div class="comment-main">
       <div class="comment-text {{if textIsOverflown 'comment-text-is-overflown'}}">
+        {{#if historyIsRevealed}}
+          {{#each comment.textVersions as |textVersion|}}
+            <div class="post-nav-post-text-version">
+              <div>{{sometimes-relative-date date=textVersion.date}}</div>
+              {{rich-text text=textVersion.text}}
+            </div>
+          {{/each}}
+        {{/if}}
+
         {{#rich-text text=comment.text}}
           {{#link-to "users.user.profile.index" comment.user.username class="comment-user-link" disabled=isCollapsedChild classNames="comment-username-link"}}{{#if comment.user.userProfile.displayName}}{{{inject-emoji comment.user.userProfile.displayName}}} {{/if}}<span class="at-username">@{{comment.user.username}}</span>{{/link-to}}
         {{/rich-text}}
@@ -32,8 +41,15 @@
         {{#if (eq currentUser.user.id comment.user.id)}}
           | <a {{action "startEditing"}} disabled={{deleteDisabled}}>{{t "comments.edit"}}</a>
           | <a {{action "delete" comment}} disabled={{deleteDisabled}}>{{t "comments.delete"}}</a>
-        {{else}}
+        {{else if (not isModerating)}}
           | <a {{action "report"}}>{{t "comments.report"}}</a>
+        {{/if}}
+        {{#if (and isModerating (gt comment.textVersions.length 1))}}
+          {{#if historyIsRevealed}}
+            | <a {{action "hideHistory"}} tabindex="0">{{t "post.hideHistory"}}</a>
+          {{else}}
+            | <a {{action "viewHistory"}} tabindex="0">{{t "post.history"}} ({{comment.textVersions.length}})</a>
+          {{/if}}
         {{/if}}
       </div>
     </div>
