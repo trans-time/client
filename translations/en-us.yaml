@@ -138,6 +138,8 @@ post:
   deleteConfirmation: "are you sure you want to delete this post?"
   edit: "edit post"
   faves: "post faves"
+  hideHistory: "hide history"
+  history: "history"
   more: "more"
   new: "new post"
   none: "sorry, there are no posts to load"

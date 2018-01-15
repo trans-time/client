@@ -14,11 +14,27 @@
         {{#if post.private}}
           | {{t "post.private"}}
         {{/if}}
-        {{#if (not-eq post.user.id user.id)}}
+        {{#if (and (not isModerating) (not-eq post.user.id user.id))}}
           | <a {{action "report"}} disabled={{controlsDisabled}} tabindex="0" class="link">{{t "post.report"}}</a>
+        {{/if}}
+        {{#if (and isModerating (gt post.textVersions.length 1))}}
+          {{#if historyIsRevealed}}
+            | <a {{action "hideHistory"}} tabindex="0" class="link">{{t "post.hideHistory"}}</a>
+          {{else}}
+            | <a {{action "viewHistory"}} tabindex="0" class="link">{{t "post.history"}} ({{post.textVersions.length}})</a>
+          {{/if}}
         {{/if}}
       </div>
     </div>
+
+    {{#if historyIsRevealed}}
+      {{#each post.textVersions as |textVersion|}}
+        <div class="post-nav-post-text-version">
+          <div>{{sometimes-relative-date date=textVersion.date}}</div>
+          {{rich-text text=textVersion.text}}
+        </div>
+      {{/each}}
+    {{/if}}
 
     {{rich-text text=post.text}}
 </div>

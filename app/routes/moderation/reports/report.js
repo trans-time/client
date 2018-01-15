@@ -6,7 +6,9 @@ export default Route.extend({
   topBarManager: service(),
 
   model(params) {
-    return this.store.findRecord('violation-report', params.id, { include: 'flags, flaggable, flaggable.user, flaggable.panels, flaggable.post, flaggable.post.panels, flaggable.post.user' });
+    return this.store.findRecord('violation-report', params.id, {
+      include: 'flags, flaggable, flaggable.textVersions, flaggable.user, flaggable.panels, flaggable.post, flaggable.post.textVersions, flaggable.post.panels, flaggable.post.user'
+    });
   },
 
   afterModel() {

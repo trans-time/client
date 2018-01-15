@@ -194,6 +194,10 @@ export default Component.extend(AuthenticatedActionMixin, {
       });
     },
 
+    hideHistory() {
+      this.set('historyIsRevealed', false);
+    },
+
     report() {
       this.authenticatedAction().then(() => {
         new Promise((resolve, reject) => {
@@ -209,6 +213,10 @@ export default Component.extend(AuthenticatedActionMixin, {
 
     revealText() {
       this.set('userRevealedText', true);
+    },
+
+    viewHistory() {
+      this.set('historyIsRevealed', true);
     }
   }
 });

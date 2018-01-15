@@ -12,6 +12,11 @@
   z-index: 3;
   transition: flex-shrink 500ms ease-out;
 
+  .post-nav-post-text-version {
+    border-bottom: thin solid $light-gray;
+    margin-bottom: $rhythm;
+  }
+
   .post-nav-post-text {
     overflow-x: hidden;
     overflow-y: auto;

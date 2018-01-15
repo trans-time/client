@@ -122,6 +122,13 @@ export default function(server) {
   const violatingPost = server.db.posts.find(30);
   const violatingComment = server.db.comments.find(10);
 
+  violatingPost.textVersionIds = server.createList('text-version', 4, {
+    attribute: 'text',
+    flaggableId: { type: 'post', id: violatingPost.id }
+  }).map((version) => version.id);
+
+  server.db.posts.update(violatingPost.id, violatingPost);
+
   server.create('violation-report', {
     flagIds: server.createList('flag', 5).map((flag) => flag.id),
     moderatorId: 1,
