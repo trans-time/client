@@ -1,0 +1,57 @@
+.violation-report-items {
+  margin: 0;
+  padding: 0 $rhythm;
+  list-style-type: none;
+}
+
+.violation-report-item {
+  height: 60px;
+  width: 100%;
+  overflow: hidden;
+  margin: $rhythm 0;
+}
+
+.violation-report-item-link {
+  display: flex;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.violation-report-item-avatar {
+  height: 100%;
+  object-fit: cover;
+  border-radius: $rhythm;
+  margin-right: $rhythm;
+}
+
+.violation-report-item-text {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.violation-report-item-username {
+  flex-shrink: 0;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 17px;
+  font-size: 80%;
+}
+
+.violation-report-item-secondary-title {
+  color: $medium-gray;
+  font-size: 80%;
+  vertical-align: middle;
+}
+
+.violation-report-item-description {
+  font-size: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  p:first-child {
+    margin-top: 0;
+  }
+}

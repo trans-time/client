@@ -26,6 +26,11 @@ export default Component.extend({
       this.get('router').transitionTo('account');
     },
 
+    toModeration() {
+      this.attrs.toggleMenu();
+      this.get('router').transitionTo(this.get('currentUser.user.isModerator') ? 'moderation.reports' : 'moderation.flags');
+    },
+
     toProfile() {
       this.attrs.toggleMenu();
       this.get('router').transitionTo('users.user.profile', this.get('currentUser.user.username'));

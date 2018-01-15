@@ -153,6 +153,7 @@ export default function() {
     return schema.db.faves.update(request.params.id, JSON.parse(request.requestBody));
   });
   this.del('/faves/:id');
+  this.get('/flags');
   this.post('/flags', (schema, request) => {
     return schema.flags.create(JSON.parse(request.requestBody));
   });
@@ -198,4 +199,5 @@ export default function() {
 
     return schema.db.userIdentities.update(id, body);
   });
+  this.get('/violation-reports');
 }

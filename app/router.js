@@ -34,6 +34,14 @@ Router.map(function() {
       this.route('faves');
     });
   });
+  this.route('moderation', function() {
+    this.route('flags', function() {
+      this.route('flag', { path: '/:id'} );
+    });
+    this.route('reports', function() {
+      this.route('report', { path: '/:id'} );
+    });
+  });
 });
 
 export default Router;

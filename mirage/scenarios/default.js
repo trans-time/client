@@ -36,7 +36,8 @@ export default function(server) {
 
   const currentUser = server.create('user', {
     posts,
-    username: 'celeste'
+    username: 'celeste',
+    isModerator: true
   });
   server.createList('user', 3);
 

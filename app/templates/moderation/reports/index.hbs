@@ -1,0 +1,7 @@
+<ul id="infinite_content" class="violation-report-items main-content">
+  {{#each model as |report|}}
+    {{violation-report-item report=report}}
+  {{/each}}
+
+  {{infinity-loader infinityModel=model scrollable="#infinite_content"}}
+</ul>
