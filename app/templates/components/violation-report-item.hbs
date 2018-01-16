@@ -15,6 +15,12 @@
     {{#if report.resolved}}
       {{#if report.wasViolation}}
         {{t "moderation.violation"}}
+        {{#if report.actionDeletedFlaggable}}
+          <div>{{t "moderation.deletedContent"}}</div>
+        {{/if}}
+        {{#if report.actionBannedUser}}
+          <div>{{t "moderation.bannedUser"}}</div>
+        {{/if}}
       {{else}}
         {{t "moderation.notViolation"}}
       {{/if}}

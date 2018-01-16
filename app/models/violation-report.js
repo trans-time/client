@@ -8,5 +8,8 @@ export default DS.Model.extend({
 
   moderatorComment: DS.attr('string'),
   resolved: DS.attr('boolean'),
-  wasViolation: DS.attr('boolean')
+  wasViolation: DS.attr('boolean'),
+
+  actionDeletedFlaggable: DS.attr('boolean'),
+  actionBannedUser: DS.attr('boolean')
 });

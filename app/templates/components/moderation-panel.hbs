@@ -35,6 +35,22 @@
 
 <div class="moderation-panel-form">
   {{#paper-form as |form|}}
+    <div class="moderation-panel-checkboxes">
+      {{#paper-checkbox
+        value=changeset.actionDeletedFlaggable
+        onChange=(action (mut changeset.actionDeletedFlaggable))
+      }}
+        {{t "moderation.deleteFlaggable"}}
+      {{/paper-checkbox}}
+
+      {{#paper-checkbox
+        value=changeset.actionBannedUser
+        onChange=(action (mut changeset.actionBannedUser))
+      }}
+        {{t "moderation.banUser"}}
+      {{/paper-checkbox}}
+    </div>
+
     {{paper-input
       value=changeset.moderatorComment
       textarea=true
@@ -42,6 +58,7 @@
       label=(t "violationReport.attributes.moderatorComment.label")
       onChange=(action (mut changeset.moderatorComment))
       errors=changeset.error.moderatorComment.validation
+      classNames="moderation-panel-comment-field"
     }}
 
     <div class="moderation-panel-controls">

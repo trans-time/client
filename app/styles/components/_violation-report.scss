@@ -41,8 +41,16 @@
 
 .violation-report-item-status {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-weight: bold;
+
+  div {
+    margin-top: $rhythm / 5;
+    font-size: 55%;
+    font-weight: normal;
+  }
 }
 
 .violation-report-item-username {
@@ -106,6 +114,18 @@
 .moderation-panel-form {
   flex-shrink: 0;
   margin-top: $rhythm;
+}
+
+.moderation-panel-checkboxes {
+  display: flex;
+  justify-content: space-between;
+  margin-top: $rhythm;
+}
+
+.moderation-panel-comment-field {
+  .md-errors-spacer {
+    display: none;
+  }
 
   textarea {
     max-height: 100px;

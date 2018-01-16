@@ -122,7 +122,11 @@ identities:
     startDate:
       label: "start date"
 moderation:
+  banUser: "ban user"
+  bannedUser: "banned user"
   contractComments: "hide flags"
+  deleteFlaggable: "delete content"
+  deletedContent: "deleted content"
   expandComments: "show flags"
   flags: "flags"
   moderation: "moderation"
