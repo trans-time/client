@@ -1,1 +1,12 @@
-{{outlet}}
+<div class="moderation-controls">
+  {{#link-to "moderation.reports.index"}}{{t "moderation.reports"}}{{/link-to}}
+  {{#link-to "moderation.flags.index"}}{{t "moderation.flags"}}{{/link-to}}
+</div>
+
+<ul id="infinite_content" class="violation-report-items main-content">
+  {{#each model as |flag|}}
+    {{flag-item flag=flag}}
+  {{/each}}
+
+  {{infinity-loader infinityModel=model scrollable="#infinite_content"}}
+</ul>

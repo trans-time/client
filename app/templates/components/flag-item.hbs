@@ -1,0 +1,22 @@
+{{#link-to "moderation.flags.flag" flag class="flag-item-link"}}
+  <div class="flag-item-text">
+    {{#each violations as |type|}}
+      <span class="flag-item-violation">{{fa-icon "check-square"}}{{type}}</span>
+    {{/each}}
+
+    {{#if flag.text}}
+      {{rich-text text=flag.text class="flag-item-comment"}}
+    {{/if}}
+  </div>
+  <div class="flag-item-status">
+    {{#if flag.report.resolved}}
+      {{#if flag.report.wasViolation}}
+        {{t "moderation.violation"}}
+      {{else}}
+        {{t "moderation.notViolation"}}
+      {{/if}}
+    {{else}}
+      {{t "moderation.pending"}}
+    {{/if}}
+  </div>
+{{/link-to}}

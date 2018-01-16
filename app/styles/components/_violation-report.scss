@@ -1,3 +1,11 @@
+.moderation-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: $rhythm;
+  border-bottom: thin solid $light-gray;
+}
+
 .violation-report-items {
   margin: 0;
   padding: 0 $rhythm;
@@ -110,4 +118,41 @@
   button {
     flex-grow: 1;
   }
+}
+
+.flag-item {
+  border-bottom: thin solid $dark-gray;
+  margin-top: $rhythm;
+}
+
+.flag-item-link {
+  display: flex;
+  text-decoration: none;
+  color: $text-color;
+}
+
+.flag-item-text {
+  flex-grow: 1;
+}
+
+.flag-item-violation {
+  font-weight: bold;
+  margin-right: $rhythm / 2;
+  white-space: nowrap;
+  line-height: 120%;
+
+  i {
+    margin-right: $rhythm / 4;
+    color: green;
+  }
+}
+
+.flag-item-comment {
+  font-size: 80%;
+}
+
+.flag-item-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

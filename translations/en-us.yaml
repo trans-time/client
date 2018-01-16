@@ -124,10 +124,12 @@ identities:
 moderation:
   contractComments: "hide flags"
   expandComments: "show flags"
+  flags: "flags"
   moderation: "moderation"
   pending: "pending"
   notViolation: "not violation"
   report: "report"
+  reports: "reports"
   violation: "violation"
 nsfw:
   confirmation: "by clicking confirm, i agree that i am familiar with local laws concerning viewing nudity on the internet and accept all responsibility for viewing it on <em>trans time</em>."
