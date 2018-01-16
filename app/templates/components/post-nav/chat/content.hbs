@@ -15,9 +15,11 @@
   {{/if}}
 </div>
 
-{{post-nav/chat/comment-form
-  post=post
-  commentable=post
-  addComment=(action "addComment")
-  classNames="comment-form-post-reply"
-}}
+{{#if (not isModerating)}}
+  {{post-nav/chat/comment-form
+    post=post
+    commentable=post
+    addComment=(action "addComment")
+    classNames="comment-form-post-reply"
+  }}
+{{/if}}

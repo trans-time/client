@@ -5,6 +5,7 @@ export default DS.Model.extend({
   user: DS.belongsTo('user'),
   violationReport: DS.belongsTo('violation-report'),
 
+  date: DS.attr('date'),
   text: DS.attr('string'),
   bigotry: DS.attr('boolean'),
   bot: DS.attr('boolean'),

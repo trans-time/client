@@ -11,4 +11,15 @@
       {{/each}}
     </div>
   </div>
+  <div class="violation-report-item-status">
+    {{#if report.resolved}}
+      {{#if report.wasViolation}}
+        {{t "moderation.violation"}}
+      {{else}}
+        {{t "moderation.notViolation"}}
+      {{/if}}
+    {{else}}
+      {{t "moderation.pending"}}
+    {{/if}}
+  </div>
 {{/link-to}}

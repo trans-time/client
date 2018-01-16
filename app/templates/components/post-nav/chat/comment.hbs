@@ -19,7 +19,7 @@
       <div class="comment-text {{if textIsOverflown 'comment-text-is-overflown'}}">
         {{#if historyIsRevealed}}
           {{#each comment.textVersions as |textVersion|}}
-            <div class="post-nav-post-text-version">
+            <div class="comment-text-version">
               <div>{{sometimes-relative-date date=textVersion.date}}</div>
               {{rich-text text=textVersion.text}}
             </div>

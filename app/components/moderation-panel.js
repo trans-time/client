@@ -42,12 +42,6 @@ export default Component.extend({
     }
   }),
 
-  additionalComments: computed({
-    get() {
-      return this.get('report.flags').map((flag) => flag.get('text'));
-    }
-  }),
-
   _submit(properties) {
     const changeset = this.get('changeset');
 
@@ -66,6 +60,14 @@ export default Component.extend({
   },
 
   actions: {
+    contractComments() {
+      this.set('commentsExpanded', false);
+    },
+
+    expandComments() {
+      this.set('commentsExpanded', true);
+    },
+
     markAsNotViolation() {
       this._submit({
         resolved: true,

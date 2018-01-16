@@ -122,7 +122,10 @@ identities:
     startDate:
       label: "start date"
 moderation:
+  contractComments: "hide flags"
+  expandComments: "show flags"
   moderation: "moderation"
+  pending: "pending"
   notViolation: "not violation"
   report: "report"
   violation: "violation"

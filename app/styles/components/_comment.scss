@@ -29,6 +29,12 @@
   opacity: 0.5;
 }
 
+.comment-text-version {
+  padding-bottom: $rhythm;
+  margin-bottom: $rhythm;
+  border-bottom: thin solid $medium-gray;
+}
+
 .comment-content {
   display: flex;
 }
