@@ -81,39 +81,50 @@
 .moderation-panel {
   display: flex;
   flex-direction: column;
-  padding: $rhythm;
   max-height: 75%;
   overflow-x: auto;
-  box-shadow: 1px 1px 3px $dark-gray;
+  box-shadow: 1px 1px 5px $dark-gray;
   z-index: 10;
 }
 
-.moderation-panel-expand-toggle {
-  width: 100%;
-  margin: 0;
-  padding: 0;
+.moderation-panel-nav {
+  display: flex;
+  justify-content: space-around;
+  flex-shrink: 0;
+  padding: $rhythm;
 }
 
-.moderation-panel-flags {
+.moderation-panel-content {
+  padding: $rhythm;
   overflow-x: auto;
+  border-top: 1px solid $dark-gray;
+
+  .violation-aggregator {
+    margin: $rhythm / 2 0;
+    font-weight: bold;
+  }
+}
+
+.moderation-panel-blank-info {
+  text-align: center;
+  padding: $rhythm * 3 0;
 }
 
 .moderation-panel-flag-count {
   font-weight: bold;
-  margin-top: $rhythm;
   margin-bottom: $rhythm / 2;
   padding-bottom: $rhythm;
   border-bottom: 3px dashed $light-gray;
 }
 
-.moderation-panel-comment {
-  padding-top: $rhythm;
-  border-bottom: thin solid $light-gray;
+.moderation-panel-date {
+  color: $medium-gray;
+  font-size: 80%;
 }
 
-.moderation-panel-form {
-  flex-shrink: 0;
-  margin-top: $rhythm;
+.moderation-panel-item {
+  padding-top: $rhythm;
+  border-bottom: thin solid $light-gray;
 }
 
 .moderation-panel-checkboxes {
@@ -126,16 +137,12 @@
   .md-errors-spacer {
     display: none;
   }
-
-  textarea {
-    max-height: 100px;
-  }
 }
 
 .moderation-panel-controls {
   display: flex;
 
-  button {
+  a {
     flex-grow: 1;
   }
 }

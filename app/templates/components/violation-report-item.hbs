@@ -1,10 +1,8 @@
-{{#link-to "moderation.reports.report" report class="violation-report-item-link"}}
+{{#link-to "moderation.reports.report" report.id class="violation-report-item-link"}}
   <div class="violation-report-item-text">
     <div class="violation-report-item-username"><span class="at-username">@{{report.indicted.username}}</span></div>
     <div class="violation-report-item-description">
-      {{#each-in violations as |type amount|}}
-        <span>{{type}}: {{amount}};</span>
-      {{/each-in}}
+      {{violation-aggregator report=report}}
 
       {{#each additionalComments as |text|}}
         <div>{{rich-text text=text}}</div>

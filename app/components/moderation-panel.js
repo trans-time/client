@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import EmberObject, { computed } from '@ember/object';
+import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import Changeset from 'ember-changeset';
 import lookupValidator from 'ember-changeset-validations';
@@ -27,18 +27,11 @@ export default Component.extend({
     this.get('changeset').validate();
   },
 
-  violations: computed({
+  otherIndictions: computed({
     get() {
-      const intl = this.get('intl');
-      const flags = this.get('report.flags');
+      const thisReport = this.get('report');
 
-      return flags.reduce((accumulator, flag) => {
-        ['bigotry', 'bot', 'harassment', 'sleaze', 'threat', 'unconsentingImage', 'unmarkedNSFW'].forEach((violation) => {
-          if (flag.get(violation)) accumulator.incrementProperty(intl.t(`flags.attributes.${violation}.name`));
-        });
-
-        return accumulator;
-      }, EmberObject.create());
+      return this.get('report.indicted.indictions').filter((report) => report !== thisReport && (report.get('wasViolation') || !report.get('resolved')));
     }
   }),
 
@@ -60,12 +53,20 @@ export default Component.extend({
   },
 
   actions: {
-    contractComments() {
-      this.set('commentsExpanded', false);
+    shrink() {
+      this.set('state', undefined);
     },
 
-    expandComments() {
-      this.set('commentsExpanded', true);
+    displayFlags() {
+      this.set('state', 'flags');
+    },
+
+    displayForm() {
+      this.set('state', 'form');
+    },
+
+    displayHistory() {
+      this.set('state', 'history');
     },
 
     markAsNotViolation() {

@@ -1,0 +1,7 @@
+{{#if hasViolations}}
+  <div class="violation-aggregator">
+    {{#each-in violations as |type amount|}}
+      <span>{{type}}: {{amount}};</span>
+    {{/each-in}}
+  </div>
+{{/if}}

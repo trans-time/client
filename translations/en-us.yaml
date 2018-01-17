@@ -131,6 +131,7 @@ moderation:
   flags: "flags"
   moderation: "moderation"
   pending: "pending"
+  noOtherIndictions: "no other indictions"
   notViolation: "not violation"
   report: "report"
   reports: "reports"

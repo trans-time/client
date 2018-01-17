@@ -149,4 +149,12 @@ export default function(server) {
     flaggableId: { type: 'comment', id: violatingComment.id },
     indictedId: violatingComment.userId
   });
+
+  server.createList('violation-report', 3, {
+    flagIds: server.createList('flag', 5).map((flag) => flag.id),
+    moderatorId: 2,
+    wasViolation: true,
+    indictedId: violatingPost.userId,
+    moderatorComment: 'foo bar baz and lots of jazz, that is the comment I would like to make. That I would like to make this comment kinda long. That is all. Thank you. Peace.'
+  })
 }

@@ -7,7 +7,7 @@ export default Route.extend({
 
   model(params) {
     return this.store.findRecord('violation-report', params.id, {
-      include: 'flags, flaggable, flaggable.textVersions, flaggable.user, flaggable.panels, flaggable.post, flaggable.post.textVersions, flaggable.post.panels, flaggable.post.user'
+      include: 'indicted, indicted.indictions, indicted.indictions.flags, flags, flaggable, flaggable.textVersions, flaggable.panels, flaggable.post, flaggable.post.textVersions, flaggable.post.panels, flaggable.post.user'
     });
   },
 

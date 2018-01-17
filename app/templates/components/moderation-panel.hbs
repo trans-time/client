@@ -1,78 +1,79 @@
-{{#if commentsExpanded}}
-  {{paper-button
-    raised=true
-    label=(t "moderation.contractComments")
-    classNames="moderation-panel-expand-toggle"
-    onClick=(action "contractComments")
-  }}
-{{else}}
-  {{paper-button
-    raised=true
-    label=(t "moderation.expandComments")
-    classNames="moderation-panel-expand-toggle"
-    onClick=(action "expandComments")
-  }}
-{{/if}}
+<div class="moderation-panel-nav">
+  <a {{action "shrink"}}>{{fa-icon "compress" size=2}}</a>
+  <a {{action "displayFlags"}}>{{fa-icon "flag-o" size=2}}</a>
+  <a {{action "displayHistory"}}>{{fa-icon "clock-o" size=2}}</a>
+  <a {{action "displayForm"}}>{{fa-icon "balance-scale" size=2}}</a>
+</div>
 
-<div class="moderation-panel-flags">
-  {{#if commentsExpanded}}
+{{#if (eq state "history")}}
+  <div class="moderation-panel-content">
+    {{#each otherIndictions as |indiction|}}
+      <div class="moderation-panel-item">
+        <div class="moderation-panel-date">{{#if indiction.date}}{{sometimes-relative-date date=indiction.date}}{{else}}{{t "moderation.pending"}}{{/if}}</div>
+        {{violation-aggregator report=indiction}}
+        {{rich-text text=indiction.moderatorComment}}
+      </div>
+    {{else}}
+      <div class="moderation-panel-blank-info">{{t "moderation.noOtherIndictions"}}</div>
+    {{/each}}
+  </div>
+{{else if (eq state "flags")}}
+  <div class="moderation-panel-content moderation-panel-flags">
     <div class="moderation-panel-flag-count">
-      {{#each-in violations as |type amount|}}
-        {{type}}: {{amount}};
-      {{/each-in}}
+      {{violation-aggregator report=report}}
     </div>
 
     {{#each report.flags as |flag|}}
       {{#if flag.text}}
-        <div class="moderation-panel-comment">
-          <div>{{sometimes-relative-date date=flag.date}}</div>
+        <div class="moderation-panel-item">
+          <div class="moderation-panel-date">{{sometimes-relative-date date=flag.date}}</div>
           {{rich-text text=flag.text}}
         </div>
       {{/if}}
     {{/each}}
-  {{/if}}
-</div>
+  </div>
+{{else if (eq state "form")}}
+  <div class="moderation-panel-content moderation-panel-form">
+    {{#paper-form as |form|}}
+      <div class="moderation-panel-checkboxes">
+        {{#paper-checkbox
+          value=changeset.actionDeletedFlaggable
+          onChange=(action (mut changeset.actionDeletedFlaggable))
+        }}
+          {{t "moderation.deleteFlaggable"}}
+        {{/paper-checkbox}}
 
-<div class="moderation-panel-form">
-  {{#paper-form as |form|}}
-    <div class="moderation-panel-checkboxes">
-      {{#paper-checkbox
-        value=changeset.actionDeletedFlaggable
-        onChange=(action (mut changeset.actionDeletedFlaggable))
-      }}
-        {{t "moderation.deleteFlaggable"}}
-      {{/paper-checkbox}}
+        {{#paper-checkbox
+          value=changeset.actionBannedUser
+          onChange=(action (mut changeset.actionBannedUser))
+        }}
+          {{t "moderation.banUser"}}
+        {{/paper-checkbox}}
+      </div>
 
-      {{#paper-checkbox
-        value=changeset.actionBannedUser
-        onChange=(action (mut changeset.actionBannedUser))
-      }}
-        {{t "moderation.banUser"}}
-      {{/paper-checkbox}}
-    </div>
-
-    {{paper-input
-      value=changeset.moderatorComment
-      textarea=true
-      block=true
-      label=(t "violationReport.attributes.moderatorComment.label")
-      onChange=(action (mut changeset.moderatorComment))
-      errors=changeset.error.moderatorComment.validation
-      classNames="moderation-panel-comment-field"
-    }}
-
-    <div class="moderation-panel-controls">
-      {{paper-button
-        raised=true
-        label=(t "moderation.notViolation")
-        onClick=(action "markAsNotViolation")
+      {{paper-input
+        value=changeset.moderatorComment
+        textarea=true
+        block=true
+        label=(t "violationReport.attributes.moderatorComment.label")
+        onChange=(action (mut changeset.moderatorComment))
+        errors=changeset.error.moderatorComment.validation
+        classNames="moderation-panel-comment-field"
       }}
 
-      {{paper-button
-        raised=true
-        label=(t "moderation.violation")
-        onClick=(action "markAsViolation")
-      }}
-    </div>
-  {{/paper-form}}
-</div>
+      <div class="moderation-panel-controls">
+        {{paper-button
+          raised=true
+          label=(t "moderation.notViolation")
+          onClick=(action "markAsNotViolation")
+        }}
+
+        {{paper-button
+          raised=true
+          label=(t "moderation.violation")
+          onClick=(action "markAsViolation")
+        }}
+      </div>
+    {{/paper-form}}
+  </div>
+{{/if}}

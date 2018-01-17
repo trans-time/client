@@ -1,1 +1,7 @@
-{{#if showRelativeDate}}{{format-relative date interval=1000}}{{else}}{{format-date date}}{{/if}}
+{{#if date}}
+  {{#if showRelativeDate}}
+    {{format-relative date interval=1000}}
+  {{else}}
+    {{format-date date}}
+  {{/if}}
+{{/if}}
