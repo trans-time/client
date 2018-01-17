@@ -1,0 +1,7 @@
+{{#if hasViolations}}
+  <ul class="violation-list">
+    {{#each violations as |type|}}
+      <li class="violation-list-item">{{fa-icon "check-square"}}{{type}}</li>
+    {{/each}}
+  </ul>
+{{/if}}

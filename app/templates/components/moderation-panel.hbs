@@ -20,17 +20,12 @@
   </div>
 {{else if (eq state "flags")}}
   <div class="moderation-panel-content moderation-panel-flags">
-    <div class="moderation-panel-flag-count">
-      {{violation-aggregator report=report}}
-    </div>
-
     {{#each report.flags as |flag|}}
-      {{#if flag.text}}
-        <div class="moderation-panel-item">
-          <div class="moderation-panel-date">{{sometimes-relative-date date=flag.date}}</div>
-          {{rich-text text=flag.text}}
-        </div>
-      {{/if}}
+      <div class="moderation-panel-item">
+        <div class="moderation-panel-date">{{sometimes-relative-date date=flag.date}}</div>
+        {{violation-list flag=flag}}
+        {{rich-text text=flag.text}}
+      </div>
     {{/each}}
   </div>
 {{else if (eq state "form")}}

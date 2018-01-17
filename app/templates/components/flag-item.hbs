@@ -1,8 +1,8 @@
 {{#link-to "moderation.flags.flag" flag class="flag-item-link"}}
   <div class="flag-item-text">
-    {{#each violations as |type|}}
-      <span class="flag-item-violation">{{fa-icon "check-square"}}{{type}}</span>
-    {{/each}}
+    <div class="flag-item-date">{{sometimes-relative-date date=flag.date}}</div>
+
+    {{violation-list flag=flag}}
 
     {{#if flag.text}}
       {{rich-text text=flag.text class="flag-item-comment"}}

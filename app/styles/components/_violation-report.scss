@@ -115,7 +115,7 @@
 }
 
 .moderation-panel-content {
-  padding: $rhythm;
+  padding: 0 $rhythm $rhythm;
   overflow-x: auto;
   border-top: 1px solid $dark-gray;
 
@@ -178,20 +178,13 @@
   color: $text-color;
 }
 
-.flag-item-text {
-  flex-grow: 1;
+.flag-item-date {
+  color: $medium-gray;
+  font-size: 80%;
 }
 
-.flag-item-violation {
-  font-weight: bold;
-  margin-right: $rhythm / 2;
-  white-space: nowrap;
-  line-height: 120%;
-
-  i {
-    margin-right: $rhythm / 4;
-    color: green;
-  }
+.flag-item-text {
+  flex-grow: 1;
 }
 
 .flag-item-comment {
@@ -202,4 +195,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.violation-list {
+  font-weight: bold;
+  line-height: 120%;
+  list-style: none;
+  margin: $rhythm 0 0;
+  padding: 0;
+}
+
+.violation-list-item {
+  display: inline;
+  margin-right: $rhythm / 2;
+  white-space: nowrap;
+
+  i {
+    margin-right: $rhythm / 4;
+    color: $medium-gray;
+  }
 }
