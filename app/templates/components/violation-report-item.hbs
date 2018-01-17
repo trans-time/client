@@ -9,21 +9,5 @@
       {{/each}}
     </div>
   </div>
-  <div class="violation-report-item-status">
-    {{#if report.resolved}}
-      {{#if report.wasViolation}}
-        {{t "moderation.violation"}}
-        {{#if report.actionDeletedFlaggable}}
-          <div>{{t "moderation.deletedContent"}}</div>
-        {{/if}}
-        {{#if report.actionBannedUser}}
-          <div>{{t "moderation.bannedUser"}}</div>
-        {{/if}}
-      {{else}}
-        {{t "moderation.notViolation"}}
-      {{/if}}
-    {{else}}
-      {{t "moderation.pending"}}
-    {{/if}}
-  </div>
+  {{violation-status report=report}}
 {{/link-to}}

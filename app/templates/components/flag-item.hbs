@@ -8,15 +8,5 @@
       {{rich-text text=flag.text class="flag-item-comment"}}
     {{/if}}
   </div>
-  <div class="flag-item-status">
-    {{#if flag.report.resolved}}
-      {{#if flag.report.wasViolation}}
-        {{t "moderation.violation"}}
-      {{else}}
-        {{t "moderation.notViolation"}}
-      {{/if}}
-    {{else}}
-      {{t "moderation.pending"}}
-    {{/if}}
-  </div>
+  {{violation-status report=flag.report}}
 {{/link-to}}

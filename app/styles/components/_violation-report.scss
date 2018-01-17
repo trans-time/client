@@ -46,20 +46,6 @@
   flex-grow: 1;
 }
 
-.violation-report-item-status {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-
-  div {
-    margin-top: $rhythm / 5;
-    font-size: 55%;
-    font-weight: normal;
-  }
-}
-
 .violation-report-item-username {
   flex-shrink: 0;
   font-weight: bold;
@@ -168,7 +154,7 @@
 }
 
 .flag-item {
-  border-bottom: thin solid $dark-gray;
+  border-bottom: thin solid $light-gray;
   margin-top: $rhythm;
 }
 
@@ -213,5 +199,23 @@
   i {
     margin-right: $rhythm / 4;
     color: $medium-gray;
+  }
+}
+
+.violation-status {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 80%;
+  width: 80px;
+
+  div {
+    font-size: 70%;
+  }
+
+  div:first-child {
+    margin-top: $rhythm / 3;
   }
 }
