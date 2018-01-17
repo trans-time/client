@@ -154,6 +154,7 @@ export default function() {
   });
   this.del('/faves/:id');
   this.get('/flags');
+  this.get('/flags/:id');
   this.post('/flags', (schema, request) => {
     return schema.flags.create(JSON.parse(request.requestBody));
   });

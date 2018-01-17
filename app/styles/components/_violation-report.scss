@@ -204,6 +204,23 @@
   font-size: 80%;
 }
 
+.flag-item-moderator-comment {
+  border-top: thin dashed $light-gray;
+  padding: $rhythm 0;
+  font-size: 80%;
+
+  p:first-of-type {
+    display: inline;
+  }
+}
+
+.flag-item-moderator-link {
+  color: $text-color;
+  font-weight: bold;
+  text-decoration: none;
+  margin-right: $rhythm / 2;
+}
+
 .flag-item-status {
   display: flex;
   align-items: center;

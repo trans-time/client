@@ -7,6 +7,15 @@
     {{#if flag.text}}
       {{rich-text text=flag.text class="flag-item-comment"}}
     {{/if}}
+
+    {{#if flag.violationReport.moderatorComment}}
+      <div class="flag-item-moderator-comment">
+        <div class="flag-item-date">{{sometimes-relative-date date=flag.violationReport.date}}</div>
+        {{#rich-text text=flag.violationReport.moderatorComment}}
+          {{#link-to "users.user.profile.index" flag.violationReport.moderator.username classNames="flag-item-moderator-link"}}{{#if flag.violationReport.moderator.userProfile.displayName}}{{{inject-emoji flag.violationReport.moderator.userProfile.displayName}}} {{/if}}<span class="at-username">@{{flag.violationReport.moderator.username}}</span>{{/link-to}}
+        {{/rich-text}}
+      </div>
+    {{/if}}
   </div>
-  {{violation-status report=flag.report}}
+  {{violation-status report=flag.violationReport}}
 {{/link-to}}
