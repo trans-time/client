@@ -144,13 +144,6 @@
   padding: $rhythm * 3 0;
 }
 
-.moderation-panel-flag-count {
-  font-weight: bold;
-  margin-bottom: $rhythm / 2;
-  padding-bottom: $rhythm;
-  border-bottom: 3px dashed $light-gray;
-}
-
 .moderation-panel-date {
   color: $medium-gray;
   font-size: 80%;
@@ -159,6 +152,12 @@
 .moderation-panel-item {
   padding-top: $rhythm;
   border-bottom: thin solid $light-gray;
+}
+
+.moderation-panel-item-link {
+  display: block;
+  color: $text-color;
+  text-decoration: none;
 }
 
 .moderation-panel-checkboxes {
@@ -219,6 +218,7 @@
   align-items: center;
   font-size: 80%;
   width: 80px;
+  text-align: center;
 
   div {
     font-size: 70%;

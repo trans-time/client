@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
+import { readOnly } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import Changeset from 'ember-changeset';
 import lookupValidator from 'ember-changeset-validations';
@@ -19,6 +20,8 @@ export default Component.extend({
   intl: service(),
   paperToaster: service(),
   router: service(),
+
+  disabled: readOnly('report.resolved'),
 
   didReceiveAttrs(...args) {
     this._super(...args);

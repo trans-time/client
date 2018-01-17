@@ -2,24 +2,24 @@
   <a {{action "shrink"}} class="{{if (eq state undefined) 'selected'}}">{{fa-icon "compress" size=2}}</a>
   <a {{action "displayFlags"}} class="{{if (eq state 'flags') 'selected'}}">{{fa-icon "flag-o" size=2}}</a>
   <a {{action "displayHistory"}} class="{{if (eq state 'history') 'selected'}}">{{fa-icon "clock-o" size=2}}</a>
-  <a {{action "displayForm"}} class="{{if (eq state 'form') 'selected'}}">{{fa-icon "balance-scale" size=2}}</a>
+  <a {{action "displayForm"}} class="{{if (eq state 'form') 'selected'}}" disabled={{disabled}}>{{fa-icon "balance-scale" size=2}}</a>
   <a {{action "toggleComments"}} class="moderation-panel-nav-comments">{{fa-icon "comment-o" size=2 flip="horizontal"}}</a>
 </div>
 
 {{#if (eq state "history")}}
   <div class="moderation-panel-content">
     {{#each otherIndictions as |indiction|}}
-      <div class="moderation-panel-item">
+      {{#link-to "moderation.reports.report" indiction.id class="moderation-panel-item moderation-panel-item-link"}}
         <div class="moderation-panel-date">{{#if indiction.date}}{{sometimes-relative-date date=indiction.date}}{{else}}{{t "moderation.pending"}}{{/if}}</div>
         {{violation-aggregator report=indiction}}
         {{rich-text text=indiction.moderatorComment}}
-      </div>
+      {{/link-to}}
     {{else}}
       <div class="moderation-panel-blank-info">{{t "moderation.noOtherIndictions"}}</div>
     {{/each}}
   </div>
 {{else if (eq state "flags")}}
-  <div class="moderation-panel-content moderation-panel-flags">
+  <div class="moderation-panel-content">
     {{#each report.flags as |flag|}}
       <div class="moderation-panel-item">
         <div class="moderation-panel-date">{{sometimes-relative-date date=flag.date}}</div>
@@ -60,12 +60,14 @@
       <div class="moderation-panel-controls">
         {{paper-button
           raised=true
+          disabled=disabled
           label=(t "moderation.notViolation")
           onClick=(action "markAsNotViolation")
         }}
 
         {{paper-button
           raised=true
+          disabled=disabled
           label=(t "moderation.violation")
           onClick=(action "markAsViolation")
         }}
