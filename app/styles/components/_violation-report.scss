@@ -1,9 +1,16 @@
 .moderation-controls {
   display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: $rhythm;
+  flex-shrink: 0;
   border-bottom: thin solid $light-gray;
+
+  a {
+    flex-grow: 1;
+    padding: $rhythm;
+    color: $text-color;
+    border: thin solid $dark-gray;
+    text-decoration: none;
+    text-align: center;
+  }
 }
 
 .violation-report-items {
@@ -155,7 +162,7 @@
 .moderation-panel-controls {
   display: flex;
 
-  a {
+  button {
     flex-grow: 1;
   }
 }
