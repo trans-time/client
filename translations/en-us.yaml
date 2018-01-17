@@ -80,7 +80,7 @@ flags:
       description: "content that appears to be made by a bot; spam"
     harassment:
       name: "harassment"
-      description: "insults and shaming (except when calling someone out for bigotry or abuse)"
+      description: "insults; shaming (except when calling someone out for bigotry or abuse)"
     sleaze:
       name: "sleaze"
       description: "sexual comments without consent"
