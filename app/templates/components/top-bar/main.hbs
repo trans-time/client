@@ -3,9 +3,15 @@
   {{#if canSearch}}
     {{top-bar/search/main value=iconArgs.searchValue performSearch=(action "iconAction") classNames="top-bar-element top-bar-element-grow"}}
   {{else if showLink}}
-    {{#link-to linkRoute linkModelId class="top-bar-title top-bar-element top-bar-element-grow"}}
-      {{{inject-emoji title}}}
-    {{/link-to}}
+    {{#if linkModelId}}
+      {{#link-to linkRoute linkModelId class="top-bar-title top-bar-element top-bar-element-grow"}}
+        {{{inject-emoji title}}}
+      {{/link-to}}
+    {{else}}
+      {{#link-to linkRoute class="top-bar-title top-bar-element top-bar-element-grow"}}
+        {{{inject-emoji title}}}
+      {{/link-to}}
+    {{/if}}
   {{else}}
     <span class="top-bar-title top-bar-element top-bar-element-grow">
       {{{inject-emoji title}}}
