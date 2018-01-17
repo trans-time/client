@@ -89,9 +89,22 @@
 
 .moderation-panel-nav {
   display: flex;
-  justify-content: space-around;
   flex-shrink: 0;
-  padding: $rhythm;
+
+  a {
+    flex-grow: 1;
+    text-align: center;
+    padding: $rhythm;
+  }
+
+  .selected, &:focus {
+    color: $white;
+    background: $dark-gray;
+  }
+
+  .moderation-panel-nav-comments {
+    color: $medium-gray;
+  }
 }
 
 .moderation-panel-content {

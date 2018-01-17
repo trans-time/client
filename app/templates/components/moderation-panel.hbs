@@ -1,8 +1,9 @@
 <div class="moderation-panel-nav">
-  <a {{action "shrink"}}>{{fa-icon "compress" size=2}}</a>
-  <a {{action "displayFlags"}}>{{fa-icon "flag-o" size=2}}</a>
-  <a {{action "displayHistory"}}>{{fa-icon "clock-o" size=2}}</a>
-  <a {{action "displayForm"}}>{{fa-icon "balance-scale" size=2}}</a>
+  <a {{action "shrink"}} class="{{if (eq state undefined) 'selected'}}">{{fa-icon "compress" size=2}}</a>
+  <a {{action "displayFlags"}} class="{{if (eq state 'flags') 'selected'}}">{{fa-icon "flag-o" size=2}}</a>
+  <a {{action "displayHistory"}} class="{{if (eq state 'history') 'selected'}}">{{fa-icon "clock-o" size=2}}</a>
+  <a {{action "displayForm"}} class="{{if (eq state 'form') 'selected'}}">{{fa-icon "balance-scale" size=2}}</a>
+  <a {{action "toggleComments"}} class="moderation-panel-nav-comments">{{fa-icon "comment-o" size=2 flip="horizontal"}}</a>
 </div>
 
 {{#if (eq state "history")}}

@@ -69,6 +69,10 @@ export default Component.extend({
       this.set('state', 'history');
     },
 
+    toggleComments() {
+      this.get('commentsAreOpen') ? this.attrs.closeComments() : this.attrs.openComments();
+    },
+
     markAsNotViolation() {
       this._submit({
         resolved: true,

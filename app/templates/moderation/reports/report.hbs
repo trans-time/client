@@ -2,7 +2,7 @@
   {{post-nav/main
     post=model.flaggable.post
     routeComment=model.flaggable.content
-    commentsAreOpen=true
+    commentsAreOpen=comments
     isModerating=true
     action="loadMorePosts"
     changePost=(action "changePost")
@@ -12,7 +12,7 @@
 {{else}}
   {{post-nav/main
     post=model.flaggable
-    commentsAreOpen=false
+    commentsAreOpen=comments
     isModerating=true
     action="loadMorePosts"
     changePost=(action "changePost")
@@ -23,4 +23,7 @@
 
 {{moderation-panel
   report=model
+  commentsAreOpen=comments
+  openComments=(action "openComments")
+  closeComments=(action "closeComments")
 }}
