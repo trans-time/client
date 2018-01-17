@@ -1,4 +1,4 @@
-{{#if date}}
+{{#if (not-eq date undefined)}}
   {{#if showRelativeDate}}
     {{format-relative date interval=1000}}
   {{else}}
