@@ -1,9 +1,9 @@
 import { Model, belongsTo, hasMany } from 'ember-cli-mirage';
-import Favable from './favable';
+import Reactable from './reactable';
 
-export default Favable.extend({
+export default Reactable.extend({
   user: belongsTo('user'),
-  currentUserFav: belongsTo('fav', { inverse: 'currentUserFavPost' }),
+  currentUserReaction: belongsTo('reaction', { inverse: 'currentUserReactionPost' }),
   comments: hasMany('comment'),
   panels: hasMany('panel', { polymorphic: true }),
   relationships: hasMany('user', { inverse: false }),

@@ -1,0 +1,7 @@
+<ul id="infinite_content" class="main-content reaction-items">
+  {{#each model as |reaction|}}
+    {{user-reaction reaction=reaction}}
+  {{/each}}
+
+  {{infinity-loader infinityModel=model scrollable="#infinite_content"}}
+</ul>

@@ -39,7 +39,7 @@ export default function() {
   );
 
   this.transition(
-    this.hasClass('fav-selector-modal'),
+    this.hasClass('reaction-selector-modal'),
     this.use('fade', { duration: 100 })
   )
 }

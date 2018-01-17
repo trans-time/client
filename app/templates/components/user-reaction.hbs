@@ -1,0 +1,8 @@
+{{#link-to "users.user.profile" user.username class="reaction-item-link"}}
+  <img src={{user.userProfile.avatar}} class="reaction-item-avatar">
+  <div class="reaction-item-text">
+    <div class="reaction-item-username">{{#if user.userProfile.displayName}}{{{inject-emoji user.userProfile.displayName}}} {{/if}}<span class="at-username">@{{user.username}}</span></div>
+    <div class="reaction-item-description">{{rich-text text=user.userProfile.description}}</div>
+  </div>
+  <div class="reaction-item-reaction">{{fa-icon iconType size=2 flip="horizontal"}}</div>
+{{/link-to}}

@@ -1,8 +1,8 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-  favable: DS.belongsTo('favable', { polymorphic: true }),
+  reactable: DS.belongsTo('reactable', { polymorphic: true }),
   user: DS.belongsTo('user'),
 
-  type: DS.attr('fav-type')
+  type: DS.attr('reaction-type')
 });

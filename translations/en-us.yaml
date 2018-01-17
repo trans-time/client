@@ -27,7 +27,7 @@ comments:
   deleted: "<this comment was deleted>"
   edit: "edit"
   expandOverflow: "expand full text. . . ."
-  faves: "comment faves"
+  reactions: "comment reactions"
   lackPermission: "<comment hidden>"
   loadMore: "view more. . . ."
   noCommentsYet: "be the first to comment"
@@ -58,7 +58,7 @@ errors:
     tooLong: "is too long"
     tooShort: "is too short"
     url: "must be a valid url"
-faves:
+reactions:
   viewAll: "view all"
 file:
   addAnImage: "add an Image."
@@ -147,7 +147,7 @@ post:
   delete: "delete"
   deleteConfirmation: "are you sure you want to delete this post?"
   edit: "edit post"
-  faves: "post faves"
+  reactions: "post reactions"
   hideHistory: "hide history"
   history: "history"
   more: "more"

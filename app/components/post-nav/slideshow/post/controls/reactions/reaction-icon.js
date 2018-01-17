@@ -8,8 +8,8 @@ import { EKMixin, keyUp } from 'ember-keyboard';
 
 export default Component.extend(EKMixin, {
   tagName: 'a',
-  classNames: ['post-nav-controls-element', 'fav-icon'],
-  classNameBindings: ['faved', 'disabled'],
+  classNames: ['post-nav-controls-element', 'reaction-icon'],
+  classNameBindings: ['reacted', 'disabled'],
   attributeBindings: ['disabled', 'oncontextmenu'],
 
   meta: service(),

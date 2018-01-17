@@ -5,13 +5,13 @@ import Component from '@ember/component';
 export default Component.extend({
   tagName: 'li',
 
-  classNames: ['fav-item'],
+  classNames: ['reaction-item'],
 
-  user: oneWay('fav.user'),
+  user: oneWay('reaction.user'),
 
-  iconType: computed('fav.type', {
+  iconType: computed('reaction.type', {
     get() {
-      return `${this.get('fav.type')}-o`;
+      return `${this.get('reaction.type')}-o`;
     }
   })
 });

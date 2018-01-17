@@ -1,9 +1,9 @@
 import { A } from '@ember/array';
 import EmberObject, { computed } from '@ember/object';
 import DS from 'ember-data';
-import Favable from './favable';
+import Reactable from './reactable';
 
-export default Favable.extend({
+export default Reactable.extend({
   user: DS.belongsTo('user', { inverse: 'posts' }),
   comments: DS.hasMany('comment'),
   flags: DS.hasMany('flag', { inverse: 'flaggable' }),

@@ -36,7 +36,7 @@
       </div>
       <div class="comment-controls">
         {{sometimes-relative-date date=comment.date}}
-        | {{post-nav/slideshow/post/controls/faves/main favable=comment}}
+        | {{post-nav/slideshow/post/controls/reactions/main reactable=comment}}
         | <a {{action "reply"}}>{{t "comments.reply"}}</a>
         {{#if (eq currentUser.user.id comment.user.id)}}
           | <a {{action "startEditing"}} disabled={{deleteDisabled}}>{{t "comments.edit"}}</a>

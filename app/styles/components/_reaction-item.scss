@@ -1,37 +1,37 @@
-.fav-items {
+.reaction-items {
   margin: 0;
   padding: 0 $rhythm;
   list-style-type: none;
 }
 
-.fav-item {
+.reaction-item {
   height: 60px;
   width: 100%;
   overflow: hidden;
   margin: $rhythm 0;
 }
 
-.fav-item-link {
+.reaction-item-link {
   display: flex;
   height: 100%;
   text-decoration: none;
   color: inherit;
 }
 
-.fav-item-avatar {
+.reaction-item-avatar {
   height: 100%;
   object-fit: cover;
   border-radius: $rhythm;
   margin-right: $rhythm;
 }
 
-.fav-item-text {
+.reaction-item-text {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 }
 
-.fav-item-username {
+.reaction-item-username {
   flex-shrink: 0;
   font-weight: bold;
   overflow: hidden;
@@ -40,13 +40,13 @@
   font-size: 80%;
 }
 
-.fav-item-secondary-title {
+.reaction-item-secondary-title {
   color: $medium-gray;
   font-size: 80%;
   vertical-align: middle;
 }
 
-.fav-item-description {
+.reaction-item-description {
   font-size: 80%;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -56,7 +56,7 @@
   }
 }
 
-.fav-item-fav {
+.reaction-item-reaction {
   display: flex;
   align-items: center;
   justify-content: center;

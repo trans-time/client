@@ -1,11 +1,11 @@
-{{post-nav/slideshow/post/controls/faves/fav-icon
-  id=currentFavId
-  favable=favable
+{{post-nav/slideshow/post/controls/reactions/reaction-icon
+  id=currentReactionId
+  reactable=reactable
   type=currentType
   disabled=disabled
   keyboardActivated=keyboardActivated
   isOpeningDisplayAllTypes=isOpeningDisplayAllTypes
-  faved=(and (eq currentType currentType) faved)
+  reacted=(and (eq currentType currentType) reacted)
   completeDisplayAllTypes=(action "completeDisplayAllTypes")
   displayAllTypes=(action "displayAllTypes")
   selectType=(action "selectType")
@@ -13,24 +13,24 @@
 
 {{#if shouldDisplayAllTypes}}
   {{#liquid-tether
-    target=currentFavIdHash
+    target=currentReactionIdHash
     attachment=tetherAttachment
     targetAttachment="middle middle"
-    class="fav-selector-modal"
+    class="reaction-selector-modal"
   }}
     {{#each types as |type|}}
-      {{post-nav/slideshow/post/controls/faves/fav-icon
-        favable=favable
+      {{post-nav/slideshow/post/controls/reactions/reaction-icon
+        reactable=reactable
         type=type
         disabled=disabled
         isOpeningDisplayAllTypes=isOpeningDisplayAllTypes
         shouldDisplayAllTypes=shouldDisplayAllTypes
-        faved=(and (eq currentType type) faved)
+        reacted=(and (eq currentType type) reacted)
         completeDisplayAllTypes=(action "completeDisplayAllTypes")
         displayAllTypes=(action "displayAllTypes")
         selectType=(action "selectType")
       }}
     {{/each}}
-    <a {{action "viewAllFaves"}} class="fav-selector-modal-view-all">{{t "faves.viewAll"}}</a>
+    <a {{action "viewAllReactions"}} class="reaction-selector-modal-view-all">{{t "reactions.viewAll"}}</a>
   {{/liquid-tether}}
 {{/if}}

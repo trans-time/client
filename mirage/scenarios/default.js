@@ -91,7 +91,7 @@ export default function(server) {
       return comment.id;
     });
 
-    post.favIds = server.createList('fav', 2, { userId: 2, type: (index % 3) + 1, favableId: { id: post.id, type: 'post' } }).map((fav) => fav.id);
+    post.reactionIds = server.createList('reaction', 2, { userId: 2, type: (index % 3) + 1, reactableId: { id: post.id, type: 'post' } }).map((reaction) => reaction.id);
 
     server.db.posts.update(post.id, post);
   });

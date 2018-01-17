@@ -24,7 +24,7 @@
   padding: $rhythm;
 }
 
-.fav-icon {
+.reaction-icon {
   position: relative;
   transition: opacity 500ms;
 
@@ -32,7 +32,7 @@
     transition: color 500ms, text-shadow 500ms;
   }
 
-  &.faved i {
+  &.reacted i {
     color: $highlight-color;
     text-shadow: 0px 0px $rhythm $highlight-color;
   }
@@ -42,7 +42,7 @@
   }
 }
 
-.fav-selector-modal {
+.reaction-selector-modal {
   display: flex;
   align-items: center;
   border-radius: 25px;
@@ -50,7 +50,7 @@
   background-color: $white;
   padding: 0 $rhythm / 2;
 
-  .fav-selector-modal-view-all {
+  .reaction-selector-modal-view-all {
     margin-left: $rhythm * 2;
     margin-right: $rhythm / 2;
   }

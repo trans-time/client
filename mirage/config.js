@@ -113,13 +113,13 @@ export default function() {
       const user = schema.users.findBy({ username: request.requestHeaders.Authorization.match(/username="(.*)"/)[1] });
       postsSegment.models.forEach((post) => {
         if (Math.random() > 0.4) {
-          const fav = schema.faves.create({
-            favable: post,
+          const reaction = schema.reactions.create({
+            reactableId: { type: 'post', id: post.id },
             userId: user.id,
             type: Math.ceil(Math.random() * 3)
           }).attrs;
 
-          post.currentUserFavId = fav.id;
+          post.currentUserReactionId = reaction.id;
         }
       })
     }
@@ -135,24 +135,24 @@ export default function() {
   this.get('/tags', (schema, request) => {
     return schema.tags.all().filter((tag) => tag.name.includes(request.queryParams.name)).slice(0, request.queryParams.perPage);
   });
-  this.get('/faves', (schema, request) => {
-    const faves = schema.faves.where({ favableId: { id: request.queryParams.favableId, type: request.queryParams.favableType } });
+  this.get('/reactions', (schema, request) => {
+    const reactions = schema.reactions.where({ reactableId: { id: request.queryParams.reactableId, type: request.queryParams.reactableType } });
     const startingIndex = (request.queryParams.page - 1) * request.queryParams.per_page;
-    faves.models = faves.models.slice(startingIndex, startingIndex + parseInt(request.queryParams.per_page, 10));
-    const json = this.serializerOrRegistry.serialize(faves);
+    reactions.models = reactions.models.slice(startingIndex, startingIndex + parseInt(request.queryParams.per_page, 10));
+    const json = this.serializerOrRegistry.serialize(reactions);
 
     json.meta = {
-      total_pages: Math.ceil(schema.faves.all().length / request.queryParams.per_page)
+      total_pages: Math.ceil(schema.reactions.all().length / request.queryParams.per_page)
     };
     return json;
   })
-  this.post('/faves', (schema, request) => {
-    return schema.faves.create(JSON.parse(request.requestBody));
+  this.post('/reactions', (schema, request) => {
+    return schema.reactions.create(JSON.parse(request.requestBody));
   });
-  this.patch('/faves/:id', (schema, request) => {
-    return schema.db.faves.update(request.params.id, JSON.parse(request.requestBody));
+  this.patch('/reactions/:id', (schema, request) => {
+    return schema.db.reactions.update(request.params.id, JSON.parse(request.requestBody));
   });
-  this.del('/faves/:id');
+  this.del('/reactions/:id');
   this.get('/flags');
   this.get('/flags/:id');
   this.post('/flags', (schema, request) => {

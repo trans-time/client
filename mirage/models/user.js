@@ -4,7 +4,7 @@ export default Model.extend({
   blockers: hasMany('block', { inverse: 'blocked' }),
   blockeds: hasMany('block', { inverse: 'blocker' }),
   comments: hasMany('comment'),
-  faves: hasMany('fav'),
+  reactions: hasMany('reaction'),
   followers: hasMany('follow', { inverse: 'followed' }),
   followeds: hasMany('follow', { inverse: 'follower' }),
   indictions: hasMany('violation-report', { inverse: 'indicted' }),

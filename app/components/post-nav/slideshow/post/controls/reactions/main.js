@@ -20,41 +20,41 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
 
   user: oneWay('currentUser.user'),
 
-  currentUserFav: alias('favable.currentUserFav.content'),
-  faved: notEmpty('currentUserFav'),
-  selectedCurrentType: oneWay('currentUserFav.type'),
+  currentUserReaction: alias('reactable.currentUserReaction.content'),
+  reacted: notEmpty('currentUserReaction'),
+  selectedCurrentType: oneWay('currentUserReaction.type'),
   keyboardActivated: alias('isCurrentPost'),
 
-  _startFavKeyAction: on(keyDown('KeyZ'), function() {
-    if (this.get('shouldDisplayAllTypes')) this.set('_startClosingFavKey', true);
-    else this.get('_favKeyStartTask').perform();
+  _startReactionKeyAction: on(keyDown('KeyZ'), function() {
+    if (this.get('shouldDisplayAllTypes')) this.set('_startClosingReactionKey', true);
+    else this.get('_reactionKeyStartTask').perform();
   }),
 
-  _endFavKeyAction: on(keyUp('KeyZ'), function() {
+  _endReactionKeyAction: on(keyUp('KeyZ'), function() {
     if (!this.get('shouldDisplayAllTypes')) {
-      this.set('_favKeyStarted', false);
+      this.set('_reactionKeyStarted', false);
       this._selectType(this.get('currentType'));
-    } else if (this.get('_startClosingFavKey2')) {
+    } else if (this.get('_startClosingReactionKey2')) {
       this.setProperties({
         shouldDisplayAllTypes: false,
-        _startClosingFavKey: false,
-        _startClosingFavKey2: false
+        _startClosingReactionKey: false,
+        _startClosingReactionKey2: false
       });
-    } else if (this.get('_startClosingFavKey')) {
-      this.set('_startClosingFavKey2', true);
+    } else if (this.get('_startClosingReactionKey')) {
+      this.set('_startClosingReactionKey2', true);
     }
   }),
 
-  _favKeyStartTask: task(function * () {
+  _reactionKeyStartTask: task(function * () {
     this.setProperties({
-      _favKeyStarted: true,
-      _startClosingFavKey: false,
-      _startClosingFavKey2: false
+      _reactionKeyStarted: true,
+      _startClosingReactionKey: false,
+      _startClosingReactionKey2: false
     });
 
     yield timeout(300);
 
-    if (this.get('_favKeyStarted')) this.set('shouldDisplayAllTypes', true);
+    if (this.get('_reactionKeyStarted')) this.set('shouldDisplayAllTypes', true);
   }).drop(),
 
   currentType: computed('selectedCurrentType', {
@@ -63,21 +63,21 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
     }
   }),
 
-  currentFavId: computed({
+  currentReactionId: computed({
     get() {
-      return `${guidFor(this)}_current_fav`;
+      return `${guidFor(this)}_current_reaction`;
     }
   }),
 
-  currentFavIdHash: computed('currentFavId', {
+  currentReactionIdHash: computed('currentReactionId', {
     get() {
-      return `#${this.get('currentFavId')}`
+      return `#${this.get('currentReactionId')}`
     }
   }),
 
   tetherAttachment: computed({
     get() {
-      const type = this.get('favable').constructor.modelName;
+      const type = this.get('reactable').constructor.modelName;
 
       return type === 'post' ? 'bottom right' : 'bottom middle';
     }
@@ -95,35 +95,35 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
   },
 
   _handleSelection(type) {
-    const { favable, user }= this.getProperties('favable', 'user');
+    const { reactable, user }= this.getProperties('reactable', 'user');
 
     if (this.get('shouldDisplayAllTypes')) {
-      if (this.get('faved')) {
-        this._changeFavType(type, favable);
+      if (this.get('reacted')) {
+        this._changeReactionType(type, reactable);
       } else {
-        this._createNewFav(type, user, favable);
+        this._createNewReaction(type, user, reactable);
       }
     } else {
-      if (this.get('faved')) {
+      if (this.get('reacted')) {
         if (type === this.get('currentType')) {
-          this._destroyFav(favable);
+          this._destroyReaction(reactable);
         } else {
-          this._changeFavType(type, favable);
+          this._changeReactionType(type, reactable);
         }
       } else {
-        this._createNewFav(type, user, favable);
+        this._createNewReaction(type, user, reactable);
       }
     }
   },
 
-  _createNewFav(type, user, favable) {
+  _createNewReaction(type, user, reactable) {
     this.set('disabled', true);
-    this.get('store').createRecord('fav', {
+    this.get('store').createRecord('reaction', {
       user,
-      favable,
+      reactable,
       type
-    }).save().then((fav) => {
-      favable.set('currentUserFav', fav);
+    }).save().then((reaction) => {
+      reactable.set('currentUserReaction', reaction);
     }).finally(() => {
       this.setProperties({
         disabled: false,
@@ -132,15 +132,15 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
     });
   },
 
-  _changeFavType(newType, favable) {
-    const currentUserFav = this.get('currentUserFav');
-    const previousType = currentUserFav.get('type');
+  _changeReactionType(newType, reactable) {
+    const currentUserReaction = this.get('currentUserReaction');
+    const previousType = currentUserReaction.get('type');
 
     if (previousType !== newType) {
-      currentUserFav.set('type', newType);
+      currentUserReaction.set('type', newType);
       this.set('disabled', true);
-      currentUserFav.save().catch(() => {
-        currentUserFav.set('type', previousType);
+      currentUserReaction.save().catch(() => {
+        currentUserReaction.set('type', previousType);
       }).finally(() => {
         this.setProperties({
           disabled: false,
@@ -152,13 +152,13 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
     }
   },
 
-  _destroyFav(favable) {
-    const currentUserFav = this.get('currentUserFav');
-    const previousType = currentUserFav.get('type');
+  _destroyReaction(reactable) {
+    const currentUserReaction = this.get('currentUserReaction');
+    const previousType = currentUserReaction.get('type');
 
     this.set('disabled', true);
-    currentUserFav.destroyRecord().then(() => {
-      this.set('favable.currentUserFav', null);
+    currentUserReaction.destroyRecord().then(() => {
+      this.set('reactable.currentUserReaction', null);
     }).finally(() => {
       this.set('disabled', false);
     });
@@ -180,11 +180,11 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
       this._selectType(type);
     },
 
-    viewAllFaves() {
-      const favable = this.get('favable');
-      const type = favable.constructor.modelName;
+    viewAllReactions() {
+      const reactable = this.get('reactable');
+      const type = reactable.constructor.modelName;
 
-      this.get('router').transitionTo(`${type}s.${type}.faves`, favable);
+      this.get('router').transitionTo(`${type}s.${type}.reactions`, reactable);
     }
   }
 });
