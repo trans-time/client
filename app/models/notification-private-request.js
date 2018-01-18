@@ -2,5 +2,5 @@ import DS from 'ember-data';
 import Notification from './notification';
 
 export default Notification.extend({
-  follow: DS.belongsTo('follow')
+  follower: DS.belongsTo('user', { inverse: null })
 });

@@ -34,31 +34,7 @@ export default function(server) {
     }))
   });
 
-  const currentUser = server.create('user', {
-    posts,
-    username: 'celeste',
-    isModerator: true
-  });
   server.createList('user', 3);
-
-  server.db.users.forEach((user) => {
-    if (user.id === currentUser.id) return;
-    server.create('follow', {
-      followerId: currentUser.id,
-      followedId: user.id,
-      canViewPrivate: true
-    });
-    server.create('follow', {
-      followerId: user.id,
-      followedId: currentUser.id,
-      requestedPrivate: true
-    });
-  });
-
-  server.create('block', {
-    blockerId: 2,
-    blockedId: currentUser.id
-  });
 
   server.db.posts.forEach((post, index) => {
     post.relationshipIds = [...Array(faker.random.number(3))].map(() => {
@@ -90,8 +66,6 @@ export default function(server) {
 
       return comment.id;
     });
-
-    post.reactionIds = server.createList('reaction', 2, { userId: 2, type: (index % 3) + 1, reactableId: { id: post.id, type: 'post' } }).map((reaction) => reaction.id);
 
     server.db.posts.update(post.id, post);
   });
@@ -156,5 +130,106 @@ export default function(server) {
     wasViolation: true,
     indictedId: violatingPost.userId,
     moderatorComment: 'foo bar baz and lots of jazz, that is the comment I would like to make. That I would like to make this comment kinda long. That is all. Thank you. Peace.'
-  })
+  });
+
+  const currentUser = server.create('user', {
+    posts,
+    username: 'celeste',
+    isModerator: true,
+    notificationIds: [{
+      type: 'notification-at',
+      id: server.create('notification-at', {
+        user: currentUser,
+        reactableId: {
+          type: 'post',
+          id: 1
+        }
+      }).id
+    },
+    {
+      type: 'notification-comment',
+      id: server.create('notification-comment', {
+        user: currentUser,
+        commentId: 1
+      }).id
+    },
+    {
+      type: 'notification-follow',
+      id: server.create('notification-follow', {
+        user: currentUser,
+        followerId: 1
+      }).id
+    },
+    {
+      type: 'notification-moderation-requested',
+      id: server.create('notification-moderation-requested', {
+        user: currentUser,
+        violationReportId: 1
+      }).id
+    },
+    {
+      type: 'notification-moderation-resolved',
+      id: server.create('notification-moderation-resolved', {
+        user: currentUser,
+        flagId: 1
+      }).id
+    },
+    {
+      type: 'notification-moderation-warning',
+      id: server.create('notification-moderation-warning', {
+        user: currentUser,
+        violationReportId: 1
+      }).id
+    },
+    {
+      type: 'notification-private-granted',
+      id: server.create('notification-private-granted', {
+        user: currentUser,
+        followedId: 1
+      }).id
+    },
+    {
+      type: 'notification-private-request',
+      id: server.create('notification-private-request', {
+        user: currentUser,
+        followerId: 1
+      }).id
+    },
+    {
+      type: 'notification-reaction',
+      id: server.create('notification-reaction', {
+        user: currentUser,
+        reactableId: {
+          type: 'post',
+          id: 1
+        }
+      }).id
+    },
+    {
+      type: 'notification-reply',
+      id: server.create('notification-reply', {
+        user: currentUser,
+        commentId: 1
+      }).id
+    }]
+  });
+  server.db.users.forEach((user) => {
+    if (user.id === currentUser.id) return;
+    server.create('follow', {
+      followerId: currentUser.id,
+      followedId: user.id,
+      canViewPrivate: true
+    });
+    server.create('follow', {
+      followerId: user.id,
+      followedId: currentUser.id,
+      requestedPrivate: true
+    });
+  });
+
+  server.create('block', {
+    blockerId: 2,
+    blockedId: currentUser.id
+  });
+
 }

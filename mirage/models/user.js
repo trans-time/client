@@ -8,7 +8,7 @@ export default Model.extend({
   followers: hasMany('follow', { inverse: 'followed' }),
   followeds: hasMany('follow', { inverse: 'follower' }),
   indictions: hasMany('violation-report', { inverse: 'indicted' }),
-  notifications: hasMany('notification', { polymorphic: true }),
+  notifications: hasMany('notification', { polymorphic: true, inverse: 'user' }),
   posts: hasMany('post', { inverse: 'user' }),
   searchQueries: hasMany('search-query'),
   tags: hasMany('tag'),
