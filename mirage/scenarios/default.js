@@ -232,4 +232,5 @@ export default function(server) {
     blockedId: currentUser.id
   });
 
+  server.db.currentUsers.update(currentUser.id, { unreadNotificationsTotal: currentUser.notifications.length });
 }

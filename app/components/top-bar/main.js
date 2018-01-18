@@ -8,6 +8,7 @@ import { EKMixin, EKOnInsertMixin, keyUp } from 'ember-keyboard';
 export default Component.extend(EKMixin, EKOnInsertMixin, {
   classNames: ['top-bar'],
 
+  currentUser: service(),
   topBarManager: service(),
   router: service(),
 
@@ -17,6 +18,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
   linkModelId: oneWay('topBarManager.state.title.linkModelId'),
   linkRoute: oneWay('topBarManager.state.title.linkRoute'),
   title: oneWay('topBarManager.state.title.name'),
+  unreadNotificationsTotal: oneWay('currentUser.user.currentUser.unreadNotificationsTotal'),
 
   showLink: notEmpty('linkRoute'),
 

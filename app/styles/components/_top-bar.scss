@@ -36,6 +36,22 @@
     color: $dark-gray;
     text-decoration: none;
   }
+
+  .top-bar-notification-button {
+    position: relative;
+
+    i {
+      color: $light-gray;
+    }
+
+    .top-bar-notification-button-highlighted {
+      color: $text-color;
+    }
+
+    .notification-total {
+      top: 3px;
+    }
+  }
 }
 
 .top-bar-menu {

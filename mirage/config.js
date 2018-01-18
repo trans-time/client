@@ -169,6 +169,7 @@ export default function() {
     let photo = db.create('image', { filename, filesize, src, uploadedAt: new Date() });
     return photo;
   }));
+  this.get('/notifications');
   this.get('/search-queries', (schema, request) => {
     const query = request.queryParams.query;
 
