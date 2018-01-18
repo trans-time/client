@@ -161,8 +161,8 @@ export default function(server) {
       }).id
     },
     {
-      type: 'notification-moderation-requested',
-      id: server.create('notification-moderation-requested', {
+      type: 'notification-moderation-request',
+      id: server.create('notification-moderation-request', {
         user: currentUser,
         violationReportId: 1
       }).id
@@ -182,8 +182,8 @@ export default function(server) {
       }).id
     },
     {
-      type: 'notification-private-granted',
-      id: server.create('notification-private-granted', {
+      type: 'notification-private-grant',
+      id: server.create('notification-private-grant', {
         user: currentUser,
         followedId: 1
       }).id

@@ -37,6 +37,10 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
 
     toggleMenu() {
       this.toggleProperty('menuIsOpen');
+    },
+
+    toggleNotifications() {
+      this.toggleProperty('notificationsAreOpen');
     }
   }
 });

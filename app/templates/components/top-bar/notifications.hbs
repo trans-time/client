@@ -1,0 +1,5 @@
+{{#each notifications as |notification|}}
+  <li>{{notification.constructor.modelName}}</li>
+{{/each}}
+
+<li>{{#link-to "notifications"}}{{t "notifications.seeAllNotifications"}}{{/link-to}}</li>

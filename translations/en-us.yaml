@@ -136,6 +136,8 @@ moderation:
   report: "report"
   reports: "reports"
   violation: "violation"
+notifications:
+  seeAllNotifications: "see all notifications"
 nsfw:
   confirmation: "by clicking confirm, i agree that i am familiar with local laws concerning viewing nudity on the internet and accept all responsibility for viewing it on <em>trans time</em>."
   enable: "enable"

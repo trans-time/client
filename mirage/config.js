@@ -169,7 +169,10 @@ export default function() {
     let photo = db.create('image', { filename, filesize, src, uploadedAt: new Date() });
     return photo;
   }));
-  this.get('/notifications');
+  this.get('/notifications', (schema, request) => {
+    const json = { data: schema.users.find(request.queryParams.userId).notifications.models.map((model) => this.serializerOrRegistry.serialize(model).data) };
+    return json;
+  });
   this.get('/search-queries', (schema, request) => {
     const query = request.queryParams.query;
 

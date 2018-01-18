@@ -42,6 +42,7 @@ Router.map(function() {
       this.route('report', { path: '/:id'} );
     });
   });
+  this.route('notifications');
 });
 
 export default Router;

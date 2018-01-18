@@ -18,13 +18,28 @@
     </span>
   {{/if}}
   {{#if currentUser.user}}
-    <a class="top-bar-element top-bar-notification-button">
+    <a class="top-bar-element top-bar-notification-button" {{action "toggleNotifications"}}>
       {{#if unreadNotificationsTotal}}{{number-bubble number=unreadNotificationsTotal classNames="notification-total"}}{{/if}}
       {{fa-icon "bell-o" size=2 class=(if unreadNotificationsTotal "top-bar-notification-button-highlighted")}}
     </a>
   {{/if}}
   <a class="top-bar-element" {{action "toggleMenu"}}>{{fa-icon "bars" size=2}}</a>
 </div>
+
+{{#if notificationsAreOpen}}
+  {{#liquid-tether
+    target=".top-bar-content"
+    attachment="top right"
+    targetAttachment="bottom right"
+    to="top-bar-menu-destination"
+    class="top-bar-menu-modal"
+  }}
+    {{top-bar/notifications
+      toggleNotifications=(action "toggleNotifications")
+    }}
+  {{/liquid-tether}}
+{{/if}}
+
 
 {{#if menuIsOpen}}
   {{#liquid-tether
