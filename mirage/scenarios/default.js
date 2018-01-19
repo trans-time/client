@@ -70,29 +70,6 @@ export default function(server) {
     server.db.posts.update(post.id, post);
   });
 
-  server.db.userTagSummaries.forEach((userTagSummary) => {
-    const posts = server.db.posts.find(server.db.users.find(server.db.userProfiles.find(userTagSummary.userProfileId).userId).postIds);
-
-    userTagSummary.summary = posts.reduce((summary, post) => {
-      post.tagIds.forEach((tagId) => {
-        summary.tags[tagId] = summary.tags[tagId] || [];
-        summary.tags[tagId].push(post.id);
-      });
-      post.relationshipIds.forEach((relationshipId) => {
-        summary.relationships[relationshipId] = summary.relationships[relationshipId] || [];
-        summary.relationships[relationshipId].push(post.id);
-      });
-
-      return summary;
-    }, { tags: {}, relationships: {} });
-
-    userTagSummary.relationshipIds = A(posts.reduce((relationshipIds, post) => {
-      return relationshipIds.concat(post.relationshipIds);
-    }, [])).uniq();
-
-    server.db.userTagSummaries.update(userTagSummary.id, userTagSummary);
-  });
-
   const violatingPost = server.db.posts.find(30);
   const violatingComment = server.db.comments.find(10);
 
@@ -233,4 +210,27 @@ export default function(server) {
   });
 
   server.db.currentUsers.update(currentUser.id, { unreadNotificationsTotal: currentUser.notifications.length });
+
+  server.db.userTagSummaries.forEach((userTagSummary) => {
+    const posts = server.db.posts.find(server.db.users.find(server.db.userProfiles.find(userTagSummary.userProfileId).userId).postIds);
+
+    userTagSummary.summary = posts.reduce((summary, post) => {
+      post.tagIds.forEach((tagId) => {
+        summary.tags[tagId] = summary.tags[tagId] || [];
+        summary.tags[tagId].push(post.id);
+      });
+      post.relationshipIds.forEach((relationshipId) => {
+        summary.relationships[relationshipId] = summary.relationships[relationshipId] || [];
+        summary.relationships[relationshipId].push(post.id);
+      });
+
+      return summary;
+    }, { tags: {}, relationships: {} });
+
+    userTagSummary.relationshipIds = A(posts.reduce((relationshipIds, post) => {
+      return relationshipIds.concat(post.relationshipIds);
+    }, [])).uniq();
+
+    server.db.userTagSummaries.update(userTagSummary.id, userTagSummary);
+  });
 }
