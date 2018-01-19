@@ -1,0 +1,5 @@
+{{#link-to "users.user.profile.index" notification.follower.id classNames="notification-link"}}
+  {{{t "notifications.type.privateRequest" username=notification.follower.username}}}
+
+  {{yield}}
+{{/link-to}}

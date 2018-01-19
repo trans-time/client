@@ -122,3 +122,29 @@
   width: 30px;
   border-radius: 10px;
 }
+
+.top-bar-notifications {
+  width: 200px;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  background-color: $white;
+  border: thin solid $medium-gray;
+}
+
+.notification {
+  border-bottom: thin solid $light-gray;
+  padding: $rhythm / 2;
+  font-size: 80%;
+}
+
+.notification-link {
+  color: $text-color;
+  text-decoration: none;
+}
+
+.notification-date {
+  margin-top: $rhythm / 2;
+  font-size: 80%;
+  color: $medium-gray;
+}

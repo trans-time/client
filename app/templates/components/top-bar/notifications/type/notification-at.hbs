@@ -1,0 +1,13 @@
+{{#if (eq notification.reactable.content.constructor.modelName "post")}}
+  {{#link-to "posts.post" notification.reactable.id classNames="notification-link"}}
+    {{{t "notifications.type.at.post" username=notification.reactable.user.username}}}
+
+    {{yield}}
+  {{/link-to}}
+{{else}}
+  {{#link-to "comments.comment" notification.reactable.id classNames="notification-link"}}
+    {{{t "notifications.type.at.comment" username=notification.reactable.user.username}}}
+
+    {{yield}}
+  {{/link-to}}
+{{/if}}

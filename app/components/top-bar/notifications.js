@@ -3,7 +3,7 @@ import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 
 export default Component.extend({
-  classNames: ['top-bar-notifications', 'top-bar-menu'],
+  classNames: ['top-bar-notifications'],
   tagName: 'ul',
 
   currentUser: service(),

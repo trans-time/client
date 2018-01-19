@@ -138,6 +138,18 @@ moderation:
   violation: "violation"
 notifications:
   seeAllNotifications: "see all notifications"
+  type:
+    at:
+      comment: "<strong>{username}</strong> tagged you in a comment"
+      post: "<strong>{username}</strong> tagged you in a post"
+    comment: "<strong>{username}</strong> commented on your post"
+    follow: "<strong>{username}</strong> followed you"
+    privateGrant: "<strong>{username}</strong> granted you access to <strong>{username}</strong>'s private posts"
+    privateRequest: "<strong>{username}</strong> requested access to your private posts"
+    reaction:
+      comment: "<strong>{username}</strong> reacted to your comment"
+      post: "<strong>{username}</strong> reacted to your post"
+    reply: "<strong>{username}</strong> replied to your comment"
 nsfw:
   confirmation: "by clicking confirm, i agree that i am familiar with local laws concerning viewing nudity on the internet and accept all responsibility for viewing it on <em>trans time</em>."
   enable: "enable"
