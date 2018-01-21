@@ -1,5 +1,5 @@
 {{#each notifications as |notification|}}
-  {{top-bar/notifications/notification notification=notification}}
+  {{top-bar/notifications/notification notification=notification toggleNotifications=toggleNotifications}}
 {{/each}}
 
 <li class="notification">{{#link-to "notifications"}}{{t "notifications.seeAllNotifications"}}{{/link-to}}</li>

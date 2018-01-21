@@ -1,5 +1,3 @@
-{{#link-to "users.user.profile.index" notification.followed.id classNames="notification-link"}}
-  {{{t "notifications.type.privateGrant" username=notification.followed.username otherGrants=otherGrants}}}
+{{{t "notifications.type.privateGrant" username=notification.followed.username otherGrants=otherGrants}}}
 
-  {{yield}}
-{{/link-to}}
+{{yield}}

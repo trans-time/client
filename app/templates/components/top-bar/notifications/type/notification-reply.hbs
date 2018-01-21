@@ -1,5 +1,3 @@
-{{#link-to "comments.comment" notification.comment.id classNames="notification-link"}}
-  {{{t "notifications.type.reply" username=notification.comment.user.username otherReplies=otherReplies}}}
+{{{t "notifications.type.reply" username=notification.comment.user.username otherReplies=otherReplies}}}
 
-  {{yield}}
-{{/link-to}}
+{{yield}}

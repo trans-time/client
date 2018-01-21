@@ -136,14 +136,19 @@
 }
 
 .notification {
-  border-bottom: thin solid $light-gray;
-  padding: $rhythm / 2;
   font-size: 80%;
 }
 
 .notification-link {
+  display: block;
+  padding: $rhythm / 2;
   color: $text-color;
   text-decoration: none;
+  border-bottom: thin solid $medium-gray;
+}
+
+.notification-link-unread {
+  background-color: $highlight-color;
 }
 
 .notification-date {
