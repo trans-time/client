@@ -137,6 +137,7 @@ moderation:
   reports: "reports"
   violation: "violation"
 notifications:
+  notifications: "notifications"
   seeAllNotifications: "see all notifications"
   type:
     at:

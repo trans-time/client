@@ -1,1 +1,7 @@
-{{outlet}}
+<ul id="infinite_content" class="notifications">
+  {{#each model as |notification|}}
+    {{top-bar/notifications/notification notification=notification}}
+  {{/each}}
+
+  {{infinity-loader infinityModel=model scrollable="#infinite_content"}}
+</ul>
