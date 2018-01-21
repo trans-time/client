@@ -147,6 +147,10 @@
   border-bottom: thin solid $medium-gray;
 }
 
+.notification-link-all {
+  padding: $rhythm $rhythm / 2;
+}
+
 .notification-link-unread {
   background-color: $highlight-color;
 }

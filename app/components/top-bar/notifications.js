@@ -7,11 +7,19 @@ export default Component.extend({
   tagName: 'ul',
 
   currentUser: service(),
+  router: service(),
   store: service(),
 
   notifications: computed({
     get() {
       return this.get('store').query('notification', { userId: this.get('currentUser.user.id'), perPage: 7, startingPage: 1 });
     }
-  })
+  }),
+
+  actions: {
+    seeAllNotifications() {
+      this.attrs.toggleNotifications();
+      this.get('router').transitionTo('notifications');
+    }
+  }
 });
