@@ -30,6 +30,12 @@ export default Component.extend(AuthenticatedActionMixin, {
     }
   }),
 
+  showHistoryToggle: computed({
+    get() {
+      return this.get('isModerating') && this.get('comment.textVersions.length') > 0;
+    }
+  }),
+
   isRouteComment: computed('routeComment', 'comment', {
     get() {
       return this.get('routeComment') === this.get('comment');
