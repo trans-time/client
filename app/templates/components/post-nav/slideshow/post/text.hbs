@@ -14,7 +14,7 @@
         {{#if post.private}}
           | {{t "post.private"}}
         {{/if}}
-        {{#if (and (not isModerating) (not-eq post.user.id user.id))}}
+        {{#if (and (and (not post.ignoreFlags) (not isModerating)) (not-eq post.user.id user.id))}}
           | <a {{action "report"}} disabled={{controlsDisabled}} tabindex="0" class="link">{{t "post.report"}}</a>
         {{/if}}
         {{#if (and isModerating (gt post.textVersions.length 1))}}

@@ -43,7 +43,7 @@
         {{#if (eq currentUser.user.id comment.user.id)}}
           | <a {{action "startEditing"}} disabled={{deleteDisabled}}>{{t "comments.edit"}}</a>
           | <a {{action "delete" comment}} disabled={{deleteDisabled}}>{{t "comments.delete"}}</a>
-        {{else if (not isModerating)}}
+        {{else if (and (and (not comment.ignoreFlags) (not isModerating)) (not-eq comment.user.id currentUser.user.id))}}
           | <a {{action "report"}}>{{t "comments.report"}}</a>
         {{/if}}
         {{#if (and isModerating (gt comment.textVersions.length 1))}}
