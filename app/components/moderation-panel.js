@@ -30,7 +30,7 @@ export default Component.extend({
   paperToaster: service(),
   router: service(),
 
-  disabled: or('changeset.isInvalid', 'changeset.isPristine', 'isSubmitting'),
+  disabled: or('changeset.isInvalid', 'isSubmitting'),
 
   disableBanDuration: not('changeset.actionBannedUser'),
   disableLockCommentsDuration: not('changeset.actionLockComments'),
