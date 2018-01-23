@@ -10,9 +10,20 @@ export default Component.extend({
   router: service(),
   store: service(),
 
+  loading: true,
+
   notifications: computed({
     get() {
-      return this.get('store').query('notification', { userId: this.get('currentUser.user.id'), perPage: 7, startingPage: 1 });
+      this.set('loading', true);
+
+      const notifications = this.get('store').query('notification', { userId: this.get('currentUser.user.id'), perPage: 7, startingPage: 1 });
+
+      notifications.then(() => {
+        console.log('loading false')
+        this.set('loading', false)
+      });
+
+      return notifications;
     }
   }),
 

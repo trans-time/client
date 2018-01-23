@@ -1,5 +1,11 @@
 {{#each notifications as |notification|}}
   {{top-bar/notifications/notification notification=notification toggleNotifications=toggleNotifications}}
+{{else}}
+  {{#if loading}}
+    <li class="notifications-loading">
+      {{fa-icon "spinner" pulse=true size=5}}
+    </li>
+  {{/if}}
 {{/each}}
 
 <li class="notification"><a class="notification-link notification-link-all" {{action "seeAllNotifications"}}>{{t "notifications.seeAllNotifications"}}</a></li>
