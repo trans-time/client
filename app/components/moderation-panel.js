@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { not, readOnly } from '@ember/object/computed';
+import { not, or, readOnly } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { isBlank } from '@ember/utils';
 import Changeset from 'ember-changeset';
@@ -30,7 +30,7 @@ export default Component.extend({
   paperToaster: service(),
   router: service(),
 
-  disabled: readOnly('report.resolved'),
+  disabled: or('changeset.isInvalid', 'changeset.isPristine', 'isSubmitting'),
 
   disableBanDuration: not('changeset.actionBannedUser'),
   disableLockCommentsDuration: not('changeset.actionLockComments'),
@@ -55,6 +55,8 @@ export default Component.extend({
   }),
 
   _submit(properties) {
+    this.set('isSubmitting', true);
+
     const changeset = this.get('changeset');
 
     changeset.setProperties(properties);
@@ -69,6 +71,8 @@ export default Component.extend({
       this.get('paperToaster').show(this.get('intl').t('moderationReport.unsuccessful'), {
         duration: 4000
       });
+    }).finally(() => {
+      this.set('isSubmitting', false);
     });
   },
 
