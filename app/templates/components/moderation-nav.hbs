@@ -1,0 +1,6 @@
+{{#if currentUser.user.isModerator}}
+  <div class="moderation-controls">
+    {{#link-to "moderation.reports.index"}}{{t "moderation.reports"}}{{/link-to}}
+    {{#link-to "moderation.flags.index"}}{{t "moderation.flags"}}{{/link-to}}
+  </div>
+{{/if}}
