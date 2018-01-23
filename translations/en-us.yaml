@@ -231,7 +231,7 @@ users:
       label: "password"
     username:
       label: "username"
-violationReport:
+moderationReport:
   successful: "report successfully submitted"
   unsuccessful: "something went wrong, but please try again in a few minutes"
   attributes:

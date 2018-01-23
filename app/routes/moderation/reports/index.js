@@ -6,6 +6,6 @@ export default Route.extend(InfinityRoute, {
   currentUser: service(),
 
   model() {
-    return this.infinityModel('violation-report', { perPage: 12, startingPage: 1, moderatorId: this.get('currentUser.user.id'), include: 'flags, indicted,' });
+    return this.infinityModel('moderation-report', { perPage: 12, startingPage: 1, moderatorId: this.get('currentUser.user.id'), include: 'flags, indicted,' });
   }
 });

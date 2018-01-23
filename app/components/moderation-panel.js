@@ -8,7 +8,7 @@ import {
   validateLength
 } from 'ember-changeset-validations/validators';
 
-const ViolationReportValidation = {
+const ModerationReportValidation = {
   text: [
     validateLength({ max: 63206 })
   ]
@@ -27,7 +27,7 @@ export default Component.extend({
   didReceiveAttrs(...args) {
     this._super(...args);
 
-    this.set('changeset', new Changeset(this.get('report'), lookupValidator(ViolationReportValidation), ViolationReportValidation));
+    this.set('changeset', new Changeset(this.get('report'), lookupValidator(ModerationReportValidation), ModerationReportValidation));
     this.get('changeset').validate();
   },
 
@@ -46,12 +46,12 @@ export default Component.extend({
     changeset.set('moderator', this.get('currentUser.user'));
 
     changeset.save().then(() => {
-      this.get('paperToaster').show(this.get('intl').t('violationReport.successful'), {
+      this.get('paperToaster').show(this.get('intl').t('moderationReport.successful'), {
         duration: 4000
       });
       this.get('router').transitionTo('moderation.reports');
     }).catch(() => {
-      this.get('paperToaster').show(this.get('intl').t('violationReport.unsuccessful'), {
+      this.get('paperToaster').show(this.get('intl').t('moderationReport.unsuccessful'), {
         duration: 4000
       });
     });

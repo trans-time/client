@@ -2,6 +2,6 @@ import { Model, hasMany } from 'ember-cli-mirage';
 
 export default Model.extend({
   flags: hasMany('flag', { inverse: 'flaggable' }),
-  violationReports: hasMany('violation-report'),
+  moderationReports: hasMany('moderation-report'),
   textVersions: hasMany('text-version')
 });

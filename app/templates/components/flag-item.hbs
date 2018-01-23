@@ -8,14 +8,14 @@
       {{rich-text text=flag.text class="flag-item-comment"}}
     {{/if}}
 
-    {{#if flag.violationReport.moderatorComment}}
+    {{#if flag.moderationReport.moderatorComment}}
       <div class="flag-item-moderator-comment">
-        <div class="flag-item-date">{{sometimes-relative-date date=flag.violationReport.date}}</div>
-        {{#rich-text text=flag.violationReport.moderatorComment}}
-          {{#link-to "users.user.profile.index" flag.violationReport.moderator.username classNames="flag-item-moderator-link"}}{{#if flag.violationReport.moderator.userProfile.displayName}}{{{inject-emoji flag.violationReport.moderator.userProfile.displayName}}} {{/if}}<span class="at-username">@{{flag.violationReport.moderator.username}}</span>{{/link-to}}
+        <div class="flag-item-date">{{sometimes-relative-date date=flag.moderationReport.date}}</div>
+        {{#rich-text text=flag.moderationReport.moderatorComment}}
+          {{#link-to "users.user.profile.index" flag.moderationReport.moderator.username classNames="flag-item-moderator-link"}}{{#if flag.moderationReport.moderator.userProfile.displayName}}{{{inject-emoji flag.moderationReport.moderator.userProfile.displayName}}} {{/if}}<span class="at-username">@{{flag.moderationReport.moderator.username}}</span>{{/link-to}}
         {{/rich-text}}
       </div>
     {{/if}}
   </div>
-  {{violation-status report=flag.violationReport}}
+  {{violation-status report=flag.moderationReport}}
 {{/link-to}}

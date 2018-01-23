@@ -1,6 +1,6 @@
 import { moduleForModel, test } from 'ember-qunit';
 
-moduleForModel('moderation-report', 'Unit | Model | violation report', {
+moduleForModel('moderation-report', 'Unit | Model | moderation report', {
   // Specify the other units that are required for this test.
   needs: []
 });

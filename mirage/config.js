@@ -204,9 +204,9 @@ export default function() {
 
     return schema.db.userIdentities.update(id, body);
   });
-  this.get('/violation-reports');
-  this.get('/violation-reports/:id');
-  this.patch('/violation-reports/:id', (schema, request) => {
-    return schema.db.violationReports.update(request.params.id, JSON.parse(request.requestBody));
+  this.get('/moderation-reports');
+  this.get('/moderation-reports/:id');
+  this.patch('/moderation-reports/:id', (schema, request) => {
+    return schema.db.moderationReports.update(request.params.id, JSON.parse(request.requestBody));
   });
 }

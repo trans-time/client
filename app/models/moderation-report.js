@@ -4,7 +4,7 @@ export default DS.Model.extend({
   flaggable: DS.belongsTo('flaggable', { polymorphic: true }),
   flags: DS.hasMany('flag'),
   indicted: DS.belongsTo('user', { inverse: 'indictions' }),
-  moderator: DS.belongsTo('user', { inverse: 'violationReports' }),
+  moderator: DS.belongsTo('user', { inverse: 'moderationReports' }),
 
   date: DS.attr('date'),
   moderatorComment: DS.attr('string'),

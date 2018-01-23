@@ -87,21 +87,21 @@ export default function(server) {
 
   server.db.comments.update(violatingComment.id, violatingComment);
 
-  server.create('violation-report', {
+  server.create('moderation-report', {
     flagIds: server.createList('flag', 5).map((flag) => flag.id),
     moderatorId: 1,
     flaggableId: { type: 'post', id: violatingPost.id },
     indictedId: violatingPost.userId
   });
 
-  server.create('violation-report', {
+  server.create('moderation-report', {
     flagIds: server.createList('flag', 5).map((flag) => flag.id),
     moderatorId: 1,
     flaggableId: { type: 'comment', id: violatingComment.id },
     indictedId: violatingComment.userId
   });
 
-  server.createList('violation-report', 3, {
+  server.createList('moderation-report', 3, {
     flagIds: server.createList('flag', 5).map((flag) => flag.id),
     moderatorId: 2,
     wasViolation: true,
@@ -141,7 +141,7 @@ export default function(server) {
       type: 'notification-moderation-request',
       id: server.create('notification-moderation-request', {
         user: currentUser,
-        violationReportId: 1
+        moderationReportId: 1
       }).id
     },
     {
@@ -155,7 +155,7 @@ export default function(server) {
       type: 'notification-moderation-warning',
       id: server.create('notification-moderation-warning', {
         user: currentUser,
-        violationReportId: 1
+        moderationReportId: 1
       }).id
     },
     {

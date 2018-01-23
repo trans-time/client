@@ -7,13 +7,13 @@ export default Model.extend({
   reactions: hasMany('reaction'),
   followers: hasMany('follow', { inverse: 'followed' }),
   followeds: hasMany('follow', { inverse: 'follower' }),
-  indictions: hasMany('violation-report', { inverse: 'indicted' }),
+  indictions: hasMany('moderation-report', { inverse: 'indicted' }),
   notifications: hasMany('notification', { polymorphic: true, inverse: 'user' }),
   posts: hasMany('post', { inverse: 'user' }),
   searchQueries: hasMany('search-query'),
   tags: hasMany('tag'),
   userIdentities: hasMany('user-identity'),
-  violationReports: hasMany('violation-report', { inverse: 'moderator' }),
+  moderationReports: hasMany('moderation-report', { inverse: 'moderator' }),
 
   currentUser: belongsTo('current-user'),
   userProfile: belongsTo('user-profile')

@@ -3,7 +3,7 @@ import DS from 'ember-data';
 export default DS.Model.extend({
   flaggable: DS.belongsTo('flaggable', { polymorphic: true }),
   user: DS.belongsTo('user'),
-  violationReport: DS.belongsTo('violation-report'),
+  moderationReport: DS.belongsTo('moderation-report'),
 
   date: DS.attr('date'),
   text: DS.attr('string'),

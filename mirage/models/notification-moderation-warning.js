@@ -2,5 +2,5 @@ import { belongsTo } from 'ember-cli-mirage';
 import Notification from './notification';
 
 export default Notification.extend({
-  violationReport: belongsTo('violation-report')
+  moderationReport: belongsTo('moderation-report')
 });
