@@ -17,6 +17,7 @@ const ViolationReportValidation = {
 export default Component.extend({
   classNames: ['moderation-panel'],
 
+  currentUser: service(),
   intl: service(),
   paperToaster: service(),
   router: service(),
@@ -42,6 +43,7 @@ export default Component.extend({
     const changeset = this.get('changeset');
 
     changeset.setProperties(properties);
+    changeset.set('moderator', this.get('currentUser.user'));
 
     changeset.save().then(() => {
       this.get('paperToaster').show(this.get('intl').t('violationReport.successful'), {

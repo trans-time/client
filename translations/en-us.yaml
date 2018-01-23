@@ -65,7 +65,7 @@ file:
   dragAndDrop: "drag and drop images onto this area to upload them or"
   drop: "drop to upload"
   invalid: "file is invalid"
-  progress: "uploading {{length}} files. ({{progress}}%)"
+  progress: "uploading {length} files. ({progress}%)"
   uploadImages: "upload Images"
 flags:
   report: "report violation"
