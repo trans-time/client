@@ -11,12 +11,12 @@ export default Reactable.extend({
   relationships: DS.hasMany('user', { inverse: false }),
   tags: DS.hasMany('tag'),
 
-  text: DS.attr('string'),
+  commentsLocked: DS.attr('boolean'),
   date: DS.attr('number'),
   deleted: DS.attr('boolean'),
-  lockComments: DS.attr('boolean'),
   private: DS.attr('boolean'),
   nsfw: DS.attr('boolean'),
+  text: DS.attr('string'),
   totalComments: DS.attr('number'),
 
   panelsWithBlank: computed('panels.[]', {

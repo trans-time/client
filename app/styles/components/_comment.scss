@@ -10,6 +10,15 @@
   padding: $rhythm / 2;
 }
 
+.comments-locked {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $rhythm * 2 0;
+  color: $medium-gray;
+  border-top: thin solid $medium-gray;
+}
+
 .comment {
   margin-bottom: $rhythm;
 }

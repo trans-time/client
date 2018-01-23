@@ -16,10 +16,14 @@
 </div>
 
 {{#if (not isModerating)}}
-  {{post-nav/chat/comment-form
-    post=post
-    commentable=post
-    addComment=(action "addComment")
-    classNames="comment-form-post-reply"
-  }}
+  {{#if post.commentsLocked}}
+    <div class="comments-locked">{{t "comments.locked"}}</div>
+  {{else}}
+    {{post-nav/chat/comment-form
+      post=post
+      commentable=post
+      addComment=(action "addComment")
+      classNames="comment-form-post-reply"
+    }}
+  {{/if}}
 {{/if}}

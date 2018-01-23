@@ -30,6 +30,7 @@ comments:
   reactions: "comment reactions"
   lackPermission: "<comment hidden>"
   loadMore: "view more. . . ."
+  locked: "comments locked"
   noCommentsYet: "be the first to comment"
   reply: "reply"
   report: "report"

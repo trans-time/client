@@ -21,7 +21,7 @@ export default Reactable.extend({
 
   shouldDisplay: computed('deleted', 'nondeletedChildren.length', {
     get() {
-      return !(comment.get('deleted') || comment.get('underModeration')) || this.get('nondeletedChildren.length') > 0;
+      return !(this.get('deleted') || this.get('underModeration')) || this.get('nondeletedChildren.length') > 0;
     }
   })
 });

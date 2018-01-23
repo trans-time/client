@@ -37,7 +37,9 @@
       <div class="comment-controls">
         {{sometimes-relative-date date=comment.date}}
         | {{post-nav/slideshow/post/controls/reactions/main reactable=comment}}
-        | <a {{action "reply"}}>{{t "comments.reply"}}</a>
+        {{#if (not post.commentsLocked)}}
+          | <a {{action "reply"}}>{{t "comments.reply"}}</a>
+        {{/if}}
         {{#if (eq currentUser.user.id comment.user.id)}}
           | <a {{action "startEditing"}} disabled={{deleteDisabled}}>{{t "comments.edit"}}</a>
           | <a {{action "delete" comment}} disabled={{deleteDisabled}}>{{t "comments.delete"}}</a>
@@ -72,7 +74,7 @@
 {{#if orderedFilteredChildren}}
   <div class="comment-children">
     {{#each orderedFilteredChildren as |child|}}
-      {{post-nav/chat/comment comment=child isCollapsedChild=childrenAreCollapsed routeComment=routeComment isModerating=isModerating wasClicked=(action "expandChildren") removeComment=(action "removeComment")}}
+      {{post-nav/chat/comment comment=child post=post isCollapsedChild=childrenAreCollapsed routeComment=routeComment isModerating=isModerating wasClicked=(action "expandChildren") removeComment=(action "removeComment")}}
     {{/each}}
 
     {{#if childrenAreCollapsed}}
