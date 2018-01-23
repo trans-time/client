@@ -66,7 +66,7 @@ export default Component.extend({
     get() {
       const { isModerating, routeComment } = this.getProperties('isModerating', 'routeComment');
       return this.get('comments').filter((comment) => {
-        return isNone(comment.get('parent.content')) && (isModerating || !comment.get('deleted') || comment.get('nondeletedChildren.length') > 0 || comment === routeComment || comment.get('children').includes(routeComment));
+        return isNone(comment.get('parent.content')) && (isModerating || comment.get('shouldDisplay') || comment === routeComment || comment.get('children').includes(routeComment));
       });
     }
   }),

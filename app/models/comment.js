@@ -13,15 +13,15 @@ export default Reactable.extend({
   deleted: DS.attr('boolean'),
   text: DS.attr('string'),
 
-  nondeletedChildren: computed('children.@each.deleted', {
+  nondeletedChildren: computed('children.@each.shouldDisplay', {
     get() {
-      return this.get('children').filterBy('deleted', false);
+      return this.get('children').filterBy('shouldDisplay', true);
     }
   }),
 
   shouldDisplay: computed('deleted', 'nondeletedChildren.length', {
     get() {
-      return !this.get('deleted') || this.get('nondeletedChildren.length') > 0;
+      return !(comment.get('deleted') || comment.get('underModeration')) || this.get('nondeletedChildren.length') > 0;
     }
   })
 });
