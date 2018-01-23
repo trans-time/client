@@ -14,6 +14,7 @@ export default Reactable.extend({
   text: DS.attr('string'),
   date: DS.attr('number'),
   deleted: DS.attr('boolean'),
+  lockComments: DS.attr('boolean'),
   private: DS.attr('boolean'),
   nsfw: DS.attr('boolean'),
   totalComments: DS.attr('number'),

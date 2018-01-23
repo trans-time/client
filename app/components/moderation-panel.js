@@ -1,14 +1,22 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { readOnly } from '@ember/object/computed';
+import { not, readOnly } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
+import { isBlank } from '@ember/utils';
 import Changeset from 'ember-changeset';
 import lookupValidator from 'ember-changeset-validations';
 import {
-  validateLength
+  validateLength,
+  validateNumber
 } from 'ember-changeset-validations/validators';
 
 const ModerationReportValidation = {
+  banUserDuration: [
+    validateNumber({ allowBlank: true, positive: true, integer: true })
+  ],
+  lockCommentsDuration: [
+    validateNumber({ allowBlank: true, positive: true, integer: true })
+  ],
   text: [
     validateLength({ max: 63206 })
   ]
@@ -24,10 +32,17 @@ export default Component.extend({
 
   disabled: readOnly('report.resolved'),
 
+  disableBanDuration: not('changeset.actionBannedUser'),
+  disableLockCommentsDuration: not('changeset.actionLockComments'),
+
   didReceiveAttrs(...args) {
     this._super(...args);
 
     this.set('changeset', new Changeset(this.get('report'), lookupValidator(ModerationReportValidation), ModerationReportValidation));
+
+    if (isBlank(this.get('changeset.banUserDuration'))) this.set('changeset.banUserDuration', 0);
+    if (isBlank(this.get('changeset.lockCommentsDuration'))) this.set('changeset.lockCommentsDuration', 0);
+
     this.get('changeset').validate();
   },
 

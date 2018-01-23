@@ -160,10 +160,20 @@
   text-decoration: none;
 }
 
+.moderation-panel-form {
+  padding-top: $rhythm * 2;
+}
+
 .moderation-panel-checkboxes {
   display: flex;
   justify-content: space-between;
-  margin-top: $rhythm;
+}
+
+.moderation-panel-checkbox-with-duration {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-right: $rhythm !important;
 }
 
 .moderation-panel-comment-field {
@@ -239,9 +249,6 @@
 
   div {
     font-size: 70%;
-  }
-
-  div:first-child {
     margin-top: $rhythm / 3;
   }
 }

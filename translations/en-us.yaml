@@ -123,12 +123,16 @@ identities:
       label: "start date"
 moderation:
   banUser: "ban user"
-  bannedUser: "banned user"
+  bannedUser: "banned user: {duration, plural, =0 {∞} =1 {{duration} day} other {{duration} days}}"
   contractComments: "hide flags"
   deleteFlaggable: "delete content"
   deletedContent: "deleted content"
   expandComments: "show flags"
   flags: "flags"
+  ignoreFlags: "ignore flags"
+  ignoredFlags: "ignoring future flags"
+  lockComments: "lock comments"
+  lockedComments: "locked comments: {duration, plural, =0 {∞} =1 {{duration} day} other {{duration} days}}"
   moderation: "moderation"
   pending: "pending"
   noOtherIndictions: "no other indictions"
@@ -136,6 +140,16 @@ moderation:
   report: "report"
   reports: "reports"
   violation: "violation"
+moderationReport:
+  successful: "report successfully submitted"
+  unsuccessful: "something went wrong, but please try again in a few minutes"
+  attributes:
+    banUserDuration:
+      label: "duration in days (0 = ∞)"
+    lockCommentsDuration:
+      label: "duration in days (0 = ∞)"
+    moderatorComment:
+      label: "comment"
 notifications:
   notifications: "notifications"
   seeAllNotifications: "see all notifications"
@@ -231,9 +245,3 @@ users:
       label: "password"
     username:
       label: "username"
-moderationReport:
-  successful: "report successfully submitted"
-  unsuccessful: "something went wrong, but please try again in a few minutes"
-  attributes:
-    moderatorComment:
-      label: "comment"

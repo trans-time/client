@@ -11,6 +11,10 @@ export default DS.Model.extend({
   resolved: DS.attr('boolean'),
   wasViolation: DS.attr('boolean'),
 
+  actionBannedUser: DS.attr('boolean'),
   actionDeletedFlaggable: DS.attr('boolean'),
-  actionBannedUser: DS.attr('boolean')
+  actionIgnoreFlags: DS.attr('boolean'),
+  actionLockComments: DS.attr('boolean'),
+  banUserDuration: DS.attr('number'),
+  lockCommentsDuration: DS.attr('number')
 });

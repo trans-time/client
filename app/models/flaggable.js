@@ -5,6 +5,7 @@ export default DS.Model.extend({
   textVersions: DS.hasMany('text-version'),
   moderationReports: DS.hasMany('moderation-report'),
 
-  underModeration: DS.attr('boolean'),
-  deletedByModerator: DS.attr('boolean')
+  deletedByModerator: DS.attr('boolean'),
+  ignoreFlags: DS.attr('boolean'),
+  underModeration: DS.attr('boolean')
 });

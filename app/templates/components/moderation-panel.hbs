@@ -40,11 +40,49 @@
         {{/paper-checkbox}}
 
         {{#paper-checkbox
+          value=changeset.actionIgnoreFlags
+          onChange=(action (mut changeset.actionIgnoreFlags))
+        }}
+          {{t "moderation.ignoreFlags"}}
+        {{/paper-checkbox}}
+      </div>
+
+      <div class="moderation-panel-checkboxes">
+        {{#paper-checkbox
           value=changeset.actionBannedUser
           onChange=(action (mut changeset.actionBannedUser))
+          classNames="moderation-panel-checkbox-with-duration"
         }}
           {{t "moderation.banUser"}}
         {{/paper-checkbox}}
+
+        {{paper-input
+          value=changeset.banUserDuration
+          type="number"
+          label=(t "moderationReport.attributes.banUserDuration.label")
+          onChange=(action (mut changeset.banUserDuration))
+          errors=changeset.error.banUserDuration.validation
+          disabled=disableBanDuration
+        }}
+      </div>
+
+      <div class="moderation-panel-checkboxes">
+        {{#paper-checkbox
+          value=changeset.actionLockComments
+          onChange=(action (mut changeset.actionLockComments))
+          classNames="moderation-panel-checkbox-with-duration"
+        }}
+          {{t "moderation.lockComments"}}
+        {{/paper-checkbox}}
+
+        {{paper-input
+          value=changeset.lockCommentsDuration
+          type="number"
+          label=(t "moderationReport.attributes.lockCommentsDuration.label")
+          onChange=(action (mut changeset.lockCommentsDuration))
+          errors=changeset.error.lockCommentsDuration.validation
+          disabled=disableLockCommentsDuration
+        }}
       </div>
 
       {{paper-input
