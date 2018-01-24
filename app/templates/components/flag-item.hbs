@@ -4,6 +4,18 @@
 
     {{violation-list flag=flag}}
 
+    {{#if flag.moderationReport.flaggable.content.constructor.modelName}}
+      {{#if (eq flag.moderationReport.flaggable.content.constructor.modelName "post")}}
+        {{#link-to "posts.post" flag.moderationReport.flaggable.id classNames="flag-item-flaggable-link"}}
+          {{t "moderation.linkToPost"}}
+        {{/link-to}}
+      {{else}}
+        {{#link-to "comments.comment" flag.moderationReport.flaggable.id classNames="flag-item-flaggable-link"}}
+          {{t "moderation.linkToComment"}}
+        {{/link-to}}
+      {{/if}}
+    {{/if}}
+
     {{#if flag.text}}
       {{rich-text text=flag.text class="flag-item-comment"}}
     {{/if}}

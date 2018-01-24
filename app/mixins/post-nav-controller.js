@@ -1,8 +1,7 @@
 import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
-  queryParams: ['postId', 'comments'],
-  postId: null,
+  queryParams: ['comments'],
   comments: null,
 
   actions: {

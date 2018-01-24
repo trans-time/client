@@ -17,7 +17,7 @@
         {{#if (and (and (not post.ignoreFlags) (not isModerating)) (not-eq post.user.id user.id))}}
           | <a {{action "report"}} disabled={{controlsDisabled}} tabindex="0" class="link">{{t "post.report"}}</a>
         {{/if}}
-        {{#if (and isModerating (gt post.textVersions.length 1))}}
+        {{#if showHistoryToggle}}
           {{#if historyIsRevealed}}
             | <a {{action "hideHistory"}} tabindex="0" class="link">{{t "post.hideHistory"}}</a>
           {{else}}

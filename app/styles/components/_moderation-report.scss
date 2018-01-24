@@ -206,6 +206,11 @@
   font-size: 80%;
 }
 
+.flag-item-flaggable-link {
+  display: block;
+  margin: $rhythm 0;
+}
+
 .flag-item-text {
   flex-grow: 1;
 }

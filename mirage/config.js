@@ -209,4 +209,6 @@ export default function() {
   this.patch('/moderation-reports/:id', (schema, request) => {
     return schema.db.moderationReports.update(request.params.id, JSON.parse(request.requestBody));
   });
+  this.get('/moderation-warnings');
+  this.get('/moderation-warnings/:id');
 }

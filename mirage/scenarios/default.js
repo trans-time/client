@@ -109,6 +109,11 @@ export default function(server) {
     moderatorComment: 'foo bar baz and lots of jazz, that is the comment I would like to make. That I would like to make this comment kinda long. That is all. Thank you. Peace.'
   });
 
+  server.create('moderation-warning', {
+    indictedId: 1,
+    moderationReportId: 1
+  });
+
   const currentUser = server.create('user', {
     posts,
     username: 'celeste',
@@ -141,7 +146,7 @@ export default function(server) {
       type: 'notification-moderation-request',
       id: server.create('notification-moderation-request', {
         user: currentUser,
-        moderationReportId: 1
+        total: 3
       }).id
     },
     {
@@ -155,7 +160,7 @@ export default function(server) {
       type: 'notification-moderation-warning',
       id: server.create('notification-moderation-warning', {
         user: currentUser,
-        moderationReportId: 1
+        moderationWarningId: 1
       }).id
     },
     {

@@ -1,0 +1,27 @@
+{{#link-to "moderation.warnings.warning" moderationWarning class="flag-item-link"}}
+  <div class="flag-item-text">
+    <div class="flag-item-date">{{sometimes-relative-date date=moderationWarning.moderationReport.date}}</div>
+
+    {{violation-aggregator report=moderationWarning.moderationReport}}
+
+    {{#if moderationWarning.moderationReport.flaggable.content.constructor.modelName}}
+      {{#if (eq moderationWarning.moderationReport.flaggable.content.constructor.modelName "post")}}
+        {{#link-to "posts.post" moderationWarning.moderationReport.flaggable.id classNames="flag-item-flaggable-link"}}
+          {{t "moderation.linkToPost"}}
+        {{/link-to}}
+      {{else}}
+        {{#link-to "comments.comment" moderationWarning.moderationReport.flaggable.id classNames="flag-item-flaggable-link"}}
+          {{t "moderation.linkToComment"}}
+        {{/link-to}}
+      {{/if}}
+    {{/if}}
+
+    {{#if moderationWarning.moderationReport.moderatorComment}}
+      <div class="flag-item-moderator-comment">
+        <div class="flag-item-date">{{sometimes-relative-date date=moderationWarning.moderationReport.date}}</div>
+        {{rich-text text=moderationWarning.moderationReport.moderatorComment}}
+      </div>
+    {{/if}}
+  </div>
+  {{violation-status report=moderationWarning.moderationReport}}
+{{/link-to}}

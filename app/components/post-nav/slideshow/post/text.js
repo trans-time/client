@@ -68,6 +68,12 @@ export default Component.extend(AuthenticatedActionMixin, {
     this._super(...args);
   },
 
+  showHistoryToggle: computed({
+    get() {
+      return this.get('isModerating') && this.get('post.textVersions.length') > 0;
+    }
+  }),
+
   textRevealed: computed('userRevealedText', 'textOverflown', {
     get() {
       return this.get('userRevealedText') || !this.get('textOverflown');
