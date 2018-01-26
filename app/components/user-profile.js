@@ -186,7 +186,7 @@ export default Component.extend(AuthenticatedActionMixin, {
     },
 
     startEditing() {
-      this.set('changeset', new Changeset(this.get('user.userProfile'), lookupValidator(ProfileValidations), ProfileValidations));
+      this.set('changeset', new Changeset(this.get('user.userProfile.content'), lookupValidator(ProfileValidations), ProfileValidations));
       this.get('changeset').validate();
       this.set('isEditing', true);
     },

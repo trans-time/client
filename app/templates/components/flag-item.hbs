@@ -24,7 +24,7 @@
       <div class="flag-item-moderator-comment">
         <div class="flag-item-date">{{sometimes-relative-date date=flag.moderationReport.date}}</div>
         {{#rich-text text=flag.moderationReport.moderatorComment}}
-          {{#link-to "users.user.profile.index" flag.moderationReport.moderator.username classNames="flag-item-moderator-link"}}{{#if flag.moderationReport.moderator.userProfile.displayName}}{{{inject-emoji flag.moderationReport.moderator.userProfile.displayName}}} {{/if}}<span class="at-username">@{{flag.moderationReport.moderator.username}}</span>{{/link-to}}
+          {{#link-to "users.user.profile.index" flag.moderationReport.moderator.username classNames="flag-item-moderator-link"}}{{#if flag.moderationReport.moderator.displayName}}{{{inject-emoji flag.moderationReport.moderator.displayName}}} {{/if}}<span class="at-username">@{{flag.moderationReport.moderator.username}}</span>{{/link-to}}
         {{/rich-text}}
       </div>
     {{/if}}

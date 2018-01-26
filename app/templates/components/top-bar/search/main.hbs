@@ -39,8 +39,8 @@
         navDown=(action "navDown")
         navUp=(action "navUp")
       }}
-        {{#if user.userProfile.avatar}}<img src={{user.userProfile.avatar}} class="search-bar-results-group-item-avatar">{{/if}}
-        <span class="search-bar-results-group-item-text">{{#if user.userProfile.displayName}}{{user.userProfile.displayName}}{{/if}}
+        {{#if user.avatar}}<img src={{user.avatar}} class="search-bar-results-group-item-avatar">{{/if}}
+        <span class="search-bar-results-group-item-text">{{#if user.displayName}}{{user.displayName}}{{/if}}
         <span class="at-username">@{{user.username}}</span></span>
       {{/top-bar/search/result}}
     {{/each}}

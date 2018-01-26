@@ -74,7 +74,7 @@ export default Component.extend({
   _searchUsers(index, startOfWordIndex, endOfWordIndex) {
     const word = this._getWord(index, startOfWordIndex, endOfWordIndex);
 
-    if (word.length > 0) this.get('_searchTask').perform('user', word, { username: word, perPage: 5, include: 'userProfile' });
+    if (word.length > 0) this.get('_searchTask').perform('user', word, { username: word, perPage: 5 });
   },
 
   _searchTask: task(function * (type, word, query) {

@@ -1,7 +1,7 @@
 {{#link-to "users.user.profile" user.username class="follow-item-link"}}
-  <img src={{user.userProfile.avatar}} class="follow-item-avatar">
+  <img src={{user.avatar}} class="follow-item-avatar">
   <div class="follow-item-text">
-    <div class="follow-item-username">{{#if user.userProfile.displayName}}{{{inject-emoji user.userProfile.displayName}}} {{/if}}<span class="at-username">@{{user.username}}</span>{{#if (and isCurrentUserFollower follow.requestedPrivate)}}<span class="follow-item-secondary-title"> - {{t "followers.requestedPrivate"}}</span>{{/if}}</div>
+    <div class="follow-item-username">{{#if user.displayName}}{{{inject-emoji user.displayName}}} {{/if}}<span class="at-username">@{{user.username}}</span>{{#if (and isCurrentUserFollower follow.requestedPrivate)}}<span class="follow-item-secondary-title"> - {{t "followers.requestedPrivate"}}</span>{{/if}}</div>
     {{#if isCurrentUserFollower}}
       {{#if follow.canViewPrivate}}
         {{#paper-button onClick="revokePrivateAccess" raised=true warn=true disabled=buttonDisabled class="follow-item-button"}}{{t "followers.revoke"}}{{/paper-button}}

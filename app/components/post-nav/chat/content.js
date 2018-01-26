@@ -36,7 +36,7 @@ export default Component.extend({
   },
 
   _loadComments() {
-    let include = 'user, user.userProfile';
+    let include = 'user';
     if (this.get('isModerating')) include += ', textVersions';
     this.get('store').query('comment', { postId: this.get('post.id'), include }).then((comments) => {
       this.setProperties({

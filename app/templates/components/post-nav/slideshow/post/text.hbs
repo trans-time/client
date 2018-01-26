@@ -2,7 +2,7 @@
     <div class="post-nav-post-top-line">
       <div class="post-nav-post-date">
         {{sometimes-relative-date date=post.date}}
-        | {{#if post.user.userProfile.displayName}}{{{inject-emoji post.user.userProfile.displayName}}} {{/if}}
+        | {{#if post.user.displayName}}{{{inject-emoji post.user.displayName}}} {{/if}}
           {{#link-to "users.user.profile.index" post.user.username}}<span class="at-username">@{{post.user.username}}</span>{{/link-to}}
         {{#if (eq post.user.id user.id)}}
           | {{#link-to "posts.post.edit" post.id disabled=controlsDisabled}}{{t "post.edit"}}{{/link-to}}

@@ -16,7 +16,10 @@ export default DS.Model.extend({
   userProfile: DS.belongsTo('user-profile'),
   moderationReports: DS.hasMany('moderation-report', { inverse: 'moderator' }),
 
+  avatar: DS.attr('string'),
+  displayName: DS.attr('string'),
   isModerator: DS.attr('boolean'),
+  pronouns: DS.attr('string'),
   username: DS.attr('string'),
 
   tags: computed('posts.@each.tag', {

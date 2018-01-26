@@ -1,7 +1,7 @@
 <div class="profile-header">
-  {{#if (or user.userProfile.avatar isEditing)}}
+  {{#if (or user.avatar isEditing)}}
     <div class="profile-header-avatar-container {{if isEditing 'profile-header-avatar-container-full-size'}}">
-      {{#if user.userProfile.avatar}}<img class="profile-header-avatar" src={{user.userProfile.avatar}}>{{/if}}
+      {{#if user.avatar}}<img class="profile-header-avatar" src={{user.avatar}}>{{/if}}
       {{#if isEditing}}
         <a {{action "changeAvatar"}} class="profile-header-avatar-new-overlay">
           {{fa-icon "camera" size=2}}
@@ -80,9 +80,9 @@
         errors=changeset.error.pronouns.validation
       }}
     </div>
-  {{else if (or user.userProfile.pronouns user.userIdentities)}}
+  {{else if (or user.pronouns user.userIdentities)}}
     <div class="profile-pronouns-and-identities">
-      <span class="profile-pronouns">{{{inject-emoji user.userProfile.pronouns}}}</span>
+      <span class="profile-pronouns">{{{inject-emoji user.pronouns}}}</span>
 
       {{#if currentIdentities}}
         {{#each currentIdentities as |userIdentity|}}

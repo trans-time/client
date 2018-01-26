@@ -2,10 +2,7 @@ import { Factory, faker } from 'ember-cli-mirage';
 import { A } from '@ember/array';
 
 export default Factory.extend({
-  avatar: faker.image.avatar,
   description: faker.lorem.paragraph,
-  displayName: faker.name.firstName,
-  pronouns: faker.list.random('she/her', 'he/him', 'they/them', 'she/her; they/them', 'he/him; they/them', ''),
   totalPosts: faker.random.number,
   website: faker.internet.url,
 

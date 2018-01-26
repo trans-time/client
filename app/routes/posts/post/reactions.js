@@ -7,7 +7,7 @@ export default Route.extend(InfinityRoute, {
   topBarManager: service(),
 
   model() {
-    return this.infinityModel('reaction', { perPage: 12, startingPage: 1, reactableId: this.modelFor('posts.post').id, reactableType: 'post', include: 'user, user.userProfile' });
+    return this.infinityModel('reaction', { perPage: 12, startingPage: 1, reactableId: this.modelFor('posts.post').id, reactableType: 'post', include: 'user' });
   },
 
   beforeModel(...args) {
