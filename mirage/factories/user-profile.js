@@ -7,17 +7,17 @@ export default Factory.extend({
   website: faker.internet.url,
 
   afterCreate(userProfile, server) {
-    const summary = userProfile.user.posts.models.reduce((summary, post) => {
-      post.tagIds.forEach((tagId) => {
+    const summary = userProfile.user.timelineItems.models.reduce((summary, timelineItem) => {
+      timelineItem.tagIds.forEach((tagId) => {
         summary[tagId] = summary[tagId] || [];
-        summary[tagId].push(post.id);
+        summary[tagId].push(timelineItem.id);
       });
 
       return summary;
     }, {});
 
-    const tagIds = A(userProfile.user.posts.models.reduce((tagIds, post) => {
-      return tagIds.concat(post.tagIds);
+    const tagIds = A(userProfile.user.timelineItems.models.reduce((tagIds, timelineItem) => {
+      return tagIds.concat(timelineItem.tagIds);
     }, [])).uniq();
 
     userProfile.userTagSummary = server.create('user-tag-summary', {
@@ -26,7 +26,7 @@ export default Factory.extend({
       summary
     }).save();
 
-    userProfile.totalPosts = userProfile.user.posts.models.length;
+    userProfile.totalPosts = userProfile.user.timelineItems.models.length;
 
     userProfile.save();
   }

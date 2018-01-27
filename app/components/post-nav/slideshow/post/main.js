@@ -10,12 +10,12 @@ export default Component.extend(EKMixin, SlideshowComponentMixin, {
   classNames: ['post-nav-slideshow-post'],
   classNameBindings: ['isBlank:post-nav-slideshow-post-blank'],
 
-  isOutgoing: oneWay('post.isOutgoing'),
-  isIncoming: oneWay('post.isIncoming'),
-  isBlank: oneWay('post.isBlank'),
+  isOutgoing: oneWay('timelineItem.isOutgoing'),
+  isIncoming: oneWay('timelineItem.isIncoming'),
+  isBlank: oneWay('timelineItem.isBlank'),
   keyboardActivated: oneWay('isCurrentPost'),
-  shouldRenderPost: or('visible', 'post.shouldPrerender'),
-  sortedPanels: sort('post.panels', (a, b) => a.get('model.order') - b.get('model.order')),
+  shouldRenderPost: or('visible', 'timelineItem.shouldPrerender'),
+  sortedPanels: sort('timelineItem.panels', (a, b) => a.get('model.order') - b.get('model.order')),
 
   intl: service(),
   messageBus: service(),
@@ -35,15 +35,21 @@ export default Component.extend(EKMixin, SlideshowComponentMixin, {
     this.set('userRevealedText', true);
   }),
 
-  isCurrentPost: computed('post', 'navState.currentPanel.post', {
+  post: computed({
     get() {
-      return this.get('post') === this.get('navState.currentPanel.post');
+      return this.get('timelineItem.model.timelineable.content');
+    }
+  }),
+
+  isCurrentPost: computed('timelineItem', 'navState.currentPanel.timelineItem', {
+    get() {
+      return this.get('timelineItem') === this.get('navState.currentPanel.timelineItem');
     }
   }),
 
   nsfw: computed({
     get() {
-      return this.get('post.model.nsfw') && !(localStorage.getItem('showNsfwContent') || sessionStorage.getItem('showNsfwContent'));
+      return this.get('post.nsfw') && !(localStorage.getItem('showNsfwContent') || sessionStorage.getItem('showNsfwContent'));
     }
   }),
 

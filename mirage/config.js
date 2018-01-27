@@ -81,6 +81,7 @@ export default function() {
     return schema.comments.find(request.params.id);
   });
   this.patch('/comments/:id');
+  this.get('/timeline-items');
   this.get('/posts', (schema, request) => {
     let posts = request.queryParams.userId ? schema.posts.where({ userId: request.queryParams.userId }) : schema.posts.all();
     if (request.queryParams.lastPost) posts.models = posts.models.reverse();
@@ -127,10 +128,10 @@ export default function() {
     return postsSegment;
   });
   this.get('/posts/:id');
-  this.delete('/posts/:id', (schema, request) => {
-    schema.db.posts.update(request.params.id, { deleted: true });
+  this.delete('/timeline-items/:id', (schema, request) => {
+    schema.db.timelineItems.update(request.params.id, { deleted: true });
 
-    return schema.posts.find(request.params.id);
+    return schema.timelineItems.find(request.params.id);
   });
   this.get('/tags', (schema, request) => {
     return schema.tags.all().filter((tag) => tag.name.includes(request.queryParams.name)).slice(0, request.queryParams.perPage);

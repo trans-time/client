@@ -14,12 +14,12 @@ export default Route.extend({
   },
 
   actions: {
-    deletePost(post, resolve) {
-      post.destroyRecord().finally(() => resolve());
+    deleteTimelineItem(timelineItem, resolve) {
+      timelineItem.destroyRecord().finally(() => resolve());
     },
 
-    loadMorePosts(resolve, reject, shouldProgress) {
-      resolve(shouldProgress ? { reachedFirstPost: true } : { reachedLastPost: true });
+    loadMoreTimelineItems(resolve, reject, shouldProgress) {
+      resolve(shouldProgress ? { reachedFirstTimelineItem: true } : { reachedLastTimelineItem: true });
     }
   }
 });

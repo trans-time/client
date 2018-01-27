@@ -12,6 +12,7 @@ export default DS.Model.extend({
   indictions: DS.hasMany('moderation-report', { inverse: 'indicted' }),
   notifications: DS.hasMany('notification', { polymorphic: true }),
   posts: DS.hasMany('post', { async: true, inverse: 'user' }),
+  timelineItems: DS.hasMany('timeline-item', { async: true, inverse: 'user' }),
   userIdentities: DS.hasMany('user-identity'),
   userProfile: DS.belongsTo('user-profile'),
   moderationReports: DS.hasMany('moderation-report', { inverse: 'moderator' }),
@@ -22,9 +23,9 @@ export default DS.Model.extend({
   pronouns: DS.attr('string'),
   username: DS.attr('string'),
 
-  tags: computed('posts.@each.tag', {
+  tags: computed('timelineItems.@each.tag', {
     get() {
-      return this.get('posts').toArray().reduce((tags, post) => tags.concat(post.get('tags').toArray()), A()).uniq();
+      return this.get('timelineItems').toArray().reduce((tags, timelineItem) => tags.concat(timelineItem.get('tags').toArray()), A()).uniq();
     }
   })
 });

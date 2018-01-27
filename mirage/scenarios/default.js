@@ -16,7 +16,6 @@ export default function(server) {
   }
   const posts = server.createList('post', 1, {
     date: 0,
-    tags: [symbolTag],
     panels: [],
     text: ":sunglasses: @celeste #symbol I am a text of medium length. It helps to test when the overflow button appears. Isn't that exciting! I am a text of medium length. It helps to test when the overflow button appears. Isn't that exciting! I am a text of medium length. It helps to test when the overflow button appears. Isn't that exciting! I am a text of medium length. It helps to test when the overflow button appears. Isn't that exciting! I am a text of medium length. It helps to test when the overflow button appears. Isn't that exciting! I am a text of medium length. It helps to test when the overflow button appears. Isn't that exciting! "
   });
@@ -24,7 +23,6 @@ export default function(server) {
   sequence.forEach((gender, index) => {
     posts.push(server.create('post', {
       date: index * 1000000000,
-      tags: [symbolTag],
       panels: [0, 45, 90, 135, 180, 225, 270, 315].map((orientation, index) => {
         return server.create('image', {
           src: `/dev/${gender}-${orientation}.png`,
@@ -66,6 +64,13 @@ export default function(server) {
 
       return comment.id;
     });
+
+
+    server.create('timeline-item', {
+      timelineableId: { type: 'post', id: post.id },
+      userId: post.userId
+    }).id;
+
 
     server.db.posts.update(post.id, post);
   });
@@ -116,6 +121,7 @@ export default function(server) {
 
   const currentUser = server.create('user', {
     posts,
+    timelineItemIds: server.db.timelineItems.filter((timelineItem) => posts.includes(timelineItem.timelineableId.id)).map((timelineItem) => timelineItemd.id),
     username: 'celeste',
     isModerator: true,
     notificationIds: [{
@@ -195,6 +201,7 @@ export default function(server) {
       }).id
     }]
   });
+
   server.db.users.forEach((user) => {
     if (user.id === currentUser.id) return;
     server.create('follow', {
@@ -217,25 +224,34 @@ export default function(server) {
   server.db.currentUsers.update(currentUser.id, { unreadNotificationsTotal: currentUser.notifications.length });
 
   server.db.userTagSummaries.forEach((userTagSummary) => {
-    const posts = server.db.posts.find(server.db.users.find(server.db.userProfiles.find(userTagSummary.userProfileId).userId).postIds);
+    const timelineItems = server.db.timelineItems.find(server.db.users.find(server.db.userProfiles.find(userTagSummary.userProfileId).userId).timelineItemIds);
 
-    userTagSummary.summary = posts.reduce((summary, post) => {
-      post.tagIds.forEach((tagId) => {
+    userTagSummary.summary = timelineItems.reduce((summary, timelineItem) => {
+      timelineItem.tagIds.forEach((tagId) => {
         summary.tags[tagId] = summary.tags[tagId] || [];
-        summary.tags[tagId].push(post.id);
+        summary.tags[tagId].push(timelineItem.id);
       });
-      post.relationshipIds.forEach((relationshipId) => {
+      timelineItem.relationshipIds.forEach((relationshipId) => {
         summary.relationships[relationshipId] = summary.relationships[relationshipId] || [];
-        summary.relationships[relationshipId].push(post.id);
+        summary.relationships[relationshipId].push(timelineItem.id);
       });
 
       return summary;
     }, { tags: {}, relationships: {} });
 
-    userTagSummary.relationshipIds = A(posts.reduce((relationshipIds, post) => {
-      return relationshipIds.concat(post.relationshipIds);
+    userTagSummary.tagIds = A(timelineItems.reduce((tagIds, timelineItem) => {
+      return tagIds.concat(timelineItem.tagIds);
+    }, [])).uniq();
+
+    userTagSummary.relationshipIds = A(timelineItems.reduce((relationshipIds, timelineItem) => {
+      return relationshipIds.concat(timelineItem.relationshipIds);
     }, [])).uniq();
 
     server.db.userTagSummaries.update(userTagSummary.id, userTagSummary);
+  });
+
+  server.db.posts.forEach((post) => {
+    post.timelineItemId = server.db.timelineItems.where((timelineItem) => timelineItem.timelineableId.id === post.id)[0].id
+    server.db.posts.update(post.id, post);
   });
 }

@@ -12,6 +12,7 @@ export default Model.extend({
   posts: hasMany('post', { inverse: 'user' }),
   searchQueries: hasMany('search-query'),
   tags: hasMany('tag'),
+  timelineItems: hasMany('timeline-item'),
   userIdentities: hasMany('user-identity'),
   moderationReports: hasMany('moderation-report', { inverse: 'moderator' }),
 

@@ -193,7 +193,7 @@ export default Component.extend(AuthenticatedActionMixin, {
         this.set('controlsDisabled', true);
 
         new Promise((resolve) => {
-          this.attrs.deletePost(this.get('post'), resolve);
+          this.attrs.deletePost(resolve);
         }).then(() => {
           this.attrs.removePost();
         }).finally(() => this.set('controlsDisabled', false));

@@ -1,19 +1,16 @@
 import { A } from '@ember/array';
 import EmberObject, { computed } from '@ember/object';
 import DS from 'ember-data';
-import Reactable from './reactable';
+import Timelineable from './timelineable';
 
-export default Reactable.extend({
+export default Timelineable.extend({
   user: DS.belongsTo('user', { inverse: 'posts' }),
   comments: DS.hasMany('comment'),
   flags: DS.hasMany('flag', { inverse: 'flaggable' }),
   panels: DS.hasMany('panel', { polymorphic: true }),
-  relationships: DS.hasMany('user', { inverse: false }),
-  tags: DS.hasMany('tag'),
 
   commentsLocked: DS.attr('boolean'),
   date: DS.attr('number'),
-  deleted: DS.attr('boolean'),
   private: DS.attr('boolean'),
   nsfw: DS.attr('boolean'),
   text: DS.attr('string'),

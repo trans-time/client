@@ -1,23 +1,23 @@
-{{#if decoratedPosts}}
+{{#if decoratedTimelineItems}}
   {{post-nav/slideshow/main
     direction=direction
-    decoratedPosts=decoratedPosts
+    decoratedTimelineItems=decoratedTimelineItems
     tag=tag
-    post=post
-    initialPostId=initialPostId
-    lastPost=lastPost
+    timelineItem=timelineItem
+    initialTimelineItemId=initialTimelineItemId
+    lastTimelineItem=lastTimelineItem
     fullShare=fullShare
     isModerating=isModerating
-    loadMorePosts=(action "loadMorePosts")
-    changePost=(action "changePost")
-    removePost=(action "removePost")
+    loadMoreTimelineItems=(action "loadMoreTimelineItems")
+    changeTimelineItem=(action "changeTimelineItem")
+    removeTimelineItem=(action "removeTimelineItem")
     toggleChat=(action "toggleChat")
     classNames="main-layout-constraint"
   }}
 
   {{post-nav/chat/main
     chatIsOpen=chatIsOpen
-    post=post
+    post=timelineItem.timelineable
     routeComment=routeComment
     isModerating=isModerating
   }}

@@ -5,8 +5,8 @@ export default Mixin.create({
   comments: null,
 
   actions: {
-    changePost(post) {
-      this.set('postId', post.id);
+    changeTimelineItem(timelineItem) {
+      this.set('timelineItemId', timelineItem.id);
     },
 
     openComments() {

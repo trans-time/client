@@ -1,11 +1,11 @@
 {{post-nav/main
-  posts=model.posts
-  initialPostId=postId
-  lastPost=lastPost
+  timelineItems=model.timelineItems
+  initialTimelineItemId=timelineItemId
+  lastTimelineItem=lastTimelineItem
   commentsAreOpen=comments
   fullShare=true
-  action="loadMorePosts"
-  changePost=(action "changePost")
+  action="loadMoreTimelineItems"
+  changeTimelineItem=(action "changeTimelineItem")
   openComments=(action "openComments")
   closeComments=(action "closeComments")
 }}

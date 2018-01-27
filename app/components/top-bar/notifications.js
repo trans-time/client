@@ -19,7 +19,6 @@ export default Component.extend({
       const notifications = this.get('store').query('notification', { userId: this.get('currentUser.user.id'), perPage: 7, startingPage: 1 });
 
       notifications.then(() => {
-        console.log('loading false')
         this.set('loading', false)
       });
 

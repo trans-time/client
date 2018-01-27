@@ -40,7 +40,7 @@
 
 {{#if shouldRenderPost}}
   {{post-nav/slideshow/post/text
-    post=post.model
+    post=post
     textExpanded=textExpanded
     isBlank=isBlank
     isCurrentPost=isCurrentPost
@@ -48,12 +48,12 @@
     classNames="main-layout-constraint"
     removePost=removePost
     isModerating=isModerating
-    deletePost=(route-action "deletePost")
+    deletePost=(route-action "deleteTimelineItem" timelineItem.model)
   }}
 
   {{#if (not isModerating)}}
     {{post-nav/slideshow/post/controls/main
-      post=post.model
+      post=post
       isCurrentPost=isCurrentPost
       fullShare=fullShare
       classNames="main-layout-constraint"

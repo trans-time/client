@@ -10,25 +10,25 @@ export default Route.extend(PostNavRouteMixin, {
     }
   },
 
-  _posts: alias('controller.model.posts'),
+  _timelineItems: alias('controller.model.timelineItems'),
   _defaultQueryParams: {
     tags: [],
     relationships: [],
-    lastPost: null,
-    postId: null,
+    lastTimelineItem: null,
+    timelineItemId: null,
     comments: null
   },
 
   model(params) {
     this.setProperties({
-      reachedFirstPost: false,
-      reachedLastPost: false
+      reachedFirstTimelineItem: false,
+      reachedLastTimelineItem: false
     });
 
     const user = this.modelFor('users.user');
 
     return hash({
-      posts: this.store.query('post', { userId: user.id, tags: params.tags, direction: params.direction, fromPostId: params.postId, lastPost: params.lastPost, perPage: 5 }),
+      timelineItems: this.store.query('timeline-item', { userId: user.id, tags: params.tags, direction: params.direction, fromTimelineItemId: params.postId, lastTimelineItem: params.lastTimelineItem, perPage: 5, include: 'timelineable, timelineable.panels, timelineable.currentUserReaction, user' }),
       user
     });
   }

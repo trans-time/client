@@ -13,10 +13,10 @@ export default Route.extend(PostNavRouteMixin, {
   intl: service(),
   topBarManager: service(),
 
-  _posts: alias('controller.model'),
+  _timelineItems: alias('controller.model'),
   _defaultQueryParams: {
     query: '',
-    postId: null,
+    timelineItemId: null,
     comments: null
   },
 
@@ -31,10 +31,10 @@ export default Route.extend(PostNavRouteMixin, {
 
   model(params) {
     this.setProperties({
-      reachedFirstPost: false,
-      reachedLastPost: false
+      reachedFirstTimelineItem: false,
+      reachedLastTimelineItem: false
     });
 
-    return this.store.query('post', { query: params.query, fromPostId: params.postId, perPage: 5 });
+    return this.store.query('timeline-item', { query: params.query, fromTimelineItemId: params.timelineItemId, perPage: 5, include: 'timelineable, timelineable.panels, timelineable.currentUserReaction, user' });
   }
 });

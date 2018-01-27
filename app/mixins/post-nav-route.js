@@ -4,7 +4,7 @@ import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
   queryParams: {
-    postId: {
+    timelineItemId: {
       replace: true
     },
     comments: {
@@ -18,7 +18,7 @@ export default Mixin.create({
   init(...args) {
     this._super(...args);
 
-    this.get('messageBus').subscribe('userWasAuthenticated', this, this._refreshPosts);
+    this.get('messageBus').subscribe('userWasAuthenticated', this, this._refreshTimelineItems);
   },
 
   resetController(controller) {
@@ -29,36 +29,36 @@ export default Mixin.create({
     this._super(...arguments);
   },
 
-  _refreshPosts() {
-    const query = this.get('_posts.query');
+  _refreshTimelineItems() {
+    const query = this.get('_timelineItems.query');
     const originalQueryClone = assign({}, query);
 
-    query.refreshPostIds = this.get('_posts.content').map((post) => post.id).join(',');
+    query.refreshTimelineItemIds = this.get('_timelineItems.content').map((timelineItem) => timelineItem.id).join(',');
 
-    this.store.query('post', query).then(() => {
-      this.set('_posts.query', originalQueryClone);
+    this.store.query('timelineItem', query).then(() => {
+      this.set('_timelineItems.query', originalQueryClone);
     });
   },
 
   actions: {
-    deletePost(post, resolve) {
-      post.destroyRecord().finally(() => resolve());
+    deleteTimelineItem(timelineItem, resolve) {
+      timelineItem.destroyRecord().finally(() => resolve());
     },
 
-    loadMorePosts(resolve, reject, shouldProgress, fromPostId) {
-      const query = this.get('_posts.query');
+    loadMoreTimelineItems(resolve, reject, shouldProgress, fromTimelineItemId) {
+      const query = this.get('_timelineItems.query');
 
-      if (query.shouldProgress === shouldProgress && query.fromPostId === fromPostId) return reject();
+      if (query.shouldProgress === shouldProgress && query.fromTimelineItemId === fromTimelineItemId) return reject();
 
       query.shouldProgress = shouldProgress;
-      query.fromPostId = fromPostId;
+      query.fromTimelineItemId = fromTimelineItemId;
 
-      this.store.query('post', query).then((posts) => {
-        this.get('_posts').pushObjects(posts.get('content'));
+      this.store.query('timelineItem', query).then((timelineItems) => {
+        this.get('_timelineItems').pushObjects(timelineItems.get('content'));
 
-        const reachedEnd = posts.get('content.length') < query.perPage;
+        const reachedEnd = timelineItems.get('content.length') < query.perPage;
 
-        resolve(shouldProgress ? { reachedFirstPost: reachedEnd } : { reachedLastPost: reachedEnd });
+        resolve(shouldProgress ? { reachedFirstTimelineItem: reachedEnd } : { reachedLastTimelineItem: reachedEnd });
       }).catch(() => {
         reject();
       });

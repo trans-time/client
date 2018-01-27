@@ -49,7 +49,7 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
 
   meta: service(),
   usingTouch: alias('meta.usingTouch'),
-  isLoadingMorePosts: notEmpty('loadingMorePostsPromise'),
+  isLoadingMoreTimelineItems: notEmpty('loadingMoreTimelineItemsPromise'),
 
   pointers: computed(() => { return {} }),
   swipeState: computed(() => { return { }}),
@@ -88,11 +88,11 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
       this.element.addEventListener('touchstart', removeClickEvents);
     }
 
-    const initialPostId = this.get('initialPostId');
-    const post = initialPostId ? this.get('decoratedPosts').find((decoratedPost) => decoratedPost.model.id === initialPostId) : this.get('lastPost') ? this.get('decoratedPosts.lastObject') : this.get('decoratedPosts.firstObject');
-    const currentPanel = post.get('panels.firstObject');
+    const initialTimelineItemId = this.get('initialTimelineItemId');
+    const timelineItem = initialTimelineItemId ? this.get('decoratedTimelineItems').find((decoratedTimelineItem) => decoratedTimelineItem.model.id === initialTimelineItemId) : this.get('lastTimelineItem') ? this.get('decoratedTimelineItems.lastObject') : this.get('decoratedTimelineItems.firstObject');
+    const currentPanel = timelineItem.get('panels.firstObject');
 
-    this.attrs.changePost(post.get('model'));
+    this.attrs.changeTimelineItem(timelineItem.get('model'));
     this.set('navState.currentPanel', currentPanel);
     this.get('_loadNeighborMatrix').perform(currentPanel);
     this._displayPointers();
@@ -294,7 +294,7 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
       const prerender = (panel, direction, prerender) => {
         const neighbor = this._getNeighbor(panel, direction);
 
-        if (neighbor !== 'edge') neighbor.set('post.shouldPrerender', prerender);
+        if (neighbor !== 'edge') neighbor.set('timelineItem.shouldPrerender', prerender);
       }
 
       prerender(previousPanel, 'up', false);
@@ -311,10 +311,10 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
         direction
       });
 
-      this.attrs.changePost(currentPanel.get('post.model'));
+      this.attrs.changeTimelineItem(currentPanel.get('timelineItem.model'));
       this.get('_loadNeighborMatrix').perform(currentPanel);
       this._displayPointers();
-      this._checkNeedToLoadMorePosts();
+      this._checkNeedToLoadMoreTimelineItems();
     }
   },
 
@@ -328,20 +328,20 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     });
   },
 
-  _checkNeedToLoadMorePosts() {
-    const posts = this.get('decoratedPosts');
-    const currentPost = this.get('navState.currentPanel.post');
-    const index = posts.indexOf(currentPost);
-    const nearingEnd = index > posts.length - 3;
+  _checkNeedToLoadMoreTimelineItems() {
+    const timelineItems = this.get('decoratedTimelineItems');
+    const currentTimelineItem = this.get('navState.currentPanel.timelineItem');
+    const index = timelineItems.indexOf(currentTimelineItem);
+    const nearingEnd = index > timelineItems.length - 3;
 
-    if (((nearingEnd && !this.get('reachedLastPost')) || (index < 2 && !this.get('reachedFirstPost'))) && !this.get('isLoadingMorePosts')) {
-      const loadingMorePostsPromise = new EmberPromise((resolve, reject) => {
-        this.attrs.loadMorePosts(resolve, reject, !nearingEnd, nearingEnd ? posts.get('lastObject.model.id') : posts.get('firstObject.model.id'));
+    if (((nearingEnd && !this.get('reachedLastTimelineItem')) || (index < 2 && !this.get('reachedFirstTimelineItem'))) && !this.get('isLoadingMoreTimelineItems')) {
+      const loadingMoreTimelineItemsPromise = new EmberPromise((resolve, reject) => {
+        this.attrs.loadMoreTimelineItems(resolve, reject, !nearingEnd, nearingEnd ? timelineItems.get('lastObject.model.id') : timelineItems.get('firstObject.model.id'));
       });
 
-      this.set('loadingMorePostsPromise', loadingMorePostsPromise);
+      this.set('loadingMoreTimelineItemsPromise', loadingMoreTimelineItemsPromise);
 
-      loadingMorePostsPromise.then((newProperties) => {
+      loadingMoreTimelineItemsPromise.then((newProperties) => {
         this.setProperties(newProperties);
         this.get('_loadNeighborMatrix').perform(this.get('navState.currentPanel'));
 
@@ -349,16 +349,16 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
           this.set('navState.incomingPanel', this._getNeighbor(this.get('navState.currentPanel'), this.get('navState.direction')));
         }
       }).finally(() => {
-        this.get('_completePostLoadTask').perform();
+        this.get('_completeTimelineItemLoadTask').perform();
       });
     }
   },
 
-  _completePostLoadTask: task(function * () {
+  _completeTimelineItemLoadTask: task(function * () {
     yield timeout(100);
 
-    this.set('loadingMorePostsPromise', null);
-    this._checkNeedToLoadMorePosts();
+    this.set('loadingMoreTimelineItemsPromise', null);
+    this._checkNeedToLoadMoreTimelineItems();
     this._displayPointers();
   }),
 
@@ -368,7 +368,7 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     this.set('pointers', {
       up: this._getNeighbor(currentPanel, 'up') === 'edge' ? '' : 'chevron-up',
       right: this._getNeighbor(currentPanel, 'right') === 'edge' ? '' : 'chevron-right',
-      down: this._getNeighbor(currentPanel, 'down') === 'edge' ? this.get('isLoadingMorePosts') ? 'circle-o-notch' : '' : 'chevron-down',
+      down: this._getNeighbor(currentPanel, 'down') === 'edge' ? this.get('isLoadingMoreTimelineItems') ? 'circle-o-notch' : '' : 'chevron-down',
       left: this._getNeighbor(currentPanel, 'left') === 'edge' ? '' : 'chevron-left'
     });
   },
@@ -422,8 +422,8 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
       this.set('panelCompressed', false);
     },
 
-    removePost(post) {
-      this.attrs.removePost(post);
+    removeTimelineItem(timelineItem) {
+      this.attrs.removeTimelineItem(timelineItem);
       if (this.get('navState.currentPanel').getNeighbor('up') !== 'edge') this._navUp();
       else if (this.get('navState.currentPanel').getNeighbor('down') !== 'edge') this._navDown();
     },

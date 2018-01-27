@@ -12,9 +12,9 @@ export default Route.extend(PostNavRouteMixin, {
   topBarManager: service(),
 
   user: alias('currentUser.user'),
-  _posts: alias('controller.model'),
+  _timelineItems: alias('controller.model'),
   _defaultQueryParams: {
-    postId: null,
+    timelineItemId: null,
     comments: null
   },
 
@@ -26,14 +26,14 @@ export default Route.extend(PostNavRouteMixin, {
 
   model(params) {
     this.setProperties({
-      reachedFirstPost: false,
-      reachedLastPost: false
+      reachedFirstTimelineItem: false,
+      reachedLastTimelineItem: false
     });
 
     const user = this.get('user');
 
     if (isBlank(user)) return;
 
-    return this.store.query('post', { followerId: user.get('id'), fromPostId: params.postId, perPage: 5 });
+    return this.store.query('timeline-item', { followerId: user.get('id'), fromTimelineItemId: params.timelineItemId, perPage: 5, include: 'timelineable, timelineable.panels, timelineable.currentUserReaction, user' });
   }
 });

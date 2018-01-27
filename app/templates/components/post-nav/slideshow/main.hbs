@@ -1,6 +1,6 @@
-{{#each decoratedPosts as |post|}}
+{{#each decoratedTimelineItems as |timelineItem index|}}
   {{post-nav/slideshow/post/main
-    post=post
+    timelineItem=timelineItem
     navState=navState
     fullShare=fullShare
     textExpanded=textExpanded
@@ -8,7 +8,7 @@
     isModerating=isModerating
     expandText=(action "expandText")
     compressText=(action "compressText")
-    removePost=(action "removePost" post)
+    removePost=(action "removeTimelineItem" timelineItem)
     toggleChat=(action "toggleChat")
   }}
 {{/each}}

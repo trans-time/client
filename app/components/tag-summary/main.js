@@ -7,17 +7,17 @@ import EmberObject, { computed } from '@ember/object';
 
 const Summary = EmberObject.extend({
   selected: false,
-  selectedPostIds: oneWay('component.selectedPostIds'),
+  selectedTimelineItemIds: oneWay('component.selectedTimelineItemIds'),
   isValid: gt('amount', 0),
-  amount: computed('selectedPostIds.[]', {
+  amount: computed('selectedTimelineItemIds.[]', {
     get() {
-      const { postIds, selectedPostIds } = this.getProperties('postIds', 'selectedPostIds');
+      const { timelineItemIds, selectedTimelineItemIds } = this.getProperties('timelineItemIds', 'selectedTimelineItemIds');
 
-      if (selectedPostIds.length === 0) return postIds.length;
+      if (selectedTimelineItemIds.length === 0) return timelineItemIds.length;
 
-      const validTagPostIds = selectedPostIds.filter((id) => postIds.includes(id));
+      const validTagTimelineItemIds = selectedTimelineItemIds.filter((id) => timelineItemIds.includes(id));
 
-      return validTagPostIds.length;
+      return validTagTimelineItemIds.length;
     }
   })
 })
@@ -33,20 +33,20 @@ export default Component.extend({
   selectedRelationshipIds: mapBy('selectedRelationships', 'id'),
   selectedTagIds: mapBy('selectedTags', 'id'),
 
-  selectedPostIds: computed('selectedTags.[]', 'selectedRelationships.[]', {
+  selectedTimelineItemIds: computed('selectedTags.[]', 'selectedRelationships.[]', {
     get() {
       const { selectedRelationships, selectedTags } = this.getProperties('selectedRelationships', 'selectedTags');
       const selectedSummaries = selectedRelationships.concat(selectedTags);
 
       if (isEmpty(selectedSummaries)) return [];
 
-      const postIdSets = selectedSummaries.map((summary) => summary.get('postIds')).sort((a, b) => a.length - b.length);
-      const smallestSet = postIdSets.shift();
+      const timelineItemIdSets = selectedSummaries.map((summary) => summary.get('timelineItemIds')).sort((a, b) => a.length - b.length);
+      const smallestSet = timelineItemIdSets.shift();
 
-      return smallestSet.reduce((selectedPostIds, postId) => {
-        if (postIdSets.every((postIdSet) => postIdSet.includes(postId))) selectedPostIds.pushObject(postId);
+      return smallestSet.reduce((selectedTimelineItemIds, timelineItemId) => {
+        if (timelineItemIdSets.every((timelineItemIdSet) => timelineItemIdSet.includes(timelineItemId))) selectedTimelineItemIds.pushObject(timelineItemId);
 
-        return selectedPostIds;
+        return selectedTimelineItemIds;
       }, A()).uniq();
     }
   }),
@@ -60,10 +60,10 @@ export default Component.extend({
         return Summary.create({
           id,
           model: store.peekRecord('user', id),
-          postIds: tagSummary[id],
+          timelineItemIds: tagSummary[id],
           component: this
         })
-      })).sort((a, b) => b.get('postIds.length') - a.get('postIds.length'));
+      })).sort((a, b) => b.get('timelineItemIds.length') - a.get('timelineItemIds.length'));
     }
   }),
 
@@ -76,10 +76,10 @@ export default Component.extend({
         return Summary.create({
           id,
           model: store.peekRecord('tag', id),
-          postIds: tagSummary[id],
+          timelineItemIds: tagSummary[id],
           component: this
         })
-      })).sort((a, b) => b.get('postIds.length') - a.get('postIds.length'));
+      })).sort((a, b) => b.get('timelineItemIds.length') - a.get('timelineItemIds.length'));
     }
   }),
 
