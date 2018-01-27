@@ -2,6 +2,7 @@ import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { on } from '@ember/object/evented';
 import { inject as service } from '@ember/service';
+import { capitalize } from '@ember/string';
 import Component from '@ember/component';
 import { task, timeout } from 'ember-concurrency';
 import { EKMixin, keyUp } from 'ember-keyboard';
@@ -30,6 +31,12 @@ export default Component.extend(EKMixin, {
   iconType: computed('type', {
     get() {
       return `${this.get('type')}-o`;
+    }
+  }),
+
+  totalTypeReactions: computed({
+    get() {
+      return this.get(`reactable.total${capitalize(this.get('type'))}s`);
     }
   }),
 
