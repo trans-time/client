@@ -1,7 +1,7 @@
 <div class="comments-container">
   {{#if isLoaded}}
     {{#each orderedFilteredComments as |comment|}}
-      {{post-nav/chat/comment comment=comment post=post isCollapsedChild=false routeComment=routeComment isModerating=isModerating removeComment=(action "removeComment")}}
+      {{post-nav/chat/comment comment=comment timelineItem=timelineItem isCollapsedChild=false routeComment=routeComment isModerating=isModerating removeComment=(action "removeComment")}}
     {{else}}
       <div class="post-nav-chat-spinner post-nav-first-to-comment">
         {{t "comments.noCommentsYet"}}
@@ -20,8 +20,8 @@
     <div class="comments-locked">{{t "comments.locked"}}</div>
   {{else}}
     {{post-nav/chat/comment-form
-      post=post
-      commentable=post
+      timelineItem=timelineItem
+      commentable=timelineItem
       addComment=(action "addComment")
       classNames="comment-form-post-reply"
     }}

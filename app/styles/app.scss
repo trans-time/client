@@ -1,6 +1,5 @@
 @import "variables";
 @import "ember-paper";
-@import "app/styles/ember-paper-time-picker";
 @import "paper-overrides";
 @import "fonts";
 @import "helpers";
@@ -94,6 +93,10 @@ p {
 .at-username {
   color: $medium-gray;
   font-weight: normal;
+}
+
+.pikaday-input {
+  padding: $rhythm / 4 $rhythm;
 }
 
 

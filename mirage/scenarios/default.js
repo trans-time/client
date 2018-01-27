@@ -35,27 +35,36 @@ export default function(server) {
   server.createList('user', 3);
 
   server.db.posts.forEach((post, index) => {
-    post.relationshipIds = [...Array(faker.random.number(3))].map(() => {
+    server.create('timeline-item', {
+      timelineableId: { type: 'post', id: post.id },
+      userId: post.userId
+    }).id;
+
+    server.db.posts.update(post.id, post);
+  });
+
+  server.db.timelineItems.forEach((timelineItem, index) => {
+    timelineItem.relationshipIds = [...Array(faker.random.number(3))].map(() => {
       return faker.random.number(server.db.users.length - 1) + 1;
     });
 
-    post.totalComments = 0;
+    timelineItem.totalComments = 0;
 
-    post.commentIds = [...Array(faker.random.number(3))].map(() => {
-      post.totalComments++;
+    timelineItem.commentIds = [...Array(faker.random.number(3))].map(() => {
+      timelineItem.totalComments++;
 
       const comment = server.create('comment', {
-        postId: post.id,
+        timelineItemId: timelineItem.id,
         userId: faker.random.number(server.db.users.length - 1) + 1,
         date: Date.now(),
         deleted: faker.random.number(10) > 5
       });
 
       comment.childrenIds = [...Array(faker.random.number(2))].map(() => {
-        post.totalComments++;
+        timelineItem.totalComments++;
 
         return server.create('comment', {
-          postId: post.id,
+          timelineItemId: timelineItem.id,
           userId: faker.random.number(server.db.users.length - 1) + 1,
           parentId: comment.id,
           date: Date.now()
@@ -65,14 +74,7 @@ export default function(server) {
       return comment.id;
     });
 
-
-    server.create('timeline-item', {
-      timelineableId: { type: 'post', id: post.id },
-      userId: post.userId
-    }).id;
-
-
-    server.db.posts.update(post.id, post);
+    server.db.timelineItems.update(timelineItem.id, timelineItem);
   });
 
   const violatingPost = server.db.posts.find(30);

@@ -46,7 +46,7 @@ export default Component.extend(AuthenticatedActionMixin, {
     get() {
       const blockers = this.get('currentUser.user.blockers.content');
 
-      return isEmpty(blockers) || this.get('isModerating') || this.get('post.user') === this.get('currentUser.user') || this.get('routeComment') ? this.get('orderedChildren') : this.get('orderedChildren').filter((comment) => {
+      return isEmpty(blockers) || this.get('isModerating') || this.get('timelineItem.user') === this.get('currentUser.user') || this.get('routeComment') ? this.get('orderedChildren') : this.get('orderedChildren').filter((comment) => {
         return !blockers.includes(comment.get('user'));
       });
     }

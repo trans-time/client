@@ -8,8 +8,11 @@
   {{/paper-checkbox}}
 </div>
 
-{{paper-datetime-picker
-  timestamp=changeset.date
+{{pikaday-input
+  format="MM/DD/YYYY h:mm a"
+  value=changeset.date
+  classNames="pikaday-input"
+  onSelection=(action (mut changeset.date))
 }}
 
 {{#emoji-picker-wrapper

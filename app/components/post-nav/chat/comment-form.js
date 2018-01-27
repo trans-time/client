@@ -32,7 +32,7 @@ export default Component.extend(AuthenticatedActionMixin, {
   },
 
   _resetChangeset() {
-    const comment = this.get('comment') || this.get('store').createRecord('comment', this.getProperties('post', 'parent'));
+    const comment = this.get('comment') || this.get('store').createRecord('comment', this.getProperties('timelineItem', 'parent'));
     const changeset = this.set('changeset', new Changeset(comment, lookupValidator(CommentValidations), CommentValidations));
 
     if (this.get('isDeepReply')) changeset.set('text', `@${this.get('commentable.user.username')} `);
@@ -58,7 +58,7 @@ export default Component.extend(AuthenticatedActionMixin, {
 
         changeset.setProperties({
           user: this.get('user'),
-          date: Date.now()
+          date: new Date(Date.now())
         });
 
         changeset.save().then((comment) => {

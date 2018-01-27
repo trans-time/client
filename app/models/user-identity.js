@@ -5,8 +5,8 @@ export default DS.Model.extend({
   identity: DS.belongsTo('identity'),
   user: DS.belongsTo('user'),
 
-  startDate: DS.attr('number'),
-  endDate: DS.attr('number'),
+  startDate: DS.attr('date'),
+  endDate: DS.attr('date'),
 
   name: computed('_name', 'identity.name', {
     get() {

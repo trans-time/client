@@ -2,6 +2,6 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
   model(params) {
-    return this.store.findRecord('comment', params.id, { include: 'post, post.panels, post.currentUserReaction, post.timelineItem, post.user' });
+    return this.store.findRecord('comment', params.id, { include: 'timelineItem, timelineItem.timelineable, timelineItem.timelineable.panels, timelineItem.timelineable.currentUserReaction, timelineItem.user' });
   }
 });

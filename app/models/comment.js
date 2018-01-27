@@ -4,12 +4,12 @@ import Reactable from './reactable';
 
 export default Reactable.extend({
   user: DS.belongsTo('user'),
-  post: DS.belongsTo('post'),
+  timelineItem: DS.belongsTo('timeline-item'),
   parent: DS.belongsTo('comment', { inverse: 'children' }),
   children: DS.hasMany('comment', { inverse: 'parent' }),
   flags: DS.hasMany('flag', { inverse: 'flaggable' }),
 
-  date: DS.attr('number'),
+  date: DS.attr('date'),
   deleted: DS.attr('boolean'),
   text: DS.attr('string'),
 

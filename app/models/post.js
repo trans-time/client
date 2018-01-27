@@ -1,20 +1,19 @@
+import DS from 'ember-data';
 import { A } from '@ember/array';
 import EmberObject, { computed } from '@ember/object';
-import DS from 'ember-data';
+import { alias } from '@ember/object/computed';
 import Timelineable from './timelineable';
 
 export default Timelineable.extend({
   user: DS.belongsTo('user', { inverse: 'posts' }),
-  comments: DS.hasMany('comment'),
   flags: DS.hasMany('flag', { inverse: 'flaggable' }),
   panels: DS.hasMany('panel', { polymorphic: true }),
 
-  commentsLocked: DS.attr('boolean'),
-  date: DS.attr('number'),
-  private: DS.attr('boolean'),
   nsfw: DS.attr('boolean'),
   text: DS.attr('string'),
-  totalComments: DS.attr('number'),
+
+  date: alias('timelineItem.date'),
+  private: alias('timelineItem.private'),
 
   panelsWithBlank: computed('panels.[]', {
     get() {

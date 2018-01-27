@@ -71,7 +71,7 @@ export default function() {
   this.post('/blocks');
   this.delete('/blocks/:id');
   this.get('/comments', (schema, request) => {
-    return schema.comments.where({ postId: request.queryParams.postId });
+    return schema.comments.where({ timelineItemId: request.queryParams.timelineItemId });
   });
   this.post('/comments');
   this.get('/comments/:id');

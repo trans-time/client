@@ -21,7 +21,7 @@ export default Component.extend({
   didReceiveAttrs(...args) {
     this._super(...args);
 
-    const loadedComments = this.get('post.loadedComments');
+    const loadedComments = this.get('timelineItem.loadedComments');
 
     if (isNone(loadedComments)) {
       this.set('isLoaded', false);
@@ -38,13 +38,13 @@ export default Component.extend({
   _loadComments() {
     let include = 'user';
     if (this.get('isModerating')) include += ', textVersions';
-    this.get('store').query('comment', { postId: this.get('post.id'), include }).then((comments) => {
+    this.get('store').query('comment', { timelineItemId: this.get('timelineItem.id'), include }).then((comments) => {
       this.setProperties({
         comments: A(comments.toArray()),
         isLoaded: true
       });
 
-      this.set('post.loadedComments', comments);
+      this.set('timelineItem.loadedComments', comments);
     });
   },
 
@@ -56,7 +56,7 @@ export default Component.extend({
     get() {
       const blockers = this.get('currentUser.user.blockers.content');
 
-      return isEmpty(blockers) || this.get('post.user') === this.get('currentUser.user') ? this.get('orderedComments') : this.get('orderedComments').filter((comment) => {
+      return isEmpty(blockers) || this.get('timelineItem.user') === this.get('currentUser.user') ? this.get('orderedComments') : this.get('orderedComments').filter((comment) => {
         return !blockers.includes(comment.get('user'));
       });
     }
