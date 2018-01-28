@@ -1,0 +1,26 @@
+.timeline-item-nav-slideshow-panel {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  will-change: transform;
+  background-color: $light-gray;
+  box-shadow: 0 0 $rhythm $dark-gray;
+  will-change: transform, opacity;
+
+  &.timeline-item-nav-slideshow-image {
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  &.timeline-item-nav-slideshow-blank {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}

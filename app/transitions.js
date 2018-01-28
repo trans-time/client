@@ -12,7 +12,7 @@ export default function() {
   );
 
   this.transition(
-    this.childOf('.post-nav-resize-toggle a'),
+    this.childOf('.timeline-item-nav-resize-toggle a'),
     this.use('crossFade', { duration: 750 })
   );
 

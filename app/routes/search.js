@@ -1,9 +1,9 @@
 import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
-import PostNavRouteMixin from 'client/mixins/post-nav-route';
+import TimelineItemNavRouteMixin from 'client/mixins/timeline-item-nav-route';
 
-export default Route.extend(PostNavRouteMixin, {
+export default Route.extend(TimelineItemNavRouteMixin, {
   queryParams: {
     query: {
       refreshModel: true

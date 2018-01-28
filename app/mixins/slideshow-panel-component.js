@@ -3,7 +3,7 @@ import Mixin from '@ember/object/mixin';
 import SlideshowComponent from './slideshow-component';
 
 export default Mixin.create(SlideshowComponent, {
-  classNames: ['post-nav-slideshow-panel'],
+  classNames: ['timeline-item-nav-slideshow-panel'],
 
   isAnimating: equal('axis', 'x'),
 

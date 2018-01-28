@@ -1,0 +1,23 @@
+{{#each decoratedTimelineItems as |timelineItem index|}}
+  {{timeline-item-nav/slideshow/post/main
+    timelineItem=timelineItem
+    navState=navState
+    fullShare=fullShare
+    textExpanded=textExpanded
+    panelCompressed=panelCompressed
+    isModerating=isModerating
+    expandText=(action "expandText")
+    compressText=(action "compressText")
+    removePost=(action "removeTimelineItem" timelineItem)
+    toggleChat=(action "toggleChat")
+  }}
+{{/each}}
+
+<div class="timeline-item-nav-slideshow-pointer-container">
+  {{#each-in pointers as |direction icon|}}
+    {{timeline-item-nav/slideshow/pointer
+      direction=direction
+      icon=icon
+    }}
+  {{/each-in}}
+</div>

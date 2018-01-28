@@ -1,0 +1,14 @@
+<a class="timeline-item-nav-controls-element" {{action "openShare"}}>
+  {{fa-icon "share-alt" size=2}}
+</a>
+
+{{timeline-item-nav/slideshow/post/controls/reactions/main
+  reactable=post
+  keyable=true
+  isCurrentPost=isCurrentPost
+}}
+
+<a class="timeline-item-nav-controls-element timeline-item-nav-chat-icon" {{action "toggleChat"}}>
+  {{number-bubble number=totalComments classNames="chat-total"}}
+  {{fa-icon "comment-o" size=2 flip="horizontal"}}
+</a>

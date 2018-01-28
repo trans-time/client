@@ -1,0 +1,22 @@
+.timeline-item-nav-chat-main {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: translate3d(100%, 0, 0);
+}
+
+.timeline-item-nav-chat-spinner {
+  text-align: center;
+  margin-top: 40vh;
+}
+
+.timeline-item-nav-first-to-comment {
+  color: $medium-gray;
+}
+
+.timeline-item-nav-first-to-comment-icons {
+  margin-top: $rhythm;
+  text-shadow: 0px 0px $rhythm / 4 $light-gray;
+}

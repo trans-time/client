@@ -1,0 +1,42 @@
+<div class="timeline-item-nav-post-constraint timeline-item-nav-post-text" tabindex="-1">
+    <div class="timeline-item-nav-post-top-line">
+      <div class="timeline-item-nav-post-date">
+        {{sometimes-relative-date date=post.date}}
+        | {{#if post.user.displayName}}{{{inject-emoji post.user.displayName}}} {{/if}}
+          {{#link-to "users.user.profile.index" post.user.username}}<span class="at-username">@{{post.user.username}}</span>{{/link-to}}
+        {{#if (eq post.user.id user.id)}}
+          | {{#link-to "posts.post.edit" post.id disabled=controlsDisabled}}{{t "post.edit"}}{{/link-to}}
+          | <a {{action "delete"}} disabled={{controlsDisabled}} tabindex="0" class="link">{{t "post.delete"}}</a>
+        {{/if}}
+        {{#if post.nsfw}}
+          | {{t "post.nsfw"}}
+        {{/if}}
+        {{#if post.private}}
+          | {{t "post.private"}}
+        {{/if}}
+        {{#if (and (and (not post.ignoreFlags) (not isModerating)) (not-eq post.user.id user.id))}}
+          | <a {{action "report"}} disabled={{controlsDisabled}} tabindex="0" class="link">{{t "post.report"}}</a>
+        {{/if}}
+        {{#if showHistoryToggle}}
+          {{#if historyIsRevealed}}
+            | <a {{action "hideHistory"}} tabindex="0" class="link">{{t "post.hideHistory"}}</a>
+          {{else}}
+            | <a {{action "viewHistory"}} tabindex="0" class="link">{{t "post.history"}} ({{post.textVersions.length}})</a>
+          {{/if}}
+        {{/if}}
+      </div>
+    </div>
+
+    {{#if historyIsRevealed}}
+      {{#each post.textVersions as |textVersion|}}
+        <div class="timeline-item-nav-post-text-version">
+          <div class="moderation-panel-date">{{sometimes-relative-date date=textVersion.date}}</div>
+          {{rich-text text=textVersion.text}}
+        </div>
+      {{/each}}
+    {{/if}}
+
+    {{rich-text text=post.text}}
+</div>
+
+<a class="reveal-text-toggle" {{action "revealText"}}>{{t "post.more"}}</a>

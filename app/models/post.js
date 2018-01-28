@@ -25,7 +25,7 @@ export default Timelineable.extend({
 
   _blankPanel: computed({
     get() {
-      return EmberObject.create({ postNavComponent: 'post-nav/slideshow/post/blank', post: { content: this } });
+      return EmberObject.create({ postNavComponent: 'timeline-item-nav/slideshow/post/blank', post: { content: this } });
     }
   })
 });

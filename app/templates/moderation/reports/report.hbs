@@ -1,5 +1,5 @@
 {{#if isComment}}
-  {{post-nav/main
+  {{timeline-item-nav/main
     post=model.flaggable.post
     routeComment=model.flaggable.content
     commentsAreOpen=comments
@@ -10,7 +10,7 @@
     closeComments=(action "closeComments")
   }}
 {{else}}
-  {{post-nav/main
+  {{timeline-item-nav/main
     post=model.flaggable
     commentsAreOpen=comments
     isModerating=true

@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
-import PostNavControllerMixin from 'client/mixins/post-nav-controller';
+import TimelineItemNavControllerMixin from 'client/mixins/timeline-item-nav-controller';
 
-export default Controller.extend(PostNavControllerMixin, {
+export default Controller.extend(TimelineItemNavControllerMixin, {
   comments: true
 });

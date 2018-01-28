@@ -1,0 +1,32 @@
+@import "timeline-item-nav/chat";
+@import "timeline-item-nav/controls";
+@import "timeline-item-nav/post";
+@import "timeline-item-nav/slideshow";
+
+.timeline-item-nav-none {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.timeline-item-nav {
+  position: relative;
+  display: flex;
+  flex-grow: 1;
+
+  .timeline-item-nav-slideshow-main, .timeline-item-nav-chat-main {
+    transition: transform 750ms;
+  }
+
+  &.chat-is-open {
+    .timeline-item-nav-slideshow-main {
+      transform: translate3d(-100%, 0, 0);
+    }
+
+    .timeline-item-nav-chat-main {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+}

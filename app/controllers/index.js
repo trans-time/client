@@ -1,9 +1,9 @@
 import { notEmpty } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import Controller from '@ember/controller';
-import PostNavControllerMixin from 'client/mixins/post-nav-controller';
+import TimelineItemNavControllerMixin from 'client/mixins/timeline-item-nav-controller';
 
-export default Controller.extend(PostNavControllerMixin, {
+export default Controller.extend(TimelineItemNavControllerMixin, {
   queryParams: ['timelineItemId'],
   timelineItemId: null,
 

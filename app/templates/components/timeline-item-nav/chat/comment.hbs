@@ -1,0 +1,84 @@
+{{#liquid-if isEditing}}
+  {{timeline-item-nav/chat/comment-form
+    comment=comment
+    cancelable=true
+    classNames="comment-form-edit"
+    cancel=(action "stopEditing")
+    addComment=(action "stopEditing")
+  }}
+{{else if showAsDeleted}}
+  <div class="comment-content comment-deleted">{{t "comments.deleted"}}</div>
+{{else}}
+  <div class="comment-content {{if isRouteComment 'is-route-comment'}} {{if comment.deleted 'comment-muted'}}">
+    <div class="comment-profile">
+      {{#link-to "users.user.profile.index" comment.user.username disabled=isCollapsedChild}}<img class="comment-avatar" src={{comment.user.avatar}}>{{/link-to}}
+      <div class="comment-pronouns">{{comment.user.pronouns}}</div>
+    </div>
+
+    <div class="comment-main">
+      <div class="comment-text {{if textIsOverflown 'comment-text-is-overflown'}}">
+        {{#if historyIsRevealed}}
+          {{#each comment.textVersions as |textVersion|}}
+            <div class="comment-text-version">
+              <div>{{sometimes-relative-date date=textVersion.date}}</div>
+              {{rich-text text=textVersion.text}}
+            </div>
+          {{/each}}
+        {{/if}}
+
+        {{#rich-text text=comment.text}}
+          {{#link-to "users.user.profile.index" comment.user.username class="comment-user-link" disabled=isCollapsedChild classNames="comment-username-link"}}{{#if comment.user.displayName}}{{{inject-emoji comment.user.displayName}}} {{/if}}<span class="at-username">@{{comment.user.username}}</span>{{/link-to}}
+        {{/rich-text}}
+
+        {{#if textIsOverflown}}
+          <a {{action "expandOverflow"}} class="comment-text-expand-overflow">{{t "comments.expandOverflow"}}</a>
+        {{/if}}
+      </div>
+      <div class="comment-controls">
+        {{sometimes-relative-date date=comment.date}}
+        | {{timeline-item-nav/slideshow/post/controls/reactions/main reactable=comment}}
+        {{#if (not timelineItem.commentsLocked)}}
+          | <a {{action "reply"}}>{{t "comments.reply"}}</a>
+        {{/if}}
+        {{#if (eq currentUser.user.id comment.user.id)}}
+          | <a {{action "startEditing"}} disabled={{deleteDisabled}}>{{t "comments.edit"}}</a>
+          | <a {{action "delete" comment}} disabled={{deleteDisabled}}>{{t "comments.delete"}}</a>
+        {{else if (and (and (not comment.ignoreFlags) (not isModerating)) (not-eq comment.user.id currentUser.user.id))}}
+          | <a {{action "report"}}>{{t "comments.report"}}</a>
+        {{/if}}
+        {{#if showHistoryToggle}}
+          {{#if historyIsRevealed}}
+            | <a {{action "hideHistory"}} tabindex="0">{{t "post.hideHistory"}}</a>
+          {{else}}
+            | <a {{action "viewHistory"}} tabindex="0">{{t "post.history"}} ({{comment.textVersions.length}})</a>
+          {{/if}}
+        {{/if}}
+      </div>
+    </div>
+  </div>
+{{/liquid-if}}
+
+{{#if replying}}
+  {{timeline-item-nav/chat/comment-form
+    timelineItem=timelineItem
+    parent=replyParent
+    commentable=comment
+    isDeepReply=wouldDeepReply
+    cancelable=true
+    classNames="comment-form-reply"
+    cancel=(action "closeReply")
+    addComment=(action "closeReply")
+  }}
+{{/if}}
+
+{{#if orderedFilteredChildren}}
+  <div class="comment-children">
+    {{#each orderedFilteredChildren as |child|}}
+      {{timeline-item-nav/chat/comment comment=child timelineItem=timelineItem isCollapsedChild=childrenAreCollapsed routeComment=routeComment isModerating=isModerating wasClicked=(action "expandChildren") removeComment=(action "removeComment")}}
+    {{/each}}
+
+    {{#if childrenAreCollapsed}}
+      <a {{action "expandChildren"}} class="comment-load-more">{{t "comments.loadMore"}}</a>
+    {{/if}}
+  </div>
+{{/if}}

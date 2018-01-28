@@ -1,0 +1,28 @@
+{{#if decoratedTimelineItems}}
+  {{timeline-item-nav/slideshow/main
+    direction=direction
+    decoratedTimelineItems=decoratedTimelineItems
+    tag=tag
+    timelineItem=timelineItem
+    initialTimelineItemId=initialTimelineItemId
+    lastTimelineItem=lastTimelineItem
+    fullShare=fullShare
+    isModerating=isModerating
+    loadMoreTimelineItems=(action "loadMoreTimelineItems")
+    changeTimelineItem=(action "changeTimelineItem")
+    removeTimelineItem=(action "removeTimelineItem")
+    toggleChat=(action "toggleChat")
+    classNames="main-layout-constraint"
+  }}
+
+  {{timeline-item-nav/chat/main
+    chatIsOpen=chatIsOpen
+    timelineItem=timelineItem
+    routeComment=routeComment
+    isModerating=isModerating
+  }}
+{{else}}
+  <div class="timeline-item-nav-none">
+    {{t "post.none"}}
+  </div>
+{{/if}}

@@ -1,0 +1,29 @@
+<div class="comments-container">
+  {{#if isLoaded}}
+    {{#each orderedFilteredComments as |comment|}}
+      {{timeline-item-nav/chat/comment comment=comment timelineItem=timelineItem isCollapsedChild=false routeComment=routeComment isModerating=isModerating removeComment=(action "removeComment")}}
+    {{else}}
+      <div class="timeline-item-nav-chat-spinner timeline-item-nav-first-to-comment">
+        {{t "comments.noCommentsYet"}}
+        <div class="timeline-item-nav-first-to-comment-icons">{{fa-icon "moon-o" size=2}} {{fa-icon "star-o" size=2}} {{fa-icon "sun-o" size=2}}</div>
+      </div>
+    {{/each}}
+  {{else}}
+    <div class="timeline-item-nav-chat-spinner">
+      {{fa-icon "spinner" pulse=true size=5}}
+    </div>
+  {{/if}}
+</div>
+
+{{#if (not isModerating)}}
+  {{#if post.commentsLocked}}
+    <div class="comments-locked">{{t "comments.locked"}}</div>
+  {{else}}
+    {{timeline-item-nav/chat/comment-form
+      timelineItem=timelineItem
+      commentable=timelineItem
+      addComment=(action "addComment")
+      classNames="comment-form-post-reply"
+    }}
+  {{/if}}
+{{/if}}

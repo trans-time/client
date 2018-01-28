@@ -3,9 +3,9 @@ import { inject as service } from '@ember/service';
 import { isBlank } from '@ember/utils';
 import { later } from '@ember/runloop';
 import Route from '@ember/routing/route';
-import PostNavRouteMixin from 'client/mixins/post-nav-route';
+import TimelineItemNavRouteMixin from 'client/mixins/timeline-item-nav-route';
 
-export default Route.extend(PostNavRouteMixin, {
+export default Route.extend(TimelineItemNavRouteMixin, {
   currentUser: service(),
   intl: service(),
   meta: service(),

@@ -1,0 +1,7 @@
+{{#if chatIsOpen class="cross-fade"}}
+  {{timeline-item-nav/chat/content timelineItem=timelineItem routeComment=routeComment isModerating=isModerating}}
+{{else}}
+  <div class="timeline-item-nav-chat-spinner">
+    {{fa-icon "moon-o" size=5}}
+  </div>
+{{/if}}
