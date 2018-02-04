@@ -11,18 +11,18 @@
 
   <div class="tag-summary-list-divider"></div>
 
-  {{#each relationships as |relationship|}}
+  {{#each users as |user|}}
     {{#paper-button
       raised=true
-      primary=relationship.selected
-      disabled=(not relationship.isValid)
-      onClick=(action "toggleTag" relationship)
+      primary=user.selected
+      disabled=(not user.isValid)
+      onClick=(action "toggleTag" user)
       class="tag-summary-list-item"
-    }}@{{relationship.model.username}}: {{relationship.amount}}{{/paper-button}}
+    }}@{{user.model.username}}: {{user.amount}}{{/paper-button}}
   {{/each}}
 </div>
 
 <div class="tag-summary-time-buttons">
-  {{#link-to "users.user.timeline" (query-params tags=selectedTagIds relationships=selectedRelationshipIds) class="tag-summary-time-button"}}{{t "tagSummary.start"}}: {{fa-icon "clock-o"}} {{fa-icon "arrow-right"}}{{/link-to}}
-  {{#link-to "users.user.timeline" (query-params lastTimelineItem=true tags=selectedTagIds relationships=selectedRelationshipIds) class="tag-summary-time-button"}}{{fa-icon "arrow-left"}} {{fa-icon "clock-o"}} :{{t "tagSummary.start"}}{{/link-to}}
+  {{#link-to "users.user.timeline" (query-params tags=selectedTagIds users=selectedUserIds) class="tag-summary-time-button"}}{{t "tagSummary.start"}}: {{fa-icon "clock-o"}} {{fa-icon "arrow-right"}}{{/link-to}}
+  {{#link-to "users.user.timeline" (query-params lastTimelineItem=true tags=selectedTagIds users=selectedUserIds) class="tag-summary-time-button"}}{{fa-icon "arrow-left"}} {{fa-icon "clock-o"}} :{{t "tagSummary.start"}}{{/link-to}}
 </div>

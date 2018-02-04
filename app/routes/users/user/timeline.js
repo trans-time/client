@@ -13,7 +13,7 @@ export default Route.extend(TimelineItemNavRouteMixin, {
   _timelineItems: alias('controller.model.timelineItems'),
   _defaultQueryParams: {
     tags: [],
-    relationships: [],
+    users: [],
     lastTimelineItem: null,
     timelineItemId: null,
     comments: null

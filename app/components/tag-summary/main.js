@@ -3,7 +3,7 @@ import { isEmpty } from '@ember/utils';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { oneWay, gt, filterBy, mapBy } from '@ember/object/computed';
-import EmberObject, { computed } from '@ember/object';
+import EmberObject, { computed, get } from '@ember/object';
 
 const Summary = EmberObject.extend({
   selected: false,
@@ -25,18 +25,19 @@ const Summary = EmberObject.extend({
 export default Component.extend({
   tagName: '',
 
+  currentUser: service(),
   store: service(),
 
-  selectedRelationships: filterBy('relationships', 'selected'),
+  selectedUsers: filterBy('users', 'selected'),
   selectedTags: filterBy('tags', 'selected'),
 
-  selectedRelationshipIds: mapBy('selectedRelationships', 'id'),
+  selectedUserIds: mapBy('selectedUsers', 'id'),
   selectedTagIds: mapBy('selectedTags', 'id'),
 
-  selectedTimelineItemIds: computed('selectedTags.[]', 'selectedRelationships.[]', {
+  selectedTimelineItemIds: computed('selectedTags.[]', 'selectedUsers.[]', {
     get() {
-      const { selectedRelationships, selectedTags } = this.getProperties('selectedRelationships', 'selectedTags');
-      const selectedSummaries = selectedRelationships.concat(selectedTags);
+      const { selectedUsers, selectedTags } = this.getProperties('selectedUsers', 'selectedTags');
+      const selectedSummaries = selectedUsers.concat(selectedTags);
 
       if (isEmpty(selectedSummaries)) return [];
 
@@ -51,37 +52,67 @@ export default Component.extend({
     }
   }),
 
-  relationships: computed('tagSummary.summary.relationships', {
+  selectedUserIds: computed({
     get() {
-      const store = this.get('store');
-      const tagSummary = this.get('tagSummary.summary.relationships');
-
-      return A(Object.keys(tagSummary).map((id) => {
-        return Summary.create({
-          id,
-          model: store.peekRecord('user', id),
-          timelineItemIds: tagSummary[id],
-          component: this
-        })
-      })).sort((a, b) => b.get('timelineItemIds.length') - a.get('timelineItemIds.length'));
+      return [this.get('userId')];
     }
   }),
 
-  tags: computed('tagSummary.summary.tags', {
+  users: computed('_privateFollowedIds', {
     get() {
-      const store = this.get('store');
-      const tagSummary = this.get('tagSummary.summary.tags');
-
-      return A(Object.keys(tagSummary).map((id) => {
-        return Summary.create({
-          id,
-          model: store.peekRecord('tag', id),
-          timelineItemIds: tagSummary[id],
-          component: this
-        })
-      })).sort((a, b) => b.get('timelineItemIds.length') - a.get('timelineItemIds.length'));
+      return this._generateSummaries('user');
     }
   }),
+
+  tags: computed('_privateFollowedIds', {
+    get() {
+      return this._generateSummaries('tag');
+    }
+  }),
+
+  _privateFollowedIds: computed('currentUser.user.followeds.@each.canViewPrivate', {
+    get() {
+      return (this.get('currentUser.user.followeds') || []).
+        filter((follow) => follow.get('canViewPrivate')).
+        map((follow) => follow.get('followed.id'));
+    }
+  }),
+
+  _generateSummaries(type) {
+    const store = this.get('store');
+    const tagSummary = this.get('tagSummary.summary');
+    const privateFollowedIds = this.get('_privateFollowedIds');
+
+    return this.get('selectedUserIds').reduce((summaries, userId) => {
+      const privateTimelineItemIds = get(tagSummary, `${userId}.private`);
+      const items = get(tagSummary, `${userId}.${type}s`);
+
+      Object.keys(items).forEach((itemId) => {
+        let timelineItemIds = items[itemId];
+        if (!privateFollowedIds.includes(userId)) timelineItemIds = timelineItemIds.filter((id) => !privateTimelineItemIds.includes(id));
+
+        if (timelineItemIds.length > 0) {
+          const previousSummary = summaries.find((summary) => summary.get('id') === itemId);
+
+          if (previousSummary) {
+            previousTimelineItemIds = previousSummary.get('timelineItemIds');
+            timelineItemIds.forEach((timelineItemId) => {
+              if (!previousTimelineItemIds.includes(timelineItemId)) previousTimelineItemIds.push(timelineItemId);
+            });
+          } else {
+            summaries.pushObject(Summary.create({
+              id: itemId,
+              model: store.peekRecord(type, itemId),
+              timelineItemIds,
+              component: this
+            }))
+          }
+        }
+      });
+
+      return summaries;
+    }, A()).sort((a, b) => b.get('timelineItemIds.length') - a.get('timelineItemIds.length'));
+  },
 
   actions: {
     toggleTag(tag) {
