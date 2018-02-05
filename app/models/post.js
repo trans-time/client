@@ -7,13 +7,19 @@ import Timelineable from './timelineable';
 export default Timelineable.extend({
   user: DS.belongsTo('user', { inverse: 'posts' }),
   flags: DS.hasMany('flag', { inverse: 'flaggable' }),
-  panels: DS.hasMany('panel', { polymorphic: true }),
+  images: DS.hasMany('image'),
 
   nsfw: DS.attr('boolean'),
   text: DS.attr('string'),
 
   date: alias('timelineItem.date'),
   private: alias('timelineItem.private'),
+
+  panels: computed('images.[]', {
+    get() {
+      return this.get('images');
+    }
+  }),
 
   panelsWithBlank: computed('panels.[]', {
     get() {

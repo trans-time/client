@@ -1,15 +1,22 @@
 import DS from 'ember-data';
+import { computed } from '@ember/object';
 
 export default DS.Model.extend({
   comments: DS.hasMany('comment'),
-  user: DS.belongsTo('user', { inverse: 'posts' }),
+  post: DS.belongsTo('post'),
   tags: DS.hasMany('tag'),
-  timelineable: DS.belongsTo('timelineable', { polymorphic: true }),
+  user: DS.belongsTo('user', { inverse: 'posts' }),
   users: DS.hasMany('user', { inverse: false }),
 
   commentsLocked: DS.attr('boolean'),
   date: DS.attr('date'),
   deleted: DS.attr('boolean'),
   private: DS.attr('boolean'),
-  totalComments: DS.attr('number')
+  totalComments: DS.attr('number'),
+
+  timelineable: computed('post', {
+    get() {
+      return this.get('post');
+    }
+  })
 });

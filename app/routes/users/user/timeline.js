@@ -28,7 +28,7 @@ export default Route.extend(TimelineItemNavRouteMixin, {
     const user = this.modelFor('users.user');
 
     return hash({
-      timelineItems: this.store.query('timeline-item', { userId: user.id, tags: params.tags, direction: params.direction, fromTimelineItemId: params.postId, lastTimelineItem: params.lastTimelineItem, perPage: 5, include: 'timelineable, timelineable.panels, timelineable.currentUserReaction, user' }),
+      timelineItems: this.store.query('timeline-item', { userId: user.id, tags: params.tags, direction: params.direction, fromTimelineItemId: params.postId, lastTimelineItem: params.lastTimelineItem, perPage: 5, include: 'post,post.images,user' }),
       user
     });
   }

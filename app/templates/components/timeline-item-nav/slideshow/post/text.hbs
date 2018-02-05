@@ -2,8 +2,8 @@
     <div class="timeline-item-nav-post-top-line">
       <div class="timeline-item-nav-post-date">
         {{sometimes-relative-date date=post.date}}
-        | {{#if post.user.displayName}}{{{inject-emoji post.user.displayName}}} {{/if}}
-          {{#link-to "users.user.profile.index" post.user.username}}<span class="at-username">@{{post.user.username}}</span>{{/link-to}}
+        | {{#if post.timelineItem.user.displayName}}{{{inject-emoji post.timelineItem.user.displayName}}} {{/if}}
+          {{#link-to "users.user.profile.index" post.timelineItem.user.username}}<span class="at-username">@{{post.timelineItem.user.username}}</span>{{/link-to}}
         {{#if (eq post.user.id user.id)}}
           | {{#link-to "posts.post.edit" post.id disabled=controlsDisabled}}{{t "post.edit"}}{{/link-to}}
           | <a {{action "delete"}} disabled={{controlsDisabled}} tabindex="0" class="link">{{t "post.delete"}}</a>
