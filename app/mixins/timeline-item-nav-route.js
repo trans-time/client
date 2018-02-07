@@ -48,15 +48,16 @@ export default Mixin.create({
     loadMoreTimelineItems(resolve, reject, shouldProgress, fromTimelineItemId) {
       const query = this.get('_timelineItems.query');
 
-      if (query.shouldProgress === shouldProgress && query.fromTimelineItemId === fromTimelineItemId) return reject();
+      if (query.should_progress === shouldProgress && query.from_timeline_item_id === fromTimelineItemId) return reject();
 
-      query.shouldProgress = shouldProgress;
-      query.fromTimelineItemId = fromTimelineItemId;
+      query.initial_query = false
+      query.should_progress = shouldProgress;
+      query.from_timeline_item_id = fromTimelineItemId;
 
       this.store.query('timelineItem', query).then((timelineItems) => {
         this.get('_timelineItems').pushObjects(timelineItems.get('content'));
 
-        const reachedEnd = timelineItems.get('content.length') < query.perPage;
+        const reachedEnd = timelineItems.get('content.length') < query.page_size;
 
         resolve(shouldProgress ? { reachedFirstTimelineItem: reachedEnd } : { reachedLastTimelineItem: reachedEnd });
       }).catch(() => {

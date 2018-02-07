@@ -142,7 +142,7 @@ export default Component.extend({
       });
     });
 
-    decoratedTimelineItems.get('lastObject.model.date') < newTimelineItems[0].get('model.date') ? decoratedTimelineItems.pushObjects(newTimelineItems) : decoratedTimelineItems.unshiftObjects(newTimelineItems);
+    decoratedTimelineItems.get('lastObject.model.date') > newTimelineItems[0].get('model.date') ? decoratedTimelineItems.pushObjects(newTimelineItems) : decoratedTimelineItems.unshiftObjects(newTimelineItems);
 
     this.set('nextTimelineItemIndex', timelineItems.get('length'));
   })),
