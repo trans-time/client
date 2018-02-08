@@ -104,7 +104,7 @@ export default Component.extend(AuthenticatedActionMixin, {
     get() {
       const website = this.get('user.userProfile.website');
 
-      return website.indexOf('http') === 0 ? website : `http://${website}`;
+      if (website) return website.indexOf('http') === 0 ? website : `http://${website}`;
     }
   }),
 

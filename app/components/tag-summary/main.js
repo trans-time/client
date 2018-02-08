@@ -52,7 +52,7 @@ export default Component.extend({
     }
   }),
 
-  selectedUserIds: computed({
+  sourceUserIds: computed({
     get() {
       return [this.get('userId')];
     }
@@ -83,7 +83,7 @@ export default Component.extend({
     const tagSummary = this.get('tagSummary.summary');
     const privateFollowedIds = this.get('_privateFollowedIds');
 
-    return this.get('selectedUserIds').reduce((summaries, userId) => {
+    return this.get('sourceUserIds').reduce((summaries, userId) => {
       const privateTimelineItemIds = get(tagSummary, `${userId}.private`);
       const items = get(tagSummary, `${userId}.${type}s`);
 
