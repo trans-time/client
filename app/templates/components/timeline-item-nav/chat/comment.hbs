@@ -20,7 +20,7 @@
         {{#if historyIsRevealed}}
           {{#each comment.textVersions as |textVersion|}}
             <div class="comment-text-version">
-              <div>{{sometimes-relative-date date=textVersion.date}}</div>
+              <div>{{sometimes-relative-date date=textVersion.insertedAt}}</div>
               {{rich-text text=textVersion.text}}
             </div>
           {{/each}}
@@ -35,7 +35,7 @@
         {{/if}}
       </div>
       <div class="comment-controls">
-        {{sometimes-relative-date date=comment.date}}
+        {{sometimes-relative-date date=comment.insertedAt}}
         | {{timeline-item-nav/slideshow/post/controls/reactions/main reactable=comment}}
         {{#if (not timelineItem.commentsLocked)}}
           | <a {{action "reply"}}>{{t "comments.reply"}}</a>

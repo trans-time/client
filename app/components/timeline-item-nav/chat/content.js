@@ -36,9 +36,13 @@ export default Component.extend({
   },
 
   _loadComments() {
-    let include = 'user';
-    if (this.get('isModerating')) include += ', textVersions';
-    this.get('store').query('comment', { timelineItemId: this.get('timelineItem.id'), include }).then((comments) => {
+    let include = 'user,parent,children';
+    if (this.get('isModerating')) include += ',textVersions';
+    const commentable = this.get('timelineItem.timelineable.content');
+    const filter = {};
+    filter[`${commentable.constructor.modelName}_id`] = commentable.id;
+
+    this.get('store').query('comment', { filter, include }).then((comments) => {
       this.setProperties({
         comments: A(comments.toArray()),
         isLoaded: true

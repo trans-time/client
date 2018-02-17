@@ -12,7 +12,6 @@ export default DS.Model.extend({
   date: DS.attr('date'),
   deleted: DS.attr('boolean'),
   private: DS.attr('boolean'),
-  totalComments: DS.attr('number'),
 
   timelineable: computed('post', {
     get() {
