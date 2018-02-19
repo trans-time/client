@@ -3,7 +3,6 @@ import { oneWay, alias, notEmpty } from '@ember/object/computed';
 import { on } from '@ember/object/evented';
 import { guidFor } from '@ember/object/internals';
 import { inject as service } from '@ember/service';
-import { capitalize } from '@ember/string';
 import Component from '@ember/component';
 import AuthenticatedActionMixin from 'client/mixins/authenticated-action';
 import { task, timeout } from 'ember-concurrency';
@@ -125,7 +124,7 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
       type
     }).save().then((reaction) => {
       reactable.set('currentUserReaction', reaction);
-      reactable.incrementProperty(`total${capitalize(type)}s`);
+      reactable.incrementProperty(`${type}Count`);
     }).finally(() => {
       this.setProperties({
         disabled: false,
@@ -142,8 +141,8 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
       currentUserReaction.set('type', newType);
       this.set('disabled', true);
       currentUserReaction.save().then(() => {
-        reactable.decrementProperty(`total${capitalize(previousType)}s`);
-        reactable.incrementProperty(`total${capitalize(newType)}s`);
+        reactable.decrementProperty(`${previousType}Count`);
+        reactable.incrementProperty(`${newType}Count`);
       }).catch(() => {
         currentUserReaction.set('type', previousType);
       }).finally(() => {
@@ -164,7 +163,7 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
     this.set('disabled', true);
     currentUserReaction.destroyRecord().then(() => {
       this.set('reactable.currentUserReaction', null);
-      reactable.decrementProperty(`total${capitalize(previousType)}s`);
+      reactable.decrementProperty(`${previousType}Count`);
     }).finally(() => {
       this.set('disabled', false);
     });

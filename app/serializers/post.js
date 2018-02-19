@@ -3,10 +3,10 @@ import DS from 'ember-data';
 export default DS.JSONAPISerializer.extend({
   attrs: {
     currentUserReaction: { serialize: false },
-    totalComments: { serialize: false },
-    totalMoons: { serialize: false },
-    totalStars: { serialize: false },
-    totalSuns: { serialize: false }
+    commentCount: { serialize: false },
+    moonCount: { serialize: false },
+    starCount: { serialize: false },
+    sunCount: { serialize: false }
   },
 
   serialize(snapshot, options) {

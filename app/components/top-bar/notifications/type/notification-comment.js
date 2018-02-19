@@ -9,7 +9,7 @@ export default Component.extend(NotificationComponentMixin, {
 
   otherComments: computed({
     get() {
-      return this.get('notification.totalComments') - 1;
+      return this.get('notification.commentCount') - 1;
     }
   })
 });

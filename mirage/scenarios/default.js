@@ -48,10 +48,10 @@ export default function(server) {
       return faker.random.number(server.db.users.length - 1) + 1;
     });
 
-    timelineItem.totalComments = 0;
+    timelineItem.commentCount = 0;
 
     timelineItem.commentIds = [...Array(faker.random.number(3))].map(() => {
-      timelineItem.totalComments++;
+      timelineItem.commentCount++;
 
       const comment = server.create('comment', {
         timelineItemId: timelineItem.id,
@@ -61,7 +61,7 @@ export default function(server) {
       });
 
       comment.childrenIds = [...Array(faker.random.number(2))].map(() => {
-        timelineItem.totalComments++;
+        timelineItem.commentCount++;
 
         return server.create('comment', {
           timelineItemId: timelineItem.id,

@@ -5,7 +5,7 @@ export default Flaggable.extend({
   currentUserReaction: DS.belongsTo('reaction'),
   reactions: DS.hasMany('reaction', { inverse: 'reactable' }),
 
-  totalMoons: DS.attr('number'),
-  totalStars: DS.attr('number'),
-  totalSuns: DS.attr('number')
+  moonCount: DS.attr('number'),
+  starCount: DS.attr('number'),
+  sunCount: DS.attr('number')
 });

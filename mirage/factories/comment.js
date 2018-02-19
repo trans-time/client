@@ -4,7 +4,7 @@ export default Factory.extend({
   date: faker.date.past,
   deleted: false,
   text: faker.lorem.paragraphs,
-  totalMoons: faker.random.number,
-  totalStars: faker.random.number,
-  totalSuns: faker.random.number
+  moonCount: faker.random.number,
+  starCount: faker.random.number,
+  sunCount: faker.random.number
 });

@@ -4,5 +4,5 @@ import Notification from './notification';
 export default Notification.extend({
   comment: DS.belongsTo('comment'),
 
-  totalComments: DS.attr('number')
+  commentCount: DS.attr('number')
 });
