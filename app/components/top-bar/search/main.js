@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { isPresent } from '@ember/utils';
-import { task } from 'ember-concurrency';
+import { task, timeout } from 'ember-concurrency';
 
 export default Component.extend({
   classNames: ['search-bar'],
@@ -15,6 +15,8 @@ export default Component.extend({
   }),
 
   _searchTask: task(function * (query, cursorIndex, resolveSelection) {
+    yield timeout(250);
+
     const results = yield this.get(`_cache.${query}`) || this.get('store').queryRecord('search-query', { filter: { query }, include: 'identities,tags,users' });
 
     this.setProperties({
@@ -44,7 +46,7 @@ export default Component.extend({
     },
 
     lookupAutocomplete(query, cursorIndex, resolve) {
-      if (isPresent(query)) this.get('_searchTask').perform(query, cursorIndex, resolve);
+      if (isPresent(query) && query !== '#' && query !== '@' && query !== '*') this.get('_searchTask').perform(query, cursorIndex, resolve);
       else this._clearResults();
     },
 
