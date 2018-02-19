@@ -15,7 +15,7 @@ export default Component.extend({
   }),
 
   _searchTask: task(function * (query, cursorIndex, resolveSelection) {
-    const results = yield this.get(`_cache.${query}`) || this.get('store').queryRecord('search-query', { query, include: 'identities, tags, users' });
+    const results = yield this.get(`_cache.${query}`) || this.get('store').queryRecord('search-query', { filter: { query }, include: 'identities,tags,users' });
 
     this.setProperties({
       cursorIndex,
