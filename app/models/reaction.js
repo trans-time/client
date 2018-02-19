@@ -1,8 +1,16 @@
 import DS from 'ember-data';
+import { computed } from '@ember/object';
 
 export default DS.Model.extend({
-  reactable: DS.belongsTo('reactable', { polymorphic: true }),
+  comment: DS.belongsTo('comment'),
+  post: DS.belongsTo('post'),
   user: DS.belongsTo('user'),
 
-  type: DS.attr('reaction-type')
+  type: DS.attr('reaction-type'),
+
+  reactable: computed('comment', 'post', {
+    get() {
+      return this.get('comment') || this.get('post');
+    }
+  })
 });
