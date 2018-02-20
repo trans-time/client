@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
+import { next } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import { isPresent } from '@ember/utils';
 import { task, timeout } from 'ember-concurrency';
@@ -39,6 +40,15 @@ export default Component.extend({
     input.selectionEnd = input.selectionStart;
   },
 
+  _resolveSelection(query) {
+    this.get('resolveSelection')(query);
+    this._clearResults();
+    next(() => {
+      this.set('cursorIndex', this.element.querySelector('input').value.length);
+      this._focusInput();
+    });
+  },
+
   actions: {
     cancel() {
       this._clearResults();
@@ -68,18 +78,15 @@ export default Component.extend({
     },
 
     selectIdentity(identity) {
-      this.get('resolveSelection')(`*${identity}`);
-      this._clearResults();
+      this._resolveSelection(`*${identity}`);
     },
 
     selectTag(tag) {
-      this.get('resolveSelection')(`#${tag}`);
-      this._clearResults();
+      this._resolveSelection(`#${tag}`);
     },
 
     selectUser(username) {
-      this.get('resolveSelection')(`@${username}`);
-      this._clearResults();
+      this._resolveSelection(`@${username}`);
     }
   }
 });
