@@ -50,7 +50,7 @@ export default Component.extend({
     },
 
     submit() {
-      this.get('model').save().catch((reason) => {
+      this.get('changeset').save().catch((reason) => {
         this.set('errorMessage', reason.error || reason);
       }).then(() => {
         const { username, password } = this.get('changeset').getProperties('username', 'password');

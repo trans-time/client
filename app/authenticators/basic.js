@@ -9,10 +9,10 @@ import fetch from 'fetch';
 
 const assign = emberAssign || merge;
 
-const JSON_CONTENT_TYPE = 'application/json';
+const JSON_CONTENT_TYPE = 'application/vnd.api+json';
 
 export default BaseAuthenticator.extend({
-  serverTokenEndpoint: '/auth',
+  serverTokenEndpoint: '/api/v1/auth/identity/callback',
   resourceName: 'user',
   tokenAttributeName: 'token',
   identificationAttributeName: 'username',
@@ -34,9 +34,7 @@ export default BaseAuthenticator.extend({
     return new Promise((resolve, reject) => {
       const useResponse = this.get('rejectWithResponse');
       const { resourceName, identificationAttributeName, tokenAttributeName } = this.getProperties('resourceName', 'identificationAttributeName', 'tokenAttributeName');
-      const data = {};
-      data[resourceName] = { password };
-      data[resourceName][identificationAttributeName] = identification;
+      const data = { data: { attributes: { password, identification } } };
 
       this.makeRequest(data).then((response) => {
         if (response.ok) {

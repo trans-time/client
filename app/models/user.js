@@ -18,8 +18,10 @@ export default DS.Model.extend({
   moderationReports: DS.hasMany('moderation-report', { inverse: 'moderator' }),
 
   avatar: DS.attr('string'),
+  email: DS.attr('string'),
   displayName: DS.attr('string'),
   isModerator: DS.attr('boolean'),
+  password: DS.attr('string'),
   pronouns: DS.attr('string'),
   username: DS.attr('string'),
 
