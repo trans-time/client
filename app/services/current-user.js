@@ -17,13 +17,13 @@ export default Service.extend({
       return store.findRecord('user', username, { include: 'followeds,blockeds,blockers' }).then((user) => {
         this.set('user', user);
 
+        this.get('messageBus').publish('currentUserLoaded');
+
         this.get('modalManager').close('resolve');
 
         store.findRecord('current-user', user.id).then((currentUser) => {
           user.set('currentUser', currentUser);
         });
-
-        store.query('follow', { followerId: user.id }).then(() => this.get('messageBus').publish('currentUserFollowsAreLoaded'));
       });
     } else {
       return resolve();

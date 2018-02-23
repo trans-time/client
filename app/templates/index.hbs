@@ -1,4 +1,4 @@
-{{#if (and session.isAuthenticated modelIsPresent)}}
+{{#if session.isAuthenticated}}
   {{timeline-item-nav/main
     timelineItems=model
     initialTimelineItemId=timelineItemId

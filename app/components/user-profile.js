@@ -49,7 +49,7 @@ export default Component.extend(AuthenticatedActionMixin, {
   init(...args) {
     this._super(...args);
 
-    this.get('messageBus').subscribe('currentUserFollowsAreLoaded', this, () => this.notifyPropertyChange('currentFollow'));
+    this.get('messageBus').subscribe('currentUserLoaded', this, () => this.notifyPropertyChange('currentFollow'));
   },
 
   _stopEditing: observer('user', function() {
