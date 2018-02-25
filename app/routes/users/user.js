@@ -9,7 +9,9 @@ export default Route.extend({
     const peekedUser = this.store.peekAll('user').find((user) => user.get('username') === params.username);
     const fullyLoaded = isPresent(peekedUser) && peekedUser.belongsTo('userProfile').value() !== null && peekedUser.belongsTo('userProfile').value().belongsTo('userTagSummary').value() !== null;
 
-    return fullyLoaded ? peekedUser : this.store.findRecord('user', params.username, { include: 'user_profile,user_profile.user_tag_summary,user_profile.user_tag_summary.tags,user_profile.user_tag_summary.users,user_identities,user_identities.identity', reload: true });
+    return fullyLoaded ? peekedUser : this.store.query('user', { filter: { username: params.username }, include: 'user_profile,user_profile.user_tag_summary,user_profile.user_tag_summary.tags,user_profile.user_tag_summary.users,user_identities,user_identities.identity', reload: true }).then(function(users) {
+      return users.get('firstObject');
+    });
   },
 
   afterModel(model) {

@@ -14,7 +14,9 @@ export default Service.extend({
     if (!isEmpty(username)) {
       const store = this.get('store');
 
-      return store.findRecord('user', username, { include: 'followeds,blockeds,blockers' }).then((user) => {
+      return store.query('user', { filter: { username }, include: 'followeds,blockeds,blockers' }).then((users) => {
+        const user = users.get('firstObject');
+
         this.set('user', user);
 
         this.get('messageBus').publish('currentUserLoaded');
