@@ -252,3 +252,10 @@ users:
       label: "password"
     username:
       label: "username"
+remote:
+  errors:
+    title:
+      forbidden: "forbidden"
+    detail:
+      forbidden:
+        mismatchedTokenAndUserId: "user token and id do not match"

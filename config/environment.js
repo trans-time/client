@@ -22,6 +22,12 @@ module.exports = function(environment) {
       // when it is created
     },
 
+    'ember-paper': {
+      'paper-toaster': {
+        duration: 5000
+      }
+    },
+
     'polyfill-io': {
       features: [
         'Intl.~locale.en-US'

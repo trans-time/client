@@ -6,3 +6,43 @@ md-input-container {
 md-list-item.md-no-proxy, md-list-item .md-no-style {
   padding: 0px $rhythm;
 }
+
+.paper-toaster-error-container {
+  background-color: red;
+
+  .md-toast-content {
+    background-color: transparent;
+  }
+}
+
+.paper-toaster-error {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  .paper-toaster-error-item {
+    display: flex;
+    align-items: center;
+    border-bottom: thin solid $white;
+    margin: $rhythm / 4 0;
+    padding: $rhythm / 4 0;
+  }
+
+  :last-child {
+    border-bottom: 0;
+  }
+
+  .paper-toaster-error-title {
+    font-size: 120%;
+    margin: 0;
+    padding: 0;
+
+    &:after {
+      content: ":";
+    }
+  }
+
+  .paper-toaster-error-detail {
+    margin-left: $rhythm / 2;
+  }
+}

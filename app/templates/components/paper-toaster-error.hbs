@@ -1,0 +1,6 @@
+{{#each errors as |error|}}
+  <li class="paper-toaster-error-item">
+    <h1 class="paper-toaster-error-title">{{t error.title}}</h1>
+    <div class="paper-toaster-error-detail">{{t error.detail}}</div>
+  </li>
+{{/each}}
