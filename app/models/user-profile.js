@@ -3,7 +3,7 @@ import { alias } from '@ember/object/computed';
 
 export default DS.Model.extend({
   description: DS.attr('string'),
-  totalPosts: DS.attr('number'),
+  postCount: DS.attr('number'),
   website: DS.attr('string'),
   textVersions: DS.hasMany('text-version'),
 

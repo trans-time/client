@@ -14,7 +14,7 @@ export default Service.extend({
     if (!isEmpty(username)) {
       const store = this.get('store');
 
-      return store.query('user', { filter: { username }, include: 'followeds,blockeds,blockers' }).then((users) => {
+      return store.query('user', { filter: { username }, include: 'followeds,blockeds,blockers,current_user' }).then((users) => {
         const user = users.get('firstObject');
 
         this.set('user', user);
@@ -22,10 +22,6 @@ export default Service.extend({
         this.get('messageBus').publish('currentUserLoaded');
 
         this.get('modalManager').close('resolve');
-
-        store.findRecord('current-user', user.id).then((currentUser) => {
-          user.set('currentUser', currentUser);
-        });
       });
     } else {
       return resolve();

@@ -18,7 +18,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
   linkModelId: oneWay('topBarManager.state.title.linkModelId'),
   linkRoute: oneWay('topBarManager.state.title.linkRoute'),
   title: oneWay('topBarManager.state.title.name'),
-  unreadNotificationsTotal: oneWay('currentUser.user.currentUser.unreadNotificationsTotal'),
+  unreadNotificationCount: oneWay('currentUser.user.currentUser.unreadNotificationCount'),
 
   showLink: notEmpty('linkRoute'),
 

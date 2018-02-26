@@ -14,7 +14,7 @@ export default Component.extend({
     if (!this.get('notification.seen') && this.get('currentUser.user.currentUser')) {
       this.set('notification.seen', true);
 
-      this.decrementProperty('currentUser.user.currentUser.unreadNotificationsTotal');
+      this.decrementProperty('currentUser.user.currentUser.unreadNotificationCount');
     }
   },
 
