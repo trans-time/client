@@ -20,9 +20,9 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
 
   user: oneWay('currentUser.user'),
 
-  currentUserReaction: alias('reactable.currentUserReaction.content'),
+  currentUserReaction: alias('reactable.currentUserReaction'),
   reacted: notEmpty('currentUserReaction'),
-  selectedCurrentType: oneWay('currentUserReaction.type'),
+  selectedCurrentType: oneWay('currentUserReaction.reactionType'),
   keyboardActivated: alias('isCurrentPost'),
 
   _startReactionKeyAction: on(keyDown('KeyZ'), function() {
@@ -135,16 +135,16 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
 
   _changeReactionType(newType, reactable) {
     const currentUserReaction = this.get('currentUserReaction');
-    const previousType = currentUserReaction.get('type');
+    const previousType = currentUserReaction.get('reactionType');
 
     if (previousType !== newType) {
-      currentUserReaction.set('type', newType);
+      currentUserReaction.set('reactionType', newType);
       this.set('disabled', true);
       currentUserReaction.save().then(() => {
         reactable.decrementProperty(`${previousType}Count`);
         reactable.incrementProperty(`${newType}Count`);
       }).catch(() => {
-        currentUserReaction.set('type', previousType);
+        currentUserReaction.set('reactionType', previousType);
       }).finally(() => {
         this.setProperties({
           disabled: false,
@@ -158,7 +158,7 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
 
   _destroyReaction(reactable) {
     const currentUserReaction = this.get('currentUserReaction');
-    const previousType = currentUserReaction.get('type');
+    const previousType = currentUserReaction.get('reactionType');
 
     this.set('disabled', true);
     currentUserReaction.destroyRecord().then(() => {

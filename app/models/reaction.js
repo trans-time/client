@@ -6,7 +6,7 @@ export default DS.Model.extend({
   post: DS.belongsTo('post'),
   user: DS.belongsTo('user'),
 
-  type: DS.attr('reaction-type'),
+  reactionType: DS.attr('reaction-type'),
 
   reactable: computed('comment', 'post', {
     get() {

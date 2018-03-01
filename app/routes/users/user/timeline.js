@@ -27,6 +27,6 @@ export default Route.extend(TimelineItemNavRouteMixin, {
 
     const user = this.modelFor('users.user');
 
-    return this.store.query('timeline-item', { sort: '-date', filter: { user_id: user.id, user_ids: params.users, tag_ids: params.tags }, initial_query: true, from_timeline_item_id: params.timelineItemId, last_timeline_item: params.lastTimelineItem, page_size: 10, include: 'post,post.images,user' })
+    return this.store.query('timeline-item', { sort: '-date', filter: { user_id: user.id, user_ids: params.users, tag_ids: params.tags }, initial_query: true, from_timeline_item_id: params.timelineItemId, last_timeline_item: params.lastTimelineItem, page_size: 10, include: 'post,post.images,post.reactions,user' })
   }
 });
