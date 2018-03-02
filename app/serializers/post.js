@@ -2,7 +2,6 @@ import DS from 'ember-data';
 
 export default DS.JSONAPISerializer.extend({
   attrs: {
-    currentUserReaction: { serialize: false },
     commentCount: { serialize: false },
     moonCount: { serialize: false },
     starCount: { serialize: false },

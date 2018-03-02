@@ -11,6 +11,11 @@ export default DS.Model.extend({
   reactable: computed('comment', 'post', {
     get() {
       return this.get('comment') || this.get('post');
+    },
+    set(key, reactable) {
+      const type = reactable.constructor.modelName;
+      
+      this.set(type, reactable);
     }
   })
 });

@@ -17,7 +17,7 @@ export default Flaggable.extend({
     get() {
       const currentUserId = this.get('currentUser.user.id');
 
-      return this.get('reactions').filter((reaction) => reaction.belongsTo('user').value().id === currentUserId);
+      return this.get('reactions').filter((reaction) => reaction.belongsTo('user').value().id === currentUserId)[0];
     }
   })
 });
