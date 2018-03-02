@@ -5,21 +5,9 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
   currentUser: service(),
-  paperToaster: service(),
+  responseHandler: service(),
 
   currentUserModel: alias('currentUser.user'),
-
-  _handleResponse(promise, resolve, reject = () => {}) {
-    promise.catch(({ errors }) => {
-      reject();
-      this.get('paperToaster').showComponent('paper-toaster-error', {
-        errors,
-        toastClass: 'paper-toaster-error-container'
-      });
-    }).finally(() => {
-      resolve();
-    });
-  },
 
   actions: {
     block(blocked, resolve) {
@@ -29,9 +17,7 @@ export default Route.extend({
         blocker
       });
 
-      this._handleResponse(block.save(), resolve, () => {
-        block.deleteRecord();
-      });
+      this.get('responseHandler').wrapResponse(block.save()).catch(() => block.deleteRecord()).finally(resolve);
     },
 
     follow(followed, resolve) {
@@ -41,9 +27,7 @@ export default Route.extend({
         follower
       });
 
-      this._handleResponse(follow.save(), resolve, () => {
-        follow.deleteRecord();
-      });
+      this.get('responseHandler').wrapResponse(follow.save()).catch(() => follow.deleteRecord()).finally(resolve);
     },
 
     requestPrivate(follow, resolve) {
@@ -51,21 +35,19 @@ export default Route.extend({
 
       follow.set('requestedPrivate', true);
 
-      this._handleResponse(follow.save(), resolve, () => {
-        follow.set('requestedPrivate', false);
-      });
+      this.get('responseHandler').wrapResponse(follow.save()).catch(() => follow.set('requestedPrivate', false)).finally(resolve);
     },
 
     unblock(block, resolve) {
       if (isBlank(block)) return resolve();
 
-      this._handleResponse(block.destroyRecord(), resolve);
+      this.get('responseHandler').wrapResponse(block.destroyRecord()).finally(resolve);
     },
 
     unfollow(follow, resolve) {
       if (isBlank(follow)) return resolve();
 
-      this._handleResponse(follow.destroyRecord(), resolve);
+      this.get('responseHandler').wrapResponse(follow.destroyRecord()).finally(resolve);
     }
   }
 });
