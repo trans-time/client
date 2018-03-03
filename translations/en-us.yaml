@@ -261,4 +261,6 @@ remote:
       forbidden:
         mismatchedTokenAndUserId: "user token and id do not match"
       unique:
-        reaction: "reaction already exists"
+        block: "already blocking user"
+        follow: "already following user"
+        reaction: "already reacted"
