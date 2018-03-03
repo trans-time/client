@@ -40,10 +40,21 @@ export default DS.JSONAPIAdapter.extend(DataAdapterMixin, {
   },
 
   _popErrorToast(errors) {
+    errors = errors.map((error) => {
+      if (error.title.includes('.detail.')) {
+        error.detail = error.title;
+        error.title = error.title.split('.');
+        error.title.pop();
+        error.title[error.title.indexOf('detail')] = 'title';
+        error.title = error.title.join('.');
+      }
+
+      return error;
+    });
+
     this.get('paperToaster').showComponent('paper-toaster-error', {
       errors,
-      toastClass: 'paper-toaster-error-container',
-      duration: 500
+      toastClass: 'paper-toaster-error-container'
     });
   }
 });

@@ -256,6 +256,9 @@ remote:
   errors:
     title:
       forbidden: "forbidden"
+      unique: "non-unique"
     detail:
       forbidden:
         mismatchedTokenAndUserId: "user token and id do not match"
+      unique:
+        reaction: "reaction already exists"
