@@ -118,11 +118,13 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
 
   _createNewReaction(reactionType, user, reactable) {
     this.set('disabled', true);
-    this.get('store').createRecord('reaction', {
+    const reaction = this.get('store').createRecord('reaction', {
       user,
       reactable,
       reactionType
-    }).save().then((reaction) => {
+    });
+
+    reaction.save().then((reaction) => {
       reactable.set('currentUserReaction', reaction);
       reactable.incrementProperty(`${reactionType}Count`);
     }).finally(() => {
@@ -140,6 +142,7 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
     if (previousType !== newType) {
       currentUserReaction.set('reactionType', newType);
       this.set('disabled', true);
+
       currentUserReaction.save().then(() => {
         reactable.decrementProperty(`${previousType}Count`);
         reactable.incrementProperty(`${newType}Count`);
@@ -162,6 +165,7 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
 
     this.set('disabled', true);
     currentUserReaction.destroyRecord().then(() => {
+      reactable.set('currentUserReaction', undefined);
       reactable.decrementProperty(`${previousType}Count`);
     }).finally(() => {
       this.set('disabled', false);

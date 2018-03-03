@@ -5,7 +5,6 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
   currentUser: service(),
-  responseHandler: service(),
 
   currentUserModel: alias('currentUser.user'),
 
@@ -17,7 +16,7 @@ export default Route.extend({
         blocker
       });
 
-      this.get('responseHandler').wrapResponse(block.save()).catch(() => block.deleteRecord()).finally(resolve);
+      block.save().catch(() => block.deleteRecord()).finally(resolve);
     },
 
     follow(followed, resolve) {
@@ -27,7 +26,7 @@ export default Route.extend({
         follower
       });
 
-      this.get('responseHandler').wrapResponse(follow.save()).catch(() => follow.deleteRecord()).finally(resolve);
+      follow.save().catch(() => follow.deleteRecord()).finally(resolve);
     },
 
     requestPrivate(follow, resolve) {
@@ -35,19 +34,19 @@ export default Route.extend({
 
       follow.set('requestedPrivate', true);
 
-      this.get('responseHandler').wrapResponse(follow.save()).catch(() => follow.set('requestedPrivate', false)).finally(resolve);
+      follow.save().catch(() => follow.set('requestedPrivate', false)).finally(resolve);
     },
 
     unblock(block, resolve) {
       if (isBlank(block)) return resolve();
 
-      this.get('responseHandler').wrapResponse(block.destroyRecord()).finally(resolve);
+      block.destroyRecord().finally(resolve);
     },
 
     unfollow(follow, resolve) {
       if (isBlank(follow)) return resolve();
 
-      this.get('responseHandler').wrapResponse(follow.destroyRecord()).finally(resolve);
+      follow.destroyRecord().finally(resolve);
     }
   }
 });

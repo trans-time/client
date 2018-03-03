@@ -6,18 +6,21 @@ import Flaggable from './flaggable';
 export default Flaggable.extend({
   currentUser: service(),
 
-  currentUserReaction: DS.belongsTo('reaction'),
   reactions: DS.hasMany('reaction'),
 
   moonCount: DS.attr('number'),
   starCount: DS.attr('number'),
   sunCount: DS.attr('number'),
 
-  currentUserReaction: computed('currentUser.user.id', 'reactions.[]', {
+  currentUserReaction: computed('currentUser.user.id', '_cachedCurrentUserReaction', {
     get() {
       const currentUserId = this.get('currentUser.user.id');
 
-      return this.get('reactions').filter((reaction) => reaction.belongsTo('user').value().id === currentUserId)[0];
+      return this.get('_cachedCurrentUserReaction') ||
+        this.get('reactions').find((reaction) => reaction.belongsTo('user').value().id === currentUserId);
+    },
+    set(key, value) {
+      return this.set('_cachedCurrentUserReaction', value);
     }
   })
 });

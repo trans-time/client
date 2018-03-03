@@ -14,7 +14,7 @@ export default DS.Model.extend({
     },
     set(key, reactable) {
       const type = reactable.constructor.modelName;
-      
+
       this.set(type, reactable);
     }
   })
