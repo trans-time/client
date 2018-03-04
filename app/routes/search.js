@@ -35,6 +35,15 @@ export default Route.extend(TimelineItemNavRouteMixin, {
       reachedLastTimelineItem: false
     });
 
-    return this.store.query('timeline-item', { sort: '-date', filter: { query: params.query }, from_timeline_item_id: params.timelineItemId, page_size: 10, initial_query: true, include: 'post,post.images,user' });
+    return this.store.query('timeline-item', {
+      sort: '-date',
+      filter: {
+        query: params.query
+      },
+      from_timeline_item_id: params.timelineItemId,
+      page_size: 10,
+      initial_query: true,
+      include: 'post,post.images,post.reactions,user'
+    });
   }
 });

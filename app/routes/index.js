@@ -34,6 +34,15 @@ export default Route.extend(TimelineItemNavRouteMixin, {
 
     if (isBlank(user)) return;
 
-    return this.store.query('timeline-item', { sort: '-date', filter: { follower_id: user.get('id') }, from_timeline_item_id: params.timelineItemId, page_size: 10, initial_query: true, include: 'post,post.images,user' });
+    return this.store.query('timeline-item', {
+      sort: '-date',
+      filter: {
+        follower_id: user.get('id')
+      },
+      from_timeline_item_id: params.timelineItemId,
+      page_size: 10,
+      initial_query: true,
+      include: 'post,post.images,post.reactions,user'
+    });
   }
 });

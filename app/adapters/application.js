@@ -13,7 +13,7 @@ export default DS.JSONAPIAdapter.extend(DataAdapterMixin, {
       return payload;
     } else if (this.isInvalid(status, headers, payload)) {
       this._popErrorToast(payload.errors);
-      return new InvalidError(payload.errors);
+      return new DS.InvalidError(payload.errors);
     }
 
     let errors          = this.normalizeErrorResponse(status, headers, payload);
@@ -23,20 +23,20 @@ export default DS.JSONAPIAdapter.extend(DataAdapterMixin, {
 
     switch (status) {
       case 401:
-        return new UnauthorizedError(errors, detailedMessage);
+        return new DS.UnauthorizedError(errors, detailedMessage);
       case 403:
-        return new ForbiddenError(errors, detailedMessage);
+        return new DS.ForbiddenError(errors, detailedMessage);
       case 404:
-        return new NotFoundError(errors, detailedMessage);
+        return new DS.NotFoundError(errors, detailedMessage);
       case 409:
-        return new ConflictError(errors, detailedMessage);
+        return new DS.ConflictError(errors, detailedMessage);
       default:
         if (status >= 500) {
-          return new ServerError(errors, detailedMessage);
+          return new DS.ServerError(errors, detailedMessage);
         }
     }
 
-    return new AdapterError(errors, detailedMessage);
+    return new DS.AdapterError(errors, detailedMessage);
   },
 
   _popErrorToast(errors) {
