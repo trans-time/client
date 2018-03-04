@@ -36,7 +36,7 @@ export default Component.extend({
   },
 
   _loadComments() {
-    let include = 'user,parent,children';
+    let include = 'user,parent,children,reactions';
     if (this.get('isModerating')) include += ',textVersions';
     const commentable = this.get('timelineItem.timelineable.content');
     const filter = {};
