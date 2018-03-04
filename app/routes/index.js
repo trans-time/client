@@ -18,6 +18,10 @@ export default Route.extend(TimelineItemNavRouteMixin, {
     comments: null
   },
 
+  _refreshTimelineItems() {
+    this.refresh();
+  },
+
   beforeModel(...args) {
     this._super(...args);
 

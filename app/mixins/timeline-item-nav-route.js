@@ -32,10 +32,15 @@ export default Mixin.create({
   _refreshTimelineItems() {
     const query = this.get('_timelineItems.query');
     const originalQueryClone = assign({}, query);
+    const refresh_timeline_item_ids = this.get('_timelineItems.content').map((timelineItem) => timelineItem.id);
 
-    query.refreshTimelineItemIds = this.get('_timelineItems.content').map((timelineItem) => timelineItem.id).join(',');
-
-    this.store.query('timelineItem', query).then(() => {
+    this.store.query('timelineItem', {
+      filter: {
+        refresh_timeline_item_ids: refresh_timeline_item_ids.join(',')
+      },
+      include: query.include,
+      page_size: refresh_timeline_item_ids.length
+    }).then(() => {
       this.set('_timelineItems.query', originalQueryClone);
     });
   },
