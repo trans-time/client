@@ -42,7 +42,7 @@ export default Component.extend({
     const filter = {};
     filter[`${commentable.constructor.modelName}_id`] = commentable.id;
 
-    this.get('store').query('comment', { filter, include }).then((comments) => {
+    this.get('store').query('comment', { sort: '-inserted_at', filter, include }).then((comments) => {
       this.setProperties({
         comments: A(comments.toArray()),
         isLoaded: true
