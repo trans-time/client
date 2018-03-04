@@ -78,6 +78,10 @@ export default Component.extend({
   },
 
   _searchTask: task(function * (type, word, query) {
+    yield timeout(250);
+
+    if (query.length < 3) return;
+
     const cache = this.get(`cache.${type}.${word}`);
     const options = yield cache || this.get('store').query(type, query);
     const textarea = this.get('textarea');
