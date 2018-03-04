@@ -256,10 +256,13 @@ remote:
   errors:
     title:
       forbidden: "forbidden"
+      invalid: "invalid"
       unique: "non-unique"
     detail:
       forbidden:
         mismatchedTokenAndUserId: "user token and id do not match"
+      invalid:
+        usernameOrPassword: "username or password"
       unique:
         block: "already blocking user"
         follow: "already following user"

@@ -1,11 +1,12 @@
-import { deprecatingAlias } from '@ember/object/computed';
-import { Promise } from 'rsvp';
-import { inject } from '@ember/service';
-import { isEmpty } from '@ember/utils';
-import { run, later } from '@ember/runloop';
+import { getOwner } from '@ember/application';
 import { merge, assign as emberAssign } from '@ember/polyfills';
+import { deprecatingAlias } from '@ember/object/computed';
+import { run, later } from '@ember/runloop';
+import { inject as service } from '@ember/service';
+import { isEmpty } from '@ember/utils';
 import BaseAuthenticator from 'ember-simple-auth/authenticators/base';
 import fetch from 'fetch';
+import { Promise } from 'rsvp';
 
 const assign = emberAssign || merge;
 
@@ -17,7 +18,8 @@ export default BaseAuthenticator.extend({
   tokenAttributeName: 'token',
   identificationAttributeName: 'username',
 
-  messageBus: inject(),
+  messageBus: service(),
+  paperToaster: service(),
 
   rejectWithXhr: deprecatingAlias('rejectWithResponse', {
     id: `ember-simple-auth.authenticator.reject-with-xhr`,
@@ -54,7 +56,10 @@ export default BaseAuthenticator.extend({
           if (useResponse) {
             run(null, reject, response);
           } else {
-            response.json().then((json) => run(null, reject, json));
+            response.json().then((json) => {
+              Ember.getOwner(this).lookup('adapter:application').handleResponse(response.status, response.headers, json, {});
+              run(null, reject, json);
+            });
           }
         }
       }).catch((error) => run(null, reject, error));
