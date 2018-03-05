@@ -30,9 +30,13 @@ export default Route.extend(TimelineItemNavRouteMixin, {
     return this.store.query('timeline-item', {
       sort: '-date',
       filter: {
+        blocked: false,
+        deleted: false,
+        private: false,
+        tag_ids: params.tags,
+        under_moderation: false,
         user_id: user.id,
-        user_ids: params.users,
-        tag_ids: params.tags
+        user_ids: params.users
       },
       initial_query: true,
       from_timeline_item_id: params.timelineItemId,
