@@ -70,7 +70,10 @@ export default Component.extend(AuthenticatedActionMixin, {
 
         changeset.save().then((comment) => {
           this.attrs.addComment(comment);
-          if (this.get('commentable')) this.set('commentable.commentDraft', undefined);
+          if (this.get('commentable')) {
+            this.incrementProperty('commentable.commentCount');
+            this.set('commentable.commentDraft', undefined);
+          }
           this._resetChangeset();
         }).finally(() => {
           this.set('isSaving', false);

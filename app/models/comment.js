@@ -9,6 +9,7 @@ export default Reactable.extend({
   children: DS.hasMany('comment', { inverse: 'parent' }),
   flags: DS.hasMany('flag', { inverse: 'flaggable' }),
 
+  commentCount: DS.attr('number'),
   insertedAt: DS.attr('date'),
   deleted: DS.attr('boolean'),
   text: DS.attr('string'),

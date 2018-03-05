@@ -2,7 +2,7 @@ import { A } from '@ember/array';
 import { computed } from '@ember/object';
 import { sort } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
-import { isEmpty, isNone } from '@ember/utils';
+import { isEmpty, isNone, isPresent } from '@ember/utils';
 import Component from '@ember/component';
 
 export default Component.extend({
@@ -89,10 +89,15 @@ export default Component.extend({
     },
 
     removeComment(comment) {
+      const commentParent = comment.get('parent.content');
+      const commentChildrenCount = comment.get('commentCount') + 1;
       comment.set('deleted', true);
       comment.deleteRecord();
 
-      comment.save().catch(() => {
+      comment.save().then(() => {
+        if (isPresent(commentParent)) commentParent.decrementProperty('commentCount');
+        this.decrementProperty('timelineItem.timelineable.commentCount', commentChildrenCount);
+      }).catch(() => {
         comment.rollback();
       });
     }
