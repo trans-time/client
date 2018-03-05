@@ -21,7 +21,7 @@
   {{else}}
     {{timeline-item-nav/chat/comment-form
       timelineItem=timelineItem
-      commentable=timelineItem
+      commentable=timelineItem.timelineable
       addComment=(action "addComment")
       classNames="comment-form-post-reply"
     }}

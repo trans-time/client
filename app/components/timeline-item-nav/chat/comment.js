@@ -26,7 +26,7 @@ export default Component.extend(AuthenticatedActionMixin, {
 
   showAsDeleted: computed('comment.deleted', {
     get() {
-      return !this.get('isModerating') && this.get('comment.deleted') && !this.get('isRouteComment');
+      return !this.get('isModerating') && !this.get('isRouteComment') && this.get('comment.deleted');
     }
   }),
 
@@ -46,8 +46,8 @@ export default Component.extend(AuthenticatedActionMixin, {
     get() {
       const blockers = this.get('currentUser.user.blockers.content');
 
-      return isEmpty(blockers) || this.get('isModerating') || this.get('timelineItem.user') === this.get('currentUser.user') || this.get('routeComment') ? this.get('orderedChildren') : this.get('orderedChildren').filter((comment) => {
-        return !blockers.includes(comment.get('user'));
+      return this.get('isModerating') || this.get('timelineItem.user') === this.get('currentUser.user') || this.get('routeComment') ? this.get('orderedChildren') : this.get('orderedChildren').filter((comment) => {
+        return comment.get('shouldDisplay') && !blockers.includes(comment.get('user'));
       });
     }
   }),

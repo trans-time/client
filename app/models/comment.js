@@ -16,6 +16,11 @@ export default Reactable.extend({
   commentable: computed('post', {
     get() {
       return this.get('post');
+    },
+    set(key, commentable) {
+      const type = commentable.constructor.modelName || commentable.content.constructor.modelName;
+
+      this.set(type, commentable);
     }
   }),
 

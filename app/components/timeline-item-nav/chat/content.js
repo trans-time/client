@@ -42,7 +42,7 @@ export default Component.extend({
     const filter = {};
     filter[`${commentable.constructor.modelName}_id`] = commentable.id;
 
-    this.get('store').query('comment', { sort: '-inserted_at', filter, include }).then((comments) => {
+    this.get('store').query('comment', { sort: 'inserted_at', filter, include }).then((comments) => {
       this.setProperties({
         comments: A(comments.toArray()),
         isLoaded: true
@@ -66,7 +66,7 @@ export default Component.extend({
     }
   }),
 
-  filteredComments: computed('comments.[]', {
+  filteredComments: computed('comments.@each.shouldDisplay', {
     get() {
       const { isModerating, routeComment } = this.getProperties('isModerating', 'routeComment');
       return this.get('comments').filter((comment) => {
@@ -81,8 +81,12 @@ export default Component.extend({
     },
 
     removeComment(comment) {
-      if (comment.get('nondeletedChildren.length') === 0) this.get('comments').removeObject(comment);
-      comment.destroyRecord();
+      comment.set('deleted', true);
+      comment.deleteRecord();
+
+      comment.save().catch(() => {
+        comment.rollback();
+      });
     }
   }
 });
