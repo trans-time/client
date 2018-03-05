@@ -6,8 +6,6 @@
     cancel=(action "stopEditing")
     addComment=(action "stopEditing")
   }}
-{{else if showAsDeleted}}
-  <div class="comment-content comment-deleted">{{t "comments.deleted"}}</div>
 {{else}}
   <div class="comment-content {{if isRouteComment 'is-route-comment'}} {{if comment.deleted 'comment-muted'}}">
     <div class="comment-profile">
@@ -63,7 +61,7 @@
     timelineItem=timelineItem
     parent=replyParent
     commentable=timelineItem.timelineable
-    isDeepReply=wouldDeepReply
+    replyingTo=comment
     cancelable=true
     classNames="comment-form-reply"
     cancel=(action "closeReply")

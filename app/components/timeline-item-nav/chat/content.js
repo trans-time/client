@@ -36,11 +36,19 @@ export default Component.extend({
   },
 
   _loadComments() {
-    let include = 'user,parent,children,reactions';
-    if (this.get('isModerating')) include += ',textVersions';
+    const isModerating = this.get('isModerating');
     const commentable = this.get('timelineItem.timelineable.content');
+
+    let include = 'user,parent,children,reactions';
+    if (isModerating) include += ',textVersions';
+
     const filter = {};
     filter[`${commentable.constructor.modelName}_id`] = commentable.id;
+
+    if (!isModerating) {
+      filter.deleted = false;
+      filter.under_moderation = false;
+    }
 
     this.get('store').query('comment', { sort: 'inserted_at', filter, include }).then((comments) => {
       this.setProperties({

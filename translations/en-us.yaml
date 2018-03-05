@@ -24,7 +24,6 @@ comments:
   cancel: "cancel"
   comments: "comments"
   delete: "delete"
-  deleted: "<this comment was deleted>"
   edit: "edit"
   expandOverflow: "expand full text. . . ."
   reactions: "comment reactions"

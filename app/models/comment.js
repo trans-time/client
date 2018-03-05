@@ -24,15 +24,9 @@ export default Reactable.extend({
     }
   }),
 
-  nondeletedChildren: computed('children.@each.shouldDisplay', {
+  shouldDisplay: computed('deleted', {
     get() {
-      return this.get('children').filterBy('shouldDisplay', true);
-    }
-  }),
-
-  shouldDisplay: computed('deleted', 'nondeletedChildren.length', {
-    get() {
-      return !(this.get('deleted') || this.get('underModeration')) || this.get('nondeletedChildren.length') > 0;
+      return !this.get('deleted');
     }
   })
 });

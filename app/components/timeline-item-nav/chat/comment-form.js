@@ -1,6 +1,7 @@
 import { computed, observer } from '@ember/object';
 import { alias, or } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
+import { isPresent } from '@ember/utils';
 import Component from '@ember/component';
 import Changeset from 'ember-changeset';
 import lookupValidator from 'ember-changeset-validations';
@@ -31,11 +32,17 @@ export default Component.extend(AuthenticatedActionMixin, {
     this._resetChangeset();
   },
 
+  isDeepReply: computed({
+    get() {
+      return isPresent(this.get('replyingTo.parent.content'));
+    }
+  }),
+
   _resetChangeset() {
     const comment = this.get('comment') || this.get('store').createRecord('comment', this.getProperties('commentable', 'parent'));
     const changeset = this.set('changeset', new Changeset(comment, lookupValidator(CommentValidations), CommentValidations));
 
-    if (this.get('isDeepReply')) changeset.set('text', `@${this.get('commentable.user.username')} `);
+    if (this.get('isDeepReply')) changeset.set('text', `@${this.get('replyingTo.user.username')} `);
     if (this.get('commentable.commentDraft')) changeset.set('text', this.get('commentable.commentDraft'));
 
     this.get('changeset').validate();

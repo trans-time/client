@@ -1,5 +1,5 @@
 import { computed } from '@ember/object';
-import { filter, sort } from '@ember/object/computed';
+import { alias, filter, sort } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { next } from '@ember/runloop';
 import { isEmpty, isPresent } from '@ember/utils';
@@ -18,9 +18,10 @@ export default Component.extend(AuthenticatedActionMixin, {
   modalManager: service(),
   store: service(),
 
-  visibleChildren: filter('comment.children', (comment) => !comment.get('isNew') && comment.get('shouldDisplay')),
+  children: alias('comment.children'),
+  savedChildren: filter('children', (comment) => !comment.get('isNew')),
 
-  orderedChildren: sort('visibleChildren', (a, b) => {
+  orderedFilteredChildren: sort('filteredChildren', (a, b) => {
     return a.get('date') > b.get('date');
   }),
 
@@ -42,12 +43,12 @@ export default Component.extend(AuthenticatedActionMixin, {
     }
   }),
 
-  orderedFilteredChildren: computed('orderedChildren.[]', 'currentUser.user.blockers', {
+  filteredChildren: computed('savedChildren.@each.shouldDisplay', {
     get() {
-      const blockers = this.get('currentUser.user.blockers.content');
+      const children = this.get('savedChildren');
 
-      return this.get('isModerating') || this.get('timelineItem.user') === this.get('currentUser.user') || this.get('routeComment') ? this.get('orderedChildren') : this.get('orderedChildren').filter((comment) => {
-        return comment.get('shouldDisplay') && !blockers.includes(comment.get('user'));
+      return this.get('isModerating') || this.get('routeComment') ? children : children.filter((comment) => {
+        return comment.get('shouldDisplay');
       });
     }
   }),
@@ -61,12 +62,6 @@ export default Component.extend(AuthenticatedActionMixin, {
   replyParent: computed({
     get() {
       return this.get('comment.parent.content') || this.get('comment');
-    }
-  }),
-
-  wouldDeepReply: computed({
-    get() {
-      return isPresent(this.get('comment.parent.content'));
     }
   }),
 
