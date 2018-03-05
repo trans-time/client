@@ -12,7 +12,7 @@ export default Flaggable.extend({
   starCount: DS.attr('number'),
   sunCount: DS.attr('number'),
 
-  currentUserReaction: computed('currentUser.user.id', '_cachedCurrentUserReaction', {
+  currentUserReaction: computed('currentUser.user.id', 'reactions.[]', '_cachedCurrentUserReaction', {
     get() {
       const currentUserId = this.get('currentUser.user.id');
 
