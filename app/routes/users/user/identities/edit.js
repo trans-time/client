@@ -11,6 +11,8 @@ export default Route.extend({
       changesets.forEach((changeset) => {
         this.get('_saveChangeset').perform(changeset);
       });
+
+      this.transitionTo('users.user.profile.index');
     }
   }
 });

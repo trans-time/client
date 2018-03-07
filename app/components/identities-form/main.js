@@ -56,7 +56,9 @@ export default Component.extend({
     },
 
     removeUserIdentity(userIdentity) {
-      this.get('changesets').removeObject(userIdentity);
+      userIdentity.get('_content').destroyRecord().then(() => {
+        this.get('changesets').removeObject(userIdentity);
+      });
     }
   }
 });
