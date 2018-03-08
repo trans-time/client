@@ -9,11 +9,15 @@ import {
   validateFormat,
   validateLength
 } from 'ember-changeset-validations/validators';
+import validateDateSequence from 'client/validators/date-sequence';
 
 const UserIdentityValidations = {
   name: [
     validateFormat({ regex: /^[a-zA-Z0-9_-]*$/ }),
     validateLength({ max: 64 })
+  ],
+  startDate: [
+    validateDateSequence({ before: 'endDate' })
   ]
 };
 
@@ -34,11 +38,11 @@ export default Component.extend({
     this.set('changesets', changesets);
   },
 
-  disabled: computed('changesets.@each.isInvalid', 'changesets.@each.isPristine', {
+  disabled: computed('changesets.@each.isInvalid', 'changesets.@each.isPristine', 'submitting', {
     get() {
       const changesets = this.get('changesets');
 
-      return changesets.any((changeset) => changeset.get('isInvalid')) || changesets.every((changeset) => changeset.get('isPristine'));
+      return this.get('submitting') || changesets.any((changeset) => changeset.get('isInvalid')) || changesets.every((changeset) => changeset.get('isPristine'));
     }
   }),
 
@@ -58,6 +62,16 @@ export default Component.extend({
     removeUserIdentity(userIdentity) {
       userIdentity.get('_content').destroyRecord().then(() => {
         this.get('changesets').removeObject(userIdentity);
+      });
+    },
+
+    submit() {
+      this.set('submitting', true);
+
+      new Promise((resolve) => {
+        this.attrs.submit(this.get('changesets'), resolve);
+      }).then(() => {
+        if (!this.get('isDestroyed')) this.set('submitting', false);
       });
     }
   }

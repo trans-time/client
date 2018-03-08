@@ -1,0 +1,23 @@
+<div class="paper-date-time-picker-content">
+  <label>
+    <span class="paper-date-time-picker-label-text">{{label}}:</span>
+
+    {{pikaday-input
+      format=format
+      placeholder=placeholder
+      value=value
+      classNames="pikaday-input"
+      onSelection=onSelection
+    }}
+  </label>
+
+  <a {{action onClear}}>{{fa-icon "times"}}</a>
+</div>
+
+{{#if errors}}
+  <div class="paper-date-time-picker-errors">
+    {{#each errors as |error|}}
+      <div>{{t error}}</div>
+    {{/each}}
+  </div>
+{{/if}}

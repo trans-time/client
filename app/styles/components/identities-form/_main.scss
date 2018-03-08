@@ -31,6 +31,8 @@
   .identities-form-controls-anchor {
     color: $dark-gray;
     transition: opacity 500ms;
+    border: 0;
+    background-color: transparent;
 
     &.identities-form-controls-anchor-disabled {
       opacity: 0.68;

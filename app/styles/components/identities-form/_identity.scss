@@ -18,25 +18,6 @@
   margin-left: auto;
 }
 
-.identities-form-identity-date {
-  margin-top: $rhythm;
-  display: flex;
-  align-items: flex-end;
-
-  label {
-    width: 100px;
-  }
-
-  input {
-    flex-grow: 1;
-    margin-right: $rhythm;
-  }
-
-  a {
-    align-self: center;
-  }
-}
-
 .identities-form-identity-button {
   width: 100%;
   margin: $rhythm * 2 0 $rhythm / 2;

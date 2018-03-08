@@ -52,6 +52,7 @@ coverPage:
 errors:
   validations:
     confirmation: "doesn't match"
+    dateSequenceBefore: "must be before"
     email: "must be a valid email address"
     invalid: "can only include letters, numbers, _ and -"
     present: "can't be blank"
@@ -255,13 +256,20 @@ remote:
   errors:
     title:
       forbidden: "forbidden"
+      format: "format"
       invalid: "invalid"
+      length: "length"
       unique: "non-unique"
     detail:
       forbidden:
         mismatchedTokenAndUserId: "user token and id do not match"
+      format:
+        alphanumericUnderscoreDash: "can only include letters, numbers, _ and -"
       invalid:
+        startDateAfterEndDate: "start date is after end date"
         usernameOrPassword: "username or password"
+      length:
+        length: "too long"
       unique:
         block: "already blocking user"
         follow: "already following user"

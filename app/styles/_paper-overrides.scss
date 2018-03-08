@@ -7,6 +7,44 @@ md-list-item.md-no-proxy, md-list-item .md-no-style {
   padding: 0px $rhythm;
 }
 
+.paper-date-time-picker {
+  margin-top: $rhythm;
+
+  .paper-date-time-picker-content {
+    display: flex;
+    box-sizing: border-box;
+
+    label {
+      display: flex;
+      flex-grow: 1;
+      align-items: flex-end;
+
+      .paper-date-time-picker-label-text {
+        display: inline-block;
+        min-width: 100px;
+      }
+
+      input {
+        flex-grow: 1;
+      }
+    }
+
+    a {
+      padding: $rhythm / 2;
+      box-sizing: border-box;
+      flex-shrink: 0;
+      align-self: center;
+    }
+  }
+
+  .paper-date-time-picker-errors {
+    color: #d50000;
+    font-size: 12px;
+    line-height: 14px;
+    padding-top: 5px;
+  }
+}
+
 .paper-toaster-error-container {
   .md-toast-content {
     background-color: red;

@@ -8,6 +8,6 @@
   <div class="identities-form-controls">
     {{#link-to "users.user.profile.index" class="identities-form-controls-anchor"}}{{fa-icon "times" size=2}}{{/link-to}}
     {{#paper-button onClick="newUserIdentity" raised=true primary=true class="identities-form-controls-button"}}{{t "identities.add"}}{{/paper-button}}
-    <a {{action (route-action "submit" changesets)}} disabled={{disabled}} class="identities-form-controls-anchor {{if disabled 'identities-form-controls-anchor-disabled'}}">{{fa-icon "check" size=2}}</a>
+    <button {{action (action "submit")}} disabled={{disabled}} class="identities-form-controls-anchor {{if disabled 'identities-form-controls-anchor-disabled'}}">{{fa-icon "check" size=2}}</button>
   </div>
 {{/paper-form}}
