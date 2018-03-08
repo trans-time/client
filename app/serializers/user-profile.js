@@ -5,7 +5,7 @@ export default DS.JSONAPISerializer.extend({
     let json = this._super(...arguments);
 
     json.data.attributes.avatar = snapshot.record.get('avatar');
-    json.data.attributes.displayName = snapshot.record.get('displayName');
+    json.data.attributes.display_name = snapshot.record.get('displayName');
     json.data.attributes.pronouns = snapshot.record.get('pronouns');
 
     return json;

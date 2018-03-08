@@ -265,6 +265,8 @@ remote:
         mismatchedTokenAndUserId: "user token and id do not match"
       format:
         alphanumericUnderscoreDash: "can only include letters, numbers, _ and -"
+        email: "email"
+        url: "url"
       invalid:
         startDateAfterEndDate: "start date is after end date"
         usernameOrPassword: "username or password"
