@@ -12,7 +12,7 @@ import AuthenticatedActionMixin from 'client/mixins/authenticated-action';
 
 const CommentValidations = {
   text: [
-    validateLength({ max: 63206, min: 1 })
+    validateLength({ max: 8000, min: 1 })
   ]
 };
 
