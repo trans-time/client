@@ -11,14 +11,17 @@ import {
 
 const SessionValidations = {
   email: [
+    validateLength({ max: 1000 }),
     validatePresence(true),
     validateFormat({ type: 'email' })
   ],
   password: [
+    validateLength({ max: 1000 }),
     validatePresence(true),
     validateLength({ min: 6 })
   ],
   username: [
+    validateLength({ max: 64 }),
     validateFormat({ regex: /^[a-zA-Z0-9_-]*$/ }),
     validatePresence(true)
   ]

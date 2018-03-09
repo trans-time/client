@@ -24,7 +24,8 @@ const ProfileValidations = {
     validateLength({ max: 64 })
   ],
   website: [
-    validateFormat({ type: 'url', allowBlank: true })
+    validateFormat({ type: 'url', allowBlank: true }),
+    validateLength({ max: 100 })
   ]
 };
 
