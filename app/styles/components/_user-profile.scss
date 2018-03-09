@@ -167,59 +167,6 @@
   }
 }
 
-
-.profile-form-text-emoji-wrapper {
-  display: flex;
-  flex-direction: column;
-
-  .profile-description {
-    overflow-x: visible;
-  }
-}
-
-.profile-form-textarea-container {
-  position: relative;
-}
-
-
-.profile-form-textarea-container {
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-  position: relative;
-}
-
-.profile-form-taggable-textarea {
-  display: flex;
-  flex-grow: 1;
-}
-
-.profile-form-textarea {
-  flex-grow: 1;
-  resize: none;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.profile-form-text-emoji-toggler {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background: none;
-  border: none;
-  outline: none;
-  opacity: 0.68;
-  padding: $rhythm;
-  z-index: 10;
-}
-
-.profile-form-text-emoji-picker {
-  position: absolute;
-  bottom: 2px;
-  left: 2px;
-  z-index: 10;
-}
-
 .profile-field {
   padding: 0 $rhythm;
 }
