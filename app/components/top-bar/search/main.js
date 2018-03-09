@@ -9,6 +9,7 @@ export default Component.extend({
   classNames: ['search-bar'],
   tagName: 'span',
 
+  router: service(),
   store: service(),
 
   _cache: computed(() => {
@@ -88,7 +89,7 @@ export default Component.extend({
     },
 
     selectUser(username) {
-      this._resolveSelection(`@${username}`);
+      this.get('router').transitionTo('users.user.profile.index', username);
     }
   }
 });

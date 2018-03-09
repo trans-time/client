@@ -32,7 +32,9 @@ export default Service.extend({
   showSearchBar() {
     const action = (args) => {
       if (args.searchValue === '') document.getElementById('top_bar_search').focus();
-      else {
+      else if (/@[^\s#*@]+$/.test(args.searchValue)) {
+        this.get('router').transitionTo('users.user.profile.index', args.searchValue.split('@')[1]);
+      } else {
         this.get('router').transitionTo('search', { queryParams: { query: args.searchValue }});
       }
     };
