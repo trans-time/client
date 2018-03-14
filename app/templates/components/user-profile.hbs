@@ -1,7 +1,11 @@
 <div class="profile-header">
   {{#if (or user.avatar isEditing)}}
     <div class="profile-header-avatar-container {{if isEditing 'profile-header-avatar-container-full-size'}}">
-      {{#if user.avatar}}<img class="profile-header-avatar" src={{user.avatar}}>{{/if}}
+      {{#if isEditing}}
+        <img class="profile-header-avatar" src={{changeset.avatar}}>
+      {{else if user.avatar}}
+        <img class="profile-header-avatar" src={{user.avatarProfile}}>
+      {{/if}}
       {{#if isEditing}}
         <a {{action "changeAvatar"}} class="profile-header-avatar-new-overlay">
           {{fa-icon "camera" size=2}}

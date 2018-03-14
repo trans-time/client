@@ -29,5 +29,35 @@ export default DS.Model.extend({
     get() {
       return this.get('timelineItems').toArray().reduce((tags, timelineItem) => tags.concat(timelineItem.get('tags').toArray()), A()).uniq();
     }
+  }),
+
+  avatarThumb: computed('avatar', {
+    get() {
+      return this.get('avatar');
+    }
+  }),
+
+  avatarBigThumb: computed('avatar', {
+    get() {
+      const avatar = this.get('avatar');
+
+      if (avatar) return avatar.replace('thumb', 'big_thumb');
+    }
+  }),
+
+  avatarProfile: computed('avatar', {
+    get() {
+      const avatar = this.get('avatar');
+
+      if (avatar) return avatar.replace('thumb', 'profile');
+    }
+  }),
+
+  avatarFull: computed('avatar', {
+    get() {
+      const avatar = this.get('avatar');
+
+      if (avatar) return avatar.replace('thumb', 'full');
+    }
   })
 });

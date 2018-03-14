@@ -8,8 +8,8 @@ import Component from '@ember/component';
 import { task, timeout } from 'ember-concurrency';
 
 export default Component.extend({
-  height: 145,
-  width: 145,
+  height: 1080,
+  width: 1080,
   classNames: ['user-profile-avatar-editor'],
 
   modalManager: service(),
@@ -24,16 +24,13 @@ export default Component.extend({
     this._replacePanel(this.get('options.changeset.avatar'));
   },
 
-  _replacePanel(src, file = {}) {
+  _replacePanel(src) {
     const panels = this.get('panels');
 
     panels.clear();
 
     panels.pushObject({
-      file,
       src,
-      filename: get(file, 'name'),
-      filesize: get(file, 'size'),
       positioning: {
         x: 50,
         y: 50
@@ -41,25 +38,21 @@ export default Component.extend({
     });
   },
 
-  _addImage: task(function * (file) {
-    file.readAsDataURL().then((src) => {
-      this._replacePanel(src, file);
-    });
+  _addImage: task(function * (dataUri) {
+    this._replacePanel(dataUri);
 
     yield timeout(50);
   }).drop(),
 
   _cropImage: task(function * (panel) {
-    if (isNone(panel) || isNone(get(panel, 'file'))) return resolve(null);
+    if (isNone(panel)) return resolve(null);
 
-    const file = get(panel, 'file');
     const { height, width } = this.getProperties('height', 'width');
-    const dataURL = yield file.readAsDataURL();
     const img = document.createElement('img');
     const canvas = document.createElement('canvas');
     canvas.height = height;
     canvas.width = width;
-    img.src = dataURL;
+    img.src = panel.src;
 
     return new Promise((resolve) => {
       img.onload = () => {
@@ -77,18 +70,24 @@ export default Component.extend({
           canvas.getContext('2d').drawImage(img, 0, startY, img.naturalWidth, sectionHeight, 0, 0, width, height);
         }
 
-        resolve(canvas.toDataURL('image/jpeg', 1.0));
-        // canvas.toBlob((blob) => {
-        //   blob.name = get(file, 'name');
-        //   resolve(blob);
-        // }, 'image/jpeg');
+        canvas.toBlob((blob) => {
+          resolve(blob);
+        }, panel.src.match(/[^:]\w+\/[\w-+\d.]+(?=;|,)/)[0], 1.0);
       }
     });
   }),
 
+  _blobToDataURL(blob) {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => resolve(e.target.result);
+      reader.readAsDataURL(blob);
+    });
+  },
+
   actions: {
-    addImage(file) {
-      this.get('_addImage').perform(file);
+    addImage(dataUri) {
+      this.get('_addImage').perform(dataUri);
     },
 
     removeImage() {
@@ -101,8 +100,11 @@ export default Component.extend({
 
     save() {
       this.get('_cropImage').perform(this.get('panels.firstObject')).then((avatar) => {
-        this.set('changeset.avatar', avatar);
-        this.get('modalManager').close('resolve');
+        this.set('changeset.avatarUpload', avatar);
+        this._blobToDataURL(avatar).then((dataUri) => {
+          this.set('changeset.avatar', dataUri);
+          this.get('modalManager').close('resolve');
+        });
       });
     }
   }

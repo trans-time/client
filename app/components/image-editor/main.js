@@ -7,12 +7,10 @@ import { task, timeout } from 'ember-concurrency';
 
 export default Component.extend({
   cameraOn: true,
-  queueName: 'imageFile',
 
   classNames: ['image-editor'],
 
   currentUser: service(),
-  fileQueue: service(),
   messageBus: service(),
   store: service(),
 
@@ -52,31 +50,6 @@ export default Component.extend({
     }
   }),
 
-  queue: computed('queueName', {
-    get() {
-      let queueName = get(this, 'queueName');
-      if (queueName != null) {
-        let queues = get(this, 'fileQueue');
-        return queues.find(queueName) ||
-               queues.create(queueName);
-      }
-    }
-  }),
-
-  _dataURItoBlob(dataURL) {
-    let [typeInfo, base64String] = dataURL.split(',');
-    let mimeType = typeInfo.match(/:(.*?);/)[1];
-
-    let binaryString = atob(base64String);
-    let binaryData = new window.Uint8Array(binaryString.length);
-
-    for (let i = 0, len = binaryString.length; i < len; i++) {
-      binaryData[i] = binaryString.charCodeAt(i);
-    }
-
-    return new Blob([binaryData], { type: mimeType });
-  },
-
   actions: {
     deleteImage(image) {
       this.attrs.removeImage(image);
@@ -95,15 +68,13 @@ export default Component.extend({
     },
 
     takePicture(dataUri) {
-      const blob = this._dataURItoBlob(dataUri);
-      blob.name = `${this.get('user.username')}-${Date.now()}.jpeg`;
-      const [file] = this.get('queue')._addFiles([blob], 'blob');
-
-      this.attrs.addImage(file);
+      this.attrs.addImage(dataUri);
     },
 
     uploadImage(file) {
-      this.attrs.addImage(file);
+      file.readAsDataURL().then((dataUri) => {
+        this.attrs.addImage(dataUri);
+      });
     }
   }
 });

@@ -1,3 +1,4 @@
+import { getOwner } from '@ember/application';
 import { computed, observer } from '@ember/object';
 import { alias, filter, or } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
@@ -121,24 +122,16 @@ export default Component.extend(AuthenticatedActionMixin, {
 
   _uploadAvatar() {
     try {
-      const dataURL = this.get('changeset.avatar');
-      const img = document.createElement('img');
-      const canvas = document.createElement('canvas');
-      canvas.height = 145;
-      canvas.width = 145;
-      img.src = dataURL;
+      const blob = this.get('changeset.avatarUpload');
+      blob.name = `avatar-${this.get('currentUserModel.username')}.${blob.type.split('/')[1]}`;
+      const [newFile] = this.get('queue')._addFiles([blob], 'blob');
+      const path = `${config.rootURL}${getOwner(this).lookup('adapter:application').get('namespace')}/avatars`;
+      this.get('session').authorize('authorizer:basic', (key, authorization) => {
+        newFile.upload(path, { headers: { Authorization: authorization }}).then(() => {
 
-      img.onload = () => {
-        canvas.toBlob((blob) => {
-          blob.name = `avatar-${this.get('currentUserModel.username')}.jpeg`;
-          const [newFile] = this.get('queue')._addFiles([blob], 'blob');
-          newFile.upload(`${config.rootURL}user-profiles/upload`).then((result) => {
-            this.set('changeset.avatar', get(result, 'body.data.attributes.src'));
-
-            this._saveChanges();
-          });
-        }, 'image/jpeg');
-      }
+          this._saveChanges();
+        }).catch(() => this.set('isSaving', false));
+      });
     } catch (e) {
       console.log(e); // eslint-disable-line
     }
@@ -216,7 +209,7 @@ export default Component.extend(AuthenticatedActionMixin, {
 
     updateEditing() {
       this.set('isSaving', true);
-      if (isPresent(this.get('changeset.avatar'))) this._uploadAvatar();
+      if (isPresent(this.get('changeset.avatarUpload'))) this._uploadAvatar();
       else this._saveChanges();
     }
   }
