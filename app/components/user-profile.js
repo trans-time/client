@@ -1,9 +1,11 @@
 import { getOwner } from '@ember/application';
 import { computed, observer } from '@ember/object';
 import { alias, filter, or } from '@ember/object/computed';
+import { assign } from '@ember/polyfills';
 import { inject as service } from '@ember/service';
 import { isBlank, isNone, isPresent } from '@ember/utils';
 import { Promise } from 'rsvp';
+import fetch from 'fetch';
 import Component from '@ember/component';
 import AuthenticatedActionMixin from 'client/mixins/authenticated-action';
 import Changeset from 'ember-changeset';
@@ -120,6 +122,22 @@ export default Component.extend(AuthenticatedActionMixin, {
     });
   },
 
+  _deleteAvatar() {
+    this.get('session').authorize('authorizer:basic', (key, authorization) => {
+
+      const url = `${config.rootURL}${getOwner(this).lookup('adapter:application').get('namespace')}/avatars`;
+      fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: authorization
+        }
+      }).then(() => {
+        this._saveChanges();
+      }).catch(() => this.set('isSaving', false));
+    });
+  },
+
   _uploadAvatar() {
     try {
       const blob = this.get('changeset.avatarUpload');
@@ -180,7 +198,7 @@ export default Component.extend(AuthenticatedActionMixin, {
     },
 
     startEditing() {
-      this.set('changeset', new Changeset(this.get('user.userProfile.content'), lookupValidator(ProfileValidations), ProfileValidations));
+      this.set('changeset', new Changeset(assign(this.get('user.userProfile.content'), { avatar: this.get('user.avatarFull') }), lookupValidator(ProfileValidations), ProfileValidations));
       this.get('changeset').validate();
       this.set('isEditing', true);
     },
@@ -209,7 +227,8 @@ export default Component.extend(AuthenticatedActionMixin, {
 
     updateEditing() {
       this.set('isSaving', true);
-      if (isPresent(this.get('changeset.avatarUpload'))) this._uploadAvatar();
+      if (isPresent(this.get('user.userProfile.avatar')) && isNone(this.get('changeset.avatar'))) this._deleteAvatar();
+      else if (isPresent(this.get('changeset.avatarUpload'))) this._uploadAvatar();
       else this._saveChanges();
     }
   }

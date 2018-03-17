@@ -87,10 +87,12 @@ export default Component.extend({
 
   actions: {
     addImage(dataUri) {
+      this.set('_changed', true);
       this.get('_addImage').perform(dataUri);
     },
 
     removeImage() {
+      this.set('_changed', true);
       this.get('panels').clear();
     },
 
@@ -99,13 +101,23 @@ export default Component.extend({
     },
 
     save() {
-      this.get('_cropImage').perform(this.get('panels.firstObject')).then((avatar) => {
-        this.set('changeset.avatarUpload', avatar);
-        this._blobToDataURL(avatar).then((dataUri) => {
-          this.set('changeset.avatar', dataUri);
-          this.get('modalManager').close('resolve');
+      if (this.get('_changed')) {
+        this.get('_cropImage').perform(this.get('panels.firstObject')).then((avatar) => {
+          if (isPresent(avatar)) {
+            this.set('changeset.avatarUpload', avatar);
+            this._blobToDataURL(avatar).then((dataUri) => {
+              this.set('changeset.avatar', dataUri);
+              this.get('modalManager').close('resolve');
+            });
+          } else {
+            this.set('changeset.avatarUpload', undefined);
+            this.set('changeset.avatar', undefined);
+            this.get('modalManager').close('resolve');
+          }
         });
-      });
+      } else {
+        this.get('modalManager').close('resolve');
+      }
     }
   }
 });
