@@ -3,7 +3,7 @@ import {
   resolve,
   all
 } from 'rsvp';
-import { isEmpty } from '@ember/utils';
+import { isEmpty, isPresent } from '@ember/utils';
 import { bind } from '@ember/runloop';
 import { alias, notEmpty } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
@@ -89,7 +89,9 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     }
 
     const initialTimelineItemId = this.get('initialTimelineItemId');
-    const timelineItem = initialTimelineItemId ? this.get('decoratedTimelineItems').find((decoratedTimelineItem) => decoratedTimelineItem.model.id === initialTimelineItemId) : this.get('lastTimelineItem') ? this.get('decoratedTimelineItems.lastObject') : this.get('decoratedTimelineItems.firstObject');
+    let timelineItem
+    if (isPresent(initialTimelineItemId)) this.get('decoratedTimelineItems').find((decoratedTimelineItem) => decoratedTimelineItem.model.id === initialTimelineItemId);
+    if (isEmpty(timelineItem)) timelineItem = this.get('lastTimelineItem') ? this.get('decoratedTimelineItems.lastObject') : this.get('decoratedTimelineItems.firstObject');
     const currentPanel = timelineItem.get('panels.firstObject');
 
     this.attrs.changeTimelineItem(timelineItem.get('model'));

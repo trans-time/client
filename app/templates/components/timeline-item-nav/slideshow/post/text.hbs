@@ -4,7 +4,7 @@
         {{sometimes-relative-date date=post.date}}
         | {{#if post.timelineItem.user.displayName}}{{{inject-emoji post.timelineItem.user.displayName}}} {{/if}}
           {{#link-to "users.user.profile.index" post.timelineItem.user.username}}<span class="at-username">@{{post.timelineItem.user.username}}</span>{{/link-to}}
-        {{#if (eq post.user.id user.id)}}
+        {{#if (eq post.timelineItem.user.id user.id)}}
           | {{#link-to "posts.post.edit" post.id disabled=controlsDisabled}}{{t "post.edit"}}{{/link-to}}
           | <a {{action "delete"}} disabled={{controlsDisabled}} tabindex="0" class="link">{{t "post.delete"}}</a>
         {{/if}}
@@ -14,7 +14,7 @@
         {{#if post.private}}
           | {{t "post.private"}}
         {{/if}}
-        {{#if (and (and (not post.ignoreFlags) (not isModerating)) (not-eq post.user.id user.id))}}
+        {{#if (and (and (not post.ignoreFlags) (not isModerating)) (not-eq post.timelineItem.user.id user.id))}}
           | <a {{action "report"}} disabled={{controlsDisabled}} tabindex="0" class="link">{{t "post.report"}}</a>
         {{/if}}
         {{#if showHistoryToggle}}

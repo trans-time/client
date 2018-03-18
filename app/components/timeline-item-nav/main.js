@@ -5,7 +5,7 @@ import EmberObject, { computed, observer } from '@ember/object';
 import { alias, oneWay, equal, sort } from '@ember/object/computed';
 import { next } from '@ember/runloop';
 import { inject as service } from '@ember/service';
-import { isBlank, isPresent } from '@ember/utils';
+import { isBlank, isEmpty, isPresent } from '@ember/utils';
 
 const PanelDecorator = EmberObject.extend({
   isLoaded: alias('model.srcIsLoaded'),
@@ -63,7 +63,7 @@ const TimelineItemDecorator = EmberObject.extend({
     get() {
       let panels = this.get('model.timelineable.panels');
 
-      if (panels.get('length') === 0) panels = [this.get('_blankPanel')];
+      if (isEmpty(panels)) panels = [this.get('_blankPanel')];
 
       return panels.toArray().map((model, index) => {
         return PanelDecorator.create({

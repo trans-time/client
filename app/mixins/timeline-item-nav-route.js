@@ -47,8 +47,13 @@ export default Mixin.create({
   },
 
   actions: {
-    deleteTimelineItem(timelineItem, resolve) {
-      timelineItem.destroyRecord().finally(() => resolve());
+    deleteTimelineable(timelineable, resolve, reject) {
+      timelineable.set('timelineItem.deleted', true);
+      timelineable.deleteRecord();
+
+      timelineable.save().finally(() => {
+        resolve();
+      });
     },
 
     loadMoreTimelineItems(resolve, reject, shouldProgress, fromTimelineItemId) {

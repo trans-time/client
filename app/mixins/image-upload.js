@@ -20,7 +20,7 @@ export default Mixin.create({
 
   uploadAndSave: task(function * (model) {
     const promises = [];
-    model.get('panels').forEach((panel, index) => {
+    model.get('_content.panels').forEach((panel, index) => {
       panel.set('order', index);
       promises.push(get(this, 'uploadImageTask').perform(panel));
     });

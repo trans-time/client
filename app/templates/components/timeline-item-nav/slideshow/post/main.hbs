@@ -48,7 +48,7 @@
     classNames="main-layout-constraint"
     removePost=removePost
     isModerating=isModerating
-    deletePost=(route-action "deleteTimelineItem" timelineItem.model)
+    deletePost=(route-action "deleteTimelineable" timelineItem.model.timelineable.content)
   }}
 
   {{#if (not isModerating)}}
