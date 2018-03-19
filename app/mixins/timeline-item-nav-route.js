@@ -51,8 +51,11 @@ export default Mixin.create({
       timelineable.set('timelineItem.deleted', true);
       timelineable.deleteRecord();
 
-      timelineable.save().finally(() => {
+      timelineable.save().then(() => {
         resolve();
+      }).catch(() => {
+        timelineable.rollbackAttributes();
+        reject();
       });
     },
 
