@@ -15,36 +15,31 @@ export default Component.extend({
 
   store: service(),
 
-  panels: alias('post.panels'),
+  images: alias('post.images'),
 
-  _addImage: task(function * (file) {
-    file.readAsDataURL().then((src) => {
-      const post = this.get('post');
-      const image = this.get('store').createRecord('image', {
-        post,
-        file,
-        src,
-        filename: get(file, 'name'),
-        filesize: get(file, 'size'),
-        positioning: {
-          x: 50,
-          y: 50
-        }
-      });
-
-      post.get('panels').pushObject(image);
+  _addImage: task(function * (src) {
+    const post = this.get('post');
+    const image = this.get('store').createRecord('image', {
+      post,
+      src,
+      positioning: {
+        x: 50,
+        y: 50
+      }
     });
+
+    post.get('images').pushObject(image);
 
     yield timeout(50);
   }).drop(),
 
   actions: {
-    addImage(file) {
-      this.get('_addImage').perform(file);
+    addImage(dataUri) {
+      this.get('_addImage').perform(dataUri);
     },
 
     removeImage(image) {
-      this.get('panels').removeObject(image);
+      this.get('images').removeObject(image);
       image.deleteRecord();
     }
   }

@@ -3,12 +3,13 @@ import { computed, get, set } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { isBlank, isPresent } from '@ember/utils';
 import { task } from 'ember-concurrency';
-import { Promise, all } from 'rsvp';
+import { Promise, all, resolve } from 'rsvp';
 import config from '../config/environment';
 
 export default Mixin.create({
   fileQueue: service(),
   modalManager: service(),
+  session: service(),
 
   queue: computed({
     get() {
@@ -19,29 +20,30 @@ export default Mixin.create({
   }),
 
   uploadAndSave: task(function * (model) {
-    const promises = [];
-    model.get('_content.panels').forEach((panel, index) => {
+    const post = yield model.save();
+    const promises = model.get('_content.panels').map((panel, index) => {
       panel.set('order', index);
-      promises.push(get(this, 'uploadImageTask').perform(panel));
+      return get(this, 'uploadImageTask').perform(panel);
     });
     yield all(promises);
-    model.save().then((post) => {
-      this.transitionTo('users.user.timeline', post.get('user.content'), { queryParams: { postId: post.id } });
-    });
+
+    this.transitionTo('users.user.timeline', post.get('timelineItem.user.content'), { queryParams: { postId: post.id } });
   }),
 
   uploadImageTask: task(function * (panel) {
-    const file = panel.get('file');
+    const src = panel.get('src');
+    const isNew = panel.get('isNew');
 
-    if (isBlank(file) || !panel.get('hasDirtyAttributes')) return;
+    if (isBlank(src) || !isNew) return resolve();
+
+    yield panel.save();
 
     try {
-      const dataURL = yield file.readAsDataURL();
       const img = document.createElement('img');
       const canvas = document.createElement('canvas');
       canvas.height = 1350;
       canvas.width = 1080;
-      img.src = dataURL;
+      img.src = src;
 
       yield new Promise((resolve) => {
         img.onload = () => {
@@ -60,13 +62,13 @@ export default Mixin.create({
           }
 
           canvas.toBlob((blob) => {
-            blob.name = get(file, 'name');
+            blob.name = `post-${panel.get('post.id')}-panel-${panel.get('order')}.${blob.type.split('/')[1]}`;
             const [newFile] = this.get('queue')._addFiles([blob], 'blob');
-            newFile.upload(`${config.rootURL}images/upload`).then((result) => {
-              set(panel, 'src', get(result, 'body.data.attributes.src'));
-              panel.save().then(resolve);
-            });
-          }, 'image/jpeg');
+            const path = `${config.rootURL}${getOwner(this).lookup('adapter:application').get('namespace')}/images/${panel.get('id')}/files`;
+            this.get('session').authorize('authorizer:basic', (key, authorization) => {
+              newFile.upload(path, { headers: { Authorization: authorization }}).then(() => resolve());
+            })
+          }, src.match(/[^:]\w+\/[\w-+\d.]+(?=;|,)/)[0], 1.0);
         }
       })
     } catch (e) {
