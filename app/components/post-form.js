@@ -1,5 +1,6 @@
 import { computed } from '@ember/object';
 import { or } from '@ember/object/computed';
+import { isPresent } from '@ember/utils';
 import Component from '@ember/component';
 import Changeset from 'ember-changeset';
 import lookupValidator from 'ember-changeset-validations';
@@ -33,9 +34,9 @@ export default Component.extend({
     this.set('_initialPanels', this.get('post.panels').toArray());
   },
 
-  _panelsAddedOrRemoved: computed('post.images.[]', function() {
+  _panelsAddedOrRemoved: computed('post.images.@each.src', function() {
     const initial = this.get('_initialPanels');
-    const current = this.get('post.panels').toArray();
+    const current = this.get('post.panels').toArray().filter((panel) => isPresent(panel.get('src')));
 
     return initial.length !== current.length || !initial.every((panel) => current.includes(panel));
   }),

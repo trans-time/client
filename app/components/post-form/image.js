@@ -39,8 +39,7 @@ export default Component.extend({
     },
 
     removeImage(image) {
-      this.get('images').removeObject(image);
-      image.deleteRecord();
+      image.set('src', undefined);
     }
   }
 });

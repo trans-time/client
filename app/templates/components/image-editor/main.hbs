@@ -36,8 +36,10 @@
     <a {{action "openCamera"}}>{{fa-icon "camera"}}</a>
   </div>
   {{#each sortedPanels as |panel|}}
-    <div class="image-editor-carousel-item">
-      <a {{action "selectImage" panel}}>{{image-editor/carousel-image panel=panel width=width height=height}}</a>
-    </div>
+    {{#if panel.src}}
+      <div class="image-editor-carousel-item">
+        <a {{action "selectImage" panel}}>{{image-editor/carousel-image panel=panel width=width height=height}}</a>
+      </div>
+    {{/if}}
   {{/each}}
 </div>

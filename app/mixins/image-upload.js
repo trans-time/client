@@ -34,9 +34,11 @@ export default Mixin.create({
     const src = panel.get('src');
     const isNew = panel.get('isNew');
 
-    if (isBlank(src) || !isNew) return resolve();
+    if (isBlank(src) && !isNew) return panel.destroyRecord();
 
     yield panel.save();
+
+    if (!isNew) return resolve();
 
     try {
       const img = document.createElement('img');
@@ -93,7 +95,8 @@ export default Mixin.create({
 
       for (let i = panels.get('length') - 1; i > -1; --i) {
         const panel = panels.objectAt(i);
-        if (isPresent(panel) && panel.get('isNew')) {
+        panel.rollbackAttributes();
+        if (panel.get('isNew')) {
           panels.removeObject(panel);
           panel.deleteRecord();
         }
