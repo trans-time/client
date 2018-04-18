@@ -7,6 +7,7 @@ import { Promise, all, resolve } from 'rsvp';
 import config from '../config/environment';
 
 export default Mixin.create({
+  currentUser: service(),
   fileQueue: service(),
   modalManager: service(),
   session: service(),
@@ -27,14 +28,15 @@ export default Mixin.create({
     });
     yield all(promises);
 
-    this.transitionTo('users.user.timeline', post.get('timelineItem.user.content'), { queryParams: { postId: post.id } });
+    this.transitionTo('users.user.timeline', this.get('currentUser.user'), { queryParams: { postId: post.id } });
   }),
 
   uploadImageTask: task(function * (panel) {
     const src = panel.get('src');
     const isNew = panel.get('isNew');
 
-    if (isBlank(src) && !isNew) return panel.destroyRecord();
+    if (isBlank(src) && isNew) return resolve();
+    else if (isBlank(src) && !isNew) return panel.destroyRecord();
 
     yield panel.save();
 
