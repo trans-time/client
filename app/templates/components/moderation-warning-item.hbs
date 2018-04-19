@@ -1,6 +1,6 @@
 {{#link-to "moderation.warnings.warning" moderationWarning class="flag-item-link"}}
   <div class="flag-item-text">
-    <div class="flag-item-date">{{sometimes-relative-date date=moderationWarning.moderationReport.date}}</div>
+    <div class="flag-item-date">{{sometimes-relative-date date=moderationWarning.moderationReport.insertedAt}}</div>
 
     {{violation-aggregator report=moderationWarning.moderationReport}}
 
@@ -18,7 +18,7 @@
 
     {{#if moderationWarning.moderationReport.moderatorComment}}
       <div class="flag-item-moderator-comment">
-        <div class="flag-item-date">{{sometimes-relative-date date=moderationWarning.moderationReport.date}}</div>
+        <div class="flag-item-date">{{sometimes-relative-date date=moderationWarning.moderationReport.insertedAt}}</div>
         {{rich-text text=moderationWarning.moderationReport.moderatorComment}}
       </div>
     {{/if}}

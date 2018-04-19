@@ -1,11 +1,13 @@
 import DS from 'ember-data';
+import { computed } from '@ember/object';
 
 export default DS.Model.extend({
-  flaggable: DS.belongsTo('flaggable', { polymorphic: true }),
+  comment: DS.belongsTo('comment'),
+  post: DS.belongsTo('post'),
   user: DS.belongsTo('user'),
   moderationReport: DS.belongsTo('moderation-report'),
 
-  date: DS.attr('date'),
+  insertedAt: DS.attr('date'),
   text: DS.attr('string'),
   bigotry: DS.attr('boolean'),
   bot: DS.attr('boolean'),
@@ -13,5 +15,16 @@ export default DS.Model.extend({
   sleaze: DS.attr('boolean'),
   threat: DS.attr('boolean'),
   unconsentingImage: DS.attr('boolean'),
-  unmarkedNSFW: DS.attr('boolean')
+  unmarkedNSFW: DS.attr('boolean'),
+
+  flaggable: computed('comment', 'post', {
+    get() {
+      return this.get('comment') || this.get('post');
+    },
+    set(key, flaggable) {
+      const type = flaggable.constructor.modelName || flaggable.content.constructor.modelName;
+
+      this.set(type, flaggable);
+    }
+  })
 });

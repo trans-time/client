@@ -1,6 +1,6 @@
 {{#link-to "moderation.flags.flag" flag class="flag-item-link"}}
   <div class="flag-item-text">
-    <div class="flag-item-date">{{sometimes-relative-date date=flag.date}}</div>
+    <div class="flag-item-date">{{sometimes-relative-date date=flag.insertedAt}}</div>
 
     {{violation-list flag=flag}}
 
@@ -22,7 +22,7 @@
 
     {{#if flag.moderationReport.moderatorComment}}
       <div class="flag-item-moderator-comment">
-        <div class="flag-item-date">{{sometimes-relative-date date=flag.moderationReport.date}}</div>
+        <div class="flag-item-date">{{sometimes-relative-date date=flag.moderationReport.insertedAt}}</div>
         {{#rich-text text=flag.moderationReport.moderatorComment}}
           {{#link-to "users.user.profile.index" flag.moderationReport.moderator.username classNames="flag-item-moderator-link"}}{{#if flag.moderationReport.moderator.displayName}}{{{inject-emoji flag.moderationReport.moderator.displayName}}} {{/if}}<span class="at-username">@{{flag.moderationReport.moderator.username}}</span>{{/link-to}}
         {{/rich-text}}

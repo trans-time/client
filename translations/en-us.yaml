@@ -263,6 +263,7 @@ remote:
     detail:
       forbidden:
         mismatchedTokenAndUserId: "user token and id do not match"
+        mustBeModerator: "must be a moderator to perform this action"
       format:
         alphanumericUnderscoreDash: "can only include letters, numbers, _ and -"
         email: "email"

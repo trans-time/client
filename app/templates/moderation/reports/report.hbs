@@ -1,21 +1,19 @@
 {{#if isComment}}
   {{timeline-item-nav/main
-    post=model.flaggable.post
-    routeComment=model.flaggable.content
+    timelineItem=model.comment.post.timelineItem.content
+    routeComment=model.comment.content
     commentsAreOpen=comments
-    isModerating=true
-    action="loadMorePosts"
-    changePost=(action "changePost")
+    action="loadMoreTimelineItems"
+    changeTimelineItem=(action "changeTimelineItem")
     openComments=(action "openComments")
     closeComments=(action "closeComments")
   }}
 {{else}}
   {{timeline-item-nav/main
-    post=model.flaggable
+    timelineItem=model.post.timelineItem
     commentsAreOpen=comments
-    isModerating=true
-    action="loadMorePosts"
-    changePost=(action "changePost")
+    action="loadMoreTimelineItems"
+    changeTimelineItem=(action "changeTimelineItem")
     openComments=(action "openComments")
     closeComments=(action "closeComments")
   }}

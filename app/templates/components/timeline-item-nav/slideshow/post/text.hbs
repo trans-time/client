@@ -30,7 +30,7 @@
     {{#if historyIsRevealed}}
       {{#each post.textVersions as |textVersion|}}
         <div class="timeline-item-nav-post-text-version">
-          <div class="moderation-panel-date">{{sometimes-relative-date date=textVersion.date}}</div>
+          <div class="moderation-panel-date">{{sometimes-relative-date date=textVersion.insertedAt}}</div>
           {{rich-text text=textVersion.text}}
         </div>
       {{/each}}

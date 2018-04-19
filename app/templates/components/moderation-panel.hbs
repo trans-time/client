@@ -10,7 +10,7 @@
   <div class="moderation-panel-content">
     {{#each otherIndictions as |indiction|}}
       {{#link-to "moderation.reports.report" indiction.id class="moderation-panel-item moderation-panel-item-link"}}
-        <div class="moderation-panel-date">{{#if indiction.date}}{{sometimes-relative-date date=indiction.date}}{{else}}{{t "moderation.pending"}}{{/if}}</div>
+        <div class="moderation-panel-date">{{#if indiction.insertedAt}}{{sometimes-relative-date date=indiction.insertedAt}}{{else}}{{t "moderation.pending"}}{{/if}}</div>
         {{violation-aggregator report=indiction}}
         {{rich-text text=indiction.moderatorComment}}
       {{/link-to}}
@@ -22,7 +22,7 @@
   <div class="moderation-panel-content">
     {{#each report.flags as |flag|}}
       <div class="moderation-panel-item">
-        <div class="moderation-panel-date">{{sometimes-relative-date date=flag.date}}</div>
+        <div class="moderation-panel-date">{{sometimes-relative-date date=flag.insertedAt}}</div>
         {{violation-list flag=flag}}
         {{rich-text text=flag.text}}
       </div>
