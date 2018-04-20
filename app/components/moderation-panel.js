@@ -10,7 +10,7 @@ import {
   validateNumber
 } from 'ember-changeset-validations/validators';
 
-const ModerationReportValidation = {
+const VerdictValidation = {
   banUserDuration: [
     validateNumber({ allowBlank: true, positive: true, integer: true })
   ],
@@ -25,7 +25,6 @@ const ModerationReportValidation = {
 export default Component.extend({
   classNames: ['moderation-panel'],
 
-  currentUser: service(),
   intl: service(),
   paperToaster: service(),
   router: service(),
@@ -38,7 +37,7 @@ export default Component.extend({
   didReceiveAttrs(...args) {
     this._super(...args);
 
-    this.set('changeset', new Changeset(this.get('report'), lookupValidator(ModerationReportValidation), ModerationReportValidation));
+    this.set('changeset', new Changeset(this.get('verdict'), lookupValidator(VerdictValidation), VerdictValidation));
 
     if (isBlank(this.get('changeset.banUserDuration'))) this.set('changeset.banUserDuration', 0);
     if (isBlank(this.get('changeset.lockCommentsDuration'))) this.set('changeset.lockCommentsDuration', 0);
@@ -46,11 +45,11 @@ export default Component.extend({
     this.get('changeset').validate();
   },
 
-  otherIndictions: computed({
+  indictions: computed({
     get() {
       const thisReport = this.get('report');
 
-      return this.get('report.indicted.indictions').filter((report) => report !== thisReport && (report.get('wasViolation') || !report.get('resolved')));
+      return this.get('report.indicted.indictions').filter((report) => (report !== thisReport || report.get('verdicts.length') > 0) && (report.get('wasViolation') || !report.get('resolved')));
     }
   }),
 
@@ -60,7 +59,7 @@ export default Component.extend({
     const changeset = this.get('changeset');
 
     changeset.setProperties(properties);
-    changeset.set('moderator', this.get('currentUser.user'));
+    changeset.set('moderationReport', this.get('report'));
 
     changeset.save().then(() => {
       this.get('paperToaster').show(this.get('intl').t('moderationReport.successful'), {

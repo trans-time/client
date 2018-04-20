@@ -1,20 +1,20 @@
 {{#if report.resolved}}
   {{#if report.wasViolation}}
     {{t "moderation.violation"}}
-    {{#if report.actionIgnoreFlags}}
-      <div>{{t "moderation.ignoredFlags"}}</div>
-    {{/if}}
-    {{#if report.actionDeletedFlaggable}}
-      <div>{{t "moderation.deletedContent"}}</div>
-    {{/if}}
-    {{#if report.actionLockComments}}
-      <div>{{t "moderation.lockedComments" duration=report.lockCommentsDuration}}</div>
-    {{/if}}
-    {{#if report.actionBannedUser}}
-      <div>{{t "moderation.bannedUser" duration=report.banUserDuration}}</div>
-    {{/if}}
   {{else}}
     {{t "moderation.notViolation"}}
+  {{/if}}
+  {{#if report.verdicts.lastObject.actionIgnoreFlags}}
+    <div>{{t "moderation.ignoredFlags"}}</div>
+  {{/if}}
+  {{#if report.verdicts.lastObject.actionDeletedFlaggable}}
+    <div>{{t "moderation.deletedContent"}}</div>
+  {{/if}}
+  {{#if report.verdicts.lastObject.actionLockComments}}
+    <div>{{t "moderation.lockedComments" duration=report.verdicts.lastObject.lockCommentsDuration}}</div>
+  {{/if}}
+  {{#if report.verdicts.lastObject.actionBannedUser}}
+    <div>{{t "moderation.bannedUser" duration=report.verdicts.lastObject.banUserDuration}}</div>
   {{/if}}
 {{else}}
   {{t "moderation.pending"}}

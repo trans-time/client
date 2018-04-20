@@ -6,7 +6,7 @@ import Timelineable from './timelineable';
 
 export default Timelineable.extend({
   user: DS.belongsTo('user', { inverse: 'posts' }),
-  flags: DS.hasMany('flag', { inverse: 'flaggable' }),
+  flags: DS.hasMany('flag'),
   images: DS.hasMany('image'),
 
   nsfw: DS.attr('boolean'),

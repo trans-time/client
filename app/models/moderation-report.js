@@ -6,19 +6,11 @@ export default DS.Model.extend({
   post: DS.belongsTo('post'),
   flags: DS.hasMany('flag'),
   indicted: DS.belongsTo('user', { inverse: 'indictions' }),
-  moderator: DS.belongsTo('user', { inverse: 'moderationReports' }),
+  verdicts: DS.hasMany('verdict'),
 
   insertedAt: DS.attr('date'),
-  moderatorComment: DS.attr('string'),
   resolved: DS.attr('boolean'),
   wasViolation: DS.attr('boolean'),
-
-  actionBannedUser: DS.attr('boolean'),
-  actionDeletedFlaggable: DS.attr('boolean'),
-  actionIgnoreFlags: DS.attr('boolean'),
-  actionLockComments: DS.attr('boolean'),
-  banUserDuration: DS.attr('number'),
-  lockCommentsDuration: DS.attr('number'),
 
   flaggable: computed('comment', 'post', {
     get() {

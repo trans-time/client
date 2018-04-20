@@ -8,11 +8,11 @@
 
 {{#if (eq state "history")}}
   <div class="moderation-panel-content">
-    {{#each otherIndictions as |indiction|}}
+    {{#each indictions as |indiction|}}
       {{#link-to "moderation.reports.report" indiction.id class="moderation-panel-item moderation-panel-item-link"}}
-        <div class="moderation-panel-date">{{#if indiction.insertedAt}}{{sometimes-relative-date date=indiction.insertedAt}}{{else}}{{t "moderation.pending"}}{{/if}}</div>
+        <div class="moderation-panel-date">{{#if indiction.verdicts.lastObject.insertedAt}}{{sometimes-relative-date date=indiction.verdicts.lastObject.insertedAt}}{{else}}{{t "moderation.pending"}}{{/if}}</div>
         {{violation-aggregator report=indiction}}
-        {{rich-text text=indiction.moderatorComment}}
+        {{rich-text text=indiction.verdicts.lastObject.moderatorComment}}
       {{/link-to}}
     {{else}}
       <div class="moderation-panel-blank-info">{{t "moderation.noOtherIndictions"}}</div>

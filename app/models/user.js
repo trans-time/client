@@ -15,7 +15,7 @@ export default DS.Model.extend({
   timelineItems: DS.hasMany('timeline-item', { async: true, inverse: 'user' }),
   userIdentities: DS.hasMany('user-identity'),
   userProfile: DS.belongsTo('user-profile'),
-  moderationReports: DS.hasMany('moderation-report', { inverse: 'moderator' }),
+  verdicts: DS.hasMany('verdict'),
 
   avatar: DS.attr('string'),
   email: DS.attr('string'),
