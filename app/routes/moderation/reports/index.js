@@ -6,6 +6,6 @@ export default Route.extend(InfinityRoute, {
   currentUser: service(),
 
   model() {
-    return this.infinityModel('moderation-report', { sort: '-resolved', perPage: 10, startingPage: 1, include: 'flags,indicted' });
+    return this.infinityModel('moderation-report', { sort: 'resolved', perPage: 10, startingPage: 1, include: 'flags,indicted' });
   }
 });
