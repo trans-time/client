@@ -59,7 +59,7 @@ export default Component.extend(AuthenticatedActionMixin, {
   didReceiveAttrs(...args) {
     this._super(...args);
 
-    if (this.get('isCurrentPost')) next(() => this.$('.timeline-item-nav-post-text').focus());
+    if (this.get('isCurrentPost') && !this.get('chatIsOpen')) next(() => this.$('.timeline-item-nav-post-text').focus());
   },
 
   willDestroyElement(...args) {
