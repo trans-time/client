@@ -38,6 +38,7 @@ comments:
   attributes:
     text:
       placeholder: "leave your comment"
+      placeholderLocked: "comments are locked"
 confirmation:
   cancel: "cancel"
   confirm: "confirm"
@@ -124,7 +125,7 @@ identities:
       label: "start date"
 moderation:
   banUser: "ban user"
-  bannedUser: "banned user: {duration, plural, =0 {∞} =1 {{duration} day} other {{duration} days}}"
+  bannedUser: "banned user: {until}"
   contractComments: "hide flags"
   deleteFlaggable: "delete content"
   deletedContent: "deleted content"
@@ -133,7 +134,7 @@ moderation:
   ignoreFlags: "ignore flags"
   ignoredFlags: "ignoring future flags"
   lockComments: "lock comments"
-  lockedComments: "locked comments: {duration, plural, =0 {∞} =1 {{duration} day} other {{duration} days}}"
+  lockedComments: "locked comments: {until}"
   linkToPost: "link to flagged post"
   linkToComment: "link to flagged comment"
   moderation: "moderation"
@@ -148,10 +149,10 @@ moderationReport:
   successful: "report successfully submitted"
   unsuccessful: "something went wrong, but please try again in a few minutes"
   attributes:
-    banUserDuration:
-      label: "duration in days (0 = ∞)"
-    lockCommentsDuration:
-      label: "duration in days (0 = ∞)"
+    banUserUntil:
+      label: "until (blank = ∞)"
+    lockCommentsUntil:
+      label: "until (blank = ∞)"
     moderatorComment:
       label: "comment"
 notifications:
@@ -262,8 +263,10 @@ remote:
       unique: "non-unique"
     detail:
       forbidden:
+        commentsAreLocked: "comments are locked"
         mismatchedTokenAndUserId: "user token and id do not match"
         mustBeModerator: "must be a moderator to perform this action"
+        mustNotBeBanned: "must not be banned"
       format:
         alphanumericUnderscoreDash: "can only include letters, numbers, _ and -"
         email: "email"

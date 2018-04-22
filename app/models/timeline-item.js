@@ -8,7 +8,6 @@ export default DS.Model.extend({
   user: DS.belongsTo('user', { inverse: 'posts' }),
   users: DS.hasMany('user', { inverse: false }),
 
-  commentsLocked: DS.attr('boolean'),
   date: DS.attr('date'),
   deleted: DS.attr('boolean'),
   private: DS.attr('boolean'),

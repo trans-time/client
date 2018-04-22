@@ -167,13 +167,20 @@
 .moderation-panel-checkboxes {
   display: flex;
   justify-content: space-between;
+
+  .pikaday-input {
+  }
+}
+
+.moderation-panel-checkboxes-with-duration {
+  margin-bottom: $rhythm;
 }
 
 .moderation-panel-checkbox-with-duration {
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  margin-right: $rhythm !important;
+  margin: 0 !important;
 }
 
 .moderation-panel-comment-field {

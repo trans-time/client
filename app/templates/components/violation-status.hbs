@@ -11,10 +11,10 @@
     <div>{{t "moderation.deletedContent"}}</div>
   {{/if}}
   {{#if report.verdicts.lastObject.actionLockComments}}
-    <div>{{t "moderation.lockedComments" duration=report.verdicts.lastObject.lockCommentsDuration}}</div>
+    <div>{{t "moderation.lockedComments" until=(if report.verdicts.lastObject.lockCommentsUntil (format-date report.verdicts.lastObject.lockCommentsUntil) "∞")}}</div>
   {{/if}}
   {{#if report.verdicts.lastObject.actionBannedUser}}
-    <div>{{t "moderation.bannedUser" duration=report.verdicts.lastObject.banUserDuration}}</div>
+    <div>{{t "moderation.bannedUser" until=(if report.verdicts.lastObject.banUserUntil (format-date report.verdicts.lastObject.banUserUntil) "∞")}}</div>
   {{/if}}
 {{else}}
   {{t "moderation.pending"}}

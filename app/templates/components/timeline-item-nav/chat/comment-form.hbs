@@ -8,7 +8,7 @@
 
   <div class="comment-form-textarea-container">
     {{#taggable-textarea/main classNames="comment-form-taggable-textarea"}}
-      {{textarea value=changeset.text placeholder=(t "comments.attributes.text.placeholder") class="comment-form-textarea"}}
+      {{textarea value=changeset.text placeholder=(if commentsAreLocked (t "comments.attributes.text.placeholderLocked") (t "comments.attributes.text.placeholder")) disabled=commentsAreLocked class="comment-form-textarea"}}
     {{/taggable-textarea/main}}
     {{component h.emojiAssist}}
 

@@ -47,7 +47,7 @@
         {{/paper-checkbox}}
       </div>
 
-      <div class="moderation-panel-checkboxes">
+      <div class="moderation-panel-checkboxes moderation-panel-checkboxes-with-duration">
         {{#paper-checkbox
           value=changeset.actionBannedUser
           onChange=(action (mut changeset.actionBannedUser))
@@ -56,17 +56,16 @@
           {{t "moderation.banUser"}}
         {{/paper-checkbox}}
 
-        {{paper-input
-          value=changeset.banUserDuration
-          type="number"
-          label=(t "moderationReport.attributes.banUserDuration.label")
-          onChange=(action (mut changeset.banUserDuration))
-          errors=changeset.error.banUserDuration.validation
-          disabled=disableBanDuration
+        {{pikaday-input
+          format="MM/DD/YYYY h:mm a"
+          value=changeset.banUserUntil
+          classNames="pikaday-input"
+          placeholder=(t "moderationReport.attributes.banUserUntil.label")
+          onSelection=(action (mut changeset.banUserUntil))
         }}
       </div>
 
-      <div class="moderation-panel-checkboxes">
+      <div class="moderation-panel-checkboxes moderation-panel-checkboxes-with-duration">
         {{#paper-checkbox
           value=changeset.actionLockComments
           onChange=(action (mut changeset.actionLockComments))
@@ -75,13 +74,12 @@
           {{t "moderation.lockComments"}}
         {{/paper-checkbox}}
 
-        {{paper-input
-          value=changeset.lockCommentsDuration
-          type="number"
-          label=(t "moderationReport.attributes.lockCommentsDuration.label")
-          onChange=(action (mut changeset.lockCommentsDuration))
-          errors=changeset.error.lockCommentsDuration.validation
-          disabled=disableLockCommentsDuration
+        {{pikaday-input
+          format="MM/DD/YYYY h:mm a"
+          value=changeset.lockCommentsUntil
+          classNames="pikaday-input"
+          placeholder=(t "moderationReport.attributes.lockCommentsUntil.label")
+          onSelection=(action (mut changeset.lockCommentsUntil))
         }}
       </div>
 

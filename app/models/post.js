@@ -12,6 +12,7 @@ export default Timelineable.extend({
   nsfw: DS.attr('boolean'),
   text: DS.attr('string'),
   commentCount: DS.attr('number'),
+  commentsAreLocked: DS.attr('boolean'),
 
   date: alias('timelineItem.date'),
   private: alias('timelineItem.private'),

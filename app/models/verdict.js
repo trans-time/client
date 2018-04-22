@@ -13,6 +13,6 @@ export default DS.Model.extend({
   actionDeletedFlaggable: DS.attr('boolean'),
   actionIgnoreFlags: DS.attr('boolean'),
   actionLockComments: DS.attr('boolean'),
-  banUserDuration: DS.attr('number'),
-  lockCommentsDuration: DS.attr('number')
+  banUserUntil: DS.attr('date'),
+  lockCommentsUntil: DS.attr('date')
 });

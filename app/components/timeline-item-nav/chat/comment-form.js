@@ -22,9 +22,10 @@ export default Component.extend(AuthenticatedActionMixin, {
   currentUser: service(),
   store: service(),
 
+  commentsAreLocked: alias('commentable.commentsAreLocked'),
   user: alias('currentUser.user'),
 
-  disabled: or('changeset.isInvalid', 'changeset.isPristine', 'isSaving'),
+  disabled: or('changeset.isInvalid', 'changeset.isPristine', 'isSaving', 'commentsAreLocked'),
 
   didReceiveAttrs(...args) {
     this._super(...args);
@@ -42,6 +43,7 @@ export default Component.extend(AuthenticatedActionMixin, {
     const comment = this.get('comment') || this.get('store').createRecord('comment', this.getProperties('commentable', 'parent'));
     const changeset = this.set('changeset', new Changeset(comment, lookupValidator(CommentValidations), CommentValidations));
 
+    if (this.get('commentsAreLocked')) return;
     if (this.get('isDeepReply')) changeset.set('text', `@${this.get('replyingTo.user.username')} `);
     if (this.get('commentable.commentDraft')) changeset.set('text', this.get('commentable.commentDraft'));
 
