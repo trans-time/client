@@ -3,6 +3,7 @@
     timelineItem=model.report.comment.post.timelineItem.content
     routeComment=model.report.comment.content
     commentsAreOpen=comments
+    isModerating=true
     action="loadMoreTimelineItems"
     changeTimelineItem=(action "changeTimelineItem")
     openComments=(action "openComments")
@@ -12,6 +13,7 @@
   {{timeline-item-nav/main
     timelineItem=model.report.post.timelineItem
     commentsAreOpen=comments
+    isModerating=true
     action="loadMoreTimelineItems"
     changeTimelineItem=(action "changeTimelineItem")
     openComments=(action "openComments")

@@ -40,7 +40,7 @@ export default Component.extend({
     const commentable = this.get('timelineItem.timelineable.content');
 
     let include = 'user,parent,children,reactions';
-    if (isModerating) include += ',textVersions';
+    if (isModerating) include += ',text_versions';
 
     const filter = {};
     filter[`${commentable.constructor.modelName}_id`] = commentable.id;
