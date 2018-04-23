@@ -9,11 +9,9 @@ export default DS.Model.extend({
 
   insertedAt: DS.attr('date'),
   text: DS.attr('string'),
-  bigotry: DS.attr('boolean'),
   bot: DS.attr('boolean'),
-  harassment: DS.attr('boolean'),
-  sleaze: DS.attr('boolean'),
-  threat: DS.attr('boolean'),
+  illicitActivity: DS.attr('boolean'),
+  trolling: DS.attr('boolean'),
   unconsentingImage: DS.attr('boolean'),
   unmarkedNSFW: DS.attr('boolean'),
 

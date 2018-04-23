@@ -8,7 +8,7 @@ export default Route.extend({
   model(params) {
     return hash({
       report: this.store.findRecord('moderation-report', params.id, {
-        include: 'verdicts,verdicts.moderator,indicted,indicted.indictions,indicted.indictions.flags,indicted.indictions.verdicts,indicted.indictions.verdicts.moderator,flags,post,post.text_versions,post.images,post.timeline_item.user,comment,comment.text_versions,comment.images,comment.timeline_item.user',
+        include: 'verdicts,verdicts.moderator,indicted,indicted.indictions,indicted.indictions.flags,indicted.indictions.verdicts,indicted.indictions.verdicts.moderator,flags,post,post.text_versions,post.images,post.timeline_item.user,comment,comment.text_versions,comment.post.images,comment.post.timeline_item.user',
         reload: true
       }),
       verdict: this.store.createRecord('verdict', {
