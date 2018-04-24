@@ -3,6 +3,8 @@ import { inject as service } from '@ember/service';
 import InfinityRoute from "ember-infinity/mixins/route";
 
 export default Route.extend(InfinityRoute, {
+  perPageParam: 'page_size',
+  
   currentUser: service(),
 
   model() {

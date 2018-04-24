@@ -1,27 +1,31 @@
-{{#link-to "moderation.warnings.warning" moderationWarning class="flag-item-link"}}
+{{#link-to "moderation.warnings.warning" moderationReport class="flag-item-link"}}
   <div class="flag-item-text">
-    <div class="flag-item-date">{{sometimes-relative-date date=moderationWarning.moderationReport.insertedAt}}</div>
+    <div class="flag-item-date">{{sometimes-relative-date date=moderationReport.insertedAt}}</div>
 
-    {{violation-aggregator report=moderationWarning.moderationReport}}
+    {{violation-aggregator report=moderationReport}}
 
-    {{#if moderationWarning.moderationReport.flaggable.content.constructor.modelName}}
-      {{#if (eq moderationWarning.moderationReport.flaggable.content.constructor.modelName "post")}}
-        {{#link-to "posts.post" moderationWarning.moderationReport.flaggable.id classNames="flag-item-flaggable-link"}}
+    {{#if moderationReport.flaggable.constructor.modelName}}
+      {{#if (eq moderationReport.flaggable.constructor.modelName "post")}}
+        {{#link-to "posts.post" moderationReport.flaggable.id classNames="flag-item-flaggable-link"}}
           {{t "moderation.linkToPost"}}
         {{/link-to}}
       {{else}}
-        {{#link-to "comments.comment" moderationWarning.moderationReport.flaggable.id classNames="flag-item-flaggable-link"}}
+        {{#link-to "comments.comment" moderationReport.flaggable.id classNames="flag-item-flaggable-link"}}
           {{t "moderation.linkToComment"}}
         {{/link-to}}
       {{/if}}
     {{/if}}
 
-    {{#if moderationWarning.moderationReport.moderatorComment}}
-      <div class="flag-item-moderator-comment">
-        <div class="flag-item-date">{{sometimes-relative-date date=moderationWarning.moderationReport.insertedAt}}</div>
-        {{rich-text text=moderationWarning.moderationReport.moderatorComment}}
-      </div>
-    {{/if}}
+    {{#each moderationReport.verdicts as |verdict|}}
+      {{#if verdict.moderatorComment}}
+        <div class="flag-item-moderator-comment">
+          <div class="flag-item-date">{{sometimes-relative-date date=verdict.insertedAt}}</div>
+          {{#rich-text text=verdict.moderatorComment}}
+            {{#link-to "users.user.profile.index" verdict.moderator.username classNames="flag-item-moderator-link"}}{{#if verdict.moderator.displayName}}{{{inject-emoji verdict.moderator.displayName}}} {{/if}}<span class="at-username">@{{verdict.moderator.username}}</span>{{/link-to}}
+          {{/rich-text}}
+        </div>
+      {{/if}}
+    {{/each}}
   </div>
-  {{violation-status report=moderationWarning.moderationReport}}
+  {{violation-status report=moderationReport}}
 {{/link-to}}

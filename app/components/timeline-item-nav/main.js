@@ -132,10 +132,11 @@ export default Component.extend({
 
   addTodecoratedTimelineItems: on('init', observer('timelineItems.[]', function() {
     const { decoratedTimelineItems, timelineItems, nextTimelineItemIndex } = this.getProperties('decoratedTimelineItems', 'timelineItems', 'nextTimelineItemIndex');
-    if (!timelineItems || decoratedTimelineItems.get('length') > timelineItems.get('length') || timelineItems.get('length') === 0) {
+    const fulfilledTimelineItems = timelineItems.filter((timelineItem) => isPresent(timelineItem.content));
+    if (!fulfilledTimelineItems || decoratedTimelineItems.get('length') > fulfilledTimelineItems.get('length') || fulfilledTimelineItems.get('length') === 0) {
       return;
     }
-    const newTimelineItems = timelineItems.slice(nextTimelineItemIndex).map((model, index) => {
+    const newTimelineItems = fulfilledTimelineItems.slice(nextTimelineItemIndex).map((model, index) => {
       return TimelineItemDecorator.create({
         model,
         component: this

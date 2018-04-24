@@ -14,8 +14,16 @@ export default Route.extend({
   },
 
   actions: {
-    deleteTimelineItem(timelineItem, resolve) {
-      timelineItem.destroyRecord().finally(() => resolve());
+    deleteTimelineable(timelineable, resolve, reject) {
+      timelineable.set('timelineItem.deleted', true);
+      timelineable.deleteRecord();
+
+      timelineable.save().then(() => {
+        resolve();
+      }).catch(() => {
+        timelineable.rollbackAttributes();
+        reject();
+      });
     },
 
     loadMoreTimelineItems(resolve, reject, shouldProgress) {

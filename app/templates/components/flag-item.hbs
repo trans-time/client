@@ -20,14 +20,16 @@
       {{rich-text text=flag.text class="flag-item-comment"}}
     {{/if}}
 
-    {{#if flag.moderationReport.moderatorComment}}
-      <div class="flag-item-moderator-comment">
-        <div class="flag-item-date">{{sometimes-relative-date date=flag.moderationReport.insertedAt}}</div>
-        {{#rich-text text=flag.moderationReport.moderatorComment}}
-          {{#link-to "users.user.profile.index" flag.moderationReport.moderator.username classNames="flag-item-moderator-link"}}{{#if flag.moderationReport.moderator.displayName}}{{{inject-emoji flag.moderationReport.moderator.displayName}}} {{/if}}<span class="at-username">@{{flag.moderationReport.moderator.username}}</span>{{/link-to}}
-        {{/rich-text}}
-      </div>
-    {{/if}}
+    {{#each flag.moderationReport.verdicts as |verdict|}}
+      {{#if verdict.moderatorComment}}
+        <div class="flag-item-moderator-comment">
+          <div class="flag-item-date">{{sometimes-relative-date date=verdict.insertedAt}}</div>
+          {{#rich-text text=verdict.moderatorComment}}
+            {{#link-to "users.user.profile.index" verdict.moderator.username classNames="flag-item-moderator-link"}}{{#if verdict.moderator.displayName}}{{{inject-emoji verdict.moderator.displayName}}} {{/if}}<span class="at-username">@{{verdict.moderator.username}}</span>{{/link-to}}
+          {{/rich-text}}
+        </div>
+      {{/if}}
+    {{/each}}
   </div>
   {{violation-status report=flag.moderationReport}}
 {{/link-to}}

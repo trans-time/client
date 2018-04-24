@@ -1,8 +1,8 @@
 {{moderation-nav}}
 
 <ul id="infinite_content" class="moderation-report-items main-content">
-  {{#each model as |moderationWarning|}}
-    {{moderation-warning-item moderationWarning=moderationWarning}}
+  {{#each model as |moderationReport|}}
+    {{moderation-warning-item moderationReport=moderationReport}}
   {{/each}}
 
   {{infinity-loader infinityModel=model scrollable="#infinite_content"}}

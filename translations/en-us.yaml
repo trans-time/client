@@ -266,6 +266,7 @@ remote:
         email: "email"
         url: "url"
       invalid:
+        dateAfterNow: "date is in the future"
         startDateAfterEndDate: "start date is after end date"
         usernameOrPassword: "username or password"
       length:

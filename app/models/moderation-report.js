@@ -12,9 +12,9 @@ export default DS.Model.extend({
   resolved: DS.attr('boolean'),
   wasViolation: DS.attr('boolean'),
 
-  flaggable: computed('comment', 'post', {
+  flaggable: computed('comment.content', 'post.content', {
     get() {
-      return this.get('comment') || this.get('post');
+      return this.get('comment.content') || this.get('post.content');
     },
     set(key, flaggable) {
       const type = flaggable.constructor.modelName || flaggable.content.constructor.modelName;
