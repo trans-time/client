@@ -108,7 +108,9 @@ export default Component.extend({
 
   timelineItems: computed('timelineItem', {
     get() {
-      return A([this.get('timelineItem')])
+      const timelineItem = this.get('timelineItem');
+
+      return timelineItem.content ? A([this.get('timelineItem')]) : A();
     }
   }),
 
@@ -132,11 +134,10 @@ export default Component.extend({
 
   addTodecoratedTimelineItems: on('init', observer('timelineItems.[]', function() {
     const { decoratedTimelineItems, timelineItems, nextTimelineItemIndex } = this.getProperties('decoratedTimelineItems', 'timelineItems', 'nextTimelineItemIndex');
-    const fulfilledTimelineItems = timelineItems.filter((timelineItem) => isPresent(timelineItem.content));
-    if (!fulfilledTimelineItems || decoratedTimelineItems.get('length') > fulfilledTimelineItems.get('length') || fulfilledTimelineItems.get('length') === 0) {
+    if (!timelineItems || decoratedTimelineItems.get('length') > timelineItems.get('length') || timelineItems.get('length') === 0) {
       return;
     }
-    const newTimelineItems = fulfilledTimelineItems.slice(nextTimelineItemIndex).map((model, index) => {
+    const newTimelineItems = timelineItems.slice(nextTimelineItemIndex).map((model, index) => {
       return TimelineItemDecorator.create({
         model,
         component: this
