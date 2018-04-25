@@ -13,7 +13,7 @@ import validateDateSequence from 'client/validators/date-sequence';
 
 const UserIdentityValidations = {
   name: [
-    validateFormat({ regex: /^[a-zA-Z0-9_-]*$/ }),
+    validateFormat({ regex: /^[a-zA-Z0-9_]*$/ }),
     validateLength({ max: 64 })
   ],
   startDate: [

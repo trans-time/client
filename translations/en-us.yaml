@@ -55,7 +55,7 @@ errors:
     confirmation: "doesn't match"
     dateSequenceBefore: "must be before"
     email: "must be a valid email address"
-    invalid: "can only include letters, numbers, _ and -"
+    invalid: "can only include letters, numbers, and _"
     present: "can't be blank"
     tooLong: "is too long"
     tooShort: "is too short"
@@ -262,7 +262,7 @@ remote:
         mustBeModerator: "must be a moderator to perform this action"
         mustNotBeBanned: "must not be banned"
       format:
-        alphanumericUnderscoreDash: "can only include letters, numbers, _ and -"
+        alphanumericUnderscore: "can only include letters, numbers, and _"
         email: "email"
         url: "url"
       invalid:

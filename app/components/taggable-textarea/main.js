@@ -41,8 +41,8 @@ export default Component.extend({
     const textarea = this.get('textarea');
     const index = textarea.selectionStart;
     const value = textarea.value;
-    const startOfWordIndex = value.slice(0, index).search(/[^a-zA-Z0-9_-](?=[a-zA-Z0-9_-]*$)/);
-    let endOfWordIndex = value.slice(index).search(/[^a-zA-Z0-9_-]/);
+    const startOfWordIndex = value.slice(0, index).search(/[^a-zA-Z0-9_](?=[a-zA-Z0-9_]*$)/);
+    let endOfWordIndex = value.slice(index).search(/[^a-zA-Z0-9_]/);
     endOfWordIndex === -1 ? endOfWordIndex = value.length : endOfWordIndex = endOfWordIndex + index;
 
     if (textarea.value[startOfWordIndex] === '#') {
@@ -108,7 +108,7 @@ export default Component.extend({
   }).restartable(),
 
   _getWord(index, startOfWordIndex, endOfWordIndex) {
-    return /[a-zA-Z0-9_-]*$/.exec(this.get('textarea').value.slice(startOfWordIndex, endOfWordIndex))[0];
+    return /[a-zA-Z0-9_]*$/.exec(this.get('textarea').value.slice(startOfWordIndex, endOfWordIndex))[0];
   },
 
   _cancel() {

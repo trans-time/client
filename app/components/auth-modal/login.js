@@ -15,7 +15,7 @@ const SessionValidations = {
     validateLength({ min: 6 })
   ],
   username: [
-    validateFormat({ regex: /^[a-zA-Z0-9_-]*$/ }),
+    validateFormat({ regex: /^[a-zA-Z0-9_]*$/ }),
     validatePresence(true)
   ]
 };
