@@ -1,9 +1,10 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-  userProfile: DS.belongsTo('user-profile'),
-  tags: DS.hasMany('tag'),
-  users: DS.hasMany('user'),
+  author: DS.belongsTo('user'),
+  subject: DS.belongsTo('user'),
+  userTagSummaryTags: DS.hasMany('user-tag-summary-tag'),
+  userTagSummaryUsers: DS.hasMany('user-tag-summary-user'),
 
-  summary: DS.attr()
+  privateTimelineItemIds: DS.attr()
 });

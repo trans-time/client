@@ -4,6 +4,8 @@ import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { oneWay, gt, filterBy, mapBy } from '@ember/object/computed';
 import EmberObject, { computed, get } from '@ember/object';
+import { capitalize } from '@ember/string';
+import { pluralize } from 'ember-inflector';
 
 const Summary = EmberObject.extend({
   selected: false,
@@ -80,18 +82,20 @@ export default Component.extend({
 
   _generateSummaries(type) {
     const store = this.get('store');
-    const tagSummary = this.get('tagSummary.summary');
     const privateFollowedIds = this.get('_privateFollowedIds');
+    const tagSummaries = this.get('tagSummaries');
 
     return this.get('sourceUserIds').reduce((summaries, userId) => {
-      const privateTimelineItemIds = get(tagSummary, `${userId}.private`);
-      const items = get(tagSummary, `${userId}.${type}s`);
+      const tagSummary = tagSummaries.find((summary) => summary.get('author.id') === userId);
+      const privateTimelineItemIds = get(tagSummary, 'privateTimelineItemIds');
+      const items = get(tagSummary, `userTagSummary${pluralize(capitalize(type))}`);
 
-      Object.keys(items).forEach((itemId) => {
-        let timelineItemIds = items[itemId];
+      items.forEach((item) => {
+        let timelineItemIds = item.get('timelineItemIds');
         if (!privateFollowedIds.includes(userId)) timelineItemIds = timelineItemIds.filter((id) => !privateTimelineItemIds.includes(id));
 
         if (timelineItemIds.length > 0) {
+          const itemId = item.get(`${type}.id`);
           const previousSummary = summaries.find((summary) => summary.get('id') === itemId);
 
           if (previousSummary) {

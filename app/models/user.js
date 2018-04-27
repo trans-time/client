@@ -3,6 +3,8 @@ import DS from 'ember-data';
 import { computed } from '@ember/object';
 
 export default DS.Model.extend({
+  userTagSummariesAboutUser: DS.hasMany('user-tag-summary', { inverse: 'subject' }),
+  userTagSummariesByUser: DS.hasMany('user-tag-summary', { inverse: 'author' }),
   blockeds: DS.hasMany('block', { inverse: 'blocker' }),
   blockers: DS.hasMany('block', { inverse: 'blocked' }),
   comments: DS.hasMany('comment'),

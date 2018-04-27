@@ -6,10 +6,7 @@ export default Route.extend({
   topBarManager: service(),
 
   model(params) {
-    const peekedUser = this.store.peekAll('user').find((user) => user.get('username') === params.username);
-    const fullyLoaded = isPresent(peekedUser) && peekedUser.belongsTo('userProfile').value() !== null && peekedUser.belongsTo('userProfile').value().belongsTo('userTagSummary').value() !== null;
-
-    return fullyLoaded ? peekedUser : this.store.query('user', { filter: { username: params.username }, include: 'user_profile,user_profile.user_tag_summary,user_profile.user_tag_summary.tags,user_profile.user_tag_summary.users,user_identities,user_identities.identity', reload: true }).then(function(users) {
+    return this.store.query('user', { filter: { username: params.username }, include: 'user_profile,user_tag_summaries_about_user,user_tag_summaries_about_user.author,user_tag_summaries_about_user.user_tag_summary_tags,user_tag_summaries_about_user.user_tag_summary_tags.tag,user_tag_summaries_about_user.user_tag_summary_users,user_tag_summaries_about_user.user_tag_summary_users.user,user_identities,user_identities.identity', reload: true }).then(function(users) {
       return users.get('firstObject');
     });
   },

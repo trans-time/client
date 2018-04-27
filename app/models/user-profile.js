@@ -8,7 +8,6 @@ export default DS.Model.extend({
   textVersions: DS.hasMany('text-version'),
 
   user: DS.belongsTo('user'),
-  userTagSummary: DS.belongsTo('user-tag-summary'),
 
   avatar: alias('user.avatar'),
   displayName: alias('user.displayName'),
