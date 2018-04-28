@@ -8,6 +8,12 @@ export default Route.extend({
 
   currentUserModel: alias('currentUser.user'),
 
+  model(params) {
+    return this.store.query('user-profile', { filter: { user_id: this.modelFor('users.user').id }, include: 'user.user_identities,user.user_identities.identity' }).then(function(userProfile) {
+      return userProfile.get('firstObject');
+    });
+  },
+
   actions: {
     block(blocked, resolve) {
       const blocker = this.get('currentUserModel');

@@ -6,7 +6,7 @@ export default Route.extend({
   topBarManager: service(),
 
   model(params) {
-    return this.store.query('user', { filter: { username: params.username }, include: 'user_profile,user_tag_summaries_about_user,user_tag_summaries_about_user.author,user_tag_summaries_about_user.user_tag_summary_tags,user_tag_summaries_about_user.user_tag_summary_tags.tag,user_tag_summaries_about_user.user_tag_summary_users,user_tag_summaries_about_user.user_tag_summary_users.user,user_identities,user_identities.identity', reload: true }).then(function(users) {
+    return this.store.query('user', { filter: { username: params.username } }).then(function(users) {
       return users.get('firstObject');
     });
   },

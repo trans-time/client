@@ -33,10 +33,10 @@ export default Route.extend(TimelineItemNavRouteMixin, {
         blocked: false,
         deleted: false,
         private: false,
-        tag_ids: params.tags,
+        tag_names: params.tags,
         under_moderation: false,
         user_id: user.id,
-        user_ids: params.users
+        user_usernames: params.users
       },
       initial_query: true,
       from_timeline_item_id: params.timelineItemId,
