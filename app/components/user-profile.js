@@ -158,7 +158,7 @@ export default Component.extend(AuthenticatedActionMixin, {
   _saveChanges() {
     this.get('changeset').save().then((model) => {
       this._stopEditing();
-      this.attrs.updateModel(model);
+      this.attrs.updateModel(this.get('user'));
     }).finally(() => {
       this.set('isSaving', false);
     });

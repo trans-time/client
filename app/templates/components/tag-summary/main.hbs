@@ -12,7 +12,7 @@
     {{t "tagSummary.relationships"}}
   {{/tabs.tab}}
 
-  <a {{action "clear"}} class="tag-summary-submenu-clear">
+  <a {{action "clear"}} class="tag-summary-submenu-clear {{if clearButtonDisabled 'disabled'}}">
     {{fa-icon "times-circle-o"}}
   </a>
 {{/paper-tabs}}

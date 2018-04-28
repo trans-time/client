@@ -39,6 +39,12 @@ export default Component.extend({
   selectedUsers: filterBy('users', 'selected'),
   selectedTags: filterBy('tags', 'selected'),
 
+  clearButtonDisabled: computed('selectedTags.[]', 'selectedUsers.[]', {
+    get() {
+      return this.get('selectedTags.length') === 0 && this.get('selectedUsers.length') === 0;
+    }
+  }),
+
   currentSubmenu: computed('submenu', {
     get() {
       return this.get('submenu') || 'tags';

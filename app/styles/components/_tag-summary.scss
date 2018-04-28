@@ -3,6 +3,11 @@
   align-self: center;
   font-size: 150%;
   opacity: 0.68;
+  transition: opacity 250ms;
+
+  &.disabled {
+    opacity: 0.32;
+  }
 }
 
 .tag-summary-time-buttons, .tag-summary-list {
