@@ -1,4 +1,23 @@
-<div class="tag-summary-list">
+{{#paper-tabs
+  center=false
+  stretch=true
+  borderBottom=true
+  selected=currentSubmenu
+  onChange="changeSubmenu" as |tabs|}}
+  {{#tabs.tab value="tags"}}
+    {{t "tagSummary.tags"}}
+  {{/tabs.tab}}
+
+  {{#tabs.tab value="relationships"}}
+    {{t "tagSummary.relationships"}}
+  {{/tabs.tab}}
+
+  <a {{action "clear"}} class="tag-summary-submenu-clear">
+    {{fa-icon "times-circle-o"}}
+  </a>
+{{/paper-tabs}}
+
+<div class="tag-summary-list {{if (eq currentSubmenu 'tags') 'tag-summary-list-active'}}">
   {{#each tags as |tag|}}
     {{#paper-button
       raised=true
@@ -6,11 +25,13 @@
       disabled=(not tag.isValid)
       onClick=(action "toggleTag" tag)
       class="tag-summary-list-item"
-    }}#{{tag.model.name}}: {{tag.amount}}{{/paper-button}}
+    }}
+      #{{tag.model.name}}: {{tag.amount}}
+    {{/paper-button}}
   {{/each}}
+</div>
 
-  <div class="tag-summary-list-divider"></div>
-
+<div class="tag-summary-list {{if (eq currentSubmenu 'relationships') 'tag-summary-list-active'}}">
   {{#each users as |user|}}
     {{#paper-button
       raised=true
@@ -18,6 +39,8 @@
       disabled=(not user.isValid)
       onClick=(action "toggleTag" user)
       class="tag-summary-list-item"
-    }}@{{user.model.username}}: {{user.amount}}{{/paper-button}}
+    }}
+      @{{user.model.username}}: {{user.amount}}
+    {{/paper-button}}
   {{/each}}
 </div>

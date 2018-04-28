@@ -238,6 +238,8 @@ share:
   clipboard: "copy url"
 tagSummary:
   start: "start"
+  tags: "#tags"
+  relationships: "@relationships"
 title: "trans time"
 users:
   attributes:

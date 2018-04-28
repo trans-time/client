@@ -39,6 +39,12 @@ export default Component.extend({
   selectedUsers: filterBy('users', 'selected'),
   selectedTags: filterBy('tags', 'selected'),
 
+  currentSubmenu: computed('submenu', {
+    get() {
+      return this.get('submenu') || 'tags';
+    }
+  }),
+
   selectedTimelineItemIds: computed('selectedTags.[]', 'selectedUsers.[]', {
     get() {
       const { selectedUsers, selectedTags } = this.getProperties('selectedUsers', 'selectedTags');
@@ -100,7 +106,6 @@ export default Component.extend({
         if (!privateFollowedUsernames.includes(username)) timelineItemIds = timelineItemIds.filter((id) => !privateTimelineItemIds.includes(id));
 
         if (timelineItemIds.length > 0) {
-          console.log(item)
           const itemId = item.get(`${type}.id`);
           const previousSummary = summaries.find((summary) => summary.get('id') === itemId);
 
@@ -126,18 +131,27 @@ export default Component.extend({
   },
 
   actions: {
+    clear() {
+      this.get('router').transitionTo('users.user.profile', { queryParams: { tags: [], users: [], submenu: this.get('submenu') }})
+    },
+
+    changeSubmenu(submenu) {
+      const { selectedTagNames, selectedUserNames } = this.getProperties('selectedTagNames', 'selectedUserNames');
+      this.get('router').transitionTo('users.user.profile', { queryParams: { tags: selectedTagNames, users: selectedUserNames, submenu: submenu === 'tags' ? null : submenu }});
+    },
+
     toggleTag(tag) {
       const type = tag.get('type');
-      const { selectedTagNames, selectedUserNames } = this.getProperties('selectedTagNames', 'selectedUserNames');
+      const { selectedTagNames, selectedUserNames, submenu } = this.getProperties('selectedTagNames', 'selectedUserNames', 'submenu');
 
       if (type === 'tag') {
         const tagName = tag.get('model.name');
         const tags = selectedTagNames.includes(tagName) ? selectedTagNames.filter((tag) => tag !== tagName) : selectedTagNames.concat([tagName]);
-        this.get('router').transitionTo('users.user.profile.summary', { queryParams: { tags, users: selectedUserNames }})
+        this.get('router').transitionTo('users.user.profile', { queryParams: { tags, users: selectedUserNames, submenu }})
       } else if (type === 'user') {
         const username = tag.get('model.username');
         const users = selectedUserNames.includes(username) ? selectedUserNames.filter((user) => user !== username) : selectedUserNames.concat([username]);
-        this.get('router').transitionTo('users.user.profile.summary', { queryParams: { tags: selectedTagNames, users }})
+        this.get('router').transitionTo('users.user.profile', { queryParams: { tags: selectedTagNames, users, submenu }})
       }
     }
   }
