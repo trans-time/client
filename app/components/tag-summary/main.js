@@ -132,12 +132,12 @@ export default Component.extend({
 
   actions: {
     clear() {
-      this.get('router').transitionTo('users.user.profile', { queryParams: { tags: [], users: [], submenu: this.get('submenu') }})
+      this.get('router').transitionTo('users.user.profile', { queryParams: { tags: [], relationships: [], submenu: this.get('submenu') }})
     },
 
     changeSubmenu(submenu) {
       const { selectedTagNames, selectedUserNames } = this.getProperties('selectedTagNames', 'selectedUserNames');
-      this.get('router').transitionTo('users.user.profile', { queryParams: { tags: selectedTagNames, users: selectedUserNames, submenu: submenu === 'tags' ? null : submenu }});
+      this.get('router').transitionTo('users.user.profile', { queryParams: { tags: selectedTagNames, relationships: selectedUserNames, submenu: submenu === 'tags' ? null : submenu }});
     },
 
     toggleTag(tag) {
@@ -147,11 +147,11 @@ export default Component.extend({
       if (type === 'tag') {
         const tagName = tag.get('model.name');
         const tags = selectedTagNames.includes(tagName) ? selectedTagNames.filter((tag) => tag !== tagName) : selectedTagNames.concat([tagName]);
-        this.get('router').transitionTo('users.user.profile', { queryParams: { tags, users: selectedUserNames, submenu }})
+        this.get('router').transitionTo('users.user.profile', { queryParams: { tags, relationships: selectedUserNames, submenu }})
       } else if (type === 'user') {
         const username = tag.get('model.username');
-        const users = selectedUserNames.includes(username) ? selectedUserNames.filter((user) => user !== username) : selectedUserNames.concat([username]);
-        this.get('router').transitionTo('users.user.profile', { queryParams: { tags: selectedTagNames, users, submenu }})
+        const relationships = selectedUserNames.includes(username) ? selectedUserNames.filter((user) => user !== username) : selectedUserNames.concat([username]);
+        this.get('router').transitionTo('users.user.profile', { queryParams: { tags: selectedTagNames, relationships, submenu }})
       }
     }
   }

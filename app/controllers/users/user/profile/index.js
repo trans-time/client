@@ -1,8 +1,8 @@
 import Controller from '@ember/controller';
 
 export default Controller.extend({
-  queryParams: ['submenu', 'tags', 'users'],
+  queryParams: ['submenu', 'tags', 'relationships'],
   submenu: null,
   tags: [],
-  users: []
+  relationships: []
 });

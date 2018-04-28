@@ -5,6 +5,9 @@ import TimelineItemNavRouteMixin from 'client/mixins/timeline-item-nav-route';
 
 export default Route.extend(TimelineItemNavRouteMixin, {
   queryParams: {
+    relationships: {
+      refreshModel: true
+    },
     tags: {
       refreshModel: true
     }
@@ -13,7 +16,7 @@ export default Route.extend(TimelineItemNavRouteMixin, {
   _timelineItems: alias('controller.model'),
   _defaultQueryParams: {
     tags: [],
-    users: [],
+    relationships: [],
     lastTimelineItem: null,
     timelineItemId: null,
     comments: null
@@ -36,7 +39,7 @@ export default Route.extend(TimelineItemNavRouteMixin, {
         tag_names: params.tags,
         under_moderation: false,
         user_id: user.id,
-        user_usernames: params.users
+        user_usernames: params.relationships
       },
       initial_query: true,
       from_timeline_item_id: params.timelineItemId,

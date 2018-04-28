@@ -1,11 +1,11 @@
 {{tag-summary/main
   tagSummaries=model
   selectedTagNames=tags
-  selectedUserNames=users
+  selectedUserNames=relationships
   submenu=submenu
 }}
 
 <div class="tag-summary-time-buttons">
-  {{#link-to "users.user.timeline" (query-params tags=tags users=users) class="tag-summary-time-button"}}{{t "tagSummary.start"}}: {{fa-icon "clock-o"}} {{fa-icon "arrow-right"}}{{/link-to}}
-  {{#link-to "users.user.timeline" (query-params tags=tags users=users lastTimelineItem=true) class="tag-summary-time-button"}}{{fa-icon "arrow-left"}} {{fa-icon "clock-o"}} :{{t "tagSummary.start"}}{{/link-to}}
+  {{#link-to "users.user.timeline" (query-params tags=tags relationships=relationships) class="tag-summary-time-button"}}{{t "tagSummary.start"}}: {{fa-icon "clock-o"}} {{fa-icon "arrow-right"}}{{/link-to}}
+  {{#link-to "users.user.timeline" (query-params tags=tags relationships=relationships lastTimelineItem=true) class="tag-summary-time-button"}}{{fa-icon "arrow-left"}} {{fa-icon "clock-o"}} :{{t "tagSummary.start"}}{{/link-to}}
 </div>
