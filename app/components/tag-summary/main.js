@@ -75,13 +75,13 @@ export default Component.extend({
     }
   }),
 
-  users: computed('sourceUsernames.[]', '_privateFollowedIds', {
+  users: computed('tagSummaries.[]', 'sourceUsernames.[]', {
     get() {
       return this._generateSummaries('user');
     }
   }),
 
-  tags: computed('sourceUsernames.[]', '_privateFollowedIds', {
+  tags: computed('tagSummaries.[]', 'sourceUsernames.[]', {
     get() {
       return this._generateSummaries('tag');
     }
@@ -97,26 +97,22 @@ export default Component.extend({
 
   _generateSummaries(type) {
     const privateFollowedUsernames = this.get('_privateFollowedUsernames');
-    const tagSummaries = this.get('tagSummaries');
+    const tagSummaries = this.get('tagSummaries').filter((tagSummary) => this.get('sourceUsernames').includes(tagSummary.get('author.username')));
 
-    return this.get('sourceUsernames').reduce((summaries, username) => {
-      const tagSummary = tagSummaries.find((summary) => summary.get('author.username') === username);
-
-      if (isBlank(tagSummary)) return summaries;
-
+    return tagSummaries.reduce((summaries, tagSummary) => {
       const privateTimelineItemIds = get(tagSummary, 'privateTimelineItemIds');
       const items = get(tagSummary, `userTagSummary${pluralize(capitalize(type))}`);
 
       items.forEach((item) => {
         let timelineItemIds = item.get('timelineItemIds');
-        if (!privateFollowedUsernames.includes(username)) timelineItemIds = timelineItemIds.filter((id) => !privateTimelineItemIds.includes(id));
+        if (!privateFollowedUsernames.includes(tagSummary.get('author.username'))) timelineItemIds = timelineItemIds.filter((id) => !privateTimelineItemIds.includes(id));
 
         if (timelineItemIds.length > 0) {
           const itemId = item.get(`${type}.id`);
-          const previousSummary = summaries.find((summary) => summary.get('id') === itemId);
+          const previousSummary = summaries.find((summary) => summary.get('id') === itemId && summary.get('type') === type);
 
           if (previousSummary) {
-            previousTimelineItemIds = previousSummary.get('timelineItemIds');
+            const previousTimelineItemIds = previousSummary.get('timelineItemIds');
             timelineItemIds.forEach((timelineItemId) => {
               if (!previousTimelineItemIds.includes(timelineItemId)) previousTimelineItemIds.push(timelineItemId);
             });
@@ -157,7 +153,8 @@ export default Component.extend({
       } else if (type === 'user') {
         const username = tag.get('model.username');
         const relationships = selectedUserNames.includes(username) ? selectedUserNames.filter((user) => user !== username) : selectedUserNames.concat([username]);
-        this.get('router').transitionTo('users.user.profile', { queryParams: { tags: selectedTagNames, relationships, submenu }})
+        this.get('router').transitionTo('users.user.profile', { queryParams: { tags: selectedTagNames, relationships, submenu }});
+        this.attrs.addUserTagSummary(username);
       }
     }
   }
