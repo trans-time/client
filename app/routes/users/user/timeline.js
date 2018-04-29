@@ -39,7 +39,7 @@ export default Route.extend(TimelineItemNavRouteMixin, {
         tag_names: params.tags,
         under_moderation: false,
         user_id: user.id,
-        user_usernames: params.relationships
+        user_usernames: [user.get('username'), ...params.relationships]
       },
       initial_query: true,
       from_timeline_item_id: params.timelineItemId,
