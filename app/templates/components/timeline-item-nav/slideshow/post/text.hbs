@@ -1,20 +1,20 @@
 <div class="timeline-item-nav-post-constraint timeline-item-nav-post-text" tabindex="-1">
     <div class="timeline-item-nav-post-top-line">
       <div class="timeline-item-nav-post-date">
-        {{sometimes-relative-date date=post.date}}
+        {{sometimes-relative-date date=timelineItem.date}}
         | {{#if post.timelineItem.user.displayName}}{{{inject-emoji post.timelineItem.user.displayName}}} {{/if}}
-          {{#link-to "users.user.profile.index" post.timelineItem.user.username}}<span class="at-username">@{{post.timelineItem.user.username}}</span>{{/link-to}}
-        {{#if (eq post.timelineItem.user.id user.id)}}
+          {{#link-to "users.user.profile.index" timelineItem.user.username}}<span class="at-username">@{{timelineItem.user.username}}</span>{{/link-to}}
+        {{#if (eq timelineItem.user.id user.id)}}
           | {{#link-to "posts.post.edit" post.id disabled=controlsDisabled}}{{t "post.edit"}}{{/link-to}}
           | <a {{action "delete"}} disabled={{controlsDisabled}} tabindex="0" class="link">{{t "post.delete"}}</a>
         {{/if}}
-        {{#if post.nsfw}}
-          | {{t "post.nsfw"}}
+        {{#if timelineItem.nsfw}}
+          | {{t "timelineItem.nsfw"}}
         {{/if}}
-        {{#if post.private}}
-          | {{t "post.private"}}
+        {{#if timelineItem.private}}
+          | {{t "timelineItem.private"}}
         {{/if}}
-        {{#if (and (and (not post.ignoreFlags) (not isModerating)) (not-eq post.timelineItem.user.id user.id))}}
+        {{#if (and (and (not timelineItem.ignoreFlags) (not isModerating)) (not-eq timelineItem.user.id user.id))}}
           | <a {{action "report"}} disabled={{controlsDisabled}} tabindex="0" class="link">{{t "post.report"}}</a>
         {{/if}}
         {{#if showHistoryToggle}}

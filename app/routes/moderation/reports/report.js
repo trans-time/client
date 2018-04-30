@@ -8,7 +8,7 @@ export default Route.extend({
   model(params) {
     return hash({
       report: this.store.findRecord('moderation-report', params.id, {
-        include: 'verdicts,verdicts.moderator,indicted,indicted.indictions,indicted.indictions.flags,indicted.indictions.verdicts,indicted.indictions.verdicts.moderator,flags,post,post.text_versions,post.images,post.timeline_item.user,comment,comment.text_versions,comment.post.images,comment.post.timeline_item.user',
+        include: 'verdicts,verdicts.moderator,indicted,indicted.indictions,indicted.indictions.flags,indicted.indictions.verdicts,indicted.indictions.verdicts.moderator,flags,timeline_item,timeline_item.post,timeline_item.post.text_versions,timeline_item.post.images,timeline_item.user,comment,comment.text_versions,comment.timeline_item,comment.timeline_item.post.images,comment.timeline_item.user',
         reload: true
       }),
       verdict: this.store.createRecord('verdict', {
@@ -19,7 +19,7 @@ export default Route.extend({
 
   actions: {
     deleteTimelineable(timelineable, resolve, reject) {
-      timelineable.set('timelineItem.deleted', true);
+      timelineable.set('timeline_item.deleted', true);
       timelineable.deleteRecord();
 
       timelineable.save().then(() => {

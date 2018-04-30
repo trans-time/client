@@ -41,10 +41,11 @@
 {{#if shouldRenderPost}}
   {{timeline-item-nav/slideshow/post/text
     chatIsOpen=chatIsOpen
+    timelineItem=timelineItem.model
     post=post
     textExpanded=textExpanded
     isBlank=isBlank
-    isCurrentPost=isCurrentPost
+    isCurrentTimelineItem=isCurrentTimelineItem
     scrollLocked=(not-eq navState.progress 0)
     classNames="main-layout-constraint"
     removePost=removePost
@@ -54,10 +55,10 @@
 
   {{#if (not isModerating)}}
     {{timeline-item-nav/slideshow/post/controls/main
-      post=post
-      isCurrentPost=isCurrentPost
+      timelineItem=timelineItem.model
+      isCurrentTimelineItem=isCurrentTimelineItem
       fullShare=fullShare
-      commentCount=timelineItem.model.post.commentCount
+      commentCount=timelineItem.model.commentCount
       classNames="main-layout-constraint"
       toggleChat=(action "toggleChat")
     }}

@@ -1,9 +1,10 @@
 import DS from 'ember-data';
 import { computed } from '@ember/object';
+import { camelize } from '@ember/string';
 
 export default DS.Model.extend({
   comment: DS.belongsTo('comment'),
-  post: DS.belongsTo('post'),
+  timelineItem: DS.belongsTo('timeline-item'),
   user: DS.belongsTo('user'),
   moderationReport: DS.belongsTo('moderation-report'),
 
@@ -15,14 +16,14 @@ export default DS.Model.extend({
   unconsentingImage: DS.attr('boolean'),
   unmarkedNSFW: DS.attr('boolean'),
 
-  flaggable: computed('comment', 'post', {
+  flaggable: computed('comment', 'timelineItem', {
     get() {
-      return this.get('comment') || this.get('post');
+      return this.get('comment') || this.get('timelineItem');
     },
     set(key, flaggable) {
       const type = flaggable.constructor.modelName || flaggable.content.constructor.modelName;
 
-      this.set(type, flaggable);
+      this.set(camelize(type), flaggable);
     }
   })
 });

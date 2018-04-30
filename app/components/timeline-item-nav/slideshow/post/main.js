@@ -41,7 +41,7 @@ export default Component.extend(EKMixin, SlideshowComponentMixin, {
     }
   }),
 
-  isCurrentPost: computed('timelineItem', 'navState.currentPanel.timelineItem', {
+  isCurrentTimelineItem: computed('timelineItem', 'navState.currentPanel.timelineItem', {
     get() {
       return this.get('timelineItem') === this.get('navState.currentPanel.timelineItem');
     }

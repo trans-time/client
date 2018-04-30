@@ -2,20 +2,17 @@ import DS from 'ember-data';
 import { A } from '@ember/array';
 import EmberObject, { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
-import Timelineable from './timelineable';
+import Timelineable from 'client/mixins/model-timelineable';
 
-export default Timelineable.extend({
+export default DS.Model.extend(Timelineable, {
   user: DS.belongsTo('user', { inverse: 'posts' }),
-  flags: DS.hasMany('flag'),
   images: DS.hasMany('image'),
 
-  nsfw: DS.attr('boolean'),
   text: DS.attr('string'),
-  commentCount: DS.attr('number'),
-  commentsAreLocked: DS.attr('boolean'),
 
   date: alias('timelineItem.date'),
   private: alias('timelineItem.private'),
+  nsfw: alias('timelineItem.nsfw'),
 
   panels: computed('images.[]', {
     get() {

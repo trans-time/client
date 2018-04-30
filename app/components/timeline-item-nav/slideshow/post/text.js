@@ -210,7 +210,7 @@ export default Component.extend(AuthenticatedActionMixin, {
           this.get('modalManager').open('flag-modal', resolve, reject, {
             flag: this.get('store').createRecord('flag', {
               user: this.get('currentUser.user'),
-              flaggable: this.get('post')
+              flaggable: this.get('timelineItem')
             })
           });
         });

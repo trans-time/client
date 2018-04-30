@@ -23,7 +23,7 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
   currentUserReaction: alias('reactable.currentUserReaction'),
   reacted: notEmpty('currentUserReaction'),
   selectedCurrentType: oneWay('currentUserReaction.reactionType'),
-  keyboardActivated: alias('isCurrentPost'),
+  keyboardActivated: alias('isCurrentTimelineItem'),
 
   _startReactionKeyAction: on(keyDown('KeyZ'), function() {
     if (this.get('shouldDisplayAllTypes')) this.set('_startClosingReactionKey', true);

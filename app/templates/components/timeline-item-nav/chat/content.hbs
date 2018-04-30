@@ -16,12 +16,12 @@
 </div>
 
 {{#if (not isModerating)}}
-  {{#if post.commentsLocked}}
+  {{#if timelineItem.commentsLocked}}
     <div class="comments-locked">{{t "comments.locked"}}</div>
   {{else}}
     {{timeline-item-nav/chat/comment-form
       timelineItem=timelineItem
-      commentable=timelineItem.timelineable
+      commentable=timelineItem
       addComment=(action "addComment")
       classNames="comment-form-post-reply"
     }}

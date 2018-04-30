@@ -1,27 +1,28 @@
 import { computed } from '@ember/object';
+import { camelize } from '@ember/string';
 import DS from 'ember-data';
-import Reactable from './reactable';
+import Flaggable from 'client/mixins/model-flaggable';
+import Reactable from 'client/mixins/model-reactable';
 
-export default Reactable.extend({
+export default DS.Model.extend(Flaggable, Reactable, {
   user: DS.belongsTo('user'),
-  post: DS.belongsTo('post'),
+  timelineItem: DS.belongsTo('timeline-item'),
   parent: DS.belongsTo('comment', { inverse: 'children' }),
   children: DS.hasMany('comment', { inverse: 'parent' }),
-  flags: DS.hasMany('flag'),
 
   commentCount: DS.attr('number'),
   insertedAt: DS.attr('date'),
   deleted: DS.attr('boolean'),
   text: DS.attr('string'),
 
-  commentable: computed('post', {
+  commentable: computed('timelineItem', {
     get() {
-      return this.get('post');
+      return this.get('timelineItem');
     },
     set(key, commentable) {
       const type = commentable.constructor.modelName || commentable.content.constructor.modelName;
 
-      this.set(type, commentable);
+      this.set(camelize(type), commentable);
     }
   }),
 

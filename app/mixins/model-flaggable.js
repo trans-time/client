@@ -1,7 +1,7 @@
-import DS from 'ember-data';
+import Mixin from '@ember/object/mixin';
 
-export default DS.Model.extend({
-  flags: DS.hasMany('flag', { inverse: 'flaggable' }),
+export default Mixin.create({
+  flags: DS.hasMany('flag'),
   textVersions: DS.hasMany('text-version'),
   moderationReports: DS.hasMany('moderation-report'),
 

@@ -2,6 +2,7 @@ import { A } from '@ember/array';
 import { computed } from '@ember/object';
 import { sort } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
+import { underscore } from '@ember/string';
 import { isEmpty, isNone, isPresent } from '@ember/utils';
 import Component from '@ember/component';
 
@@ -37,13 +38,13 @@ export default Component.extend({
 
   _loadComments() {
     const isModerating = this.get('isModerating');
-    const commentable = this.get('timelineItem.timelineable.content');
+    const commentable = this.get('timelineItem');
 
     let include = 'user,parent,children,reactions';
     if (isModerating) include += ',text_versions';
 
     const filter = {};
-    filter[`${commentable.constructor.modelName}_id`] = commentable.id;
+    filter[`${underscore(commentable.constructor.modelName)}_id`] = commentable.id;
 
     if (!isModerating) {
       filter.deleted = false;
@@ -96,7 +97,7 @@ export default Component.extend({
 
       comment.save().then(() => {
         if (isPresent(commentParent)) commentParent.decrementProperty('commentCount');
-        this.decrementProperty('timelineItem.timelineable.commentCount', commentChildrenCount);
+        this.decrementProperty('timelineItem.commentCount', commentChildrenCount);
       }).catch(() => {
         comment.rollback();
       });

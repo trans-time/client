@@ -109,8 +109,8 @@ export default Component.extend({
   timelineItems: computed('timelineItem', {
     get() {
       const timelineItem = this.get('timelineItem');
-
-      return timelineItem.content ? A([this.get('timelineItem')]) : A();
+      
+      return A([this.get('timelineItem')]);
     }
   }),
 

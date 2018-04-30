@@ -8,6 +8,6 @@ export default Route.extend(InfinityRoute, {
   currentUser: service(),
 
   model() {
-    return this.infinityModel('flag', { perPage: 12, startingPage: 1, include: 'moderation_report,moderation_report.verdicts,moderation_report.verdicts.moderator,comment,post' });
+    return this.infinityModel('flag', { perPage: 12, startingPage: 1, include: 'moderation_report,moderation_report.verdicts,moderation_report.verdicts.moderator,comment,timeline_item' });
   }
 });

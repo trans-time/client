@@ -1,6 +1,6 @@
 {{#if isComment}}
   {{timeline-item-nav/main
-    timelineItem=model.report.comment.post.timelineItem.content
+    timelineItem=model.report.comment.timelineItem.content
     routeComment=model.report.comment.content
     commentsAreOpen=comments
     isModerating=true
@@ -11,7 +11,7 @@
   }}
 {{else}}
   {{timeline-item-nav/main
-    timelineItem=model.report.post.timelineItem
+    timelineItem=model.report.timelineItem
     commentsAreOpen=comments
     isModerating=true
     action="loadMoreTimelineItems"

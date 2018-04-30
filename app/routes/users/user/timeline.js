@@ -45,7 +45,7 @@ export default Route.extend(TimelineItemNavRouteMixin, {
       from_timeline_item_id: params.timelineItemId,
       last_timeline_item: params.lastTimelineItem,
       page_size: 10,
-      include: 'post,post.images,post.reactions,user'
+      include: 'post,post.images,reactions,user'
     })
   }
 });
