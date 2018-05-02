@@ -258,12 +258,14 @@ p {
 
   .post-form-checkboxes {
     display: flex;
-    padding: $rhythm;
+    flex-wrap: wrap;
+    padding: 0 $rhythm $rhythm;
     justify-content: space-around;
     border: thin solid $medium-gray;
 
     .md-checkbox {
       margin: 0;
+      margin-top: $rhythm;
     }
   }
 

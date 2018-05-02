@@ -8,6 +8,26 @@
   {{/paper-checkbox}}
 </div>
 
+{{#if changeset.nsfw}}
+  <div class="post-form-checkboxes">
+    {{#paper-checkbox value=changeset.nsfwButt onChange=(action (mut changeset.nsfwButt))}}
+      {{t "post.attributes.nsfwButt.label"}}
+    {{/paper-checkbox}}
+
+    {{#paper-checkbox value=changeset.nsfwGenitals onChange=(action (mut changeset.nsfwGenitals))}}
+      {{t "post.attributes.nsfwGenitals.label"}}
+    {{/paper-checkbox}}
+
+    {{#paper-checkbox value=changeset.nsfwNipples onChange=(action (mut changeset.nsfwNipples))}}
+      {{t "post.attributes.nsfwNipples.label"}}
+    {{/paper-checkbox}}
+
+    {{#paper-checkbox value=changeset.nsfwUnderwear onChange=(action (mut changeset.nsfwUnderwear))}}
+      {{t "post.attributes.nsfwUnderwear.label"}}
+    {{/paper-checkbox}}
+  </div>
+{{/if}}
+
 {{pikaday-input
   format="MM/DD/YYYY h:mm a"
   value=changeset.date

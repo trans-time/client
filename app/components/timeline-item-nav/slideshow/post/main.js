@@ -17,9 +17,7 @@ export default Component.extend(EKMixin, SlideshowComponentMixin, {
   shouldRenderPost: or('visible', 'timelineItem.shouldPrerender'),
   sortedPanels: sort('timelineItem.panels', (a, b) => a.get('model.order') - b.get('model.order')),
 
-  intl: service(),
   messageBus: service(),
-  modalManager: service(),
 
   didReceiveAttrs(...args) {
     this._super(...args);
@@ -49,7 +47,10 @@ export default Component.extend(EKMixin, SlideshowComponentMixin, {
 
   nsfw: computed({
     get() {
-      return this.get('post.nsfw') && !(localStorage.getItem('showNsfwContent') || sessionStorage.getItem('showNsfwContent'));
+      return ['nsfw', 'nsfwButt', 'nsfwGenitals', 'nsfwNipples', 'nsfwUnderwear'].any((type) => {
+        console.log(type, this.get(`timelineItem.model.${type}`), JSON.parse(localStorage.getItem(type)), JSON.parse(sessionStorage.getItem(type)))
+        return this.get(`timelineItem.model.${type}`) && !(JSON.parse(localStorage.getItem(type)) || JSON.parse(sessionStorage.getItem(type)));
+      });
     }
   }),
 
@@ -70,24 +71,6 @@ export default Component.extend(EKMixin, SlideshowComponentMixin, {
 
     toggleChat() {
       this.attrs.toggleChat();
-    },
-
-    viewNsfwForSession() {
-      new Promise((resolve, reject) => {
-        this.get('modalManager').open('confirmation-modal', resolve, reject, { content: this.get('intl').t('nsfw.confirmation') });
-      }).then(() => {
-        sessionStorage.setItem('showNsfwContent', true);
-        this.get('messageBus').publish('enabledNsfw');
-      });
-    },
-
-    viewNsfwForAlways() {
-      new Promise((resolve, reject) => {
-        this.get('modalManager').open('confirmation-modal', resolve, reject, { content: this.get('intl').t('nsfw.confirmation') });
-      }).then(() => {
-        localStorage.setItem('showNsfwContent', true);
-        this.get('messageBus').publish('enabledNsfw');
-      });
     }
   }
 });

@@ -1,0 +1,45 @@
+<h2>{{t "nsfw.header"}}</h2>
+<div class="timeline-item-nav-slideshow-nsfw-info">{{{t "nsfw.session"}}}</div>
+<div class="timeline-item-nav-slideshow-nsfw-info">{{{t "nsfw.storage"}}}</div>
+<div class="timeline-item-nav-slideshow-nsfw-types">
+
+  {{#if nsfwTypes}}
+    <div class="timeline-item-nav-slideshow-nsfw-types-info">
+      {{{t "nsfw.contains"}}}
+      <strong>{{{nsfwTypes}}}</strong>
+    </div>
+
+    <div class="timeline-item-nav-slideshow-nsfw-types-checkboxes">
+      {{#paper-checkbox value=changeset.nsfwButt onChange=(action (mut changeset.nsfwButt))}}
+        {{t "post.attributes.nsfwButt.label"}}
+      {{/paper-checkbox}}
+
+      {{#paper-checkbox value=changeset.nsfwGenitals onChange=(action (mut changeset.nsfwGenitals))}}
+        {{t "post.attributes.nsfwGenitals.label"}}
+      {{/paper-checkbox}}
+
+      {{#paper-checkbox value=changeset.nsfwNipples onChange=(action (mut changeset.nsfwNipples))}}
+        {{t "post.attributes.nsfwNipples.label"}}
+      {{/paper-checkbox}}
+
+      {{#paper-checkbox value=changeset.nsfwUnderwear onChange=(action (mut changeset.nsfwUnderwear))}}
+        {{t "post.attributes.nsfwUnderwear.label"}}
+      {{/paper-checkbox}}
+    </div>
+  {{/if}}
+</div>
+
+<div class="timeline-item-nav-slideshow-nsfw-buttons">
+  {{#paper-button
+    raised=true
+    onClick=(action "viewNsfwForSession")
+  }}
+    {{t "nsfw.enable"}} {{fa-icon "clock-o"}}
+  {{/paper-button}}
+  {{#paper-button
+    raised=true
+    onClick=(action "viewNsfwForAlways")
+  }}
+    {{t "nsfw.enable"}} ∞
+  {{/paper-button}}
+</div>

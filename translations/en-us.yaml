@@ -171,8 +171,9 @@ nsfw:
   confirmation: "by clicking confirm, i agree that i am familiar with local laws concerning viewing nudity on the internet and accept all responsibility for viewing it on <em>trans time</em>."
   enable: "enable"
   header: "nsfw"
-  session: "to temporarily enable nsfw content, click the first button. it will be disabled next time you load the <em>trans time</em>."
+  session: "to temporarily enable nsfw content, click the first button. next time you start <em>trans time</em>, nsfw will be disabled."
   storage: "to permanently enable nsfw content on this device, click the second button."
+  contains: "please also specify which types of nsfw content to enable. this post contains:"
 post:
   cancel: "are you sure? all changes will be lost."
   delete: "delete"
@@ -193,6 +194,14 @@ post:
       label: "date"
     nsfw:
       label: "NSFW"
+    nsfwButt:
+      label: "butt"
+    nsfwGenitals:
+      label: "genitals"
+    nsfwNipples:
+      label: "nipples"
+    nsfwUnderwear:
+      label: "underwear"
     private:
       label: "private"
     text:
@@ -240,6 +249,9 @@ tagSummary:
   start: "start"
   tags: "#tags"
   relationships: "@relationships"
+timelineItem:
+  nsfw: "nsfw"
+  private: "private"
 title: "trans time"
 users:
   attributes:

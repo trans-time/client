@@ -1,25 +1,6 @@
 <div class="timeline-item-nav-slideshow-panels">
   {{#if nsfw}}
-    <div class="timeline-item-nav-slideshow-nsfw">
-      <h2>{{t "nsfw.header"}}</h2>
-      <div class="timeline-item-nav-slideshow-nsfw-info">{{{t "nsfw.session"}}}</div>
-      <div class="timeline-item-nav-slideshow-nsfw-info">{{{t "nsfw.storage"}}}</div>
-
-      <div class="timeline-item-nav-slideshow-nsfw-buttons">
-        {{#paper-button
-          raised=true
-          onClick=(action "viewNsfwForSession")
-        }}
-          {{t "nsfw.enable"}} {{fa-icon "clock-o"}}
-        {{/paper-button}}
-        {{#paper-button
-          raised=true
-          onClick=(action "viewNsfwForAlways")
-        }}
-          {{t "nsfw.enable"}} ∞
-        {{/paper-button}}
-      </div>
-    </div>
+    {{nsfw-interface nsfwContent=timelineItem.model}}
   {{else}}
     {{#each sortedPanels as |panel|}}
       {{component panel.postNavComponent
