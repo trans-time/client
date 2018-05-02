@@ -3,7 +3,7 @@ import { computed } from '@ember/object';
 import { next } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/string';
-import { task } from 'ember-concurrency';
+import { task, timeout } from 'ember-concurrency';
 import { getCode } from 'ember-keyboard';
 import textareaCaretPosition from 'client/utils/textarea-caret-position';
 
@@ -68,19 +68,19 @@ export default Component.extend({
   _searchTags(index, startOfWordIndex, endOfWordIndex) {
     const word = this._getWord(index, startOfWordIndex, endOfWordIndex);
 
-    if (word.length > 0) this.get('_searchTask').perform('tag', word, { name: word, perPage: 5 });
+    if (word.length > 0) this.get('_searchTask').perform('tag', word, { filter: { like_name: word, limit: 5 } });
   },
 
   _searchUsers(index, startOfWordIndex, endOfWordIndex) {
     const word = this._getWord(index, startOfWordIndex, endOfWordIndex);
 
-    if (word.length > 0) this.get('_searchTask').perform('user', word, { username: word, perPage: 5 });
+    if (word.length > 0) this.get('_searchTask').perform('user', word, { filter: { like_username: word, limit: 5 } });
   },
 
   _searchTask: task(function * (type, word, query) {
     yield timeout(250);
 
-    if (query.length < 3) return;
+    if (word.length < 3) return;
 
     const cache = this.get(`cache.${type}.${word}`);
     const options = yield cache || this.get('store').query(type, query);
