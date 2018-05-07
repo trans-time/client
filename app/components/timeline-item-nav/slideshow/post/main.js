@@ -19,14 +19,6 @@ export default Component.extend(EKMixin, SlideshowComponentMixin, {
 
   messageBus: service(),
 
-  didReceiveAttrs(...args) {
-    this._super(...args);
-
-    const nsfw = this.get('post.nsfw');
-
-    this.get('messageBus').subscribe('enabledNsfw', this, () => this.notifyPropertyChange('nsfw'));
-  },
-
   _keyExpandCompressText: on(keyDown('KeyX'), function() {
     this.$('.timeline-item-nav-post-text').focus();
     this.get('textExpanded') ? this.attrs.compressText() : this.attrs.expandText();
@@ -42,15 +34,6 @@ export default Component.extend(EKMixin, SlideshowComponentMixin, {
   isCurrentTimelineItem: computed('timelineItem', 'navState.currentPanel.timelineItem', {
     get() {
       return this.get('timelineItem') === this.get('navState.currentPanel.timelineItem');
-    }
-  }),
-
-  nsfw: computed({
-    get() {
-      return ['nsfw', 'nsfwButt', 'nsfwGenitals', 'nsfwNipples', 'nsfwUnderwear'].any((type) => {
-        console.log(type, this.get(`timelineItem.model.${type}`), JSON.parse(localStorage.getItem(type)), JSON.parse(sessionStorage.getItem(type)))
-        return this.get(`timelineItem.model.${type}`) && !(JSON.parse(localStorage.getItem(type)) || JSON.parse(sessionStorage.getItem(type)));
-      });
     }
   }),
 

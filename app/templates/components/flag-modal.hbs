@@ -29,10 +29,10 @@
   {{/paper-checkbox}}
 
   {{#paper-checkbox
-    value=changeset.unmarkedNSFW
-    onChange=(action (mut changeset.unmarkedNSFW))
+    value=changeset.incorrectMaturityRating
+    onChange=(action (mut changeset.incorrectMaturityRating))
   }}
-    <span class="flag-modal-checkbox-label-name">{{t "flags.attributes.unmarkedNSFW.name"}}</span> <span class="flag-modal-checkbox-label-description">{{t "flags.attributes.unmarkedNSFW.description"}}</span>
+    <span class="flag-modal-checkbox-label-name">{{t "flags.attributes.incorrectMaturityRating.name"}}</span> <span class="flag-modal-checkbox-label-description">{{t "flags.attributes.incorrectMaturityRating.description"}}</span>
   {{/paper-checkbox}}
 
   {{paper-input

@@ -3,28 +3,24 @@
     {{t "post.attributes.private.label"}}
   {{/paper-checkbox}}
 
-  {{#paper-checkbox value=changeset.nsfw onChange=(action (mut changeset.nsfw))}}
-    {{t "post.attributes.nsfw.label"}}
+  {{#paper-checkbox value=maturityRatingOpen onChange=(action (mut maturityRatingOpen))}}
+    {{t "post.attributes.matureContent.label"}}
   {{/paper-checkbox}}
 </div>
 
-{{#if changeset.nsfw}}
-  <div class="post-form-checkboxes">
-    {{#paper-checkbox value=changeset.nsfwButt onChange=(action (mut changeset.nsfwButt))}}
-      {{t "post.attributes.nsfwButt.label"}}
-    {{/paper-checkbox}}
-
-    {{#paper-checkbox value=changeset.nsfwGenitals onChange=(action (mut changeset.nsfwGenitals))}}
-      {{t "post.attributes.nsfwGenitals.label"}}
-    {{/paper-checkbox}}
-
-    {{#paper-checkbox value=changeset.nsfwNipples onChange=(action (mut changeset.nsfwNipples))}}
-      {{t "post.attributes.nsfwNipples.label"}}
-    {{/paper-checkbox}}
-
-    {{#paper-checkbox value=changeset.nsfwUnderwear onChange=(action (mut changeset.nsfwUnderwear))}}
-      {{t "post.attributes.nsfwUnderwear.label"}}
-    {{/paper-checkbox}}
+{{#if maturityRatingOpen}}
+  <div class="post-form-maturity-rating">
+    <div class="post-form-maturity-rating-description">
+      {{maturity-rating rating=changeset.maturityRating}}
+    </div>
+    {{range-slider
+      start=changeset.maturityRating
+      connect="lower"
+      min=1
+      max=4
+      step=1
+      on-slide=(action (mut changeset.maturityRating))
+    }}
   </div>
 {{/if}}
 

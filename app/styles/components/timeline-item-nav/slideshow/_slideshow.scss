@@ -94,20 +94,12 @@
     margin-bottom: $rhythm;
   }
 
-  .timeline-item-nav-slideshow-nsfw-types {
+  .timeline-item-nav-slideshow-nsfw-maturity-rating {
+    margin: $rhythm * 2;
     margin-top: auto;
-    margin-bottom: $rhythm * 2;
 
-    .timeline-item-nav-slideshow-nsfw-types-info {
+    .timeline-item-nav-slideshow-nsfw-maturity-rating-description {
       margin-bottom: $rhythm;
-    }
-
-    .timeline-item-nav-slideshow-nsfw-types-checkboxes {
-      display: flex;
-      flex-flow: wrap;
-      align-items: center;
-      justify-content: center;
-      margin-top: $rhythm * 3;
     }
   }
 

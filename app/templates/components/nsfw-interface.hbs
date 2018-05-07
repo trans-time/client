@@ -1,45 +1,43 @@
-<h2>{{t "nsfw.header"}}</h2>
-<div class="timeline-item-nav-slideshow-nsfw-info">{{{t "nsfw.session"}}}</div>
-<div class="timeline-item-nav-slideshow-nsfw-info">{{{t "nsfw.storage"}}}</div>
-<div class="timeline-item-nav-slideshow-nsfw-types">
-
-  {{#if nsfwTypes}}
-    <div class="timeline-item-nav-slideshow-nsfw-types-info">
-      {{{t "nsfw.contains"}}}
-      <strong>{{{nsfwTypes}}}</strong>
+{{#if (gt matureContent.maturityRating currentMaturityRating)}}
+  <div class="timeline-item-nav-slideshow-nsfw">
+    <h2>{{t "matureContent.header"}}</h2>
+    <div class="timeline-item-nav-slideshow-nsfw-info">{{{t "matureContent.ratings"}}}</div>
+    <div class="timeline-item-nav-slideshow-nsfw-info">{{{t "matureContent.session"}}}</div>
+    <div class="timeline-item-nav-slideshow-nsfw-info">{{{t "matureContent.storage"}}}</div>
+    <div class="timeline-item-nav-slideshow-nsfw-info">
+      {{{t "matureContent.current"}}}
+      <strong>{{maturity-rating rating=matureContent.maturityRating}}</strong>
     </div>
 
-    <div class="timeline-item-nav-slideshow-nsfw-types-checkboxes">
-      {{#paper-checkbox value=changeset.nsfwButt onChange=(action (mut changeset.nsfwButt))}}
-        {{t "post.attributes.nsfwButt.label"}}
-      {{/paper-checkbox}}
-
-      {{#paper-checkbox value=changeset.nsfwGenitals onChange=(action (mut changeset.nsfwGenitals))}}
-        {{t "post.attributes.nsfwGenitals.label"}}
-      {{/paper-checkbox}}
-
-      {{#paper-checkbox value=changeset.nsfwNipples onChange=(action (mut changeset.nsfwNipples))}}
-        {{t "post.attributes.nsfwNipples.label"}}
-      {{/paper-checkbox}}
-
-      {{#paper-checkbox value=changeset.nsfwUnderwear onChange=(action (mut changeset.nsfwUnderwear))}}
-        {{t "post.attributes.nsfwUnderwear.label"}}
-      {{/paper-checkbox}}
+    <div class="timeline-item-nav-slideshow-nsfw-maturity-rating">
+      <div class="timeline-item-nav-slideshow-nsfw-maturity-rating-description">
+        {{maturity-rating rating=newMaturityRating}}
+      </div>
+      {{range-slider
+        start=currentMaturityRating
+        connect="lower"
+        min=0
+        max=4
+        step=1
+        on-slide=(action (mut newMaturityRating))
+      }}
     </div>
-  {{/if}}
-</div>
 
-<div class="timeline-item-nav-slideshow-nsfw-buttons">
-  {{#paper-button
-    raised=true
-    onClick=(action "viewNsfwForSession")
-  }}
-    {{t "nsfw.enable"}} {{fa-icon "clock-o"}}
-  {{/paper-button}}
-  {{#paper-button
-    raised=true
-    onClick=(action "viewNsfwForAlways")
-  }}
-    {{t "nsfw.enable"}} ∞
-  {{/paper-button}}
-</div>
+    <div class="timeline-item-nav-slideshow-nsfw-buttons">
+      {{#paper-button
+        raised=true
+        onClick=(action "changeMaturityRatingForSession")
+      }}
+        {{t "matureContent.enable"}} {{fa-icon "clock-o"}}
+      {{/paper-button}}
+      {{#paper-button
+        raised=true
+        onClick=(action "changeMaturityRatingForAlways")
+      }}
+        {{t "matureContent.enable"}} ∞
+      {{/paper-button}}
+    </div>
+  </div>
+{{else}}
+  {{yield}}
+{{/if}}

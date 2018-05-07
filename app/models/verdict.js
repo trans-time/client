@@ -13,6 +13,22 @@ export default DS.Model.extend({
   actionDeletedFlaggable: DS.attr('boolean'),
   actionIgnoreFlags: DS.attr('boolean'),
   actionLockComments: DS.attr('boolean'),
+  actionChangeMaturityRating: DS.attr('number'),
+  actionDeleteMedia: DS.attr('boolean'),
+  deleteMediaIndexes: DS.attr(),
   banUserUntil: DS.attr('date'),
-  lockCommentsUntil: DS.attr('date')
+  lockCommentsUntil: DS.attr('date'),
+
+  cloneAttrs(verdict) {
+    const cloneProperties = verdict ? verdict.toJSON() : {};
+    delete cloneProperties.id;
+    delete cloneProperties.moderationReport;
+    delete cloneProperties.moderator;
+    delete cloneProperties.insertedAt;
+    delete cloneProperties.moderatorComment;
+
+    this.setProperties(cloneProperties);
+
+    return this;
+  }
 });

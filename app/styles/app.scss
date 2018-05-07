@@ -256,6 +256,14 @@ p {
   flex-direction: column;
   flex-grow: 1;
 
+  .post-form-maturity-rating {
+    margin: $rhythm $rhythm * 2;
+
+    .post-form-maturity-rating-description {
+      margin-bottom: $rhythm;
+    }
+  }
+
   .post-form-checkboxes {
     display: flex;
     flex-wrap: wrap;

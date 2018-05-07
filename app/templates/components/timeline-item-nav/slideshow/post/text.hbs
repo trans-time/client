@@ -8,11 +8,14 @@
           | {{#link-to "posts.post.edit" post.id disabled=controlsDisabled}}{{t "post.edit"}}{{/link-to}}
           | <a {{action "delete"}} disabled={{controlsDisabled}} tabindex="0" class="link">{{t "post.delete"}}</a>
         {{/if}}
-        {{#if timelineItem.nsfw}}
-          | {{t "timelineItem.nsfw"}}
+        {{#if timelineItem.maturityRating}}
+          | {{t "timelineItem.matureContent"}}
         {{/if}}
         {{#if timelineItem.private}}
           | {{t "timelineItem.private"}}
+        {{/if}}
+        {{#if timelineItem.underModeration}}
+          | {{t "timelineItem.underModeration"}}
         {{/if}}
         {{#if (and (and (not timelineItem.ignoreFlags) (not isModerating)) (not-eq timelineItem.user.id user.id))}}
           | <a {{action "report"}} disabled={{controlsDisabled}} tabindex="0" class="link">{{t "post.report"}}</a>

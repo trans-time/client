@@ -1,14 +1,12 @@
 <div class="timeline-item-nav-slideshow-panels">
-  {{#if nsfw}}
-    {{nsfw-interface nsfwContent=timelineItem.model}}
-  {{else}}
+  {{#nsfw-interface matureContent=timelineItem.model}}
     {{#each sortedPanels as |panel|}}
       {{component panel.postNavComponent
         panel=panel
         navState=navState
       }}
     {{/each}}
-  {{/if}}
+  {{/nsfw-interface}}
 
   <div class="timeline-item-nav-resize-toggle">
     <a {{action resizeType}}>

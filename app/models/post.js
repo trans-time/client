@@ -12,7 +12,7 @@ export default DS.Model.extend(Timelineable, {
 
   date: alias('timelineItem.date'),
   private: alias('timelineItem.private'),
-  nsfw: alias('timelineItem.nsfw'),
+  maturityRating: alias('timelineItem.maturityRating'),
 
   panels: computed('images.[]', {
     get() {

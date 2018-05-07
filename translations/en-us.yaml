@@ -120,9 +120,11 @@ identities:
 moderation:
   banUser: "ban user"
   bannedUser: "banned user: {until}"
+  changeMaturityRating: "change maturity rating"
   contractComments: "hide flags"
   deleteFlaggable: "delete content"
   deletedContent: "deleted content"
+  deleteMedia: "delete media"
   expandComments: "show flags"
   flags: "flags"
   ignoreFlags: "ignore flags"
@@ -167,13 +169,14 @@ notifications:
       comment: "<strong>{username}</strong> {otherReactions, plural, =0 {} =1 {and 1 other user} other {and {otherReactions} other users}} reacted to your comment"
       post: "<strong>{username}</strong> {otherReactions, plural, =0 {} =1 {and 1 other user} other {and {otherReactions} other users}} reacted to your post"
     reply: "<strong>{username}</strong> {otherReplies, plural, =0 {} =1 {and 1 other user} other {and {otherReplies} other users}} replied to your comment"
-nsfw:
-  confirmation: "by clicking confirm, i agree that i am familiar with local laws concerning viewing nudity on the internet and accept all responsibility for viewing it on <em>trans time</em>."
+matureContent:
+  confirmation: "by clicking confirm, i agree that i am familiar with local laws concerning viewing mature content on the internet and accept all responsibility for viewing it on <em>trans time</em>."
   enable: "enable"
-  header: "nsfw"
-  session: "to temporarily enable nsfw content, click the first button. next time you start <em>trans time</em>, nsfw will be disabled."
-  storage: "to permanently enable nsfw content on this device, click the second button."
-  contains: "please also specify which types of nsfw content to enable. this post contains:"
+  header: "mature content"
+  current: "this content is rated:"
+  ratings: "mature content is divided into several levels. you can set your prefered level with the slider below, then choose how long to enable it."
+  session: "to temporarily enable mature content, click the first button. next time you start <em>trans time</em>, matur content will be disabled."
+  storage: "to permanently enable mature content on this device, click the second button."
 post:
   cancel: "are you sure? all changes will be lost."
   delete: "delete"
@@ -185,23 +188,22 @@ post:
   more: "more"
   new: "new post"
   none: "sorry, there are no posts to load"
-  nsfw: "nsfw"
+  matureContent: "mature content"
   private: "private"
   report: "report"
   viewPost: "view post"
   attributes:
     date:
       label: "date"
-    nsfw:
-      label: "NSFW"
-    nsfwButt:
-      label: "butt"
-    nsfwGenitals:
-      label: "genitals"
-    nsfwNipples:
-      label: "nipples"
-    nsfwUnderwear:
-      label: "underwear"
+    matureContent:
+      label: "mature content"
+    maturityRating:
+      description:
+        0: "no mature content"
+        1: "sexually provactive content without nudity"
+        2: "wearing only underwear"
+        3: "bare butts/exposed nipples"
+        4: "genitals/buttholes/sex toys"
     private:
       label: "private"
     text:
@@ -250,8 +252,9 @@ tagSummary:
   tags: "#tags"
   relationships: "@relationships"
 timelineItem:
-  nsfw: "nsfw"
+  matureContent: "mature content"
   private: "private"
+  underModeration: "under moderation"
 title: "trans time"
 users:
   attributes:

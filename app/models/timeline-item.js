@@ -14,12 +14,9 @@ export default DS.Model.extend(Flaggable, Reactable, {
   commentsAreLocked: DS.attr('boolean'),
   date: DS.attr('date'),
   deleted: DS.attr('boolean'),
-  nsfw: DS.attr('boolean'),
-  nsfwButt: DS.attr('boolean'),
-  nsfwGenitals: DS.attr('boolean'),
-  nsfwNipples: DS.attr('boolean'),
-  nsfwUnderwear: DS.attr('boolean'),
+  maturityRating: DS.attr('number', { defaultValue: 0 }),
   private: DS.attr('boolean'),
+  underModeration: DS.attr('boolean'),
 
   timelineable: computed('post', {
     get() {

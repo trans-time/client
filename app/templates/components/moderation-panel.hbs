@@ -47,6 +47,38 @@
         {{/paper-checkbox}}
       </div>
 
+      <div class="moderation-panel-checkboxes">
+        {{#paper-checkbox
+          value=changeset.actionDeleteMedia
+          onChange=(action (mut changeset.actionDeleteMedia))
+        }}
+          {{t "moderation.deleteMedia"}}
+        {{/paper-checkbox}}
+
+        {{#paper-checkbox
+          value=openMaturityRating
+          onChange=(action (mut openMaturityRating))
+        }}
+          {{t "moderation.changeMaturityRating"}}
+        {{/paper-checkbox}}
+      </div>
+
+      {{#if openMaturityRating}}
+        <div class="moderation-panel-maturity-rating">
+          <div class="moderation-panel-maturity-rating-description">
+            {{maturity-rating rating=changeset.actionChangeMaturityRating}}
+          </div>
+          {{range-slider
+            start=changeset.actionChangeMaturityRating
+            connect="lower"
+            min=0
+            max=4
+            step=1
+            on-slide=(action (mut changeset.actionChangeMaturityRating))
+          }}
+        </div>
+      {{/if}}
+
       <div class="moderation-panel-checkboxes moderation-panel-checkboxes-with-duration">
         {{#paper-checkbox
           value=changeset.actionBannedUser

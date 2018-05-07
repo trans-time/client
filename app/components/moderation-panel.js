@@ -25,6 +25,7 @@ const VerdictValidation = {
 export default Component.extend({
   classNames: ['moderation-panel'],
 
+  currentUser: service(),
   intl: service(),
   paperToaster: service(),
   router: service(),
@@ -37,7 +38,10 @@ export default Component.extend({
   didReceiveAttrs(...args) {
     this._super(...args);
 
-    this.set('changeset', new Changeset(this.get('verdict'), lookupValidator(VerdictValidation), VerdictValidation));
+    const previousVerdict = this.get('report.verdicts.lastObject');
+    const newVerdict = this.get('verdict').cloneAttrs(previousVerdict);
+
+    this.set('changeset', new Changeset(newVerdict, lookupValidator(VerdictValidation), VerdictValidation));
 
     if (isBlank(this.get('changeset.banUserDuration'))) this.set('changeset.banUserDuration', 0);
     if (isBlank(this.get('changeset.lockCommentsDuration'))) this.set('changeset.lockCommentsDuration', 0);
@@ -53,6 +57,18 @@ export default Component.extend({
     }
   }),
 
+  openMaturityRating: computed('_openMaturityRating', 'changeset.actionChangeMaturityRating', {
+    get() {
+      return this.get('_openMaturityRating') || this.get('changeset.actionChangeMaturityRating');
+    },
+    set(key, value) {
+      if (value === true) this.set('changeset.actionChangeMaturityRating', this.get('report.flaggable.maturityRating'))
+      else this.set('changeset.actionChangeMaturityRating', null)
+
+      return this.set('_openMaturityRating', value);
+    }
+  }),
+
   _submit(properties) {
     this.set('isSubmitting', true);
 
@@ -60,8 +76,9 @@ export default Component.extend({
 
     changeset.setProperties(properties);
     changeset.set('moderationReport', this.get('report'));
+    changeset.set('moderator', this.get('currentUser.user'));
 
-    changeset.save().then(() => {
+    changeset.save().then((verdict) => {
       this.get('paperToaster').show(this.get('intl').t('moderationReport.successful'), {
         duration: 4000
       });
