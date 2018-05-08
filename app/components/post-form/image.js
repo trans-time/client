@@ -1,6 +1,6 @@
 import { A } from '@ember/array';
 import { computed, get } from '@ember/object';
-import { alias } from '@ember/object/computed';
+import { filter } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { isNone, isPresent } from '@ember/utils';
 import { Promise, resolve } from 'rsvp';
@@ -15,7 +15,7 @@ export default Component.extend({
 
   store: service(),
 
-  images: alias('post.images'),
+  images: filter('post.images', (image) => !image.get('deleted')),
 
   _addImage: task(function * (src) {
     const post = this.get('post');

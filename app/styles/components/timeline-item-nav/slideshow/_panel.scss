@@ -10,6 +10,10 @@
   &.timeline-item-nav-slideshow-image {
     object-fit: cover;
     pointer-events: none;
+
+    &.deleted {
+      opacity: 0.38;
+    }
   }
 
   &.timeline-item-nav-slideshow-blank {

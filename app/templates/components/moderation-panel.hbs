@@ -79,6 +79,19 @@
         </div>
       {{/if}}
 
+      {{#if changeset.actionDeleteMedia}}
+        <div class="moderation-panel-delete-media">
+          {{#each report.timelineItem.timelineable.panels as |panel|}}
+            <div>{{panel.order}}: {{panel.id}}{{#if panel.deleted}} (deleted){{/if}};</div>
+          {{/each}}
+
+          {{paper-input
+            value=deleteImageIds
+            onChange=(action (mut deleteImageIds))
+          }}
+        </div>
+      {{/if}}
+
       <div class="moderation-panel-checkboxes moderation-panel-checkboxes-with-duration">
         {{#paper-checkbox
           value=changeset.actionBannedUser

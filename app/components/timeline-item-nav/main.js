@@ -61,11 +61,12 @@ const TimelineItemDecorator = EmberObject.extend({
 
   panels: computed('model.timelineable.panels.[]', {
     get() {
+      const isModerating = this.get('component.isModerating');
       let panels = this.get('model.timelineable.panels');
 
       if (isEmpty(panels)) panels = [this.get('_blankPanel')];
 
-      return panels.toArray().map((model, index) => {
+      return panels.toArray().filter((panel) => isModerating || !panel.get('deleted')).sort((a, b) => a.get('order') - b.get('order')).map((model, index) => {
         return PanelDecorator.create({
           model,
           index,
@@ -109,7 +110,7 @@ export default Component.extend({
   timelineItems: computed('timelineItem', {
     get() {
       const timelineItem = this.get('timelineItem');
-      
+
       return A([this.get('timelineItem')]);
     }
   }),

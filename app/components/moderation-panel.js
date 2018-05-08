@@ -57,6 +57,17 @@ export default Component.extend({
     }
   }),
 
+  deleteImageIds: computed({
+    get() {
+      return (this.get('changeset.deleteImageIds') || []).join(', ');
+    },
+    set(key, value) {
+      this.set('changeset.deleteImageIds', value.split(',').map((id) => parseInt(id)).filter((id) => !isNaN(id)));
+
+      return value;
+    }
+  }),
+
   openMaturityRating: computed('_openMaturityRating', 'changeset.actionChangeMaturityRating', {
     get() {
       return this.get('_openMaturityRating') || this.get('changeset.actionChangeMaturityRating');

@@ -1,4 +1,5 @@
 import { computed } from '@ember/object';
+import { oneWay } from '@ember/object/computed';
 import { Promise as EmberPromise } from 'rsvp';
 import Component from '@ember/component';
 import SlideshowPanelComponentMixin from 'client/mixins/slideshow-panel-component';
@@ -6,7 +7,10 @@ import SlideshowPanelComponentMixin from 'client/mixins/slideshow-panel-componen
 export default Component.extend(SlideshowPanelComponentMixin, {
   tagName: 'img',
   classNames: ['timeline-item-nav-slideshow-image'],
+  classNameBindings: ['deleted'],
   attributeBindings: ['src'],
+
+  deleted: oneWay('panel.model.deleted'),
 
   loadPanel() {
     this.set('panel.loadPromise', new EmberPromise((resolve) => {

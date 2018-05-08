@@ -15,7 +15,7 @@ export default DS.Model.extend({
   actionLockComments: DS.attr('boolean'),
   actionChangeMaturityRating: DS.attr('number'),
   actionDeleteMedia: DS.attr('boolean'),
-  deleteMediaIndexes: DS.attr(),
+  deleteImageIds: DS.attr(),
   banUserUntil: DS.attr('date'),
   lockCommentsUntil: DS.attr('date'),
 
