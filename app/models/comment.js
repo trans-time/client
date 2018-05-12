@@ -14,6 +14,7 @@ export default DS.Model.extend(Flaggable, Reactable, {
   insertedAt: DS.attr('date'),
   deleted: DS.attr('boolean'),
   text: DS.attr('string'),
+  underModeration: DS.attr('boolean'),
 
   commentable: computed('timelineItem', {
     get() {

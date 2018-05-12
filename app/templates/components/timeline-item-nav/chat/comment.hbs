@@ -44,6 +44,9 @@
         {{else if (and (and (not comment.ignoreFlags) (not isModerating)) (not-eq comment.user.id currentUser.user.id))}}
           | <a {{action "report"}}>{{t "comments.report"}}</a>
         {{/if}}
+        {{#if comment.underModeration}}
+          | {{t "timelineItem.underModeration"}}
+        {{/if}}
         {{#if showHistoryToggle}}
           {{#if historyIsRevealed}}
             | <a {{action "hideHistory"}} tabindex="0">{{t "post.hideHistory"}}</a>
