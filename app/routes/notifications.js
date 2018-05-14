@@ -4,13 +4,13 @@ import InfinityRoute from "ember-infinity/mixins/route";
 
 export default Route.extend(InfinityRoute, {
   perPageParam: 'page_size',
-  
+
   currentUser: service(),
   intl: service(),
   topBarManager: service(),
 
   model() {
-    return this.infinityModel('notification', { userId: this.get('currentUser.user.id'), perPage: 12, startingPage: 1 });
+    return this.infinityModel('notification', { perPage: 12, startingPage: 1, filter: { under_moderation: false }, include: 'user,notification_comment_at,notification_comment_at.comment,notification_comment_at.comment.user,notification_comment_at.comment.timeline_item,notification_comment_at.comment.timeline_item.user' });
   },
 
   beforeModel(...args) {

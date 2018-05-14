@@ -1,0 +1,7 @@
+{{#if isTimelineItem}}
+  {{{t "notifications.type.at.timelineItem" username=notification.reactable.user.username}}}
+{{else}}
+  {{{t "notifications.type.at.comment" username=notification.reactable.user.username}}}
+{{/if}}
+
+{{yield}}

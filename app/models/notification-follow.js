@@ -1,8 +1,8 @@
 import DS from 'ember-data';
-import Notification from './notification';
+import NotifiableMixin from 'client/mixins/model-notifiable';
 
-export default Notification.extend({
+export default DS.Model.extend(NotifiableMixin, {
   follower: DS.belongsTo('user', { inverse: null }),
 
-  totalFollows: DS.attr('number')
+  followCount: DS.attr('number')
 });

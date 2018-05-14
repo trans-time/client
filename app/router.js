@@ -27,6 +27,11 @@ Router.map(function() {
       this.route('reactions');
     });
   });
+  this.route('timeline_items', function() {
+    this.route('timeline_item', { path: '/:id' }, function() {
+      this.route('reactions');
+    });
+  });
 
   this.route('account');
   this.route('comments', function() {

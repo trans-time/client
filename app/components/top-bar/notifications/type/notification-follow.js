@@ -9,7 +9,7 @@ export default Component.extend(NotificationComponentMixin, {
 
   otherFollows: computed({
     get() {
-      return this.get('notification.totalFollows') - 1;
+      return this.get('notification.followCount') - 1;
     }
   })
 });

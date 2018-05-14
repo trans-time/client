@@ -1,6 +1,6 @@
 import DS from 'ember-data';
-import Notification from './notification';
+import NotifiableMixin from 'client/mixins/model-notifiable';
 
-export default Notification.extend({
-  total: DS.attr('number')
+export default DS.Model.extend(NotifiableMixin, {
+  count: DS.attr('number')
 });

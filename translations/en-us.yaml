@@ -22,6 +22,7 @@ auth:
   logout: "logout"
 comments:
   cancel: "cancel"
+  comment: "comment"
   comments: "comments"
   delete: "delete"
   edit: "edit"
@@ -155,12 +156,11 @@ notifications:
   notifications: "notifications"
   seeAllNotifications: "see all notifications"
   type:
-    at:
-      comment: "<strong>{username}</strong> {otherTags, plural, =0 {} =1 {and 1 other user} other {and {otherTags} other users}} tagged you in a comment"
-      post: "<strong>{username}</strong> {otherTags, plural, =0 {} =1 {and 1 other user} other {and {otherTags} other users}} tagged you in a post"
+    commentAt: "<strong>{commentor}</strong> tagged you in a comment replying to <strong>{respondingToUser}</strong> {respondingToType}"
+    timelineItemAt: "<strong>{username}</strong> tagged you in a timeline post"
     comment: "<strong>{username}</strong> {otherComments, plural, =0 {} =1 {and 1 other user} other {and {otherComments} other users}} commented on your post"
     follow: "<strong>{username}</strong> {otherFollows, plural, =0 {} =1 {and 1 other user} other {and {otherFollows} other users}} followed you"
-    moderationRequest: "there {total, plural, =1 {is 1 new moderation request} other {are {total} new moderation requests}}"
+    moderationRequest: "there {count, plural, =1 {is 1 new moderation request} other {are {total} new moderation requests}}"
     moderationResolved: "your moderation flag has been resolved"
     moderationWarning: "you have violated our moderation policies. please read this warning."
     privateGrant: "<strong>{username}</strong> {otherGrants, plural, =0 {} =1 {and 1 other user} other {and {otherGrants} other users}} granted you access to <strong>{username}</strong>'s private posts"
@@ -177,6 +177,9 @@ matureContent:
   ratings: "mature content is divided into several levels. you can set your prefered level with the slider below, then choose how long to enable it."
   session: "to temporarily enable mature content, click the first button. next time you start <em>trans time</em>, matur content will be disabled."
   storage: "to permanently enable mature content on this device, click the second button."
+possessive:
+  name: "{name}'s"
+  your: "your"
 post:
   cancel: "are you sure? all changes will be lost."
   delete: "delete"
@@ -254,6 +257,7 @@ tagSummary:
 timelineItem:
   matureContent: "mature content"
   private: "private"
+  timelineItem: "timeline item"
   underModeration: "under moderation"
 title: "trans time"
 users:

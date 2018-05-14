@@ -20,7 +20,7 @@ export default Component.extend({
 
   notificationType: computed({
     get() {
-      return `top-bar/notifications/type/${this.get('notification.constructor.modelName')}`;
+      return `top-bar/notifications/type/${this.get('notification.notifiable.content.constructor.modelName')}`;
     }
   })
 });
