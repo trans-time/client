@@ -37,5 +37,16 @@ export default Component.extend(NotificationComponentMixin, {
         case 'comment': return this.get('intl').t('comments.comment');
       }
     }
+  }),
+
+  respondingToText: computed({
+    get() {
+      const modelName = this.get('_commentingOn.constructor.modelName');
+
+      switch (modelName) {
+        case 'timeline-item': return this.get('_commentingOn.post.text');
+        case 'comment': return this.get('_commentingOn.text');
+      }
+    }
   })
 });
