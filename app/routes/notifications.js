@@ -10,7 +10,7 @@ export default Route.extend(InfinityRoute, {
   topBarManager: service(),
 
   model() {
-    return this.infinityModel('notification', { perPage: 12, startingPage: 1, filter: { under_moderation: false }, include: 'user,notification_comment_at,notification_comment_at.comment,notification_comment_at.comment.user,notification_comment_at.comment.timeline_item,notification_comment_at.comment.timeline_item.user,notification_comment_at.comment.parent,notification_comment_at.comment.parent.user,notification_comment_at.comment.timeline_item.post' });
+    return this.infinityModel('notification', { sort: '-inserted_at', perPage: 12, startingPage: 1, filter: { under_moderation: false }, include: 'user,notification_comment_at,notification_comment_at.comment,notification_comment_at.comment.user,notification_timeline_item_at,notification_timeline_item_at.timeline_item,notification_timeline_item_at.timeline_item.user' });
   },
 
   beforeModel(...args) {

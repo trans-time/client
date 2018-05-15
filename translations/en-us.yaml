@@ -156,7 +156,7 @@ notifications:
   notifications: "notifications"
   seeAllNotifications: "see all notifications"
   type:
-    commentAt: "<strong>{commentor}</strong> tagged you in a comment replying to <strong>{respondingToUser}</strong> {respondingToType}: '{respondingToText}'"
+    commentAt: "<strong>{username}</strong> tagged you in a comment"
     timelineItemAt: "<strong>{username}</strong> tagged you in a timeline post"
     comment: "<strong>{username}</strong> {otherComments, plural, =0 {} =1 {and 1 other user} other {and {otherComments} other users}} commented on your post"
     follow: "<strong>{username}</strong> {otherFollows, plural, =0 {} =1 {and 1 other user} other {and {otherFollows} other users}} followed you"
