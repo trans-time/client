@@ -157,8 +157,8 @@ notifications:
   seeAllNotifications: "see all notifications"
   type:
     commentAt: "<strong>{username}</strong> tagged you in a comment"
-    timelineItemAt: "<strong>{username}</strong> tagged you in a timeline post"
-    comment: "<strong>{username}</strong> {otherComments, plural, =0 {} =1 {and 1 other user} other {and {otherComments} other users}} commented on your post"
+    timelineItemAt: "<strong>{username}</strong> tagged you in a post"
+    comment: "{ownTimelineItem, select, true {your} false {{ownerName}'s}} post has received {commentCount} {commentCount, plural, =1 {comment} other {comments}}"
     follow: "<strong>{username}</strong> {otherFollows, plural, =0 {} =1 {and 1 other user} other {and {otherFollows} other users}} followed you"
     moderationRequest: "there {count, plural, =1 {is 1 new moderation request} other {are {total} new moderation requests}}"
     moderationResolved: "your moderation flag has been resolved"

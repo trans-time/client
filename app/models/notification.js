@@ -4,6 +4,7 @@ import { computed } from '@ember/object';
 export default DS.Model.extend({
   user: DS.belongsTo('user'),
   notificationCommentAt: DS.belongsTo('notification-comment-at'),
+  notificationComment: DS.belongsTo('notification-comment'),
   notificationTimelineItemAt: DS.belongsTo('notification-timeline-item-at'),
 
   insertedAt: DS.attr('date'),
@@ -13,7 +14,8 @@ export default DS.Model.extend({
   notifiable: computed({
     get() {
       return this.get('notificationCommentAt.content')
-        || this.get('notificationTimelineItemAt.content');
+        || this.get('notificationComment.content')
+        || this.get('notificationTimelineItemAt.content')
     }
   })
 });
