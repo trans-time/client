@@ -8,8 +8,8 @@ import Component from '@ember/component';
 import { task, timeout } from 'ember-concurrency';
 
 export default Component.extend({
-  height: 1350,
-  width: 1080,
+  height: 1800,
+  width: 1440,
 
   classNames: ['post-form-image-editor'],
 

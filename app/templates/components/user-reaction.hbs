@@ -1,5 +1,5 @@
 {{#link-to "users.user.profile" user.username class="reaction-item-link"}}
-  <img src={{user.avatarBigThumb}} class="reaction-item-avatar">
+  <img srcset={{user.avatarBigThumb}} sizes="80px" class="reaction-item-avatar">
   <div class="reaction-item-text">
     <div class="reaction-item-username">{{#if user.displayName}}{{{inject-emoji user.displayName}}} {{/if}}<span class="at-username">@{{user.username}}</span></div>
     <div class="reaction-item-description">{{rich-text text=user.userProfile.description}}</div>

@@ -8,8 +8,8 @@ import Component from '@ember/component';
 import { task, timeout } from 'ember-concurrency';
 
 export default Component.extend({
-  height: 1080,
-  width: 1080,
+  height: 1440,
+  width: 1440,
   classNames: ['user-profile-avatar-editor'],
 
   modalManager: service(),
@@ -59,13 +59,13 @@ export default Component.extend({
         if (img.naturalHeight / img.naturalWidth < height / width) {
           const sectionWidth = (img.naturalHeight / height) * width;
           const percentX = get(panel, 'positioning.x') / 100;
-          const startX = (percentX * img.naturalWidth) - (percentX * width);
+          const startX = (img.naturalWidth - sectionWidth) * percentX;
 
           canvas.getContext('2d').drawImage(img, startX, 0, sectionWidth, img.naturalHeight, 0, 0, width, height);
         } else {
           const sectionHeight = (img.naturalWidth / width) * height;
           const percentY = get(panel, 'positioning.y') / 100;
-          const startY = (percentY * img.naturalHeight) - (percentY * height);
+          const startY = (img.naturalHeight - sectionHeight) * percentY;
 
           canvas.getContext('2d').drawImage(img, 0, startY, img.naturalWidth, sectionHeight, 0, 0, width, height);
         }

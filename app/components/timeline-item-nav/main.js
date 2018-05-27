@@ -13,7 +13,7 @@ const PanelDecorator = EmberObject.extend({
   loadPromise: alias('model.loadPromise'),
 
   postNavComponent: oneWay('model.postNavComponent'),
-  src: oneWay('model.src'),
+  srcset: oneWay('model.srcset'),
 
   getNeighbor(direction) {
     return this.get(direction) || this.resetNeighbor(direction);

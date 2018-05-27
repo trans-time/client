@@ -48,37 +48,49 @@
   flex-shrink: 0;
   align-items: center;
   flex-direction: column;
-  width: 40px;
+  width: 45px;
   overflow: hidden;
   margin-right: $rhythm / 2;
   text-decoration: none;
 }
 
 .comment-avatar {
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   margin-bottom: $rhythm / 2;
 }
 
 .comment-pronouns {
-  font-size: 45%;
+  font-size: 60%;
   color: $medium-gray;
   font-weight: bold;
   text-align: center;
   word-break: break-word;
+  max-height: 20px;
+  overflow: hidden;
+}
+
+.comment-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .comment-user-link {
+  display: block;
   color: $text-color;
   font-weight: bold;
   text-decoration: none;
-  margin-right: $rhythm / 2;
+  margin-bottom: $rhythm / 2;
 }
 
 .comment-text {
   font-size: 80%;
   min-height: 33px;
+  background: #eee;
+  border-radius: 5px;
+  padding: $rhythm / 2;
 
   p {
     margin: $rhythm / 2 0 0;
@@ -153,6 +165,11 @@
   .comment-main {
     max-height: 15px;
     overflow: hidden;
+  }
+
+  .comment-text {
+    background: inherit;
+    padding: 0;
   }
 
   .comment-user-link {

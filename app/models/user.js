@@ -35,31 +35,40 @@ export default DS.Model.extend({
 
   avatarThumb: computed('avatar', {
     get() {
-      return this.get('avatar');
+      const src = this.get('avatar');
+      const src40 = src.replace('/full.', '/thumb_40.');
+      const src80 = src.replace('/full.', '/thumb_80.');
+      const src160 = src.replace('/full.', '/thumb_160.');
+
+      return `${src40} 40w, ${src80} 80w, ${src160} 160w`;
     }
   }),
 
   avatarBigThumb: computed('avatar', {
     get() {
-      const avatar = this.get('avatar');
+      const src = this.get('avatar');
+      const src80 = src.replace('/full.', '/thumb_80.');
+      const src160 = src.replace('/full.', '/thumb_160.');
+      const src320 = src.replace('/full.', '/thumb_320.');
 
-      if (avatar) return avatar.replace('thumb', 'big_thumb');
+      return `${src80} 80w, ${src160} 160w, ${src320} 320w`;
     }
   }),
 
   avatarProfile: computed('avatar', {
     get() {
-      const avatar = this.get('avatar');
+      const src = this.get('avatar');
+      const src160 = src.replace('/full.', '/thumb_160.');
+      const src320 = src.replace('/full.', '/thumb_320.');
+      const src640 = src.replace('/full.', '/thumb_640.');
 
-      if (avatar) return avatar.replace('thumb', 'profile');
+      return `${src160} 160w, ${src320} 320w, ${src640} 640w`;
     }
   }),
 
   avatarFull: computed('avatar', {
     get() {
-      const avatar = this.get('avatar');
-
-      if (avatar) return avatar.replace('thumb', 'full');
+      return this.get('avatar');
     }
   })
 });

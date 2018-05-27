@@ -21,6 +21,12 @@ export default Component.extend(AuthenticatedActionMixin, {
   children: alias('comment.children'),
   savedChildren: filter('children', (comment) => !comment.get('isNew')),
 
+  pronouns: computed('comment.user.pronouns', {
+    get() {
+      return this.get('comment.user.pronouns').split('/').join(' / ');
+    }
+  }),
+
   orderedFilteredChildren: sort('filteredChildren', (a, b) => {
     return a.get('date') > b.get('date');
   }),

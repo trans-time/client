@@ -19,7 +19,7 @@
           navDown=(action "navDown")
           navUp=(action "navUp")
         }}
-          {{#if option.avatar}}<img src={{option.avatarThumb}} class="taggable-textarea-option-avatar">{{/if}}
+          {{#if option.avatar}}<img srcset={{option.avatarThumb}} sizes="40px" class="taggable-textarea-option-avatar">{{/if}}
           <span class="taggable-textarea-option-text">{{#if option.displayName}}{{option.displayName}}{{/if}}
           <span class="at-username">@{{option.username}}</span></span>
         {{/taggable-textarea/option}}

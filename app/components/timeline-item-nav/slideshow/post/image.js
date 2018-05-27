@@ -8,7 +8,7 @@ export default Component.extend(SlideshowPanelComponentMixin, {
   tagName: 'img',
   classNames: ['timeline-item-nav-slideshow-image'],
   classNameBindings: ['deleted'],
-  attributeBindings: ['src'],
+  attributeBindings: ['srcset', 'sizes'],
 
   deleted: oneWay('panel.model.deleted'),
 
@@ -18,9 +18,11 @@ export default Component.extend(SlideshowPanelComponentMixin, {
     })).then(() => this.set('panel.isLoaded', true));
   },
 
-  src: computed('panel.src', 'panel.shouldLoad', {
+  srcset: computed('panel.srcset', 'panel.shouldLoad', {
     get() {
-      if (this.get('panel.shouldLoad')) return this.get('panel.src');
+      if (this.get('panel.shouldLoad')) return this.get('panel.srcset');
     }
-  })
+  }),
+
+  sizes: '100vw'
 });

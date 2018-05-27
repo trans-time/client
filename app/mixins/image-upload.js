@@ -43,26 +43,28 @@ export default Mixin.create({
     if (!isNew) return resolve();
 
     try {
+      const canvasHeight = 1800;
+      const canvasWidth = 1440;
       const img = document.createElement('img');
       const canvas = document.createElement('canvas');
-      canvas.height = 1350;
-      canvas.width = 1080;
+      canvas.height = canvasHeight;
+      canvas.width = canvasWidth;
       img.src = src;
 
       yield new Promise((resolve) => {
         img.onload = () => {
-          if (img.naturalHeight / img.naturalWidth < 1350 / 1080) {
-            const width = (img.naturalHeight / 1350) * 1080;
+          if (img.naturalHeight / img.naturalWidth < canvasHeight / canvasWidth) {
+            const width = (img.naturalHeight / canvasHeight) * canvasWidth;
             const percentX = panel.get('positioning.x') / 100;
-            const startX = (percentX * img.naturalWidth) - (percentX * width);
+            const startX = (img.naturalWidth - width) * percentX;
 
-            canvas.getContext('2d').drawImage(img, startX, 0, width, img.naturalHeight, 0, 0, 1080, 1350);
+            canvas.getContext('2d').drawImage(img, startX, 0, width, img.naturalHeight, 0, 0, canvasWidth, canvasHeight);
           } else {
-            const height = (img.naturalWidth / 1080) * 1350;
+            const height = (img.naturalWidth / canvasWidth) * canvasHeight;
             const percentY = panel.get('positioning.y') / 100;
-            const startY = (percentY * img.naturalHeight) - (percentY * height);
+            const startY = (img.naturalHeight - height) * percentY;
 
-            canvas.getContext('2d').drawImage(img, 0, startY, img.naturalWidth, height, 0, 0, 1080, 1350);
+            canvas.getContext('2d').drawImage(img, 0, startY, img.naturalWidth, height, 0, 0, canvasWidth, canvasHeight);
           }
 
           canvas.toBlob((blob) => {

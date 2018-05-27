@@ -19,19 +19,19 @@
 .profile-header-avatar-container {
   position: relative;
   flex-shrink: 0;
-  max-width: 145px;
-  max-height: 145px;
+  max-width: 160px;
+  max-height: 160px;
   margin-right: $rhythm;
 
   &.profile-header-avatar-container-full-size {
-    width: 145px;
-    height: 145px;
+    width: 160px;
+    height: 160px;
   }
 }
 
 .profile-header-avatar {
-  width: 145px;
-  height: 145px;
+  width: 160px;
+  height: 160px;
   object-fit: cover;
   border-radius: $rhythm;
 }
@@ -40,8 +40,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 145px;
-  height: 145px;
+  width: 160px;
+  height: 160px;
   display: flex;
   flex-direction: column;
   align-items: center;

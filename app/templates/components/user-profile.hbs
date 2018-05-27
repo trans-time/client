@@ -4,7 +4,7 @@
       {{#if isEditing}}
         <img class="profile-header-avatar" src={{changeset.avatar}}>
       {{else if user.avatar}}
-        <img class="profile-header-avatar" src={{user.avatarProfile}}>
+        <img class="profile-header-avatar" srcset={{user.avatarProfile}} sizes="160px">
       {{/if}}
       {{#if isEditing}}
         <a {{action "changeAvatar"}} class="profile-header-avatar-new-overlay">

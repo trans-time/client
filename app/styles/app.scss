@@ -28,6 +28,14 @@ body > .ember-view:not(.liquid-destination), html, body {
 body > .ember-view:not(.liquid-destination) {
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
+  max-width: 1440px;
+}
+
+@media (min-resolution: 2dppx) {
+  body > .ember-view:not(.liquid-destination) {
+    max-width: 780px;
+  }
 }
 
 html, body {
@@ -158,7 +166,7 @@ p {
 }
 
 .follow-item {
-  height: 60px;
+  height: 80px;
   width: 100%;
   overflow: hidden;
   margin: $rhythm 0;

@@ -1,5 +1,5 @@
 {{#link-to "users.user.profile" user.username class="follow-item-link"}}
-  <img src={{user.avatarBigThumb}} class="follow-item-avatar">
+  <img srcset={{user.avatarBigThumb}} sizes="80px" class="follow-item-avatar">
   <div class="follow-item-text">
     <div class="follow-item-username">{{#if user.displayName}}{{{inject-emoji user.displayName}}} {{/if}}<span class="at-username">@{{user.username}}</span>{{#if (and isCurrentUserFollower follow.requestedPrivate)}}<span class="follow-item-secondary-title"> - {{t "followers.requestedPrivate"}}</span>{{/if}}</div>
     {{#if isCurrentUserFollower}}
