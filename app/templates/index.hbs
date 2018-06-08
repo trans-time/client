@@ -10,17 +10,24 @@
   }}
 {{else}}
   <div class="cover-page">
-    <div class="cover-page-lead">{{{t "coverPage.lead"}}}</div>
+    <div class="cover-page-main">
+      <div class="cover-page-lead">{{{t "coverPage.lead"}}}</div>
 
-    <ul class="cover-page-feature-list">
-      <li>{{fa-icon "transgender-alt" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.trans"}}}</span></li>
+      <ul class="cover-page-feature-list">
+        <li>{{fa-icon "transgender-alt" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.trans"}}}</span></li>
 
-      <li>{{fa-icon "hashtag" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.timeline"}}}</span></li>
+        <li>{{fa-icon "hashtag" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.timeline"}}}</span></li>
 
-      <li>{{fa-icon "rss" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.privacy"}}}</span></li>
+        <li>{{fa-icon "key" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.privacy"}}}</span></li>
 
-      <li>{{fa-icon "retweet" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.social"}}}</span></li>
-    </ul>
+        <li>{{fa-icon "retweet" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.social"}}}</span></li>
+      </ul>
+
+      <div class="cover-page-sub-header">{{fa-icon "star-half-o"}} {{{t "coverPage.followUpHeader"}}} {{fa-icon "star-half-o" flip="horizontal"}}</div>
+      <div class="cover-page-follow-up">{{{t "coverPage.followUp1"}}}</div>
+      <div class="cover-page-follow-up">{{{t "coverPage.followUp2"}}}</div>
+      <div class="cover-page-follow-up">{{{t "coverPage.followUp3"}}}</div>
+    </div>
 
     <div class="cover-page-note">{{fa-icon "asterisk"}} {{{t "coverPage.note"}}}</div>
   </div>
