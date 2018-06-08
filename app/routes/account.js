@@ -19,7 +19,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
   model() {
     return {
       emailChange: this.store.createRecord('email-change'),
-      passwordChange: this.store.createRecord('password-change')
+      passwordChange: this.store.createRecord('user-password')
     }
   },
 
@@ -39,8 +39,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
     changePassword(changeset, resolve, reject) {
       changeset.save().then(() => {
-        this.store.unloadAll('password-change');
-        this.set('controller.model.passwordChange', this.store.createRecord('password-change'));
+        this.store.unloadAll('user-password');
+        this.set('controller.model.passwordChange', this.store.createRecord('user-password'));
         this.get('paperToaster').show(this.get('intl').t('account.passwordChangeSuccess'), {
           duration: 4000
         });
@@ -52,7 +52,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
     willTransition(...args) {
       this.store.unloadAll('email-change');
-      this.store.unloadAll('password-change');
+      this.store.unloadAll('user-password');
     }
   }
 });

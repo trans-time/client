@@ -37,18 +37,12 @@ export default Component.extend({
   actions: {
     submit() {
       this.setProperties({
-        isSubmitting: true,
-        succeded: false,
-        failed: false
+        isSubmitting: true
       });
 
       const promise = new Promise((resolve, reject) => this.attrs.submit(this.get('changeset'), resolve, reject));
 
-      promise.then(() => {
-        this.set('succeded', true);
-      }).catch((message) => {
-        this.set('failed', message);
-      }).finally(() => this.set('isSubmitting', false));
+      promise.finally(() => this.set('isSubmitting', false));
     }
   }
 });

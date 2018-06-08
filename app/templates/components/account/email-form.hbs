@@ -35,9 +35,3 @@
     }}
   </div>
 {{/paper-form}}
-
-{{#liquid-if succeded}}
-  <div class="form-message form-message-success">{{t "account.emailChangeSuccess"}}</div>
-{{else if failed}}
-  <div class="form-message form-message-failure">{{failed}}</div>
-{{/liquid-if}}
