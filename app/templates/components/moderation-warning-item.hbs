@@ -5,7 +5,7 @@
     {{violation-aggregator report=moderationReport}}
 
     {{#if moderationReport.flaggable.constructor.modelName}}
-      {{#if (eq moderationReport.flaggable.constructor.modelName "post")}}
+      {{#if (eq moderationReport.flaggable.constructor.modelName "timeline-item")}}
         {{#link-to "posts.post" moderationReport.flaggable.id classNames="flag-item-flaggable-link"}}
           {{t "moderation.linkToPost"}}
         {{/link-to}}

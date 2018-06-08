@@ -3,6 +3,6 @@ import NotificationComponentMixin from 'client/mixins/notification-component';
 
 export default Component.extend(NotificationComponentMixin, {
   transitionToNotification() {
-    this.get('router').transitionTo('moderation.warnings.warning', this.get('notification.moderationWarning.id'));
+    this.get('router').transitionTo('moderation.warnings.warning', this.get('notification.notifiable.moderationReport.id'));
   }
 });

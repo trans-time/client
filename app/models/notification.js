@@ -9,6 +9,7 @@ export default DS.Model.extend({
   notificationFollow: DS.belongsTo('notification-follow'),
   notificationModerationRequest: DS.belongsTo('notification-moderation-request'),
   notificationModerationResolution: DS.belongsTo('notification-moderation-resolution'),
+  notificationModerationViolation: DS.belongsTo('notification-moderation-violation'),
   notificationPrivateGrant: DS.belongsTo('notification-private-grant'),
   notificationPrivateRequest: DS.belongsTo('notification-private-request'),
   notificationTimelineItemAt: DS.belongsTo('notification-timeline-item-at'),
@@ -27,6 +28,7 @@ export default DS.Model.extend({
         || this.get('notificationFollow.content')
         || this.get('notificationModerationRequest.content')
         || this.get('notificationModerationResolution.content')
+        || this.get('notificationModerationViolation.content')
         || this.get('notificationPrivateGrant.content')
         || this.get('notificationPrivateRequest.content')
         || this.get('notificationTimelineItemAt.content')

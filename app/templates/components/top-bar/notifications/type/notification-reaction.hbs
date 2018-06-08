@@ -1,7 +1,0 @@
-{{#if isPost}}
-  {{{t "notifications.type.reaction.post" username=notification.reactable.user.username otherReactions=otherReactions}}}
-{{else}}
-  {{{t "notifications.type.reaction.comment" username=notification.reactable.user.username otherReactions=otherReactions}}}
-{{/if}}
-
-{{yield}}

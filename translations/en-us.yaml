@@ -167,7 +167,7 @@ notifications:
     follow: "<strong>{username}</strong> followed you"
     moderationRequest: "there {count, plural, =1 {is 1 new moderation request} other {are {total} new moderation requests}}"
     moderationResolution: "a moderator has weighed in on your flag"
-    moderationWarning: "you have violated our moderation policies. please read this warning."
+    moderationViolation: "you have been found in violation of our user aggreement. click here to view the full message."
     privateGrant: "<strong>{username}</strong> granted you private post access"
     privateRequest: "a user has requested access to your private posts"
     reaction:
