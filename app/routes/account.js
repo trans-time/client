@@ -4,6 +4,7 @@ import { inject as service } from '@ember/service';
 
 export default Route.extend(AuthenticatedRouteMixin, {
   intl: service(),
+  paperToaster: service(),
   topBarManager: service(),
 
   beforeModel(...args) {
@@ -27,6 +28,9 @@ export default Route.extend(AuthenticatedRouteMixin, {
       changeset.save().then(() => {
         this.store.unloadAll('email-change');
         this.set('controller.model.emailChange', this.store.createRecord('email-change'));
+        this.get('paperToaster').show(this.get('intl').t('account.emailChangeSuccess'), {
+          duration: 4000
+        });
         resolve();
       }).catch((...args) => {
         reject(...args);
@@ -37,6 +41,9 @@ export default Route.extend(AuthenticatedRouteMixin, {
       changeset.save().then(() => {
         this.store.unloadAll('password-change');
         this.set('controller.model.passwordChange', this.store.createRecord('password-change'));
+        this.get('paperToaster').show(this.get('intl').t('account.passwordChangeSuccess'), {
+          duration: 4000
+        });
         resolve();
       }).catch((...args) => {
         reject(...args);
