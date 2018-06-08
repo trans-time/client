@@ -1,8 +1,7 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import ModeratorsOnlyRoute from 'client/mixins/moderators-only-route';
 
-export default Route.extend(ModeratorsOnlyRoute, {
+export default Route.extend({
   intl: service(),
   topBarManager: service(),
 
