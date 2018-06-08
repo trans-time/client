@@ -32,7 +32,7 @@ export default Component.extend({
 
       follow.setProperties({
         canViewPrivate: true,
-        requestedPrivate: false
+        hasRequestedPrivate: false
       });
 
       follow.save().finally(() => {

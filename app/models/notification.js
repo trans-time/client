@@ -16,8 +16,8 @@ export default DS.Model.extend({
   notificationTimelineItemReaction: DS.belongsTo('notification-timeline-item-reaction'),
 
   insertedAt: DS.attr('date'),
-  read: DS.attr('boolean'),
-  seen: DS.attr('boolean'),
+  isRead: DS.attr('boolean'),
+  isSeen: DS.attr('boolean'),
 
   notifiable: computed({
     get() {

@@ -14,7 +14,7 @@ export default Route.extend({
 
   actions: {
     deleteTimelineable(timelineable, resolve, reject) {
-      timelineable.set('timeline_item.deleted', true);
+      timelineable.set('timeline_item.isMarkedForDeletion', true);
       timelineable.deleteRecord();
 
       timelineable.save().then(() => {

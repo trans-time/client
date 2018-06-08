@@ -12,9 +12,9 @@ export default DS.Model.extend(Flaggable, Reactable, {
 
   commentCount: DS.attr('number'),
   insertedAt: DS.attr('date'),
-  deleted: DS.attr('boolean'),
+  isMarkedForDeletion: DS.attr('boolean'),
   text: DS.attr('string'),
-  underModeration: DS.attr('boolean'),
+  isUnderModeration: DS.attr('boolean'),
 
   commentable: computed('timelineItem', {
     get() {
@@ -27,9 +27,9 @@ export default DS.Model.extend(Flaggable, Reactable, {
     }
   }),
 
-  shouldDisplay: computed('deleted', {
+  shouldDisplay: computed('isMarkedForDeletion', {
     get() {
-      return !this.get('deleted');
+      return !this.get('isMarkedForDeletion');
     }
   })
 });

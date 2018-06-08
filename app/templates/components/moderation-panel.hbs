@@ -33,8 +33,8 @@
     {{#paper-form as |form|}}
       <div class="moderation-panel-checkboxes">
         {{#paper-checkbox
-          value=changeset.actionDeletedFlaggable
-          onChange=(action (mut changeset.actionDeletedFlaggable))
+          value=changeset.actionMarkFlaggableForDeletion
+          onChange=(action (mut changeset.actionMarkFlaggableForDeletion))
         }}
           {{t "moderation.deleteFlaggable"}}
         {{/paper-checkbox}}
@@ -43,14 +43,14 @@
           value=changeset.actionIgnoreFlags
           onChange=(action (mut changeset.actionIgnoreFlags))
         }}
-          {{t "moderation.ignoreFlags"}}
+          {{t "moderation.isIgnoringFlags"}}
         {{/paper-checkbox}}
       </div>
 
       <div class="moderation-panel-checkboxes">
         {{#paper-checkbox
-          value=changeset.actionDeleteMedia
-          onChange=(action (mut changeset.actionDeleteMedia))
+          value=changeset.actionMarkImagesForDeletion
+          onChange=(action (mut changeset.actionMarkImagesForDeletion))
         }}
           {{t "moderation.deleteMedia"}}
         {{/paper-checkbox}}
@@ -79,10 +79,10 @@
         </div>
       {{/if}}
 
-      {{#if changeset.actionDeleteMedia}}
+      {{#if changeset.actionMarkImagesForDeletion}}
         <div class="moderation-panel-delete-media">
           {{#each report.timelineItem.timelineable.panels as |panel|}}
-            <div>{{panel.order}}: {{panel.id}}{{#if panel.deleted}} (deleted){{/if}};</div>
+            <div>{{panel.order}}: {{panel.id}}{{#if panel.isMarkedForDeletion}} (deleted){{/if}};</div>
           {{/each}}
 
           {{paper-input

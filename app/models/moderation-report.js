@@ -9,7 +9,7 @@ export default DS.Model.extend({
   verdicts: DS.hasMany('verdict'),
 
   insertedAt: DS.attr('date'),
-  resolved: DS.attr('boolean'),
+  isResolved: DS.attr('boolean'),
   wasViolation: DS.attr('boolean'),
 
   flaggable: computed('comment.content', 'timelineItem.content', {

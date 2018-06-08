@@ -10,7 +10,7 @@ export default Component.extend(SlideshowPanelComponentMixin, {
   classNameBindings: ['deleted'],
   attributeBindings: ['srcset', 'sizes'],
 
-  deleted: oneWay('panel.model.deleted'),
+  deleted: oneWay('panel.model.isMarkedForDeletion'),
 
   loadPanel() {
     this.set('panel.loadPromise', new EmberPromise((resolve) => {

@@ -53,7 +53,7 @@ export default Component.extend({
     get() {
       const thisReport = this.get('report');
 
-      return this.get('report.indicted.indictions').filter((report) => (report !== thisReport || report.get('verdicts.length') > 0) && (report.get('wasViolation') || !report.get('resolved')));
+      return this.get('report.indicted.indictions').filter((report) => (report !== thisReport || report.get('verdicts.length') > 0) && (report.get('wasViolation') || !report.get('isResolved')));
     }
   }),
 
@@ -126,14 +126,14 @@ export default Component.extend({
 
     markAsNotViolation() {
       this._submit({
-        resolved: true,
+        isResolved: true,
         wasViolation: false
       });
     },
 
     markAsViolation() {
       this._submit({
-        resolved: true,
+        isResolved: true,
         wasViolation: true
       });
     }

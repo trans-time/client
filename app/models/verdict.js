@@ -10,11 +10,11 @@ export default DS.Model.extend({
   wasViolation: DS.attr('boolean'),
 
   actionBannedUser: DS.attr('boolean'),
-  actionDeletedFlaggable: DS.attr('boolean'),
+  actionMarkFlaggableForDeletion: DS.attr('boolean'),
   actionIgnoreFlags: DS.attr('boolean'),
   actionLockComments: DS.attr('boolean'),
   actionChangeMaturityRating: DS.attr('number'),
-  actionDeleteMedia: DS.attr('boolean'),
+  actionMarkImagesForDeletion: DS.attr('boolean'),
   deleteImageIds: DS.attr(),
   banUserUntil: DS.attr('date'),
   lockCommentsUntil: DS.attr('date'),

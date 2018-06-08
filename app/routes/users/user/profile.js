@@ -36,11 +36,11 @@ export default Route.extend({
     },
 
     requestPrivate(follow, resolve) {
-      if (follow.get('requestedPrivate')) return resolve();
+      if (follow.get('hasRequestedPrivate')) return resolve();
 
-      follow.set('requestedPrivate', true);
+      follow.set('hasRequestedPrivate', true);
 
-      follow.save().catch(() => follow.set('requestedPrivate', false)).finally(resolve);
+      follow.save().catch(() => follow.set('hasRequestedPrivate', false)).finally(resolve);
     },
 
     unblock(block, resolve) {

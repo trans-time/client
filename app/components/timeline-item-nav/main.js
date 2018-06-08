@@ -66,7 +66,7 @@ const TimelineItemDecorator = EmberObject.extend({
 
       if (isEmpty(panels)) panels = [this.get('_blankPanel')];
 
-      return panels.toArray().filter((panel) => isModerating || !panel.get('deleted')).sort((a, b) => a.get('order') - b.get('order')).map((model, index) => {
+      return panels.toArray().filter((panel) => isModerating || !panel.get('isMarkedForDeletion')).sort((a, b) => a.get('order') - b.get('order')).map((model, index) => {
         return PanelDecorator.create({
           model,
           index,

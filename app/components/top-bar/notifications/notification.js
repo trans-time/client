@@ -11,8 +11,8 @@ export default Component.extend({
   didInsertElement(...args) {
     this._super(...args);
 
-    if (!this.get('notification.seen') && this.get('currentUser.user.currentUser')) {
-      this.set('notification.seen', true);
+    if (!this.get('notification.isSeen') && this.get('currentUser.user.currentUser')) {
+      this.set('notification.isSeen', true);
 
       this.decrementProperty('currentUser.user.currentUser.unreadNotificationCount');
     }

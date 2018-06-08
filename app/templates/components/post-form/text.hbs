@@ -1,6 +1,6 @@
 <div class="post-form-checkboxes">
-  {{#paper-checkbox value=changeset.private onChange=(action (mut changeset.private))}}
-    {{t "post.attributes.private.label"}}
+  {{#paper-checkbox value=changeset.isPrivate onChange=(action (mut changeset.isPrivate))}}
+    {{t "post.attributes.isPrivate.label"}}
   {{/paper-checkbox}}
 
   {{#paper-checkbox value=maturityRatingOpen onChange=(action (mut maturityRatingOpen))}}

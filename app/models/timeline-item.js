@@ -13,10 +13,10 @@ export default DS.Model.extend(Flaggable, Reactable, {
   commentCount: DS.attr('number'),
   commentsAreLocked: DS.attr('boolean'),
   date: DS.attr('date'),
-  deleted: DS.attr('boolean'),
+  isMarkedForDeletion: DS.attr('boolean'),
   maturityRating: DS.attr('number', { defaultValue: 0 }),
-  private: DS.attr('boolean'),
-  underModeration: DS.attr('boolean'),
+  isPrivate: DS.attr('boolean'),
+  isUnderModeration: DS.attr('boolean'),
 
   timelineable: computed('post', {
     get() {

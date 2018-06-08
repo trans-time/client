@@ -31,9 +31,9 @@ export default Component.extend(AuthenticatedActionMixin, {
     return a.get('date') > b.get('date');
   }),
 
-  showAsDeleted: computed('comment.deleted', {
+  showAsDeleted: computed('comment.isMarkedForDeletion', {
     get() {
-      return !this.get('isModerating') && !this.get('isRouteComment') && this.get('comment.deleted');
+      return !this.get('isModerating') && !this.get('isRouteComment') && this.get('comment.isMarkedForDeletion');
     }
   }),
 

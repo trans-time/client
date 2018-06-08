@@ -42,10 +42,10 @@ export default Route.extend(TimelineItemNavRouteMixin, {
       sort: '-date',
       filter: {
         blocked: false,
-        deleted: false,
+        is_marked_for_deletion: false,
         follower_id: user.get('id'),
-        private: false,
-        under_moderation: false
+        is_private: false,
+        is_under_moderation: false
       },
       from_timeline_item_id: params.timelineItemId,
       page_size: 10,

@@ -1,4 +1,4 @@
-{{#if report.resolved}}
+{{#if report.isResolved}}
   {{#if report.wasViolation}}
     {{t "moderation.violation"}}
   {{else}}
@@ -7,7 +7,7 @@
   {{#if report.verdicts.lastObject.actionIgnoreFlags}}
     <div>{{t "moderation.ignoredFlags"}}</div>
   {{/if}}
-  {{#if report.verdicts.lastObject.actionDeletedFlaggable}}
+  {{#if report.verdicts.lastObject.actionMarkFlaggableForDeletion}}
     <div>{{t "moderation.deletedContent"}}</div>
   {{/if}}
   {{#if report.verdicts.lastObject.actionLockComments}}

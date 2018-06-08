@@ -47,8 +47,8 @@ export default Component.extend({
     filter[`${underscore(commentable.constructor.modelName)}_id`] = commentable.id;
 
     if (!isModerating) {
-      filter.deleted = false;
-      filter.under_moderation = false;
+      filter.is_marked_for_deletion = false;
+      filter.is_under_moderation = false;
     }
 
     this.get('store').query('comment', { sort: 'inserted_at', filter, include }).then((comments) => {
@@ -92,7 +92,7 @@ export default Component.extend({
     removeComment(comment) {
       const commentParent = comment.get('parent.content');
       const commentChildrenCount = comment.get('commentCount') + 1;
-      comment.set('deleted', true);
+      comment.set('isMarkedForDeletion', true);
       comment.deleteRecord();
 
       comment.save().then(() => {

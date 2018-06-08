@@ -11,13 +11,13 @@
         {{#if timelineItem.maturityRating}}
           | {{t "timelineItem.matureContent"}}
         {{/if}}
-        {{#if timelineItem.private}}
-          | {{t "timelineItem.private"}}
+        {{#if timelineItem.isPrivate}}
+          | {{t "timelineItem.isPrivate"}}
         {{/if}}
-        {{#if timelineItem.underModeration}}
-          | {{t "timelineItem.underModeration"}}
+        {{#if timelineItem.isUnderModeration}}
+          | {{t "timelineItem.isUnderModeration"}}
         {{/if}}
-        {{#if (and (and (not timelineItem.ignoreFlags) (not isModerating)) (not-eq timelineItem.user.id user.id))}}
+        {{#if (and (and (not timelineItem.isIgnoringFlags) (not isModerating)) (not-eq timelineItem.user.id user.id))}}
           | <a {{action "report"}} disabled={{controlsDisabled}} tabindex="0" class="link">{{t "post.report"}}</a>
         {{/if}}
         {{#if showHistoryToggle}}

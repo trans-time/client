@@ -11,7 +11,7 @@ export default DS.Model.extend(Timelineable, {
   text: DS.attr('string'),
 
   date: alias('timelineItem.date'),
-  private: alias('timelineItem.private'),
+  isPrivate: alias('timelineItem.isPrivate'),
   maturityRating: alias('timelineItem.maturityRating'),
 
   panels: computed('images.[]', {

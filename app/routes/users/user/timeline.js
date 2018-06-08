@@ -34,10 +34,10 @@ export default Route.extend(TimelineItemNavRouteMixin, {
       sort: '-date',
       filter: {
         blocked: false,
-        deleted: false,
-        private: false,
+        is_marked_for_deletion: false,
+        is_private: false,
         tag_names: params.tags,
-        under_moderation: false,
+        is_under_moderation: false,
         user_id: user.id,
         user_usernames: [user.get('username'), ...params.relationships]
       },

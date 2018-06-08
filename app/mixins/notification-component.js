@@ -11,7 +11,7 @@ export default Mixin.create({
 
   router: service(),
 
-  notificationLinkUnread: not('notification.read'),
+  notificationLinkUnread: not('notification.isRead'),
 
   click(...args) {
     this._super(...args);
@@ -32,8 +32,8 @@ export default Mixin.create({
 
     const notification = this.get('notification');
 
-    if (!notification.get('read')) {
-      notification.set('read', true);
+    if (!notification.get('isRead')) {
+      notification.set('isRead', true);
 
       notification.save();
     }

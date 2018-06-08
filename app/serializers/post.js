@@ -5,7 +5,7 @@ export default DS.JSONAPISerializer.extend({
     let json = this._super(...arguments);
 
     json.data.attributes.date = snapshot.record.get('date');
-    json.data.attributes.private = snapshot.record.get('private');
+    json.data.attributes.is_private = snapshot.record.get('isPrivate');
     json.data.attributes.maturity_rating = snapshot.record.get('maturityRating');
 
     return json;

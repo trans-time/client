@@ -5,7 +5,7 @@ export default Mixin.create({
   textVersions: DS.hasMany('text-version'),
   moderationReports: DS.hasMany('moderation-report'),
 
-  deletedByModerator: DS.attr('boolean'),
-  ignoreFlags: DS.attr('boolean'),
-  underModeration: DS.attr('boolean')
+  isMarkedForDeletionByModerator: DS.attr('boolean'),
+  isIgnoringFlags: DS.attr('boolean'),
+  isUnderModeration: DS.attr('boolean')
 });

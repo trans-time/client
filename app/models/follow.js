@@ -5,5 +5,5 @@ export default DS.Model.extend({
   follower: DS.belongsTo('user', { inverse: 'followeds' }),
 
   canViewPrivate: DS.attr('boolean'),
-  requestedPrivate: DS.attr('boolean')
+  hasRequestedPrivate: DS.attr('boolean')
 });

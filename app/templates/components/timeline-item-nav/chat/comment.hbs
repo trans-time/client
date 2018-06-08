@@ -7,7 +7,7 @@
     addComment=(action "stopEditing")
   }}
 {{else}}
-  <div class="comment-content {{if isRouteComment 'is-route-comment'}} {{if comment.deleted 'comment-muted'}}">
+  <div class="comment-content {{if isRouteComment 'is-route-comment'}} {{if comment.isMarkedForDeletion 'comment-muted'}}">
     <div class="comment-profile">
       {{#if comment.user.avatar}}
         {{#link-to "users.user.profile.index" comment.user.username disabled=isCollapsedChild}}
@@ -45,11 +45,11 @@
         {{#if (eq currentUser.user.id comment.user.id)}}
           | <a {{action "startEditing"}} disabled={{deleteDisabled}}>{{t "comments.edit"}}</a>
           | <a {{action "delete" comment}} disabled={{deleteDisabled}}>{{t "comments.delete"}}</a>
-        {{else if (and (and (not comment.ignoreFlags) (not isModerating)) (not-eq comment.user.id currentUser.user.id))}}
+        {{else if (and (and (not comment.isIgnoringFlags) (not isModerating)) (not-eq comment.user.id currentUser.user.id))}}
           | <a {{action "report"}}>{{t "comments.report"}}</a>
         {{/if}}
-        {{#if comment.underModeration}}
-          | {{t "timelineItem.underModeration"}}
+        {{#if comment.isUnderModeration}}
+          | {{t "timelineItem.isUnderModeration"}}
         {{/if}}
         {{#if showHistoryToggle}}
           {{#if historyIsRevealed}}

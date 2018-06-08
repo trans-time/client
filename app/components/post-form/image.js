@@ -15,7 +15,7 @@ export default Component.extend({
 
   store: service(),
 
-  images: filter('post.images', (image) => !image.get('deleted')),
+  images: filter('post.images', (image) => !image.get('isMarkedForDeletion')),
 
   _addImage: task(function * (src) {
     const post = this.get('post');

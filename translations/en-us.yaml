@@ -98,7 +98,7 @@ flags:
       label: "additional comments"
 followers:
   grant: "grant private access"
-  requestedPrivate: "requested private access"
+  hasRequestedPrivate: "requested private access"
   revoke: "revoke private access"
 general:
   cancel: "cancel"
@@ -132,7 +132,7 @@ moderation:
   deleteMedia: "delete media"
   expandComments: "show flags"
   flags: "flags"
-  ignoreFlags: "ignore flags"
+  isIgnoringFlags: "ignore flags"
   ignoredFlags: "ignoring future flags"
   lockComments: "lock comments"
   lockedComments: "locked comments: {until}"
@@ -200,7 +200,7 @@ post:
   new: "new post"
   none: "sorry, there are no posts to load"
   matureContent: "mature content"
-  private: "private"
+  isPrivate: "private"
   report: "report"
   viewPost: "view post"
   attributes:
@@ -215,7 +215,7 @@ post:
         2: "wearing only underwear"
         3: "bare butts/exposed nipples"
         4: "genitals/buttholes/sex toys"
-    private:
+    isPrivate:
       label: "private"
     text:
       placeholder: "what's up?"
@@ -264,9 +264,9 @@ tagSummary:
   relationships: "@relationships"
 timelineItem:
   matureContent: "mature content"
-  private: "private"
+  isPrivate: "private"
   timelineItem: "timeline item"
-  underModeration: "under moderation"
+  isUnderModeration: "under moderation"
 title: "trans time"
 users:
   attributes:
