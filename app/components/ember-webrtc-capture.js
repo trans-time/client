@@ -24,7 +24,9 @@ export default Component.extend({
   willDestroyElement(...args) {
     this._super(...args);
 
-    this.get('_stream').getTracks()[0].stop();
+    const stream = this.get('stream');
+
+    if (stream) stream.getTracks()[0].stop();
   },
 
   click() {
