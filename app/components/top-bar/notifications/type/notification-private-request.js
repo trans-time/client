@@ -8,11 +8,5 @@ export default Component.extend(NotificationComponentMixin, {
 
   transitionToNotification() {
     this.get('router').transitionTo('users.user.profile.followers', this.get('currentUser.user.username'));
-  },
-
-  otherRequests: computed({
-    get() {
-      return this.get('notification.totalRequests') - 1;
-    }
-  })
+  }
 });

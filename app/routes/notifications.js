@@ -10,7 +10,7 @@ export default Route.extend(InfinityRoute, {
   topBarManager: service(),
 
   model() {
-    return this.infinityModel('notification', { sort: '-inserted_at', perPage: 12, startingPage: 1 });
+    return this.infinityModel('notification', { sort: '-updated_at', perPage: 12, startingPage: 1 });
   },
 
   beforeModel(...args) {

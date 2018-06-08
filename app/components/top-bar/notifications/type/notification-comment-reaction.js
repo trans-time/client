@@ -7,27 +7,21 @@ export default Component.extend(NotificationComponentMixin, {
   currentUser: service(),
 
   transitionToNotification() {
-    this.get('router').transitionTo('comments.comment', this.get('notification.notifiable.timelineItem.comments.firstObject.id'));
+    this.get('router').transitionTo('comments.comment', this.get('notification.notifiable.comment.id'));
   },
 
-  commentaterUsernames: computed({
+  reactorUsernames: computed({
     get() {
-      const usernames = this.get('notification.notifiable.timelineItem.comments').mapBy('user.username').slice(0, 2).map((username) => `<strong>${username}</strong>`);
-      const commenterCount = this.get('notifications.notifiable.commenterCount') - usernames.length;
+      const usernames = this.get('notification.notifiable.comment.reactions').map((reaction) => {
+        return reaction.get('user.displayName') || reaction.get('user.username');
+      }).slice(0, 2).map((username) => `<strong>${username}</strong>`);
+      const reactorCount = this.get('notification.notifiable.comment.reactionCount') - usernames.length;
 
-      return this._listWithAnd(usernames);
-
-      switch (commenterCount) {
+      switch (reactorCount) {
         case 0: return this._listWithAnd(usernames);
         case 1: return this._listWithAnd(usernames.concat(['1 other']));
-        default: return this._listWithAnd(usernames.concat([`${commenterCount} others`]));
+        default: return this._listWithAnd(usernames.concat([`${reactorCount} others`]));
       }
-    }
-  }),
-
-  ownTimelineItem: computed({
-    get() {
-      return this.get('notification.notifiable.timelineItem.user.id') === this.get('currentUser.user.id');
     }
   }),
 

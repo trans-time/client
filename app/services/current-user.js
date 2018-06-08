@@ -14,7 +14,7 @@ export default Service.extend({
     if (!isEmpty(username)) {
       const store = this.get('store');
 
-      return store.query('user', { filter: { username }, include: 'followeds,blockeds,blockers,current_user' }).then((users) => {
+      return store.query('user', { filter: { username }, include: 'followeds,followeds.followed,blockeds,blockers,current_user' }).then((users) => {
         const user = users.get('firstObject');
 
         this.set('user', user);

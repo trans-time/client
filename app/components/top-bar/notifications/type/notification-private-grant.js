@@ -4,12 +4,6 @@ import NotificationComponentMixin from 'client/mixins/notification-component';
 
 export default Component.extend(NotificationComponentMixin, {
   transitionToNotification() {
-    this.get('router').transitionTo('users.user.profile', this.get('notification.followed.username'));
-  },
-
-  otherGrants: computed({
-    get() {
-      return this.get('notification.totalGrants') - 1;
-    }
-  })
+    this.get('router').transitionTo('users.user.profile', this.get('notification.notifiable.follow.followed.username'));
+  }
 });

@@ -11,13 +11,14 @@ export default Mixin.create({
   moonCount: DS.attr('number'),
   starCount: DS.attr('number'),
   sunCount: DS.attr('number'),
+  reactionCount: DS.attr('number'),
 
   currentUserReaction: computed('currentUser.user.id', 'reactions.[]', '_cachedCurrentUserReaction', {
     get() {
       const currentUserId = this.get('currentUser.user.id');
 
       return this.get('_cachedCurrentUserReaction') ||
-        this.get('reactions').find((reaction) => reaction.belongsTo('user').value().id === currentUserId);
+        this.get('reactions').find((reaction) => reaction.belongsTo('user').internalModel.id === currentUserId);
     },
     set(key, value) {
       return this.set('_cachedCurrentUserReaction', value);

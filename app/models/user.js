@@ -1,6 +1,7 @@
 import { A } from '@ember/array';
 import DS from 'ember-data';
 import { computed } from '@ember/object';
+import { isNone } from '@ember/utils';
 
 export default DS.Model.extend({
   userTagSummariesAboutUser: DS.hasMany('user-tag-summary', { inverse: 'subject' }),
@@ -36,6 +37,9 @@ export default DS.Model.extend({
   avatarThumb: computed('avatar', {
     get() {
       const src = this.get('avatar');
+
+      if (isNone(src)) return;
+
       const src40 = src.replace('/full.', '/thumb_40.');
       const src80 = src.replace('/full.', '/thumb_80.');
       const src160 = src.replace('/full.', '/thumb_160.');
@@ -47,6 +51,9 @@ export default DS.Model.extend({
   avatarBigThumb: computed('avatar', {
     get() {
       const src = this.get('avatar');
+
+      if (isNone(src)) return;
+
       const src80 = src.replace('/full.', '/thumb_80.');
       const src160 = src.replace('/full.', '/thumb_160.');
       const src320 = src.replace('/full.', '/thumb_320.');
@@ -58,6 +65,9 @@ export default DS.Model.extend({
   avatarProfile: computed('avatar', {
     get() {
       const src = this.get('avatar');
+
+      if (isNone(src)) return;
+      
       const src160 = src.replace('/full.', '/thumb_160.');
       const src320 = src.replace('/full.', '/thumb_320.');
       const src640 = src.replace('/full.', '/thumb_640.');

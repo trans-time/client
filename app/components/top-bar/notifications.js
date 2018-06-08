@@ -16,7 +16,7 @@ export default Component.extend({
     get() {
       this.set('loading', true);
 
-      const notifications = this.get('store').query('notification', { userId: this.get('currentUser.user.id'), perPage: 7, startingPage: 1 });
+      const notifications = this.get('store').query('notification', { sort: '-updated_at', perPage: 7, startingPage: 1 });
 
       notifications.then(() => {
         this.set('loading', false)

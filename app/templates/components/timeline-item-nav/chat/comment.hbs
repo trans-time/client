@@ -9,7 +9,11 @@
 {{else}}
   <div class="comment-content {{if isRouteComment 'is-route-comment'}} {{if comment.deleted 'comment-muted'}}">
     <div class="comment-profile">
-      {{#link-to "users.user.profile.index" comment.user.username disabled=isCollapsedChild}}<img class="comment-avatar" srcset={{comment.user.avatarThumb}} sizes="40px">{{/link-to}}
+      {{#if comment.user.avatar}}
+        {{#link-to "users.user.profile.index" comment.user.username disabled=isCollapsedChild}}
+          <img class="comment-avatar" srcset={{comment.user.avatarThumb}} sizes="40px">
+        {{/link-to}}
+      {{/if}}
       {{#if comment.user.pronouns}}<div class="comment-pronouns">{{pronouns}}</div>{{/if}}
     </div>
 
