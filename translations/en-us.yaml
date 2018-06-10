@@ -45,15 +45,15 @@ confirmation:
   confirm: "confirm"
 coverPage:
   lead: "<em>trans time</em> is a documentation tool and social network for trans+ people."
-  followUpHeader: "mission"
+  followUpHeader: "purpose"
   followUp1: "when we transition, we're often transitioning in <strong>many ways</strong> at once: our relationships, our affect, our art, our bodies—and countless other less tangible changes too."
   followUp2: "by documenting and sharing our stories, we hope to further develop a <strong>collective understanding</strong> of how transitioning reshapes our lives."
   followUp3: "this self-knowledge is essential in a time when <strong>medical</strong> and <strong>political</strong> communities don't understand us, and yet are trying to define, mobilize, and profit off of us."
   features:
-    trans: "find friends and collaborators in a moderated <strong>trans+</strong> community"
-    timeline: "document your transition with photos and text, and then create dynamic timelines through <strong>#tags</strong> and <strong>@relationships</strong>"
+    content: "document, share, and discuss your transition in a <strong>proactively moderated</strong> community"
+    connections: "find trans+ people with similiar <strong>*identities</strong>, including religion, race, sexuality, and gender"
+    timelines: "view somebody's whole timeline, or filter it by <strong>#tag</strong>, as with: #face, #chest, #family, #fashion, or #art"
     privacy: "control who sees your content with <strong>private/public posts</strong>"
-    social: "share your timelines on other social media platforms like <strong>twitter</strong> and <strong>facebook</strong>"
   note: "<em>trans time</em> will never sell your data. we are <strong>volunteer-run</strong> and committed to creating a safe and non-exploitative space on the web."
 errors:
   validations:
