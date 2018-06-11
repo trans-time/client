@@ -67,6 +67,27 @@ module.exports = function(deployTarget) {
       bucket: 'web-client--prod',
       region: 'us-east-1'
     }
+
+    ENV['s3-index'] = {
+      accessKeyId: process.env['AWS_ACCESS_KEY'],
+      secretAccessKey: process.env['AWS_SECRET_KEY'],
+      bucket: 'web-client--prod',
+      region: 'us-east-1'
+    }
+
+    ENV["revision-data"] = {
+      type: 'file-hash',
+      scm: function(context) {
+        return require('./lib/scm-data-generators')['git'];
+      }
+    }
+
+    ENV['display-revisions'] = {
+      amount: 10,
+      revisions: function(context) {
+        return context.revisions;
+      }
+    }
   }
 
   // Note: if you need to build some configuration asynchronously,ou can return
