@@ -1,10 +1,11 @@
 import DS from 'ember-data';
 import { inject as service } from '@ember/service';
+import config from 'client/config/environment';
 import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
 
 export default DS.JSONAPIAdapter.extend(DataAdapterMixin, {
   authorizer: 'authorizer:basic',
-  namespace: 'api/v1',
+  host: config.host,
 
   paperToaster: service(),
 
