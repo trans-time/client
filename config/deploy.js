@@ -76,17 +76,17 @@ module.exports = function(deployTarget) {
     }
 
     ENV["revision-data"] = {
-      type: 'file-hash',
-      scm: function(context) {
-        return require('./lib/scm-data-generators')['git'];
-      }
+      // type: 'file-hash',
+      // scm: function(context) {
+      //   return require('./lib/scm-data-generators')['git'];
+      // }
     }
 
     ENV['display-revisions'] = {
-      amount: 10,
-      revisions: function(context) {
-        return context.revisions;
-      }
+      // amount: 10,
+      // revisions: function(context) {
+      //   return context.revisions;
+      // }
     }
   }
 
