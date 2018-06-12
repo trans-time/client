@@ -20,7 +20,7 @@ module.exports = function(defaults) {
       fingerprintOptions.prepend = 'TODO';
     break;
     case 'production':
-      fingerprintOptions.prepend = 'https://diut0y53o82tl.cloudfront.net/';
+      fingerprintOptions.prepend = 'https://dgny17olds53v.cloudfront.net/';
     break;
   }
 
