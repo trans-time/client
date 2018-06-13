@@ -64,14 +64,14 @@ module.exports = function(deployTarget) {
     ENV.s3 = {
       accessKeyId: process.env['AWS_ACCESS_KEY'],
       secretAccessKey: process.env['AWS_SECRET_KEY'],
-      bucket: 'www.transtime.is',
+      bucket: 'web-client--prod',
       region: 'us-east-1'
     }
 
     ENV['s3-index'] = {
       accessKeyId: process.env['AWS_ACCESS_KEY'],
       secretAccessKey: process.env['AWS_SECRET_KEY'],
-      bucket: 'www.transtime.is',
+      bucket: 'web-client--prod',
       region: 'us-east-1'
     }
   }
