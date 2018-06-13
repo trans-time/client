@@ -54,7 +54,7 @@ coverPage:
     connections: "find trans+ people with similiar <strong>*identities</strong>, including religion, race, sexuality, and gender"
     timelines: "view somebody's whole timeline, or filter it by <strong>#tag</strong>, as with: #face, #chest, #family, #fashion, or #art"
     privacy: "control who sees your content with <strong>private/public posts</strong>"
-  note: "<em>trans time</em> will never sell your data or advertise to you. we are community-based non-profit, and we still believe in the positive transformative potential of the web."
+  note: "<em>trans time</em> will never sell your data or advertise to you. we are community-based non-profit that aims to foster the positive transformative potential of the web."
 errors:
   validations:
     confirmation: "doesn't match"

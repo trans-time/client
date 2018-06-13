@@ -20,7 +20,7 @@ module.exports = function(defaults) {
       fingerprintOptions.prepend = 'TODO';
     break;
     case 'production':
-      fingerprintOptions.prepend = 'https://dgny17olds53v.cloudfront.net/';
+      fingerprintOptions.prepend = 'https://www.transtime.is/';
     break;
   }
 
