@@ -7,6 +7,7 @@ import { isEmpty } from '@ember/utils';
 import BaseAuthenticator from 'ember-simple-auth/authenticators/base';
 import fetch from 'fetch';
 import { Promise } from 'rsvp';
+import config from 'client/config/environment';
 
 const assign = emberAssign || merge;
 
@@ -84,7 +85,7 @@ export default BaseAuthenticator.extend({
     });
     assign(requestOptions, options || {});
 
-    return fetch(url, requestOptions);
+    return fetch(`${config.host}${url}`, requestOptions);
   },
 
   _validate(data) {
