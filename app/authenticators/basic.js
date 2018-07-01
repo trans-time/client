@@ -14,7 +14,7 @@ const assign = emberAssign || merge;
 const JSON_CONTENT_TYPE = 'application/vnd.api+json';
 
 export default BaseAuthenticator.extend({
-  serverTokenEndpoint: '/api/v1/auth/identity/callback',
+  serverTokenEndpoint: '/v1/auth/identity/callback',
   resourceName: 'user',
   tokenAttributeName: 'token',
   identificationAttributeName: 'username',
