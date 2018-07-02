@@ -26,6 +26,7 @@ body > .ember-view:not(.liquid-destination), html, body {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  height: 100%;
   width: 100%;
   margin: 0px;
   overflow: hidden;
