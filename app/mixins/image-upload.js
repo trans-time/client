@@ -24,14 +24,14 @@ export default Mixin.create({
   uploadAndSave: task(function * (model) {
     this.get('modalManager').open('uploading-modal');
 
-    const post = yield model.save();
+    const timelineItem = yield model.save();
     const promises = model.get('_content.panels').map((panel, index) => {
       panel.set('order', index);
       return get(this, 'uploadImageTask').perform(panel);
     });
 
     all(promises).then(() => {
-      this.transitionTo('users.user.timeline', this.get('currentUser.user'), { queryParams: { postId: post.id } });
+      this.transitionTo('users.user.timeline', this.get('currentUser.user'), { queryParams: { timelineItemId: timelineItem.id } });
     }).catch(() => {
       this.get('paperToaster').show(this.get('intl').t('upload.unsuccessful'), {
         duration: 4000,
