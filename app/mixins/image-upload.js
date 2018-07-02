@@ -49,9 +49,9 @@ export default Mixin.create({
     if ((isBlank(src) && isNew) || panel.get('isMarkedForDeletion')) return resolve();
     else if (isBlank(src) && !isNew) return panel.destroyRecord();
 
-    yield panel.save().finally(() => {
-      panel.set('src', src);
-    });
+    yield panel.save();
+    
+    panel.set('src', src);
 
     if (!isNew && src.indexOf('http') === 0) return resolve();
 
