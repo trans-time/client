@@ -87,7 +87,7 @@ export default Mixin.create({
           const path = `${config.host}${config.rootURL}${getOwner(this).lookup('adapter:application').get('namespace')}/images/${panel.get('id')}/files`;
           this.get('session').authorize('authorizer:basic', (key, authorization) => {
             newFile.upload(path, { headers: { Authorization: authorization }}).then((response) => {
-              panel.set('src', response.data.attributes.src);
+              panel.set('src', response.body.data.attributes.src);
               resolve();
             }).catch(() => reject());
           })
