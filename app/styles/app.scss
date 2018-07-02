@@ -34,6 +34,7 @@ body > .ember-view:not(.liquid-destination) {
   flex-direction: column;
   margin: 0 auto;
   max-width: 1440px;
+  overflow-y:auto;
 }
 
 @media (min-resolution: 2dppx) {
