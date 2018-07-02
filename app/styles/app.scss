@@ -29,12 +29,20 @@ body > .ember-view:not(.liquid-destination), html, body {
   overflow: hidden;
 }
 
+html {
+  background-color: cyan;
+}
+
+body {
+  background-color: green;
+}
+
 body > .ember-view:not(.liquid-destination) {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
   max-width: 1440px;
-  overflow-y:auto;
+  background-color: yellow;
 }
 
 @media (min-resolution: 2dppx) {
