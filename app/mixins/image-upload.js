@@ -44,16 +44,16 @@ export default Mixin.create({
     const src = panel.get('src');
     const isNew = panel.get('isNew');
 
-    if (src.indexOf('http') !== 0) panel.set('src', undefined);
+    if (isPresent(src) && src.indexOf('http') !== 0) panel.set('src', undefined);
 
     if ((isBlank(src) && isNew) || panel.get('isMarkedForDeletion')) return resolve();
     else if (isBlank(src) && !isNew) return panel.destroyRecord();
 
-    yield panel.save();
-    
-    panel.set('src', src);
+    yield panel.save().finally(() => {
+      panel.set('src', src);
+    });
 
-    if (!isNew && src.indexOf('http') === 0) return resolve();
+    if (!isNew && isPresent(src) && src.indexOf('http') === 0) return resolve();
 
     const canvasHeight = 1800;
     const canvasWidth = 1440;
