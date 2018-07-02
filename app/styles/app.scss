@@ -23,6 +23,8 @@ html, body {
 }
 
 html {
+  // https://developers.google.com/web/updates/2016/12/url-bar-resizing
+  // ensure resizing when andriod chrome address bar disappears
   position: fixed;
 }
 
