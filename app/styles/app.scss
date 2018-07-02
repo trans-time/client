@@ -30,11 +30,11 @@ body > .ember-view:not(.liquid-destination), html, body {
 }
 
 html {
-  background-color: cyan;
+  background-color: cyan !important;
 }
 
 body {
-  background-color: green;
+  background-color: green !important;
 }
 
 body > .ember-view:not(.liquid-destination) {
