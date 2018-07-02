@@ -18,8 +18,8 @@
   @include emojione-size(18px);
 }
 
-body {
-  overscroll-behavior-y: contain;
+html, body {
+  overscroll-behavior-y: none;
 }
 
 .timeline-item-nav-slideshow-main {
