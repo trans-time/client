@@ -24,14 +24,14 @@ export default Mixin.create({
   uploadAndSave: task(function * (model) {
     this.get('modalManager').open('uploading-modal');
 
-    const timelineItem = yield model.save();
+    const post = yield model.save();
     const promises = model.get('_content.panels').map((panel, index) => {
       panel.set('order', index);
       return get(this, 'uploadImageTask').perform(panel);
     });
 
     all(promises).then(() => {
-      this.transitionTo('users.user.timeline', this.get('currentUser.user'), { queryParams: { timelineItemId: timelineItem.id } });
+      this.transitionTo('posts.post', post.id);
     }).catch(() => {
       this.get('paperToaster').show(this.get('intl').t('upload.unsuccessful'), {
         duration: 4000,
@@ -44,47 +44,48 @@ export default Mixin.create({
     const src = panel.get('src');
     const isNew = panel.get('isNew');
 
-    if (isBlank(src) && isNew) return resolve();
+    if (src.indexOf('http') !== 0) panel.set('src', undefined);
+
+    if ((isBlank(src) && isNew) || panel.get('isMarkedForDeletion')) return resolve();
     else if (isBlank(src) && !isNew) return panel.destroyRecord();
 
-    yield panel.save();
+    yield panel.save().finally(() => {
+      panel.set('src', src);
+    });
 
-    if (!isNew) return resolve();
+    if (!isNew && src.indexOf('http') === 0) return resolve();
 
     const canvasHeight = 1800;
     const canvasWidth = 1440;
-    const img = document.createElement('img');
+    const img = document.querySelector(`.carousel-image-${panel.get('order')}`);
     const canvas = document.createElement('canvas');
     canvas.height = canvasHeight;
     canvas.width = canvasWidth;
-    img.src = src;
 
     yield new Promise((resolve, reject) => {
-      img.onload = () => {
-        if (img.naturalHeight / img.naturalWidth < canvasHeight / canvasWidth) {
-          const width = (img.naturalHeight / canvasHeight) * canvasWidth;
-          const percentX = panel.get('positioning.x') / 100;
-          const startX = (img.naturalWidth - width) * percentX;
+      if (img.naturalHeight / img.naturalWidth < canvasHeight / canvasWidth) {
+        const width = (img.naturalHeight / canvasHeight) * canvasWidth;
+        const percentX = panel.get('positioning.x') / 100;
+        const startX = (img.naturalWidth - width) * percentX;
 
-          canvas.getContext('2d').drawImage(img, startX, 0, width, img.naturalHeight, 0, 0, canvasWidth, canvasHeight);
-        } else {
-          const height = (img.naturalWidth / canvasWidth) * canvasHeight;
-          const percentY = panel.get('positioning.y') / 100;
-          const startY = (img.naturalHeight - height) * percentY;
+        canvas.getContext('2d').drawImage(img, startX, 0, width, img.naturalHeight, 0, 0, canvasWidth, canvasHeight);
+      } else {
+        const height = (img.naturalWidth / canvasWidth) * canvasHeight;
+        const percentY = panel.get('positioning.y') / 100;
+        const startY = (img.naturalHeight - height) * percentY;
 
-          canvas.getContext('2d').drawImage(img, 0, startY, img.naturalWidth, height, 0, 0, canvasWidth, canvasHeight);
-        }
-
-        canvas.toBlob((blob) => {
-          blob.name = `post-${panel.get('post.id')}-panel-${panel.get('order')}.${blob.type.split('/')[1]}`;
-          const [newFile] = this.get('queue')._addFiles([blob], 'blob');
-          const path = `${config.host}${config.rootURL}${getOwner(this).lookup('adapter:application').get('namespace')}/images/${panel.get('id')}/files`;
-          this.get('session').authorize('authorizer:basic', (key, authorization) => {
-            newFile.upload(path, { headers: { Authorization: authorization }}).then(() => resolve()).catch(() => reject());
-          })
-        }, src.match(/[^:]\w+\/[\w-+\d.]+(?=;|,)/)[0], 1.0);
+        canvas.getContext('2d').drawImage(img, 0, startY, img.naturalWidth, height, 0, 0, canvasWidth, canvasHeight);
       }
-    });
+
+      canvas.toBlob((blob) => {
+        blob.name = `post-${panel.get('post.id')}-panel-${panel.get('order')}.${blob.type.split('/')[1]}`;
+        const [newFile] = this.get('queue')._addFiles([blob], 'blob');
+        const path = `${config.host}${config.rootURL}${getOwner(this).lookup('adapter:application').get('namespace')}/images/${panel.get('id')}/files`;
+        this.get('session').authorize('authorizer:basic', (key, authorization) => {
+          newFile.upload(path, { headers: { Authorization: authorization }}).then(() => resolve()).catch(() => reject());
+        })
+      }, src.match(/[^:]\w+\/[\w-+\d.]+(?=;|,)/)[0], 1.0);
+    })
   }).maxConcurrency(3).enqueue(),
 
   actions: {
