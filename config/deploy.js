@@ -4,24 +4,24 @@
 module.exports = function(deployTarget) {
   let ENV = {};
 
-  if (deployTarget === 'development-postbuild') {
-    // ENV.plugins = ['redis'];
-
-    ENV.build = {
-      environment: 'development'
-    };
-
-    // ENV.redis = {
-    //   keyPrefix: 'edd-cli:index',
-    //   revisionKey: '__development__',
-    //   allowOverwrite: true,
-    //   host: 'localhost', // this can be omitted because it is the default
-    //   port: 6379, // this can be omitted because it is the default
-    //   distDir: function(context) {
-    //     return context.commandOptions.buildDir;
-    //   }
-    // };
-  }
+  // if (deployTarget === 'development-postbuild') {
+  //   // ENV.plugins = ['redis'];
+  //
+  //   ENV.build = {
+  //     environment: 'development'
+  //   };
+  //
+  //   // ENV.redis = {
+  //   //   keyPrefix: 'edd-cli:index',
+  //   //   revisionKey: '__development__',
+  //   //   allowOverwrite: true,
+  //   //   host: 'localhost', // this can be omitted because it is the default
+  //   //   port: 6379, // this can be omitted because it is the default
+  //   //   distDir: function(context) {
+  //   //     return context.commandOptions.buildDir;
+  //   //   }
+  //   // };
+  // }
 
   if (deployTarget === 'staging') {
     ENV.build = {
@@ -39,7 +39,7 @@ module.exports = function(deployTarget) {
       accessKeyId: process.env['AWS_ACCESS_KEY'],
       secretAccessKey: process.env['AWS_SECRET_KEY'],
       region: 'us-east-1',
-      bucket: 'edd-staging'
+      bucket: 'web-client--staging',
     };
   }
 
