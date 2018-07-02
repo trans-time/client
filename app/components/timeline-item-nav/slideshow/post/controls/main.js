@@ -8,7 +8,7 @@ export default Component.extend({
   actions: {
     openShare() {
       const fullShare = this.get('fullShare');
-      this.get('modalManager').open('share-modal', () => {}, () => {}, { fullShare, postId: this.get('post.id') });
+      this.get('modalManager').open('share-modal', () => {}, () => {}, { fullShare, timelineItemId: this.get('timelineItem.id') });
     },
 
     toggleChat() {

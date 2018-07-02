@@ -9,7 +9,7 @@ export default Route.extend(InfinityRoute, {
   topBarManager: service(),
 
   model() {
-    return this.infinityModel('reaction', { perPage: 12, startingPage: 1, filter: { timeline_item_id: this.modelFor('timeline_items.timeline_item').id }, include: 'user' });
+    return this.infinityModel('reaction', { perPage: 12, startingPage: 1, filter: { timeline_item_id: this.modelFor('timeline-items.timeline-item').id }, include: 'user' });
   },
 
   beforeModel(...args) {
@@ -17,7 +17,7 @@ export default Route.extend(InfinityRoute, {
 
     const title = this.get('intl').t('post.reactions');
 
-    this.get('topBarManager').setTitleLink(title, 'timeline_items.timeline_item', this.modelFor('timeline_items.timeline_item').id);
+    this.get('topBarManager').setTitleLink(title, 'timeline-items.timeline-item', this.modelFor('timeline-items.timeline-item').id);
     this.set('titleToken', title);
   }
 });

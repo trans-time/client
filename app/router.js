@@ -27,8 +27,8 @@ Router.map(function() {
       this.route('reactions');
     });
   });
-  this.route('timeline_items', function() {
-    this.route('timeline_item', { path: '/:id' }, function() {
+  this.route('timeline-items', function() {
+    this.route('timeline-item', { path: '/:id' }, function() {
       this.route('reactions');
     });
   });

@@ -9,7 +9,7 @@ export default Component.extend({
   modalManager: service(),
 
   fullShare: oneWay('options.fullShare'),
-  postId: oneWay('options.postId'),
+  timelineItemId: oneWay('options.timelineItemId'),
 
   didInsertElement(...args) {
     this._super(...args);
@@ -21,18 +21,18 @@ export default Component.extend({
     get() {
       const href = location.href;
       const selected = this.get('selected');
-      const postIdStartIndex = href.indexOf('postId=');
-      let postIdEndIndex = href.slice(postIdStartIndex).indexOf('&');
-      postIdEndIndex = postIdEndIndex === -1 ? href.length : postIdEndIndex - 1;
+      const timelineItemIdStartIndex = href.indexOf('timelineItemId=');
+      let timelineItemIdEndIndex = href.slice(timelineItemIdStartIndex).indexOf('&');
+      timelineItemIdEndIndex = timelineItemIdEndIndex === -1 ? href.length : timelineItemIdEndIndex - 1;
 
       switch (selected) {
-        case 0: return `${href.slice(0, postIdStartIndex)}${href.slice(postIdEndIndex)}`;
+        case 0: return `${href.slice(0, timelineItemIdStartIndex)}${href.slice(timelineItemIdEndIndex)}`;
         case 1: return href;
-        case 2: return `${href.slice(0, postIdStartIndex)}${href.slice(postIdEndIndex)}&lastPost=true`;
+        case 2: return `${href.slice(0, timelineItemIdStartIndex)}${href.slice(timelineItemIdEndIndex)}&lastPost=true`;
         case 3: {
           const url = new URL(href);
 
-          return `${url.origin}/posts/${this.get('postId')}`;
+          return `${url.origin}/timeline-items/${this.get('timelineItemId')}`;
         }
       }
     }
