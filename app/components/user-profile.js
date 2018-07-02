@@ -125,7 +125,7 @@ export default Component.extend(AuthenticatedActionMixin, {
   _deleteAvatar() {
     this.get('session').authorize('authorizer:basic', (key, authorization) => {
 
-      const url = `${config.rootURL}${getOwner(this).lookup('adapter:application').get('namespace')}/avatars`;
+      const url = `${config.host}${config.rootURL}${getOwner(this).lookup('adapter:application').get('namespace')}/avatars`;
       fetch(url, {
         method: 'DELETE',
         headers: {
@@ -143,7 +143,7 @@ export default Component.extend(AuthenticatedActionMixin, {
       const blob = this.get('changeset.avatarUpload');
       blob.name = `avatar-${this.get('currentUserModel.username')}.${blob.type.split('/')[1]}`;
       const [newFile] = this.get('queue')._addFiles([blob], 'blob');
-      const path = `${config.rootURL}${getOwner(this).lookup('adapter:application').get('namespace')}/avatars`;
+      const path = `${config.host}${config.rootURL}${getOwner(this).lookup('adapter:application').get('namespace')}/avatars`;
       this.get('session').authorize('authorizer:basic', (key, authorization) => {
         newFile.upload(path, { headers: { Authorization: authorization }}).then(() => {
 

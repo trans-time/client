@@ -70,7 +70,7 @@ export default Mixin.create({
           canvas.toBlob((blob) => {
             blob.name = `post-${panel.get('post.id')}-panel-${panel.get('order')}.${blob.type.split('/')[1]}`;
             const [newFile] = this.get('queue')._addFiles([blob], 'blob');
-            const path = `${config.rootURL}${getOwner(this).lookup('adapter:application').get('namespace')}/images/${panel.get('id')}/files`;
+            const path = `${config.host}${config.rootURL}${getOwner(this).lookup('adapter:application').get('namespace')}/images/${panel.get('id')}/files`;
             this.get('session').authorize('authorizer:basic', (key, authorization) => {
               newFile.upload(path, { headers: { Authorization: authorization }}).then(() => resolve());
             })
