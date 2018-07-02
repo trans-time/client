@@ -44,7 +44,10 @@ html, body {
   color: $text-color;
   background-color: #fff;
   font-family: $primary-font-family;
-  overscroll-behavior: contain;
+}
+
+body {
+  overscroll-behavior-y: contain;
 }
 
 [data-ember-action], a, button, input {
