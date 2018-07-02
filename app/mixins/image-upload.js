@@ -86,7 +86,10 @@ export default Mixin.create({
           const [newFile] = this.get('queue')._addFiles([blob], 'blob');
           const path = `${config.host}${config.rootURL}${getOwner(this).lookup('adapter:application').get('namespace')}/images/${panel.get('id')}/files`;
           this.get('session').authorize('authorizer:basic', (key, authorization) => {
-            newFile.upload(path, { headers: { Authorization: authorization }}).then(() => resolve()).catch(() => reject());
+            newFile.upload(path, { headers: { Authorization: authorization }}).then((response) => {
+              panel.reload();
+              resolve();
+            }).catch(() => reject());
           })
         }, src.match(/[^:]\w+\/[\w-+\d.]+(?=;|,)/)[0], 1.0);
       }
