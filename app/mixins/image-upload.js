@@ -87,8 +87,10 @@ export default Mixin.create({
           const path = `${config.host}${config.rootURL}${getOwner(this).lookup('adapter:application').get('namespace')}/images/${panel.get('id')}/files`;
           this.get('session').authorize('authorizer:basic', (key, authorization) => {
             newFile.upload(path, { headers: { Authorization: authorization }}).then((response) => {
-              panel.reload();
               resolve();
+              Ember.run.later(() => {
+                panel.set('src', response.body.data.attributes.src);
+              })
             }).catch(() => reject());
           })
         }, src.match(/[^:]\w+\/[\w-+\d.]+(?=;|,)/)[0], 1.0);
