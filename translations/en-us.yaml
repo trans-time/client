@@ -268,6 +268,9 @@ timelineItem:
   timelineItem: "timeline item"
   isUnderModeration: "under moderation"
 title: "trans time"
+upload:
+  unsuccessful: "something went wrong, but please try again in a few minutes"
+  uploading: "uploading"
 users:
   attributes:
     email:

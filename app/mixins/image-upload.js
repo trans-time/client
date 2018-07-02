@@ -10,6 +10,7 @@ export default Mixin.create({
   currentUser: service(),
   fileQueue: service(),
   modalManager: service(),
+  paperToaster: service(),
   session: service(),
 
   queue: computed({
@@ -21,14 +22,22 @@ export default Mixin.create({
   }),
 
   uploadAndSave: task(function * (model) {
+    this.get('modalManager').open('uploading-modal');
+
     const post = yield model.save();
     const promises = model.get('_content.panels').map((panel, index) => {
       panel.set('order', index);
       return get(this, 'uploadImageTask').perform(panel);
     });
-    yield all(promises);
 
-    this.transitionTo('users.user.timeline', this.get('currentUser.user'), { queryParams: { postId: post.id } });
+    all(promises).then(() => {
+      this.transitionTo('users.user.timeline', this.get('currentUser.user'), { queryParams: { postId: post.id } });
+    }).catch(() => {
+      this.get('paperToaster').show(this.get('intl').t('upload.unsuccessful'), {
+        duration: 4000,
+        toastClass: 'paper-toaster-error-container'
+      });
+    }).finally(() => this.get('modalManager').close());
   }),
 
   uploadImageTask: task(function * (panel) {
@@ -42,44 +51,40 @@ export default Mixin.create({
 
     if (!isNew) return resolve();
 
-    try {
-      const canvasHeight = 1800;
-      const canvasWidth = 1440;
-      const img = document.createElement('img');
-      const canvas = document.createElement('canvas');
-      canvas.height = canvasHeight;
-      canvas.width = canvasWidth;
-      img.src = src;
+    const canvasHeight = 1800;
+    const canvasWidth = 1440;
+    const img = document.createElement('img');
+    const canvas = document.createElement('canvas');
+    canvas.height = canvasHeight;
+    canvas.width = canvasWidth;
+    img.src = src;
 
-      yield new Promise((resolve) => {
-        img.onload = () => {
-          if (img.naturalHeight / img.naturalWidth < canvasHeight / canvasWidth) {
-            const width = (img.naturalHeight / canvasHeight) * canvasWidth;
-            const percentX = panel.get('positioning.x') / 100;
-            const startX = (img.naturalWidth - width) * percentX;
+    yield new Promise((resolve, reject) => {
+      img.onload = () => {
+        if (img.naturalHeight / img.naturalWidth < canvasHeight / canvasWidth) {
+          const width = (img.naturalHeight / canvasHeight) * canvasWidth;
+          const percentX = panel.get('positioning.x') / 100;
+          const startX = (img.naturalWidth - width) * percentX;
 
-            canvas.getContext('2d').drawImage(img, startX, 0, width, img.naturalHeight, 0, 0, canvasWidth, canvasHeight);
-          } else {
-            const height = (img.naturalWidth / canvasWidth) * canvasHeight;
-            const percentY = panel.get('positioning.y') / 100;
-            const startY = (img.naturalHeight - height) * percentY;
+          canvas.getContext('2d').drawImage(img, startX, 0, width, img.naturalHeight, 0, 0, canvasWidth, canvasHeight);
+        } else {
+          const height = (img.naturalWidth / canvasWidth) * canvasHeight;
+          const percentY = panel.get('positioning.y') / 100;
+          const startY = (img.naturalHeight - height) * percentY;
 
-            canvas.getContext('2d').drawImage(img, 0, startY, img.naturalWidth, height, 0, 0, canvasWidth, canvasHeight);
-          }
-
-          canvas.toBlob((blob) => {
-            blob.name = `post-${panel.get('post.id')}-panel-${panel.get('order')}.${blob.type.split('/')[1]}`;
-            const [newFile] = this.get('queue')._addFiles([blob], 'blob');
-            const path = `${config.host}${config.rootURL}${getOwner(this).lookup('adapter:application').get('namespace')}/images/${panel.get('id')}/files`;
-            this.get('session').authorize('authorizer:basic', (key, authorization) => {
-              newFile.upload(path, { headers: { Authorization: authorization }}).then(() => resolve());
-            })
-          }, src.match(/[^:]\w+\/[\w-+\d.]+(?=;|,)/)[0], 1.0);
+          canvas.getContext('2d').drawImage(img, 0, startY, img.naturalWidth, height, 0, 0, canvasWidth, canvasHeight);
         }
-      })
-    } catch (e) {
-      console.log(e); // eslint-disable-line
-    }
+
+        canvas.toBlob((blob) => {
+          blob.name = `post-${panel.get('post.id')}-panel-${panel.get('order')}.${blob.type.split('/')[1]}`;
+          const [newFile] = this.get('queue')._addFiles([blob], 'blob');
+          const path = `${config.host}${config.rootURL}${getOwner(this).lookup('adapter:application').get('namespace')}/images/${panel.get('id')}/files`;
+          this.get('session').authorize('authorizer:basic', (key, authorization) => {
+            newFile.upload(path, { headers: { Authorization: authorization }}).then(() => resolve()).catch(() => reject());
+          })
+        }, src.match(/[^:]\w+\/[\w-+\d.]+(?=;|,)/)[0], 1.0);
+      }
+    });
   }).maxConcurrency(3).enqueue(),
 
   actions: {

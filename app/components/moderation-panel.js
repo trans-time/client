@@ -96,7 +96,8 @@ export default Component.extend({
       this.get('router').transitionTo('moderation.reports');
     }).catch(() => {
       this.get('paperToaster').show(this.get('intl').t('moderationReport.unsuccessful'), {
-        duration: 4000
+        duration: 4000,
+        toastClass: 'paper-toaster-error-container'
       });
     }).finally(() => {
       this.set('isSubmitting', false);

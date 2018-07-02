@@ -39,7 +39,8 @@ export default Component.extend({
         });
       }).catch(() => {
         this.get('paperToaster').show(this.get('intl').t('flags.unsuccessful'), {
-          duration: 4000
+          duration: 4000,
+          toastClass: 'paper-toaster-error-container'
         });
       });
     }

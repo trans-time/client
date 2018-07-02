@@ -45,6 +45,7 @@ export default Component.extend(AuthenticatedActionMixin, {
   intl: service(),
   router: service(),
   currentUser: service(),
+  paperToaster: service(),
   currentUserModel: alias('currentUser.user'),
 
   cancelDisabled: or('isSaving'),
@@ -139,20 +140,25 @@ export default Component.extend(AuthenticatedActionMixin, {
   },
 
   _uploadAvatar() {
-    try {
-      const blob = this.get('changeset.avatarUpload');
-      blob.name = `avatar-${this.get('currentUserModel.username')}.${blob.type.split('/')[1]}`;
-      const [newFile] = this.get('queue')._addFiles([blob], 'blob');
-      const path = `${config.host}${config.rootURL}${getOwner(this).lookup('adapter:application').get('namespace')}/avatars`;
-      this.get('session').authorize('authorizer:basic', (key, authorization) => {
-        newFile.upload(path, { headers: { Authorization: authorization }}).then(() => {
+    this.get('modalManager').open('uploading-modal');
 
-          this._saveChanges();
-        }).catch(() => this.set('isSaving', false));
+    const blob = this.get('changeset.avatarUpload');
+    blob.name = `avatar-${this.get('currentUserModel.username')}.${blob.type.split('/')[1]}`;
+    const [newFile] = this.get('queue')._addFiles([blob], 'blob');
+    const path = `${config.host}${config.rootURL}${getOwner(this).lookup('adapter:application').get('namespace')}/avatars`;
+    this.get('session').authorize('authorizer:basic', (key, authorization) => {
+      newFile.upload(path, { headers: { Authorization: authorization }}).then(() => {
+
+        this._saveChanges();
+      }).catch(() => {
+        this.get('modalManager').close();
+        this.set('isSaving', false);
+        this.get('paperToaster').show(this.get('intl').t('upload.unsuccessful'), {
+          duration: 4000,
+          toastClass: 'paper-toaster-error-container'
+        });
       });
-    } catch (e) {
-      console.log(e); // eslint-disable-line
-    }
+    });
   },
 
   _saveChanges() {
@@ -160,6 +166,7 @@ export default Component.extend(AuthenticatedActionMixin, {
       this._stopEditing();
       this.attrs.updateModel(this.get('user'));
     }).finally(() => {
+      this.get('modalManager').close();
       this.set('isSaving', false);
     });
   },
