@@ -44,12 +44,14 @@ export default Mixin.create({
     const src = panel.get('src');
     const isNew = panel.get('isNew');
 
+    // avoid uploading blob src
     if (isPresent(src) && src.indexOf('http') !== 0) panel.set('src', undefined);
 
     if ((isBlank(src) && isNew) || panel.get('isMarkedForDeletion')) return resolve();
     else if (isBlank(src) && !isNew) return panel.destroyRecord();
 
     yield panel.save().finally(() => {
+      // ensure panel has src
       panel.set('src', src);
     });
 
@@ -57,34 +59,37 @@ export default Mixin.create({
 
     const canvasHeight = 1800;
     const canvasWidth = 1440;
-    const img = document.querySelector(`.carousel-image-${panel.get('order')}`);
+    const img = document.createElement('img');
     const canvas = document.createElement('canvas');
     canvas.height = canvasHeight;
     canvas.width = canvasWidth;
+    img.src = src;
 
     yield new Promise((resolve, reject) => {
-      if (img.naturalHeight / img.naturalWidth < canvasHeight / canvasWidth) {
-        const width = (img.naturalHeight / canvasHeight) * canvasWidth;
-        const percentX = panel.get('positioning.x') / 100;
-        const startX = (img.naturalWidth - width) * percentX;
+      img.onload = () => {
+        if (img.naturalHeight / img.naturalWidth < canvasHeight / canvasWidth) {
+          const width = (img.naturalHeight / canvasHeight) * canvasWidth;
+          const percentX = panel.get('positioning.x') / 100;
+          const startX = (img.naturalWidth - width) * percentX;
 
-        canvas.getContext('2d').drawImage(img, startX, 0, width, img.naturalHeight, 0, 0, canvasWidth, canvasHeight);
-      } else {
-        const height = (img.naturalWidth / canvasWidth) * canvasHeight;
-        const percentY = panel.get('positioning.y') / 100;
-        const startY = (img.naturalHeight - height) * percentY;
+          canvas.getContext('2d').drawImage(img, startX, 0, width, img.naturalHeight, 0, 0, canvasWidth, canvasHeight);
+        } else {
+          const height = (img.naturalWidth / canvasWidth) * canvasHeight;
+          const percentY = panel.get('positioning.y') / 100;
+          const startY = (img.naturalHeight - height) * percentY;
 
-        canvas.getContext('2d').drawImage(img, 0, startY, img.naturalWidth, height, 0, 0, canvasWidth, canvasHeight);
+          canvas.getContext('2d').drawImage(img, 0, startY, img.naturalWidth, height, 0, 0, canvasWidth, canvasHeight);
+        }
+
+        canvas.toBlob((blob) => {
+          blob.name = `post-${panel.get('post.id')}-panel-${panel.get('order')}.${blob.type.split('/')[1]}`;
+          const [newFile] = this.get('queue')._addFiles([blob], 'blob');
+          const path = `${config.host}${config.rootURL}${getOwner(this).lookup('adapter:application').get('namespace')}/images/${panel.get('id')}/files`;
+          this.get('session').authorize('authorizer:basic', (key, authorization) => {
+            newFile.upload(path, { headers: { Authorization: authorization }}).then(() => resolve()).catch(() => reject());
+          })
+        }, src.match(/[^:]\w+\/[\w-+\d.]+(?=;|,)/)[0], 1.0);
       }
-
-      canvas.toBlob((blob) => {
-        blob.name = `post-${panel.get('post.id')}-panel-${panel.get('order')}.${blob.type.split('/')[1]}`;
-        const [newFile] = this.get('queue')._addFiles([blob], 'blob');
-        const path = `${config.host}${config.rootURL}${getOwner(this).lookup('adapter:application').get('namespace')}/images/${panel.get('id')}/files`;
-        this.get('session').authorize('authorizer:basic', (key, authorization) => {
-          newFile.upload(path, { headers: { Authorization: authorization }}).then(() => resolve()).catch(() => reject());
-        })
-      }, src.match(/[^:]\w+\/[\w-+\d.]+(?=;|,)/)[0], 1.0);
     })
   }).maxConcurrency(3).enqueue(),
 
