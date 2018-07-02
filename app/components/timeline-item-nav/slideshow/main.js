@@ -64,9 +64,9 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   didInsertElement(...args) {
     this._super(...args);
 
-    this.element.addEventListener('touchstart', bind(this, this._touchStart));
-    this.element.addEventListener('touchmove', bind(this, this._touchMove));
-    this.element.addEventListener('touchend', bind(this, this._touchEnd));
+    this.element.addEventListener('touchstart', bind(this, this._touchStart), {passive: false});
+    this.element.addEventListener('touchmove', bind(this, this._touchMove), {passive: false});
+    this.element.addEventListener('touchend', bind(this, this._touchEnd), {passive: false});
 
     if (!this.get('usingTouch')) {
       const startEvent = bind(this, this._startEvent);
@@ -81,10 +81,10 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
         this.element.removeEventListener('touchstart', removeClickEvents);
       };
 
-      this.element.addEventListener('mousedown', startEvent);
-      this.element.addEventListener('mousemove', moveEvent);
-      this.element.addEventListener('mouseout', endEvent);
-      this.element.addEventListener('mouseup', endEvent);
+      this.element.addEventListener('mousedown', startEvent, {passive: false});
+      this.element.addEventListener('mousemove', moveEvent, {passive: false});
+      this.element.addEventListener('mouseout', endEvent, {passive: false});
+      this.element.addEventListener('mouseup', endEvent, {passive: false});
       this.element.addEventListener('touchstart', removeClickEvents);
     }
 

@@ -46,10 +46,6 @@ html, body {
   font-family: $primary-font-family;
 }
 
-body {
-  overscroll-behavior-y: contain;
-}
-
 [data-ember-action], a, button, input {
   cursor: pointer;
   user-select: none;
