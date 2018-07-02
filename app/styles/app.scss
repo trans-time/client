@@ -50,6 +50,18 @@ html, body {
   font-family: $primary-font-family;
 }
 
+html {
+  background-color: cyan;
+}
+
+body {
+  background-color: green;
+}
+
+body > .ember-view:not(.liquid-destination) {
+  background-color: yellow;
+}
+
 [data-ember-action], a, button, input {
   cursor: pointer;
   user-select: none;
