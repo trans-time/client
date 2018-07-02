@@ -18,6 +18,14 @@
   @include emojione-size(18px);
 }
 
+body {
+  overscroll-behavior-y: contain;
+}
+
+.timeline-item-nav-slideshow-main {
+  overscroll-behavior: none;
+}
+
 body > .ember-view:not(.liquid-destination), html, body {
   height: 100%;
   width: 100%;
