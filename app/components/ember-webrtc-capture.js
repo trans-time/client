@@ -26,17 +26,10 @@ export default Component.extend({
     if (stream) stream.getTracks()[0].stop();
   },
 
-  // click() {
-  //   this.get('_takePicture').perform();
-  // },
-  //
-  // touchEnd() {
-  //   this.get('_takePicture').perform();
-  // },
-
   _startCamera() {
+    console.log(this.facingMode)
     navigator.mediaDevices.getUserMedia({
-      video: { width: 5000, height: 8000, facingMode: this.facingMode },
+      video: { width: 5000, height: 8000, facingMode: { exact: this.facingMode } },
       audio: false
     }).then((stream) => {
       this.set('_stream', stream);
