@@ -37,7 +37,11 @@ export default Component.extend({
   _startCamera() {
     this._stopCamera();
 
-    navigator.mediaDevices.getUserMedia({
+    const getUserMedia = navigator.mediaDevices ?
+      navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices) :
+      navigator.getUserMedia.bind(navigator) || navigator.webkitGetUserMedia.bind(navigator);
+
+    getUserMedia({
       video: { deviceId: { exact: this._devices[this._deviceIndex].deviceId } },
       audio: false
     }).then((stream) => {
@@ -52,7 +56,7 @@ export default Component.extend({
       this._video.pause();
       this._video.srcObject = null;
     }
-    
+
     const stream = this.get('_stream');
 
     if (stream) stream.getTracks()[0].stop();
