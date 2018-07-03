@@ -17,6 +17,10 @@ export default Component.extend({
     this._video.addEventListener('touchend', bind(this, () => this.get('_takePicture').perform()));
     this._video.addEventListener('click', bind(this, () => this.get('_takePicture').perform()));
 
+    this._video.setAttribute('autoplay', '');
+    this._video.setAttribute('muted', '');
+    this._video.setAttribute('playsinline', '');
+
     navigator.mediaDevices.enumerateDevices().then((devices) => {
       this._devices = devices.filter((device) => device.kind === 'videoinput');
       this._startCamera();
