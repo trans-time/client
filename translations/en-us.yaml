@@ -165,7 +165,7 @@ notifications:
     commentComment: "{commentaterUsername} replied to a comment"
     commentReactions: "{reactorUsernames} reacted to your comment"
     follow: "<strong>{username}</strong> followed you"
-    moderationRequest: "there {count, plural, =1 {is 1 new moderation request} other {are {total} new moderation requests}}"
+    moderationRequest: "new moderation requests"
     moderationResolution: "a moderator has weighed in on your flag"
     moderationViolation: "you have been found in violation of our user aggreement. click here to view the full message."
     privateGrant: "<strong>{username}</strong> granted you private post access"
