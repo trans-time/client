@@ -256,6 +256,14 @@ p {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  position: relative;
+
+  .ember-webrtc-capture-switch {
+    position: absolute;
+    top: $rhythm * 2;
+    left: $rhythm * 2;
+    z-index: 10;
+  }
 
   video, canvas {
     width: 100%;

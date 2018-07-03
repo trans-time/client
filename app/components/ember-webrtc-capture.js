@@ -1,8 +1,10 @@
 import Component from '@ember/component';
+import { bind } from '@ember/runloop';
 import { task, timeout } from 'ember-concurrency';
 
 export default Component.extend({
   classNames: ['ember-webrtc-capture'],
+  facingMode: 'environment',
 
   didInsertElement(...args) {
     this._super(...args);
@@ -10,15 +12,10 @@ export default Component.extend({
     this._video = this.element.getElementsByTagName('VIDEO')[0];
     this._canvas = this.element.getElementsByTagName('CANVAS')[0];
 
-    navigator.mediaDevices.getUserMedia({
-      video: { width: 5000, height: 8000 },
-      audio: false
-    }).then((stream) => {
-      this.set('_stream', stream);
-      var vendorURL = window.URL || window.webkitURL;
-      this._video.src = vendorURL.createObjectURL(stream);
-      this._video.play();
-    });
+    this._video.addEventListener('touchend', bind(this, () => this.get('_takePicture').perform()));
+    this._video.addEventListener('click', bind(this, () => this.get('_takePicture').perform()));
+
+    this._startCamera();
   },
 
   willDestroyElement(...args) {
@@ -29,12 +26,24 @@ export default Component.extend({
     if (stream) stream.getTracks()[0].stop();
   },
 
-  click() {
-    this.get('_takePicture').perform();
-  },
+  // click() {
+  //   this.get('_takePicture').perform();
+  // },
+  //
+  // touchEnd() {
+  //   this.get('_takePicture').perform();
+  // },
 
-  touchEnd() {
-    this.get('_takePicture').perform();
+  _startCamera() {
+    navigator.mediaDevices.getUserMedia({
+      video: { width: 5000, height: 8000, facingMode: this.facingMode },
+      audio: false
+    }).then((stream) => {
+      this.set('_stream', stream);
+      var vendorURL = window.URL || window.webkitURL;
+      this._video.src = vendorURL.createObjectURL(stream);
+      this._video.play();
+    });
   },
 
   _takePicture: task(function * () {
@@ -48,5 +57,13 @@ export default Component.extend({
     this.attrs.takePicture(data);
 
     yield timeout(100);
-  }).drop()
+  }).drop(),
+
+  actions: {
+    switchCamera() {
+      this.facingMode = this.facingMode === 'environment' ? 'user' : 'environment';
+
+      this._startCamera();
+    }
+  }
 });
