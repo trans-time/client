@@ -263,6 +263,8 @@ p {
     top: $rhythm * 2;
     left: $rhythm * 2;
     z-index: 10;
+    color: $light-gray;
+    text-shadow: 0 1px 1px $dark-gray;
   }
 
   video, canvas {
