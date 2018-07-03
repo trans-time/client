@@ -17,6 +17,8 @@ export default Component.extend({
     this._video.addEventListener('touchend', bind(this, () => this.get('_takePicture').perform()));
     this._video.addEventListener('click', bind(this, () => this.get('_takePicture').perform()));
 
+    this._video.style.width = document.width + 'px';
+    this._video.style.height = document.height + 'px';
     this._video.setAttribute('autoplay', '');
     this._video.setAttribute('muted', '');
     this._video.setAttribute('playsinline', '');
