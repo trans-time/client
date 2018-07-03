@@ -38,9 +38,9 @@ export default Component.extend({
   },
 
   _startCamera() {
-    alert(this._devices[this._deviceIndex].deviceId)
     navigator.mediaDevices.getUserMedia({
-      video: { deviceId: { exact: this._devices[this._deviceIndex].deviceId } },
+      deviceId: { exact: this._devices[this._deviceIndex].deviceId },
+      video: true,
       audio: false
     }).then((stream) => {
       this.set('_stream', stream);
