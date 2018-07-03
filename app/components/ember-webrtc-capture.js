@@ -39,8 +39,7 @@ export default Component.extend({
 
   _startCamera() {
     navigator.mediaDevices.getUserMedia({
-      deviceId: { exact: this._devices[this._deviceIndex].deviceId },
-      video: true,
+      video: { facingMode: 'user' },
       audio: false
     }).then((stream) => {
       this.set('_stream', stream);
