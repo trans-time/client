@@ -29,14 +29,15 @@ export default Component.extend({
   },
 
   willDestroyElement(...args) {
+    this._stopCamera();
     this._super(...args);
-
-    const stream = this.get('stream');
-
-    if (stream) stream.getTracks()[0].stop();
   },
 
   _startCamera() {
+    this._video.pause();
+    this._video.srcObject = null;
+    this._stopCamera();
+
     navigator.mediaDevices.getUserMedia({
       video: { facingMode: this._facingMode },
       audio: false
@@ -45,6 +46,12 @@ export default Component.extend({
       this._video.srcObject = stream;
       this._video.play();
     });
+  },
+
+  _stopCamera() {
+    const stream = this.get('stream');
+
+    if (stream) stream.getTracks()[0].stop();
   },
 
   _takePicture: task(function * () {
