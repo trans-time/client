@@ -1,10 +1,12 @@
 import Component from '@ember/component';
+import { computed } from '@ember/object';
 import { bind } from '@ember/runloop';
 import { task, timeout } from 'ember-concurrency';
 
 export default Component.extend({
   classNames: ['ember-webrtc-capture'],
-  facingMode: 'environment',
+  _deviceIndex: 0,
+  _devices: computed(() => []),
 
   didInsertElement(...args) {
     this._super(...args);
@@ -15,7 +17,10 @@ export default Component.extend({
     this._video.addEventListener('touchend', bind(this, () => this.get('_takePicture').perform()));
     this._video.addEventListener('click', bind(this, () => this.get('_takePicture').perform()));
 
-    this._startCamera();
+    navigator.mediaDevices.enumerateDevices().then((devices) => {
+      this._devices = devices.filter((device) => device.kind === 'videoinput');
+      this._startCamera();
+    });
   },
 
   willDestroyElement(...args) {
@@ -27,9 +32,8 @@ export default Component.extend({
   },
 
   _startCamera() {
-    console.log(this.facingMode)
     navigator.mediaDevices.getUserMedia({
-      video: { width: 5000, height: 8000, facingMode: { exact: this.facingMode } },
+      video: { width: 5000, height: 8000, deviceId: { exact: this._devices[this._deviceIndex].deviceId } },
       audio: false
     }).then((stream) => {
       this.set('_stream', stream);
@@ -54,7 +58,9 @@ export default Component.extend({
 
   actions: {
     switchCamera() {
-      this.facingMode = this.facingMode === 'environment' ? 'user' : 'environment';
+      this._deviceIndex++;
+
+      if (this._deviceIndex >= this._devices.length) this._deviceIndex = 0;
 
       this._startCamera();
     }
