@@ -38,13 +38,13 @@ export default Component.extend({
   },
 
   _startCamera() {
+    alert(this._devices.length)
     navigator.mediaDevices.getUserMedia({
       video: { deviceId: { exact: this._devices[this._deviceIndex].deviceId } },
       audio: false
     }).then((stream) => {
       this.set('_stream', stream);
-      var vendorURL = window.URL || window.webkitURL;
-      this._video.src = vendorURL.createObjectURL(stream);
+      this._video.srcObject = stream;
       this._video.play();
     });
   },
