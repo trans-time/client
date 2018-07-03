@@ -7,6 +7,7 @@ export default Component.extend({
   classNames: ['ember-webrtc-capture'],
   _deviceIndex: 0,
   _devices: computed(() => []),
+  _facingMode: 'environment',
 
   didInsertElement(...args) {
     this._super(...args);
@@ -23,10 +24,14 @@ export default Component.extend({
     this._video.setAttribute('muted', '');
     this._video.setAttribute('playsinline', '');
 
-    navigator.mediaDevices.enumerateDevices().then((devices) => {
-      this._devices = devices.filter((device) => device.kind === 'videoinput');
+    if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+      navigator.mediaDevices.enumerateDevices().then((devices) => {
+        this._devices = devices.filter((device) => device.kind === 'videoinput');
+        this._startCamera();
+      });
+    } else {
       this._startCamera();
-    });
+    }
   },
 
   willDestroyElement(...args) {
@@ -40,9 +45,12 @@ export default Component.extend({
     const getUserMedia = navigator.mediaDevices ?
       navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices) :
       navigator.getUserMedia.bind(navigator) || navigator.webkitGetUserMedia.bind(navigator);
+    const video = this._devices.length > 0 ?
+      { deviceId: { exact: this._devices[this._deviceIndex].deviceId } } :
+      { facingMode: this._facingMode }
 
     getUserMedia({
-      video: { deviceId: { exact: this._devices[this._deviceIndex].deviceId } },
+      video,
       audio: false
     }).then((stream) => {
       this.set('_stream', stream);
@@ -80,6 +88,8 @@ export default Component.extend({
       this._deviceIndex++;
 
       if (this._deviceIndex >= this._devices.length) this._deviceIndex = 0;
+
+      this._facingMode = this._facingMode === 'environment' ? 'user' : 'environment';
 
       this._startCamera();
     }
