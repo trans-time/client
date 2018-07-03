@@ -17,6 +17,7 @@
   box-sizing: border-box;
   box-shadow: 1px 1px 3px $dark-gray;
   z-index: 101;
+  transform: translateZ(1px);
 }
 
 .main-modal-screen {
