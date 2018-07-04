@@ -19,10 +19,10 @@ export default Component.extend({
 
   classNames: ['post-form'],
 
-  disabled: computed('changeset.isInvalid', 'changeset.isPristine', '_panelsAddedOrRemoved', {
+  disabled: computed('changeset.isInvalid', 'changeset.isPristine', '_panelsAddedOrRemoved', '_panelOrderChanged', {
     get() {
       if (this.get('changeset.isInvalid')) return true;
-      else return !this.get('_panelsAddedOrRemoved') && this.get('changeset.isPristine');
+      else return !this.get('_panelsAddedOrRemoved') && !this.get('_panelOrderChanged') && this.get('changeset.isPristine');
     }
   }),
 
@@ -39,6 +39,12 @@ export default Component.extend({
     const current = this.get('post.panels').toArray().filter((panel) => isPresent(panel.get('src')));
 
     return initial.length !== current.length || !initial.every((panel) => current.includes(panel));
+  }),
+
+  _panelOrderChanged: computed('post.panels.@each.hasDirtyAttributes', {
+    get() {
+      return this.get('post.panels').any((panel) => panel.get('hasDirtyAttributes'))
+    }
   }),
 
   viewPath: computed('view', {
