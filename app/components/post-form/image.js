@@ -1,6 +1,6 @@
 import { A } from '@ember/array';
 import { computed, get } from '@ember/object';
-import { filter } from '@ember/object/computed';
+import { filter, sort } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { isNone, isPresent } from '@ember/utils';
 import { Promise, resolve } from 'rsvp';
@@ -15,13 +15,14 @@ export default Component.extend({
 
   store: service(),
 
-  images: filter('post.images', (image) => !image.get('isMarkedForDeletion')),
+  orderedImages: sort('post.images', (a, b) => a.get('order') - b.get('order')),
 
   _addImage: task(function * (src) {
     const post = this.get('post');
     const image = this.get('store').createRecord('image', {
       post,
       src,
+      order: (this.get('orderedImages.lastObject.order') || 0) + 1,
       positioning: {
         x: 50,
         y: 50

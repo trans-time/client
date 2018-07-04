@@ -35,11 +35,19 @@
   <div class="image-editor-carousel-item">
     <a {{action "openCamera"}}>{{fa-icon "camera"}}</a>
   </div>
-  {{#each sortedPanels as |panel|}}
-    {{#if panel.src}}
-      <div class="image-editor-carousel-item">
-        <a {{action "selectImage" panel}}>{{image-editor/carousel-image panel=panel width=width height=height}}</a>
-      </div>
-    {{/if}}
-  {{/each}}
+
+  {{#sortable-objects sortableObjectList=panels sortEndAction="sortEndAction" enableSort=true useSwap=true inPlace=true}}
+    {{#each panels as |panel|}}
+      {{#draggable-object content=panel isSortable=true}}
+        {{#if (and panel.src (not panel.isMarkedForDeletion))}}
+          {{image-editor/carousel-image
+            panel=panel
+            width=width
+            height=height
+            select=(action "selectImage" panel)
+          }}
+        {{/if}}
+      {{/draggable-object}}
+    {{/each}}
+  {{/sortable-objects}}
 </div>

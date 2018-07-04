@@ -1,5 +1,5 @@
 import { computed, get } from '@ember/object';
-import { alias, oneWay, sort } from '@ember/object/computed';
+import { alias, oneWay, filter } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/string';
 import Component from '@ember/component';
@@ -15,7 +15,6 @@ export default Component.extend({
   store: service(),
 
   user: oneWay('currentUser.user'),
-  sortedPanels: sort('panels', (a, b) => a.get('order') - b.get('order')),
 
   init(...args) {
     this._super(...args);
@@ -65,6 +64,12 @@ export default Component.extend({
         cameraOn: false,
         displayImage: image
       })
+    },
+
+    sortEndAction() {
+      this.get('panels').forEach((panel, index) => {
+        panel.set('order', index);
+      });
     },
 
     takePicture(dataUri) {

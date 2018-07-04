@@ -53,6 +53,10 @@
   overflow-y: hidden;
   overflow-x: auto;
 
+  .sortable-objects {
+    display: flex;
+  }
+
   div, a {
     height: 100%;
   }

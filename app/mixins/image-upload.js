@@ -24,20 +24,21 @@ export default Mixin.create({
   uploadAndSave: task(function * (model) {
     this.get('modalManager').open('uploading-modal');
 
-    const post = yield model.save();
-    const promises = model.get('_content.panels').map((panel, index) => {
-      panel.set('order', index);
+    const post = yield model.save().catch(() => this.get('modalManager').close());
+    const promises = model.get('_content.panels').map((panel) => {
       return get(this, 'uploadImageTask').perform(panel);
     });
 
     all(promises).then(() => {
+      this.get('modalManager').close();
       this.transitionTo('posts.post', post.id);
     }).catch(() => {
+      this.get('modalManager').close();
       this.get('paperToaster').show(this.get('intl').t('upload.unsuccessful'), {
         duration: 4000,
         toastClass: 'paper-toaster-error-container'
       });
-    }).finally(() => this.get('modalManager').close());
+    });
   }),
 
   uploadImageTask: task(function * (panel) {
