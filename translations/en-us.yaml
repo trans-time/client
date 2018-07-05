@@ -46,7 +46,7 @@ confirmation:
 coverPage:
   lead: "<em>trans time</em> is a documentation tool and social network for trans+ people."
   followUpHeader: "purpose"
-  followUp1: "when we transition, we're often transitioning in <strong>many ways</strong> at once: our relationships, our affect, our art, our bodies—and countless other less tangible changes too."
+  followUp1: "when we transition, we're often transitioning in <strong>many ways</strong> at once: our relationships, our affect, our art, our bodies—and countless other less tangible transitions too."
   followUp2: "by documenting and sharing our stories, we hope to further develop a <strong>collective understanding</strong> of how transitioning reshapes our lives."
   followUp3: "this self-knowledge is essential in a time when <strong>medical</strong> and <strong>political</strong> entities that don't understand us also aim to define, mobilize, and profit off of us."
   features:
@@ -54,7 +54,7 @@ coverPage:
     connections: "find trans+ people with similiar <strong>*identities</strong>, including religion, race, sexuality, and gender"
     timelines: "view somebody's whole timeline, or filter it by <strong>#tag</strong>, as with: #face, #chest, #family, #fashion, or #art"
     privacy: "control who sees your content with <strong>private/public posts</strong>"
-  note: "<em>trans time</em> will never sell your data or advertise to you. we are community-based non-profit that aims to foster the positive transformative potential of the web."
+  note: "<em>trans time</em> will never sell your data or advertise to you. we are a non-profit committed to creating a safe, non-exploitative space on the web."
 errors:
   validations:
     confirmation: "doesn't match"
