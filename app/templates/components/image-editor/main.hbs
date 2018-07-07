@@ -32,9 +32,12 @@
       {{/if}}
     {{/file-dropzone}}
   </div>
-  <div class="image-editor-carousel-item">
-    <a {{action "openCamera"}}>{{fa-icon "camera"}}</a>
-  </div>
+
+  {{#if hasWebRTCSupport}}
+    <div class="image-editor-carousel-item">
+      <a {{action "openCamera"}}>{{fa-icon "camera"}}</a>
+    </div>
+  {{/if}}
 
   {{#sortable-objects sortableObjectList=panels sortEndAction="sortEndAction" enableSort=true useSwap=true inPlace=true}}
     {{#each panels as |panel|}}

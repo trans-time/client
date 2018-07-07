@@ -2,11 +2,15 @@ import { computed, get } from '@ember/object';
 import { alias, oneWay, filter } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/string';
+import { isPresent } from '@ember/utils';
 import Component from '@ember/component';
 import { task, timeout } from 'ember-concurrency';
 
+const hasWebRTCSupport = isPresent(navigator.mediaDevices);
+
 export default Component.extend({
-  cameraOn: true,
+  cameraOn: hasWebRTCSupport,
+  hasWebRTCSupport,
 
   classNames: ['image-editor'],
 

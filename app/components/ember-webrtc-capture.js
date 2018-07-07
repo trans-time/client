@@ -7,7 +7,6 @@ export default Component.extend({
   classNames: ['ember-webrtc-capture'],
   _deviceIndex: 0,
   _devices: computed(() => []),
-  _facingMode: 'environment',
 
   didInsertElement(...args) {
     this._super(...args);
@@ -18,20 +17,10 @@ export default Component.extend({
     this._video.addEventListener('touchend', bind(this, () => this.get('_takePicture').perform()));
     this._video.addEventListener('click', bind(this, () => this.get('_takePicture').perform()));
 
-    this._video.style.width = document.width + 'px';
-    this._video.style.height = document.height + 'px';
-    this._video.setAttribute('autoplay', '');
-    this._video.setAttribute('muted', '');
-    this._video.setAttribute('playsinline', '');
-
-    if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
-      navigator.mediaDevices.enumerateDevices().then((devices) => {
-        this._devices = devices.filter((device) => device.kind === 'videoinput');
-        this._startCamera();
-      });
-    } else {
+    navigator.mediaDevices.enumerateDevices().then((devices) => {
+      this._devices = devices.filter((device) => device.kind === 'videoinput');
       this._startCamera();
-    }
+    });
   },
 
   willDestroyElement(...args) {
@@ -42,15 +31,8 @@ export default Component.extend({
   _startCamera() {
     this._stopCamera();
 
-    const getUserMedia = navigator.mediaDevices ?
-      navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices) :
-      navigator.getUserMedia.bind(navigator) || navigator.webkitGetUserMedia.bind(navigator);
-    const video = this._devices.length > 0 ?
-      { deviceId: { exact: this._devices[this._deviceIndex].deviceId } } :
-      { facingMode: this._facingMode }
-
-    getUserMedia({
-      video,
+    navigator.mediaDevices.getUserMedia({
+      video: { deviceId: { exact: this._devices[this._deviceIndex].deviceId } },
       audio: false
     }).then((stream) => {
       this.set('_stream', stream);
@@ -88,8 +70,6 @@ export default Component.extend({
       this._deviceIndex++;
 
       if (this._deviceIndex >= this._devices.length) this._deviceIndex = 0;
-
-      this._facingMode = this._facingMode === 'environment' ? 'user' : 'environment';
 
       this._startCamera();
     }
