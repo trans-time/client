@@ -65,7 +65,7 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     this._super(...args);
 
     this.element.addEventListener('touchstart', bind(this, this._touchStart));
-    this.element.addEventListener('touchmove', bind(this, this._touchMove));
+    this.element.addEventListener('touchmove', bind(this, this._touchMove), { passive: false });
     this.element.addEventListener('touchend', bind(this, this._touchEnd));
 
     if (!this.get('usingTouch')) {
@@ -154,6 +154,7 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   },
 
   _touchMove(e) {
+    e.preventDefault();
     this._moveEvent(e.changedTouches[0]);
   },
 
