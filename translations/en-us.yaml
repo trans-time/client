@@ -84,7 +84,7 @@ flags:
       description: "content that appears to be made by a bot; spam"
     illicitActivity:
       name: "illicit activity"
-      description: "underage nude images; selling drugs; etc"
+      description: "underage nude images; copyright violation; etc"
     trolling:
       name: "trolling"
       description: "slurs, hate speech, and other forms of bigotry; threats of physical, psychological, or social harm; unconsenting sexual comments; insults"
