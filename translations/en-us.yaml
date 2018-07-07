@@ -183,7 +183,7 @@ matureContent:
   header: "mature content"
   current: "this content is rated:"
   ratings: "mature content is divided into several levels. you can set your prefered level with the slider below, then choose how long to enable it."
-  session: "to temporarily enable mature content, click the first button. next time you start <em>trans time</em>, matur content will be disabled."
+  session: "to temporarily enable mature content, click the first button. next time you start <em>trans time</em>, mature content will be disabled."
   storage: "to permanently enable mature content on this device, click the second button."
 possessive:
   name: "{name}'s"
