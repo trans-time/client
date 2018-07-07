@@ -65,11 +65,18 @@
   height: 100%;
   width: 100%;
   min-height: 200px;
+  max-height: 1.25vw;
   border: thin solid $medium-gray;
   transition: flex-shrink 750ms ease-in-out;
 
   &.compressed {
     flex-shrink: 1;
+  }
+}
+
+@media (min-width: 1440px) {
+  .timeline-item-nav-slideshow-panels {
+    max-height: 1800px;
   }
 }
 
