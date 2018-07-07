@@ -56,6 +56,7 @@ export default Component.extend({
   touchMove(...args) {
     this._super(...args);
 
+    args[0].preventDefault();
     this._moveEvent(args[0].changedTouches[0]);
   },
 
