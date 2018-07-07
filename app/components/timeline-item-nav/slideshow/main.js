@@ -90,7 +90,7 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
 
     const initialTimelineItemId = this.get('initialTimelineItemId');
     let timelineItem
-    if (isPresent(initialTimelineItemId)) this.get('decoratedTimelineItems').find((decoratedTimelineItem) => decoratedTimelineItem.model.id === initialTimelineItemId);
+    if (isPresent(initialTimelineItemId)) timelineItem = this.get('decoratedTimelineItems').find((decoratedTimelineItem) => decoratedTimelineItem.model.id === initialTimelineItemId);
     if (isEmpty(timelineItem)) timelineItem = this.get('lastTimelineItem') ? this.get('decoratedTimelineItems.lastObject') : this.get('decoratedTimelineItems.firstObject');
     const currentPanel = timelineItem.get('panels.firstObject');
 
