@@ -1,18 +1,16 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
+import { oneWay } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 
 export default Component.extend({
   tagName: '',
 
   intl: service(),
+  maturityManager: service(),
   modalManager: service(),
 
-  currentMaturityRating: computed({
-    get() {
-      return JSON.parse(sessionStorage.getItem('maturityRating')) || JSON.parse(localStorage.getItem('maturityRating')) || 0;
-    }
-  }),
+  currentMaturityRating: oneWay('maturityManager.currentMaturityRating'),
 
   newMaturityRating: computed('_maturityRating', {
     get() {
@@ -28,8 +26,7 @@ export default Component.extend({
       new Promise((resolve, reject) => {
         this.get('modalManager').open('confirmation-modal', resolve, reject, { content: this.get('intl').t('matureContent.confirmation') });
       }).then(() => {
-        sessionStorage.setItem('maturityRating', this.get('newMaturityRating'));
-        this.notifyPropertyChange('currentMaturityRating');
+        this.get('maturityManager').setMaturityRating(sessionStorage, this.get('newMaturityRating'));
       });
     },
 
@@ -37,8 +34,7 @@ export default Component.extend({
       new Promise((resolve, reject) => {
         this.get('modalManager').open('confirmation-modal', resolve, reject, { content: this.get('intl').t('matureContent.confirmation') });
       }).then(() => {
-        localStorage.setItem('maturityRating', this.get('newMaturityRating'));
-        this.notifyPropertyChange('currentMaturityRating');
+        this.get('maturityManager').setMaturityRating(localStorage, this.get('newMaturityRating'));
       });
     }
   }
