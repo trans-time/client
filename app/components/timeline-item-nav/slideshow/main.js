@@ -67,6 +67,7 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     this.element.addEventListener('touchstart', bind(this, this._touchStart));
     this.element.addEventListener('touchmove', bind(this, this._touchMove), { passive: false });
     this.element.addEventListener('touchend', bind(this, this._touchEnd));
+    this.element.addEventListener('wheel', bind(this, this._wheel));
 
     if (!this.get('usingTouch')) {
       const startEvent = bind(this, this._startEvent);
@@ -161,6 +162,20 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
 
   _touchEnd(e) {
     this._endEvent(e.changedTouches[0]);
+  },
+
+  _wheel(e) {
+    if (e.deltaX > 0) {
+      this._navRight();
+    } else if (e.deltaX < 0) {
+      this._navLeft();
+    }
+
+    if (e.deltaY > 0) {
+      this._navUp();
+    } else if (e.deltaY < 0) {
+      this._navDown();
+    }
   },
 
   _startEvent(e) {

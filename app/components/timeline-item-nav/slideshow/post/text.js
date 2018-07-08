@@ -30,6 +30,7 @@ export default Component.extend(AuthenticatedActionMixin, {
     this.element.addEventListener('touchstart', bind(this, this._touchStart));
     this.element.addEventListener('touchmove', bind(this, this._touchMove), { passive: false });
     this.element.addEventListener('touchend', bind(this, this._touchEnd));
+    this.element.addEventListener('wheel', bind(this, this._wheel));
 
     if (!this.get('usingTouch')) {
       const startEvent = bind(this, this._startEvent);
@@ -93,6 +94,12 @@ export default Component.extend(AuthenticatedActionMixin, {
     this._endEvent(e);
   },
 
+  _wheel(e) {
+    if (e.deltaY) {
+      this._fulfillMoveEvent(e, e.deltaY);
+    }
+  },
+
   _mouseOut(event) {
     const toElement = event.toElement || event.relatedTarget;
     if (toElement.parentNode === this.element.parentNode) {
@@ -116,12 +123,17 @@ export default Component.extend(AuthenticatedActionMixin, {
     const swipeState = this.get('swipeState');
     if (!swipeState.active || this.get('_scollLocked')) return;
 
-    const element = this.get('_constraint');
-
     swipeState.diffY = e.clientY - swipeState.currentY;
     swipeState.currentY = e.clientY;
 
-    element.scrollTop -= swipeState.diffY;
+    this._fulfillMoveEvent(event, swipeState.diffY);
+  },
+
+  _fulfillMoveEvent(event, diff) {
+    const swipeState = this.get('swipeState');
+    const element = this.get('_constraint');
+
+    element.scrollTop -= diff;
 
     if (Math.ceil(element.scrollTop + element.clientHeight) >= element.scrollHeight) {
       element.scrollTop = element.scrollHeight - element.clientHeight;
@@ -130,7 +142,7 @@ export default Component.extend(AuthenticatedActionMixin, {
       element.scrollTop = 0;
       swipeState.active = false;
     } else {
-      swipeState.diffs.push(swipeState.diffY);
+      swipeState.diffs.push(diff);
 
       event.preventDefault();
       event.stopPropagation();
