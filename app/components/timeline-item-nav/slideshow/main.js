@@ -71,19 +71,20 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     if (!this.get('usingTouch')) {
       const startEvent = bind(this, this._startEvent);
       const moveEvent = bind(this, this._moveEvent);
+      const outEvent = bind(this, this._outEvent);
       const endEvent = bind(this, this._endEvent);
       const removeClickEvents = () => {
         this.set('usingTouch', true);
         this.element.removeEventListener('mousedown', startEvent);
         this.element.removeEventListener('mousemove', moveEvent);
         this.element.removeEventListener('mouseup', endEvent);
-        this.element.removeEventListener('mouseout', endEvent);
+        this.element.removeEventListener('mouseout', outEvent);
         this.element.removeEventListener('touchstart', removeClickEvents);
       };
 
       this.element.addEventListener('mousedown', startEvent);
       this.element.addEventListener('mousemove', moveEvent);
-      this.element.addEventListener('mouseout', endEvent);
+      this.element.addEventListener('mouseout', outEvent);
       this.element.addEventListener('mouseup', endEvent);
       this.element.addEventListener('touchstart', removeClickEvents);
     }
@@ -230,6 +231,10 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     } else {
       navState.set('progress', progress);
     }
+  },
+
+  _outEvent(e) {
+    if (!this.element.contains(e.toElement || e.relatedTarget)) this._endEvent(e);
   },
 
   _endEvent(e) {
