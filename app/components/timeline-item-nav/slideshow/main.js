@@ -172,9 +172,9 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     }
 
     if (e.deltaY > 0) {
-      this._navUp();
-    } else if (e.deltaY < 0) {
       this._navDown();
+    } else if (e.deltaY < 0) {
+      this._navUp();
     }
   },
 

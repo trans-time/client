@@ -96,7 +96,7 @@ export default Component.extend(AuthenticatedActionMixin, {
 
   _wheel(e) {
     if (e.deltaY && !this.get('_scollLocked')) {
-      this._fulfillMoveEvent(e, e.deltaY);
+      this._fulfillMoveEvent(e, e.deltaY * -1);
     }
   },
 
@@ -132,21 +132,20 @@ export default Component.extend(AuthenticatedActionMixin, {
   _fulfillMoveEvent(event, diff) {
     const swipeState = this.get('swipeState');
     const element = this.get('_constraint');
-    const scrollTop = element.scrollTop - diff;
 
-    if (Math.ceil(scrollTop + element.clientHeight) < element.scrollHeight && scrollTop > 0) {
+    if ((diff <= 0 && Math.ceil(element.clientHeight + element.scrollTop) < element.scrollHeight) || (diff >= 0 && element.scrollTop > 0)) {
       swipeState.diffs.push(diff);
 
       event.preventDefault();
       event.stopPropagation();
     }
 
-    element.scrollTop = scrollTop;
+    element.scrollTop -= diff;
 
-    if (Math.ceil(scrollTop + element.clientHeight) >= element.scrollHeight) {
+    if (Math.ceil(element.scrollTop + element.clientHeight) >= element.scrollHeight) {
       element.scrollTop = element.scrollHeight - element.clientHeight;
       swipeState.active = false;
-    } else if (scrollTop <= 0) {
+    } else if (element.scrollTop <= 0) {
       element.scrollTop = 0;
       swipeState.active = false;
     }
