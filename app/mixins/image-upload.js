@@ -31,7 +31,12 @@ export default Mixin.create({
 
     all(promises).then(() => {
       this.get('modalManager').close();
-      this.transitionTo('posts.post', post.id);
+
+      if (this.router.get('currentRouteName') === 'posts.post.edit') {
+        history.back();
+      } else {
+        this.transitionTo('users.user.timeline', this.get('currentUser.user'));
+      }
     }).catch(() => {
       this.get('modalManager').close();
       this.get('paperToaster').show(this.get('intl').t('upload.unsuccessful'), {
