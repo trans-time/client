@@ -138,7 +138,11 @@ export default Component.extend({
     if (!timelineItems || decoratedTimelineItems.get('length') > timelineItems.get('length') || timelineItems.get('length') === 0) {
       return;
     }
-    const newTimelineItems = timelineItems.slice(nextTimelineItemIndex).map((model, index) => {
+    const newTimelineItems = timelineItems.slice(nextTimelineItemIndex).sort((a, b) => {
+      const aDate = a.get('date');
+      const bDate = b.get('date');
+      return aDate > bDate ? -1 : aDate < bDate ? 1 : 0;
+    }).map((model, index) => {
       return TimelineItemDecorator.create({
         model,
         component: this

@@ -31,7 +31,7 @@ export default Route.extend(TimelineItemNavRouteMixin, {
     const user = this.modelFor('users.user');
 
     return this.store.query('timeline-item', {
-      sort: '-date',
+      sort: params.lastTimelineItem ? 'date' : '-date',
       filter: {
         blocked: false,
         is_marked_for_deletion: false,
@@ -43,7 +43,6 @@ export default Route.extend(TimelineItemNavRouteMixin, {
       },
       initial_query: true,
       from_timeline_item_id: params.timelineItemId,
-      last_timeline_item: params.lastTimelineItem,
       page_size: 10,
       include: 'post,post.images,reactions,user'
     })
