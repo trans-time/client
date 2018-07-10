@@ -91,9 +91,9 @@ flags:
     unconsentingImage:
       name: "unconsenting use of image"
       description: "you are present in an image and want it removed"
-    unmarkedNSFW:
-      name: "unmarked NSFW"
-      description: "NSFW content that wasn't marked NSFW"
+    incorrectMaturityRating:
+      name: "incorrect maturity rating"
+      description: "has mature content without correct label"
     text:
       label: "additional comments"
 followers:

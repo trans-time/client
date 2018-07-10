@@ -1,6 +1,7 @@
 import Service from '@ember/service';
 import { assign } from '@ember/polyfills';
 import { inject as service } from '@ember/service';
+import { isBlank } from '@ember/utils';
 
 export default Service.extend({
   intl: service(),
@@ -31,7 +32,7 @@ export default Service.extend({
 
   showSearchBar() {
     const action = (args) => {
-      if (args.searchValue === '') document.getElementById('top_bar_search').focus();
+      if (isBlank(args.searchValue)) document.getElementById('top_bar_search').focus();
       else if (/@[^\s#*@]+$/.test(args.searchValue)) {
         this.get('router').transitionTo('users.user.profile.index', args.searchValue.split('@')[1]);
       } else {
