@@ -1,45 +1,45 @@
-<div class="timeline-item-nav-slideshow-panels">
-  {{#nsfw-interface matureContent=timelineItem.model}}
+{{#nsfw-interface matureContent=timelineItem.model}}
+  <div class="timeline-item-nav-slideshow-panels">
     {{#each sortedPanels as |panel|}}
       {{component panel.postNavComponent
         panel=panel
         navState=navState
       }}
     {{/each}}
-  {{/nsfw-interface}}
 
-  <div class="timeline-item-nav-resize-toggle">
-    <a {{action resizeType}}>
-      {{#liquid-bind resizeType as |iconType|}}
-        {{fa-icon iconType size=1}}
-      {{/liquid-bind}}
-    </a>
+    <div class="timeline-item-nav-resize-toggle">
+      <a {{action resizeType}}>
+        {{#liquid-bind resizeType as |iconType|}}
+          {{fa-icon iconType size=1}}
+        {{/liquid-bind}}
+      </a>
+    </div>
   </div>
-</div>
 
-{{#if shouldRenderPost}}
-  {{timeline-item-nav/slideshow/post/text
-    chatIsOpen=chatIsOpen
-    timelineItem=timelineItem.model
-    post=post
-    textExpanded=textExpanded
-    isBlank=isBlank
-    isCurrentTimelineItem=isCurrentTimelineItem
-    scrollLocked=(not-eq navState.progress 0)
-    classNames="main-layout-constraint"
-    removePost=removePost
-    isModerating=isModerating
-    deletePost=(route-action "deleteTimelineable" timelineItem.model.timelineable.content)
-  }}
-
-  {{#if (not isModerating)}}
-    {{timeline-item-nav/slideshow/post/controls/main
+  {{#if shouldRenderPost}}
+    {{timeline-item-nav/slideshow/post/text
+      chatIsOpen=chatIsOpen
       timelineItem=timelineItem.model
+      post=post
+      textExpanded=textExpanded
+      isBlank=isBlank
       isCurrentTimelineItem=isCurrentTimelineItem
-      fullShare=fullShare
-      commentCount=timelineItem.model.commentCount
+      scrollLocked=(not-eq navState.progress 0)
       classNames="main-layout-constraint"
-      toggleChat=(action "toggleChat")
+      removePost=removePost
+      isModerating=isModerating
+      deletePost=(route-action "deleteTimelineable" timelineItem.model.timelineable.content)
     }}
+
+    {{#if (not isModerating)}}
+      {{timeline-item-nav/slideshow/post/controls/main
+        timelineItem=timelineItem.model
+        isCurrentTimelineItem=isCurrentTimelineItem
+        fullShare=fullShare
+        commentCount=timelineItem.model.commentCount
+        classNames="main-layout-constraint"
+        toggleChat=(action "toggleChat")
+      }}
+    {{/if}}
   {{/if}}
-{{/if}}
+{{/nsfw-interface}}
