@@ -19,8 +19,8 @@
   {{/if}}
   {{#if currentUser.user}}
     <a class="top-bar-element top-bar-notification-button" {{action "toggleNotifications"}}>
-      {{#if unreadNotificationCount}}{{number-bubble number=unreadNotificationCount classNames="notification-total"}}{{/if}}
-      {{fa-icon "bell-o" size=2 class=(if unreadNotificationCount "top-bar-notification-button-highlighted")}}
+      {{#if unseenNotificationCount}}{{number-bubble number=unseenNotificationCount classNames="notification-total"}}{{/if}}
+      {{fa-icon "bell-o" size=2 class=(if unseenNotificationCount "top-bar-notification-button-highlighted")}}
     </a>
   {{/if}}
   <a class="top-bar-element" {{action "toggleMenu"}}>{{fa-icon "bars" size=2}}</a>

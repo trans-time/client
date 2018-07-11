@@ -17,6 +17,7 @@ export default DS.Model.extend({
   posts: DS.hasMany('post', { async: true, inverse: 'user' }),
   timelineItems: DS.hasMany('timeline-item', { async: true, inverse: 'user' }),
   userIdentities: DS.hasMany('user-identity'),
+  currentUser: DS.belongsTo('current-user'),
   userProfile: DS.belongsTo('user-profile'),
   verdicts: DS.hasMany('verdict'),
 
@@ -67,7 +68,7 @@ export default DS.Model.extend({
       const src = this.get('avatar');
 
       if (isNone(src)) return;
-      
+
       const src160 = src.replace('/full.', '/thumb_160.');
       const src320 = src.replace('/full.', '/thumb_320.');
       const src640 = src.replace('/full.', '/thumb_640.');
