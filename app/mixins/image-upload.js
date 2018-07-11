@@ -54,7 +54,10 @@ export default Mixin.create({
     if (isPresent(src) && src.indexOf('http') !== 0) panel.set('src', undefined);
 
     if ((isBlank(src) && isNew) || panel.get('isMarkedForDeletion')) return resolve();
-    else if (isBlank(src) && !isNew) return panel.destroyRecord();
+    else if (isBlank(src) && !isNew) {
+      yield panel.destroyRecord();
+      return panel.unloadRecord();
+    }
 
     yield panel.save().finally(() => {
       // ensure panel has src
