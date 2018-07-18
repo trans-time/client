@@ -40,7 +40,7 @@ export default Component.extend({
     const isModerating = this.get('isModerating');
     const commentable = this.get('timelineItem');
 
-    let include = 'user,parent,children,reactions';
+    let include = 'user,parent,children,reactions,reactions.user';
     if (isModerating) include += ',text_versions';
 
     const filter = {};
