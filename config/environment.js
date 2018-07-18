@@ -59,7 +59,7 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     ENV.hostname = 'api.transtime.is';
-    ENV.host = `http://${ENV.hostname}`;
+    ENV.host = `https://${ENV.hostname}`;
   }
 
   return ENV;
