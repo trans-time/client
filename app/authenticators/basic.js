@@ -30,7 +30,11 @@ export default BaseAuthenticator.extend({
   rejectWithResponse: false,
 
   restore(data) {
-    return this._validate(data) ? Promise.resolve(data) : Promise.reject();
+    if (this._validate(data)) {
+      return Promise.resolve(data);
+    } else {
+      return Promise.reject();
+    }
   },
 
   authenticate(identification, password) {

@@ -42,7 +42,8 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-    ENV.host = 'http://0.0.0.0:4000';
+    ENV.hostname = '0.0.0.0:4000';
+    ENV.host = `http://${ENV.hostname}`;
   }
 
   if (environment === 'test') {
@@ -57,7 +58,8 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.host = 'https://api.transtime.is';
+    ENV.hostname = 'api.transtime.is';
+    ENV.host = `http://${ENV.hostname}`;
   }
 
   return ENV;

@@ -17,8 +17,8 @@ export default Mixin.create({
     get() {
       const currentUserId = this.get('currentUser.user.id');
 
-      return this.get('_cachedCurrentUserReaction') ||
-        this.get('reactions').find((reaction) => reaction.belongsTo('user').internalModel.id === currentUserId);
+      return this.set('_cachedCurrentUserReaction', this.get('_cachedCurrentUserReaction') ||
+        this.get('reactions').find((reaction) => reaction.get('user.id') === currentUserId));
     },
     set(key, value) {
       return this.set('_cachedCurrentUserReaction', value);
