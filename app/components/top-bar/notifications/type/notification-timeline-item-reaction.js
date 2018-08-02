@@ -7,7 +7,7 @@ export default Component.extend(NotificationComponentMixin, {
   currentUser: service(),
 
   transitionToNotification() {
-    this.get('router').transitionTo('timeline-items.timeline-item', this.get('notification.notifiable.timelineItem.id'));
+    this.get('router').transitionTo('timeline-items.timeline-item.reactions', this.get('notification.notifiable.timelineItem.id'));
   },
 
   reactorUsernames: computed({

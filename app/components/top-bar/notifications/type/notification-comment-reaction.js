@@ -7,7 +7,7 @@ export default Component.extend(NotificationComponentMixin, {
   currentUser: service(),
 
   transitionToNotification() {
-    this.get('router').transitionTo('comments.comment', this.get('notification.notifiable.comment.id'));
+    this.get('router').transitionTo('comments.comment.reactions', this.get('notification.notifiable.comment.id'));
   },
 
   reactorUsernames: computed({
