@@ -17,10 +17,11 @@
       start=changeset.maturityRating
       connect="lower"
       min=1
-      max=4
+      max=3
       step=1
       on-slide=(action (mut changeset.maturityRating))
     }}
+    <div class="post-form-maturity-rating-terms">{{t "post.attributes.maturityRating.terms"}}</div>
   </div>
 {{/if}}
 

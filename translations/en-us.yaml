@@ -211,10 +211,10 @@ post:
     maturityRating:
       description:
         0: "no mature content"
-        1: "sexually provactive content without nudity"
-        2: "wearing only underwear"
-        3: "bare butts/exposed nipples"
-        4: "genitals/buttholes/sex toys"
+        1: "visible underwear"
+        2: "bare butts/exposed nipples"
+        3: "genitals/buttholes"
+      terms: "*sexually provocative or pornographic content is not allowed and will be removed at the discretion of the moderators"
     isPrivate:
       label: "private"
     text:
