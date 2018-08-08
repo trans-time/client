@@ -51,6 +51,9 @@ Router.map(function() {
     });
   });
   this.route('notifications');
+  this.route('tos');
+  this.route('privacy-policy');
+  this.route('cookie-policy');
 });
 
 export default Router;

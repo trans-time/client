@@ -277,6 +277,8 @@ users:
       label: "email"
     password:
       label: "password"
+    tos:
+      label: "by signing up, i agree to the <a href='/tos' target='_blank'>terms of service</a> and <a href='/privacy-policy' target='_blank'>privacy policy</a>, including <a href='/cookie-policy' target='_blank'>cookie use</a>."
     username:
       label: "username"
 remote:

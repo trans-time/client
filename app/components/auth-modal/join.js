@@ -5,6 +5,7 @@ import Changeset from 'ember-changeset';
 import lookupValidator from 'ember-changeset-validations';
 import {
   validateFormat,
+  validateInclusion,
   validateLength,
   validatePresence
 } from 'ember-changeset-validations/validators';
@@ -19,6 +20,9 @@ const SessionValidations = {
     validateLength({ max: 1000 }),
     validatePresence(true),
     validateLength({ min: 6 })
+  ],
+  tos: [
+    (key, newValue) => newValue
   ],
   username: [
     validateLength({ max: 64 }),
