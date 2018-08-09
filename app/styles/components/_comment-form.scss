@@ -11,6 +11,12 @@
   margin-top: $rhythm / 2;
 }
 
+.comment-form-edit, .comment-form-reply {
+  textarea {
+    min-height: 270px;
+  }
+}
+
 .comment-form-checkboxes {
   display: flex;
   padding: $rhythm;
