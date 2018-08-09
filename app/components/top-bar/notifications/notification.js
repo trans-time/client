@@ -16,6 +16,10 @@ export default Component.extend({
       this.get('notification').save();
 
       this.decrementProperty('currentUser.user.currentUser.unseenNotificationCount');
+
+      if (this.get('currentUser.user.currentUser.unseenNotificationCount') < 0) {
+        this.set('currentUser.user.currentUser.unseenNotificationCount', 0);
+      }
     }
   },
 
