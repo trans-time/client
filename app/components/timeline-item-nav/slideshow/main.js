@@ -47,6 +47,9 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   classNames: ['timeline-item-nav-slideshow-main'],
   classNameBindings: ['textExpanded:compressed'],
 
+  panelHeight: 1800,
+  panelWidth: 1440,
+
   meta: service(),
   usingTouch: alias('meta.usingTouch'),
   isLoadingMoreTimelineItems: notEmpty('loadingMoreTimelineItemsPromise'),
@@ -101,6 +104,29 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     this.get('_loadNeighborMatrix').perform(currentPanel);
     this._displayPointers();
     this._boundSettle = this._settle.bind(this);
+    this._boundDeterminePanelSize = this._determinePanelSize.bind(this);
+
+    this._boundDeterminePanelSize();
+
+    window.addEventListener('resize', this._boundDeterminePanelSize);
+  },
+
+  willDestroyElement() {
+    window.removeEventListener('resize', this._boundDeterminePanelSize);
+
+    return this._super(...arguments);
+  },
+
+  _determinePanelSize() {
+    const naturalPanelHeight = this.element.clientHeight - 120;
+    const ratio = 4 / 5;
+    if (this.element.clientWidth / naturalPanelHeight >= ratio) {
+      this.set('panelHeight', Math.min(naturalPanelHeight, 1800));
+      this.set('panelWidth', this.panelHeight * ratio);
+    } else {
+      this.set('panelWidth', Math.min(this.element.clientWidth, 1440));
+      this.set('panelHeight', this.panelWidth * (1 / ratio));
+    }
   },
 
   _keyToggleChat: on(keyDown('KeyC'), function() {

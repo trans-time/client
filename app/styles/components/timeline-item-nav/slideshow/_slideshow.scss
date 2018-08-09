@@ -17,6 +17,7 @@
   height: 100%;
   width: 100%;
   box-shadow: 0 0 $rhythm $dark-gray;
+  background-color: $dark-gray;
   z-index: 1;
   will-change: transform, opacity;
 
@@ -62,12 +63,10 @@
 .timeline-item-nav-slideshow-panels {
   flex-grow: 1;
   position: relative;
-  height: 100%;
-  width: 100%;
-  min-height: 200px;
-  max-height: 125vw;
-  border: thin solid $medium-gray;
+  margin: 0 auto;
+  box-shadow: 0 0 $rhythm $rhythm / 2 $black;
   transition: flex-shrink 750ms ease-in-out;
+  overflow: hidden;
 
   &.compressed {
     flex-shrink: 1;
@@ -147,61 +146,3 @@
     font-size: 20px;
   }
 }
-
-// @media screen and (min-height: 1350px)
-// {
-//   .timeline-item-nav-slideshow-main {
-//     height: 1350px;
-//   }
-// }
-//
-// $timeline-item-nav-slideshow-breakpoints: (
-//   10000: 84,
-//   1200: 82,
-//   1100: 81,
-//   1000: 80,
-//    900: 78
-// );
-//
-// @each $media-height, $height in $timeline-item-nav-slideshow-breakpoints {
-//   @media screen and (max-height: 168vw) and (max-height: #{$media-height}px)
-//   {
-//     .top-bar-layout-constraint {
-//       width: 76vh;
-//     }
-//
-//     .main-layout-constraint {
-//       width: #{$height * 0.8}vh;
-//     }
-//
-//     .timeline-item-nav-slideshow-main {
-//       height: #{$height}vh;
-//     }
-//   }
-// }
-//
-// $timeline-item-nav-slideshow-small-breakpoints: (
-//   800: 77,
-//   700: 74,
-//   600: 68,
-//   500: 60,
-//   400: 50
-// );
-//
-// @each $media-height, $height in $timeline-item-nav-slideshow-small-breakpoints {
-//   @media screen and (max-height: 168vw) and (max-height: #{$media-height}px)
-//   {
-//     .top-bar-layout-constraint {
-//       width: 100%;
-//     }
-//
-//     .main-layout-constraint {
-//       width: 100%;
-//     }
-//
-//     .timeline-item-nav-slideshow-main {
-//       height: #{$height}vh;
-//       width: #{$height * 0.8}vh;
-//     }
-//   }
-// }
