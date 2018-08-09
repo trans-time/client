@@ -62,13 +62,16 @@
 
 .timeline-item-nav-slideshow-panels {
   flex-grow: 1;
+  flex-shrink: 0;
   position: relative;
   margin: 0 auto;
   box-shadow: 0 0 $rhythm $rhythm / 2 $black;
   transition: flex-shrink 750ms ease-in-out;
   overflow: hidden;
+}
 
-  &.compressed {
+.compressed {
+  .timeline-item-nav-slideshow-panels {
     flex-shrink: 1;
   }
 }

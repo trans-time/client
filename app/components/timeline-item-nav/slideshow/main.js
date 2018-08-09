@@ -118,7 +118,7 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   },
 
   _determinePanelSize() {
-    const naturalPanelHeight = this.element.clientHeight - 120;
+    const naturalPanelHeight = this.element.clientHeight - 150;
     const ratio = 4 / 5;
     if (this.element.clientWidth / naturalPanelHeight >= ratio) {
       this.set('panelHeight', Math.min(naturalPanelHeight, 1800));
