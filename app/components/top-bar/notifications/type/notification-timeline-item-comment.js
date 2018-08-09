@@ -14,7 +14,7 @@ export default Component.extend(NotificationComponentMixin, {
   }),
 
   transitionToNotification() {
-    this.get('router').transitionTo('comments.comment', this.get('notification.notifiable.comment'));
+    this.get('router').transitionTo('comments.comment', this.get('notification.notifiable.comment.id'));
   },
 
   ownTimelineItem: computed({
