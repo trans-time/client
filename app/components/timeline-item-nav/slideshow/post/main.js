@@ -1,4 +1,4 @@
-import { computed } from '@ember/object';
+import { computed, observer } from '@ember/object';
 import { oneWay, or, sort } from '@ember/object/computed';
 import { on } from '@ember/object/evented';
 import { inject as service } from '@ember/service';
@@ -18,6 +18,10 @@ export default Component.extend(SlideshowComponentMixin, {
   sortedPanels: sort('timelineItem.panels', (a, b) => a.get('model.order') - b.get('model.order')),
 
   messageBus: service(),
+
+  _resetModifiedPanelHeight: observer('visible', function() {
+    if (!this.get('visible')) this.set('modifiedPanelHeight', this.get('panelHeight'));
+  }),
 
   post: computed({
     get() {
