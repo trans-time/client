@@ -79,7 +79,7 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
     get() {
       const type = this.get('reactable').constructor.modelName;
 
-      return type === 'post' ? 'bottom right' : 'bottom middle';
+      return type === 'comment' ? 'middle middle' : 'middle left';
     }
   }),
 

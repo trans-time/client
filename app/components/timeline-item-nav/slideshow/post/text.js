@@ -9,7 +9,7 @@ import AuthenticatedActionMixin from 'client/mixins/authenticated-action';
 
 export default Component.extend(AuthenticatedActionMixin, {
   classNames: ['timeline-item-nav-post'],
-  classNameBindings: ['textExpanded:expanded', 'textRevealed'],
+  classNameBindings: ['textRevealed'],
 
   currentUser: service(),
   intl: service(),
@@ -116,6 +116,7 @@ export default Component.extend(AuthenticatedActionMixin, {
     swipeState.currentY = e.clientY;
     swipeState.active = true;
     swipeState.diffs.length = 0;
+    swipeState.lockBuffer = 0;
   },
 
   _moveEvent(event) {
@@ -133,21 +134,27 @@ export default Component.extend(AuthenticatedActionMixin, {
     const swipeState = this.get('swipeState');
     const element = this.get('_constraint');
 
-    if ((diff <= 0 && Math.ceil(element.clientHeight + element.scrollTop) < element.scrollHeight) || (diff >= 0 && element.scrollTop > 0)) {
+    if (!((diff <= 0 && Math.ceil(element.clientHeight + element.scrollTop) < element.scrollHeight) || (diff >= 0 && element.scrollTop > 0))) {
+      swipeState.lockBuffer += diff;
+    }
+
+    if (Math.abs(swipeState.lockBuffer) < 50) {
       swipeState.diffs.push(diff);
 
       event.preventDefault();
       event.stopPropagation();
     }
 
-    element.scrollTop -= diff;
+    if (this.element.clientHeight < (this.element.parentElement.clientHeight / 3) * 2 && diff < 0) {
+      this.expendTextOnSwipe(diff);
+    } else {
+      element.scrollTop -= diff;
 
-    if (Math.ceil(element.scrollTop + element.clientHeight) >= element.scrollHeight) {
-      element.scrollTop = element.scrollHeight - element.clientHeight;
-      swipeState.active = false;
-    } else if (element.scrollTop <= 0) {
-      element.scrollTop = 0;
-      swipeState.active = false;
+      if (Math.ceil(element.scrollTop + element.clientHeight) >= element.scrollHeight) {
+        element.scrollTop = element.scrollHeight - element.clientHeight;
+      } else if (element.scrollTop <= 0) {
+        element.scrollTop = 0;
+      }
     }
   },
 
@@ -168,10 +175,14 @@ export default Component.extend(AuthenticatedActionMixin, {
       const loop = () => {
         if (!this.element || this.get('_scollLocked')) return;
 
-        element.scrollTop -= velocity;
+        if (this.element.clientHeight < (this.element.parentElement.clientHeight / 3) * 2 && velocity < 0) {
+          this.expendTextOnSwipe(velocity);
+        } else {
+          element.scrollTop -= velocity;
 
-        if (Math.ceil(element.scrollTop + element.clientHeight) >= element.scrollHeight) return element.scrollTop = element.scrollHeight - element.clientHeight;
-        else if (element.scrollTop < 0) return element.scrollTop = 0;
+          if (Math.ceil(element.scrollTop + element.clientHeight) >= element.scrollHeight) return element.scrollTop = element.scrollHeight - element.clientHeight;
+          else if (element.scrollTop < 0) return element.scrollTop = 0;
+        }
 
         velocity *= 0.95;
 

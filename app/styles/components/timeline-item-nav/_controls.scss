@@ -1,17 +1,17 @@
 .timeline-item-nav-controls-main {
   display: flex;
   align-items: flex-start;
-  justify-content: flex-end;
+  justify-content: flex-start;
   flex-shrink: 0;
   background-color: $white;
-  border: 1px solid $medium-gray;
-  border-bottom: 0;
+  border-top: 1px solid $medium-gray;
   padding: 4px;
   padding-bottom: 0;
   font-size: 85%;
+  z-index: 1;
 
-  :first-child {
-    margin-right: auto;
+  :last-child {
+    margin-left: auto;
   }
 }
 
@@ -57,7 +57,11 @@
 }
 
 .timeline-item-nav-chat-icon {
+  position: relative;
+  top: -2px;
+
   .chat-total {
+    top: 2px;
   }
 }
 

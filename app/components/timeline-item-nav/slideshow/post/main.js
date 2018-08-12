@@ -4,9 +4,8 @@ import { on } from '@ember/object/evented';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import SlideshowComponentMixin from 'client/mixins/slideshow-component';
-import { EKMixin, keyDown } from 'ember-keyboard';
 
-export default Component.extend(EKMixin, SlideshowComponentMixin, {
+export default Component.extend(SlideshowComponentMixin, {
   classNames: ['timeline-item-nav-slideshow-post'],
   classNameBindings: ['isBlank:timeline-item-nav-slideshow-post-blank'],
 
@@ -14,16 +13,11 @@ export default Component.extend(EKMixin, SlideshowComponentMixin, {
   isIncoming: oneWay('timelineItem.isIncoming'),
   isBlank: oneWay('timelineItem.isBlank'),
   keyboardActivated: oneWay('isCurrentPost'),
+  modifiedPanelHeight: oneWay('panelHeight'),
   shouldRenderPost: or('visible', 'timelineItem.shouldPrerender'),
   sortedPanels: sort('timelineItem.panels', (a, b) => a.get('model.order') - b.get('model.order')),
 
   messageBus: service(),
-
-  _keyExpandCompressText: on(keyDown('KeyX'), function() {
-    this.$('.timeline-item-nav-post-text').focus();
-    this.get('textExpanded') ? this.attrs.compressText() : this.attrs.expandText();
-    this.set('userRevealedText', true);
-  }),
 
   post: computed({
     get() {
@@ -37,19 +31,19 @@ export default Component.extend(EKMixin, SlideshowComponentMixin, {
     }
   }),
 
-  resizeType: computed('panelCompressed', {
+  expandButtonDisabled: computed('modifiedPanelHeight', 'panelHeight', {
     get() {
-      return this.get('panelCompressed') ? 'expand' : 'compress'
+      return this.get('modifiedPanelHeight') === this.get('panelHeight');
     }
   }),
 
   actions: {
-    compress() {
-      this.attrs.expandText();
+    expandPanels() {
+      this.set('modifiedPanelHeight', this.get('panelHeight'));
     },
 
-    expand() {
-      this.attrs.compressText();
+    expendTextOnSwipe(amount) {
+      this.incrementProperty('modifiedPanelHeight', amount);
     },
 
     toggleChat() {

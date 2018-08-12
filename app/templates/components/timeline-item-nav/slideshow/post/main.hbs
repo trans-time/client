@@ -1,5 +1,5 @@
 {{#nsfw-interface matureContent=timelineItem.model}}
-  <div class="timeline-item-nav-slideshow-panels" style="height: {{{panelHeight}}}px; width: {{{panelWidth}}}px">
+  <div class="timeline-item-nav-slideshow-panels" style="height: {{{modifiedPanelHeight}}}px; width: {{{panelWidth}}}px">
     {{#each sortedPanels as |panel|}}
       {{component panel.postNavComponent
         panel=panel
@@ -8,29 +8,13 @@
     {{/each}}
 
     <div class="timeline-item-nav-resize-toggle">
-      <a {{action resizeType}}>
-        {{#liquid-bind resizeType as |iconType|}}
-          {{fa-icon iconType size=1}}
-        {{/liquid-bind}}
+      <a {{action "expandPanels"}} class="{{if expandButtonDisabled 'disabled'}}" disabled={{expandButtonDisabled}}>
+        {{fa-icon "expand" size=1}}
       </a>
     </div>
   </div>
 
   {{#if shouldRenderPost}}
-    {{timeline-item-nav/slideshow/post/text
-      chatIsOpen=chatIsOpen
-      timelineItem=timelineItem.model
-      post=post
-      textExpanded=textExpanded
-      isBlank=isBlank
-      isCurrentTimelineItem=isCurrentTimelineItem
-      scrollLocked=(not-eq navState.progress 0)
-      classNames="main-layout-constraint"
-      removePost=removePost
-      isModerating=isModerating
-      deletePost=(route-action "deleteTimelineable" timelineItem.model.timelineable.content)
-    }}
-
     {{#if (not isModerating)}}
       {{timeline-item-nav/slideshow/post/controls/main
         timelineItem=timelineItem.model
@@ -41,5 +25,19 @@
         toggleChat=(action "toggleChat")
       }}
     {{/if}}
+
+    {{timeline-item-nav/slideshow/post/text
+      chatIsOpen=chatIsOpen
+      timelineItem=timelineItem.model
+      post=post
+      isBlank=isBlank
+      isCurrentTimelineItem=isCurrentTimelineItem
+      scrollLocked=(not-eq navState.progress 0)
+      classNames="main-layout-constraint"
+      removePost=removePost
+      isModerating=isModerating
+      deletePost=(route-action "deleteTimelineable" timelineItem.model.timelineable.content)
+      expendTextOnSwipe=(action "expendTextOnSwipe")
+    }}
   {{/if}}
 {{/nsfw-interface}}

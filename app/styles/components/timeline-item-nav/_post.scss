@@ -7,8 +7,6 @@
   min-height: 70px;
   overflow: hidden;
   background-color: $white;
-  border: 1px solid $medium-gray;
-  border-bottom: 0;
   z-index: 3;
   transition: flex-shrink 500ms ease-out;
 
@@ -21,6 +19,7 @@
     overflow-x: hidden;
     overflow-y: auto;
     padding: $rhythm;
+    padding-top: 0;
   }
 
   .reveal-text-toggle {

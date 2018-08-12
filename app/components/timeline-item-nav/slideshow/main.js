@@ -61,9 +61,6 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     diffs: []
   })),
 
-  panelCompressed: false,
-  textExpanded: alias('panelCompressed'),
-
   didInsertElement(...args) {
     this._super(...args);
 
@@ -120,7 +117,7 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   _determinePanelSize() {
     const naturalPanelHeight = this.element.clientHeight - 150;
     const ratio = 4 / 5;
-    if (this.element.clientWidth / naturalPanelHeight >= ratio) {
+    if (this.element.clientWidth / naturalPanelHeight >= 4.5 / 5) {
       this.set('panelHeight', Math.min(naturalPanelHeight, 1800));
       this.set('panelWidth', this.panelHeight * ratio);
     } else {
@@ -214,6 +211,7 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     swipeState.currentX = e.clientX;
     swipeState.currentY = e.clientY;
     swipeState.active = true;
+    swipeState.firstMoveEventPassed = false;
 
     if (this.get('navState.isSettling')) {
       this.set('navState.isSettling', false);
@@ -228,8 +226,13 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     const swipeState = this.get('swipeState');
     if (!swipeState.active) return;
 
-    swipeState.diffX = swipeState.currentX - e.clientX;
-    swipeState.diffY = e.clientY - swipeState.currentY;
+    // in case it's activated by a swipe event from a child, such as the text swipe
+    if (swipeState.firstMoveEventPassed) {
+      swipeState.diffX = swipeState.currentX - e.clientX;
+      swipeState.diffY =  e.clientY - swipeState.currentY;
+    } else {
+      swipeState.firstMoveEventPassed = true;
+    }
     swipeState.currentX = e.clientX;
     swipeState.currentY = e.clientY;
 
@@ -463,14 +466,6 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   },
 
   actions: {
-    expandText() {
-      this.set('panelCompressed', true);
-    },
-
-    compressText() {
-      this.set('panelCompressed', false);
-    },
-
     removeTimelineItem(timelineItem) {
       this.attrs.removeTimelineItem(timelineItem);
       if (this.get('navState.currentPanel').getNeighbor('up') !== 'edge') this._navUp();
