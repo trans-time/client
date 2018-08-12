@@ -20,6 +20,7 @@ export default Component.extend(AuthenticatedActionMixin, {
   usingTouch: alias('meta.usingTouch'),
   swipeState: computed(() => {
     return {
+      lockBuffer: 0,
       diffs: []
     }
   }),
@@ -136,9 +137,11 @@ export default Component.extend(AuthenticatedActionMixin, {
 
     if (!((diff <= 0 && Math.ceil(element.clientHeight + element.scrollTop) < element.scrollHeight) || (diff >= 0 && element.scrollTop > 0))) {
       swipeState.lockBuffer += diff;
+    } else {
+      swipeState.lockBuffer = 0;
     }
 
-    if (Math.abs(swipeState.lockBuffer) < 50) {
+    if (Math.abs(swipeState.lockBuffer) < 70) {
       swipeState.diffs.push(diff);
 
       event.preventDefault();
