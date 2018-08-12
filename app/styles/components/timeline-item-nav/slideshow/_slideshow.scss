@@ -70,12 +70,6 @@
   overflow: hidden;
 }
 
-.compressed {
-  .timeline-item-nav-slideshow-panels {
-    flex-shrink: 1;
-  }
-}
-
 @media (min-width: 1440px) {
   .timeline-item-nav-slideshow-panels {
     max-height: 1800px;

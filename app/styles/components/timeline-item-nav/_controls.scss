@@ -9,9 +9,28 @@
   padding-bottom: 0;
   font-size: 85%;
   z-index: 1;
+}
 
-  :last-child {
-    margin-left: auto;
+.timeline-item-nav-controls-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: $rhythm auto;
+  overflow: hidden;
+
+  .timeline-item-nav-controls-dot {
+    margin: 0 $rhythm / 8;
+    color: $dark-gray;
+    opacity: 0.38;
+    transition: opacity 250ms;
+
+    i {
+      font-size: 68%;
+    }
+
+    &.selected {
+      opacity: 1;
+    }
   }
 }
 

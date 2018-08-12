@@ -54,7 +54,6 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   usingTouch: alias('meta.usingTouch'),
   isLoadingMoreTimelineItems: notEmpty('loadingMoreTimelineItemsPromise'),
 
-  pointers: computed(() => { return {} }),
   swipeState: computed(() => { return { }}),
   navState: computed(() => NavState.create({
     progress: 0,
@@ -99,7 +98,6 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     this.attrs.changeTimelineItem(timelineItem.get('model'));
     this.set('navState.currentPanel', currentPanel);
     this.get('_loadNeighborMatrix').perform(currentPanel);
-    this._displayPointers();
     this._boundSettle = this._settle.bind(this);
     this._boundDeterminePanelSize = this._determinePanelSize.bind(this);
 
@@ -365,7 +363,6 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
 
       this.attrs.changeTimelineItem(currentPanel.get('timelineItem.model'));
       this.get('_loadNeighborMatrix').perform(currentPanel);
-      this._displayPointers();
       this._checkNeedToLoadMoreTimelineItems();
     }
   },
@@ -411,19 +408,7 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
 
     this.set('loadingMoreTimelineItemsPromise', null);
     this._checkNeedToLoadMoreTimelineItems();
-    this._displayPointers();
   }),
-
-  _displayPointers() {
-    const currentPanel = this.get('navState.currentPanel');
-
-    this.set('pointers', {
-      up: this._getNeighbor(currentPanel, 'up') === 'edge' ? '' : 'chevron-up',
-      right: this._getNeighbor(currentPanel, 'right') === 'edge' ? '' : 'chevron-right',
-      down: this._getNeighbor(currentPanel, 'down') === 'edge' ? this.get('isLoadingMoreTimelineItems') ? 'circle-o-notch' : '' : 'chevron-down',
-      left: this._getNeighbor(currentPanel, 'left') === 'edge' ? '' : 'chevron-left'
-    });
-  },
 
   _loadNeighborMatrix: task(function * (panel) {
     panel.set('shouldLoad', true);

@@ -9,6 +9,16 @@
   {{fa-icon "comment-o" size=2}}
 </a>
 
+<div class="timeline-item-nav-controls-dots">
+  {{#if (gt sortedPanels.length 1)}}
+    {{#each sortedPanels as |panel|}}
+      <a class="timeline-item-nav-controls-dot {{if (eq navState.currentPanel.model.id panel.model.id) 'selected'}}">
+        {{fa-icon "circle"}}
+      </a>
+    {{/each}}
+  {{/if}}
+</div>
+
 <a class="timeline-item-nav-controls-element" {{action "openShare"}}>
   {{fa-icon "share-alt" size=2}}
 </a>

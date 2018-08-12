@@ -11,12 +11,3 @@
     toggleChat=(action "toggleChat")
   }}
 {{/each}}
-
-<div class="timeline-item-nav-slideshow-pointer-container">
-  {{#each-in pointers as |direction icon|}}
-    {{timeline-item-nav/slideshow/pointer
-      direction=direction
-      icon=icon
-    }}
-  {{/each-in}}
-</div>
