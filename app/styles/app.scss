@@ -305,7 +305,8 @@ p {
   flex-grow: 1;
 
   .post-form-maturity-rating {
-    margin: $rhythm $rhythm * 2;
+    padding: $rhythm $rhythm * 2;
+    border: thin solid $medium-gray;
 
     .post-form-maturity-rating-description {
       margin-bottom: $rhythm;

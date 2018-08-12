@@ -14,5 +14,11 @@ export default Component.extend({
 
       return value
     }
-  })
+  }),
+
+  actions: {
+    textareaFocus() {
+      console.log('focus')
+    }
+  }
 });
