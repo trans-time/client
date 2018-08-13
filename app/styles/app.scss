@@ -296,7 +296,7 @@ p {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .post-form-text {
@@ -305,11 +305,9 @@ p {
   flex-grow: 1;
 
   .post-form-maturity-rating {
-    flex-shrink: 9999;
+    flex-shrink: 0;
     overflow: hidden;
     border: thin solid $medium-gray;
-    border-top: 0;
-    border-bottom: 0;
 
     .post-form-maturity-rating-element {
       margin: $rhythm / 2 $rhythm * 2;
@@ -350,6 +348,7 @@ p {
     display: flex;
     flex-grow: 1;
     flex-direction: column;
+    min-height: 200px;
   }
 
   .post-form-textarea-container {
@@ -370,18 +369,6 @@ p {
     padding: $rhythm;
   }
 
-  @media screen and (max-height: 800px) {
-    .post-form-textarea {
-      flex-grow: 1;
-      resize: none;
-      padding: $rhythm;
-
-      &:focus {
-        min-height: 300px;
-      }
-    }
-  }
-
   .post-form-text-emoji-toggler {
     position: absolute;
     bottom: 0;
@@ -390,13 +377,22 @@ p {
     border: none;
     outline: none;
     opacity: 0.68;
-    padding: $rhythm;
+
+    .emojione {
+      margin: 0;
+    }
   }
 
   .post-form-text-emoji-picker {
     position: absolute;
     bottom: 2px;
     left: 2px;
+  }
+
+  @media screen and (max-height: 800px) {
+    .post-form-text-emoji-toggler {
+      display: none;
+    }
   }
 }
 
