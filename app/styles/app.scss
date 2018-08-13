@@ -305,22 +305,30 @@ p {
   flex-grow: 1;
 
   .post-form-maturity-rating {
-    padding: $rhythm $rhythm * 2;
+    flex-shrink: 9999;
+    overflow: hidden;
     border: thin solid $medium-gray;
+    border-top: 0;
+    border-bottom: 0;
+
+    .post-form-maturity-rating-element {
+      margin: $rhythm / 2 $rhythm * 2;
+    }
 
     .post-form-maturity-rating-description {
-      margin-bottom: $rhythm;
+      padding-bottom: $rhythm / 2;
     }
 
     .post-form-maturity-rating-terms {
       font-size: 80%;
-      margin-top: $rhythm;
+      padding-top: $rhythm / 2;
     }
   }
 
   .post-form-checkboxes {
     display: flex;
     flex-wrap: wrap;
+    flex-shrink: 0;
     padding: 0 $rhythm $rhythm;
     justify-content: space-around;
     border: thin solid $medium-gray;
@@ -360,6 +368,18 @@ p {
     flex-grow: 1;
     resize: none;
     padding: $rhythm;
+  }
+
+  @media screen and (max-height: 800px) {
+    .post-form-textarea {
+      flex-grow: 1;
+      resize: none;
+      padding: $rhythm;
+
+      &:focus {
+        min-height: 300px;
+      }
+    }
   }
 
   .post-form-text-emoji-toggler {

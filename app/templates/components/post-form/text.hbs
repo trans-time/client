@@ -10,7 +10,7 @@
 
 {{#if maturityRatingOpen}}
   <div class="post-form-maturity-rating">
-    <div class="post-form-maturity-rating-description">
+    <div class="post-form-maturity-rating-element post-form-maturity-rating-description">
       {{maturity-rating rating=changeset.maturityRating}}
     </div>
     {{range-slider
@@ -20,7 +20,9 @@
       max=3
       step=1
       on-slide=(action (mut changeset.maturityRating))
+      classNames="post-form-maturity-rating-element"
     }}
+    <div class="post-form-maturity-rating-element post-form-maturity-rating-terms">{{t "post.attributes.maturityRating.terms"}}</div>
   </div>
 {{/if}}
 
