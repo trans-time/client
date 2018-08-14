@@ -5,9 +5,8 @@ import { next } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { Promise } from 'rsvp';
-import AuthenticatedActionMixin from 'client/mixins/authenticated-action';
 
-export default Component.extend(AuthenticatedActionMixin, {
+export default Component.extend({
   classNames: ['timeline-item-nav-post'],
   classNameBindings: ['textRevealed'],
 
@@ -69,12 +68,6 @@ export default Component.extend(AuthenticatedActionMixin, {
 
     this._super(...args);
   },
-
-  showHistoryToggle: computed({
-    get() {
-      return this.get('isModerating') && this.get('post.textVersions.length') > 0;
-    }
-  }),
 
   textRevealed: computed('userRevealedText', 'textOverflown', {
     get() {
@@ -215,43 +208,8 @@ export default Component.extend(AuthenticatedActionMixin, {
   }),
 
   actions: {
-    delete(comment) {
-      new Promise((resolve, reject) => {
-        this.get('modalManager').open('confirmation-modal', resolve, reject, { content: this.get('intl').t('post.deleteConfirmation') });
-      }).then(() => {
-        this.set('controlsDisabled', true);
-
-        new Promise((resolve, reject) => {
-          this.attrs.deletePost(resolve, reject);
-        }).then(() => {
-          this.attrs.removePost();
-        }).finally(() => this.set('controlsDisabled', false));
-      });
-    },
-
-    hideHistory() {
-      this.set('historyIsRevealed', false);
-    },
-
-    report() {
-      this.authenticatedAction().then(() => {
-        new Promise((resolve, reject) => {
-          this.get('modalManager').open('flag-modal', resolve, reject, {
-            flag: this.get('store').createRecord('flag', {
-              user: this.get('currentUser.user'),
-              flaggable: this.get('timelineItem')
-            })
-          });
-        });
-      });
-    },
-
     revealText() {
       this.set('userRevealedText', true);
-    },
-
-    viewHistory() {
-      this.set('historyIsRevealed', true);
     }
   }
 });

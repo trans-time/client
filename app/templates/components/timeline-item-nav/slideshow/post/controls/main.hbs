@@ -9,6 +9,10 @@
   {{fa-icon "comment-o" size=2}}
 </a>
 
+<a class="timeline-item-nav-controls-element" {{action "openShare"}}>
+  {{fa-icon "share-alt" size=2}}
+</a>
+
 <div class="timeline-item-nav-controls-dots">
   {{#if (gt sortedPanels.length 1)}}
     {{#each sortedPanels as |panel|}}
@@ -19,6 +23,21 @@
   {{/if}}
 </div>
 
-<a class="timeline-item-nav-controls-element" {{action "openShare"}}>
-  {{fa-icon "share-alt" size=2}}
-</a>
+{{#paper-menu as |menu|}}
+  {{#menu.trigger}}
+    {{#paper-button iconButton=true}}
+      {{fa-icon "plus-square-o" size=2}}
+    {{/paper-button}}
+  {{/menu.trigger}}
+  {{#menu.content width=4 as |menuContent|}}
+    {{timeline-item-menu
+      historyIsRevealed=historyIsRevealed
+      isModerating=isModerating
+      menuContent=menuContent
+      timelineItem=timelineItem
+      toggleHistory=toggleHistory
+      removePost=removePost
+      deletePost=(route-action "deleteTimelineable" timelineItem.timelineable.content)
+    }}
+  {{/menu.content}}
+{{/paper-menu}}

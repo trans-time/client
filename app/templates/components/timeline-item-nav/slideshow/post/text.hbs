@@ -1,45 +1,26 @@
 <div class="timeline-item-nav-post-constraint timeline-item-nav-post-text" tabindex="-1">
-    <div class="timeline-item-nav-post-top-line">
-      <div class="timeline-item-nav-post-date">
-        {{sometimes-relative-date date=timelineItem.date}}
-        | {{#if post.timelineItem.user.displayName}}{{{inject-emoji post.timelineItem.user.displayName}}} {{/if}}
-          {{#link-to "users.user.profile.index" timelineItem.user.username}}<span class="at-username">@{{timelineItem.user.username}}</span>{{/link-to}}
-        {{#if (eq timelineItem.user.id user.id)}}
-          | {{#link-to "posts.post.edit" post.id disabled=controlsDisabled}}{{t "post.edit"}}{{/link-to}}
-          | <a {{action "delete"}} disabled={{controlsDisabled}} tabindex="0" class="link">{{t "post.delete"}}</a>
-        {{/if}}
-        {{#if timelineItem.maturityRating}}
-          | {{t "timelineItem.matureContent"}}
-        {{/if}}
-        {{#if timelineItem.isPrivate}}
-          | {{t "timelineItem.isPrivate"}}
-        {{/if}}
-        {{#if timelineItem.isUnderModeration}}
-          | {{t "timelineItem.isUnderModeration"}}
-        {{/if}}
-        {{#if (and (and (not timelineItem.isIgnoringFlags) (not isModerating)) (not-eq timelineItem.user.id user.id))}}
-          | <a {{action "report"}} disabled={{controlsDisabled}} tabindex="0" class="link">{{t "post.report"}}</a>
-        {{/if}}
-        {{#if showHistoryToggle}}
-          {{#if historyIsRevealed}}
-            | <a {{action "hideHistory"}} tabindex="0" class="link">{{t "post.hideHistory"}}</a>
-          {{else}}
-            | <a {{action "viewHistory"}} tabindex="0" class="link">{{t "post.history"}} ({{post.textVersions.length}})</a>
-          {{/if}}
-        {{/if}}
-      </div>
-    </div>
-
-    {{#if historyIsRevealed}}
-      {{#each post.textVersions as |textVersion|}}
-        <div class="timeline-item-nav-post-text-version">
-          <div class="moderation-panel-date">{{sometimes-relative-date date=textVersion.insertedAt}}</div>
-          {{rich-text text=textVersion.text}}
-        </div>
-      {{/each}}
+  {{#if timelineItem.isPrivate}}
+    {{fa-icon "unlock-alt"}}
+  {{/if}}
+  {{#link-to "users.user.profile.index" timelineItem.user.username classNames="timeline-item-nav-post-username"}}
+    {{#if post.timelineItem.user.displayName}}
+      {{{inject-emoji post.timelineItem.user.displayName}}}
+    {{else}}
+      @{{timelineItem.user.username}}
     {{/if}}
+  {{/link-to}}
+  <span class="timeline-item-nav-post-date">({{sometimes-relative-date date=timelineItem.date}})</span>
 
-    {{rich-text text=post.text}}
+  {{rich-text text=post.text classNames="timeline-item-nav-post-current-text"}}
+
+  {{#if historyIsRevealed}}
+    {{#each post.textVersions as |textVersion|}}
+      <div class="timeline-item-nav-post-text-version">
+        <div class="moderation-panel-date">{{sometimes-relative-date date=textVersion.insertedAt}}</div>
+        {{rich-text text=textVersion.text}}
+      </div>
+    {{/each}}
+  {{/if}}
 </div>
 
 <a class="reveal-text-toggle" {{action "revealText"}}>{{t "post.more"}}</a>

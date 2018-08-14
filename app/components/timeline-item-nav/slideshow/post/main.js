@@ -52,6 +52,10 @@ export default Component.extend(SlideshowComponentMixin, {
 
     toggleChat() {
       this.attrs.toggleChat();
+    },
+
+    toggleHistory() {
+      this.toggleProperty('historyIsRevealed');
     }
   }
 });

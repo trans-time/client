@@ -15,6 +15,33 @@
     margin-bottom: $rhythm;
   }
 
+  .timeline-item-nav-post-date {
+    font-size: 80%;
+    font-weight: 300;
+    vertical-align: middle;
+    margin-right: $rhythm / 2;
+  }
+
+  .timeline-item-nav-post-username {
+    color: $text-color;
+    font-size: 110%;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .timeline-item-nav-post-current-text {
+    display: inline;
+
+    p {
+      margin: 0;
+      margin-top: $rhythm;
+    }
+
+    p:first-child {
+      display: inline;
+    }
+  }
+
   .timeline-item-nav-post-text {
     overflow-x: hidden;
     overflow-y: auto;
@@ -47,18 +74,6 @@
 
   .timeline-item-nav-post-top-line {
     display: flex;
-  }
-
-  .timeline-item-nav-post-date {
-    opacity: 0.8;
-    margin-bottom: $rhythm / 2;
-    color: $medium-gray;
-    font-size: 68%;
-    padding-top: 1px;
-
-    a {
-      color: $medium-gray;
-    }
   }
 }
 

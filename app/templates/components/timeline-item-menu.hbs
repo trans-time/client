@@ -1,0 +1,29 @@
+{{#if (eq timelineItem.user.id user.id)}}
+  {{#menuContent.menu-item onClick="goToEdit" disabled=controlsDisabled}}
+    {{fa-icon "pencil"}}
+    <span>{{t "post.edit"}}</span>
+  {{/menuContent.menu-item}}
+  {{#menuContent.menu-item onClick="delete" disabled=controlsDisabled}}
+    {{fa-icon "times"}}
+    <span>{{t "post.delete"}}</span>
+  {{/menuContent.menu-item}}
+{{/if}}
+{{#if (and (and (not timelineItem.isIgnoringFlags) (not isModerating)) (not-eq timelineItem.user.id user.id))}}
+  {{#menuContent.menu-item onClick="report" disabled=controlsDisabled}}
+    {{fa-icon "flag"}}
+    <span>{{t "post.report"}}</span>
+  {{/menuContent.menu-item}}
+{{/if}}
+{{#if showHistoryToggle}}
+  {{#if historyIsRevealed}}
+    {{#menuContent.menu-item onClick="toggleHistory"}}
+      {{fa-icon "calendar-times-o"}}
+      <span>{{t "post.hideHistory"}}</span>
+    {{/menuContent.menu-item}}
+  {{else}}
+    {{#menuContent.menu-item onClick="toggleHistory"}}
+      {{fa-icon "calendar-plus-o"}}
+      <span>{{t "post.history"}} ({{timelineItem.post.textVersions.length}})</span>
+    {{/menuContent.menu-item}}
+  {{/if}}
+{{/if}}
