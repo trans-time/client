@@ -13,19 +13,28 @@
 .timeline-item-nav {
   position: relative;
   display: flex;
+  flex-direction: column;
   flex-grow: 1;
 
   .timeline-item-nav-slideshow-main, .timeline-item-nav-chat-main {
-    transition: transform 750ms;
+    transition: height 1000ms;
   }
 
   &.chat-is-open {
+    overflow-y: auto;
+
     .timeline-item-nav-slideshow-main {
-      transform: translate3d(-100%, 0, 0);
+      height: 35%;
+      min-height: 350px;
     }
 
     .timeline-item-nav-chat-main {
-      transform: translate3d(0, 0, 0);
+      height: inherit;
+    }
+
+    .timeline-item-nav-slideshow-panels {
+      height: 45% !important;
+      width: 100% !important;
     }
   }
 }

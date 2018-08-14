@@ -45,7 +45,6 @@ const NavState = EmberObject.extend({
 
 export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   classNames: ['timeline-item-nav-slideshow-main'],
-  classNameBindings: ['textExpanded:compressed'],
 
   panelHeight: 1800,
   panelWidth: 1440,
@@ -113,13 +112,13 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   },
 
   _determinePanelSize() {
-    const naturalPanelHeight = this.element.clientHeight - 150;
+    const naturalPanelHeight = document.body.clientHeight - 220;
     const ratio = 4 / 5;
-    if (this.element.clientWidth / naturalPanelHeight >= 4.5 / 5) {
+    if (document.body.clientWidth / naturalPanelHeight >= 4.5 / 5) {
       this.set('panelHeight', Math.min(naturalPanelHeight, 1800));
       this.set('panelWidth', this.panelHeight * ratio);
     } else {
-      this.set('panelWidth', Math.min(this.element.clientWidth, 1440));
+      this.set('panelWidth', Math.min(document.body.clientWidth, 1440));
       this.set('panelHeight', this.panelWidth * (1 / ratio));
     }
   },
@@ -129,6 +128,8 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   }),
 
   _navDown: on(keyDown('shift+ArrowDown'), function() {
+    if (this.get('chatIsOpen')) return;
+
     this._manualNav('down', 'y', -1);
   }),
 
@@ -141,6 +142,8 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   }),
 
   _navUp: on(keyDown('shift+ArrowUp'), function() {
+    if (this.get('chatIsOpen')) return;
+
     this._manualNav('up', 'y', 1);
   }),
 
@@ -245,7 +248,7 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
       if (Math.abs(swipeState.lockedX) > threshold && Math.abs(swipeState.lockedX) >= Math.abs(swipeState.lockedY)) {
         navState.set('axis', 'x');
         swipeState.locked = false;
-      } else if (Math.abs(swipeState.lockedY) > threshold && Math.abs(swipeState.lockedY) > Math.abs(swipeState.lockedX)) {
+      } else if (!this.get('chatIsOpen') && Math.abs(swipeState.lockedY) > threshold && Math.abs(swipeState.lockedY) > Math.abs(swipeState.lockedX)) {
         navState.set('axis', 'y');
         swipeState.locked = false;
       } else {

@@ -103,7 +103,6 @@ export default Component.extend({
   nextTimelineItemIndex: 0,
 
   messageBus: service(),
-  topBarManager: service(),
 
   decoratedTimelineItems: computed(() => A()),
 
@@ -126,10 +125,8 @@ export default Component.extend({
 
     if (this.get('commentsAreOpen')) {
       this.set('chatIsOpen', true);
-      next(() => this.get('topBarManager').showCloseComments());
     } else {
       this.set('chatIsOpen', false);
-      if (this.get('topBarManager.state.showingCloseComments')) next(() => this.get('topBarManager').restorePreviousState());
     }
   },
 
