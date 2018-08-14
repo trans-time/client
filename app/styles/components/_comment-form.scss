@@ -11,12 +11,6 @@
   margin-top: $rhythm / 2;
 }
 
-.comment-form-edit, .comment-form-reply {
-  textarea {
-    min-height: 270px;
-  }
-}
-
 .comment-form-checkboxes {
   display: flex;
   padding: $rhythm;
@@ -56,10 +50,6 @@
   box-sizing: border-box;
   transition: height 250ms;
   height: 50px;
-
-  &:focus {
-    height: 25vh;
-  }
 }
 
 .comment-form-text-emoji-toggler {
@@ -83,4 +73,10 @@
   margin: 0;
   width: 100%;
   border-radius: 0;
+}
+
+@media screen and (max-height: 800px) {
+  .comment-form-text-emoji-toggler {
+    display: none;
+  }
 }
