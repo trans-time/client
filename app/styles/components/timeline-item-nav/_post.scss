@@ -15,10 +15,15 @@
     margin-bottom: $rhythm;
   }
 
+  .timeline-item-nav-post-meta {
+    span, a, i {
+      vertical-align: middle;
+    }
+  }
+
   .timeline-item-nav-post-date {
     font-size: 80%;
     font-weight: 300;
-    vertical-align: middle;
     margin-right: $rhythm / 2;
   }
 
