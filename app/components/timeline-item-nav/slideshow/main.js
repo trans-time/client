@@ -180,7 +180,7 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   },
 
   _touchMove(e) {
-    e.preventDefault();
+    if (!this.get('chatIsOpen')) e.preventDefault();
     this._moveEvent(e.changedTouches[0]);
   },
 
