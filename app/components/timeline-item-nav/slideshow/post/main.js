@@ -19,6 +19,12 @@ export default Component.extend(SlideshowComponentMixin, {
 
   messageBus: service(),
 
+  panelHeightIsModified: computed('panelHeight', 'modifiedPanelHeight', {
+    get() {
+      return this.get('panelHeight') !== this.get('modifiedPanelHeight');
+    }
+  }),
+
   _resetModifiedPanelHeight: observer('visible', function() {
     if (!this.get('visible')) this.set('modifiedPanelHeight', this.get('panelHeight'));
   }),
@@ -47,7 +53,8 @@ export default Component.extend(SlideshowComponentMixin, {
     },
 
     expendTextOnSwipe(amount) {
-      this.incrementProperty('modifiedPanelHeight', amount);
+      const modifiedPanelHeight = Math.min(this.get('panelHeight'), this.get('modifiedPanelHeight') + amount);
+      this.set('modifiedPanelHeight', modifiedPanelHeight);
     },
 
     toggleChat() {

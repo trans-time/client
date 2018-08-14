@@ -127,11 +127,11 @@ export default Component.extend({
   _fulfillMoveEvent(event, diff) {
     const swipeState = this.get('swipeState');
     const element = this.get('_constraint');
-
-    if (!((diff <= 0 && Math.ceil(element.clientHeight + element.scrollTop) < element.scrollHeight) || (diff >= 0 && element.scrollTop > 0))) {
-      swipeState.lockBuffer += diff;
-    } else {
+    
+    if ((diff < 0 && Math.ceil(element.clientHeight + element.scrollTop) < element.scrollHeight) || (diff > 0 && this.get('panelHeightIsModified'))) {
       swipeState.lockBuffer = 0;
+    } else {
+      swipeState.lockBuffer += diff;
     }
 
     if (Math.abs(swipeState.lockBuffer) < 70) {
@@ -142,6 +142,8 @@ export default Component.extend({
     }
 
     if (this.element.clientHeight < (this.element.parentElement.clientHeight / 3) * 2 && diff < 0) {
+      this.expendTextOnSwipe(diff);
+    } else if (element.scrollTop === 0 && diff > 0) {
       this.expendTextOnSwipe(diff);
     } else {
       element.scrollTop -= diff;
