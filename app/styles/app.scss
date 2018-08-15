@@ -388,12 +388,6 @@ p {
     bottom: 2px;
     right: 2px;
   }
-
-  @media screen and (max-height: 800px) {
-    .post-form-text-emoji-toggler {
-      display: none;
-    }
-  }
 }
 
 .post-form-controls {

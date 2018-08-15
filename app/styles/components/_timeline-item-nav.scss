@@ -16,10 +16,6 @@
   flex-direction: column;
   flex-grow: 1;
 
-  .timeline-item-nav-slideshow-main, .timeline-item-nav-chat-main {
-    transition: height 1000ms;
-  }
-
   &.chat-is-open {
     overflow-y: auto;
 

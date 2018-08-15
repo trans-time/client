@@ -10,11 +10,13 @@
     {{#taggable-textarea/main classNames="comment-form-taggable-textarea"}}
       {{textarea value=changeset.text placeholder=(if commentsAreLocked (t "comments.attributes.text.placeholderLocked") (t "comments.attributes.text.placeholder")) disabled=commentsAreLocked class="comment-form-textarea"}}
     {{/taggable-textarea/main}}
-    {{component h.emojiAssist}}
 
     {{component h.emojiPickerToggler class="comment-form-text-emoji-toggler"}}
 
-    {{component h.emojiPicker class="comment-form-text-emoji-picker"}}
+    {{#if h.isEmojiPickerVisible}}
+      {{component h.emojiAssist}}
+      {{component h.emojiPicker class="comment-form-text-emoji-picker"}}
+    {{/if}}
   </div>
 
 {{/emoji-picker-wrapper}}

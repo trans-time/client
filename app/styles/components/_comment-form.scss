@@ -65,18 +65,12 @@
 
 .comment-form-text-emoji-picker {
   position: absolute;
-  bottom: 2px;
-  left: 2px;
+  bottom: 0px;
+  right: 0px;
 }
 
 .comment-form-submit {
   margin: 0;
   width: 100%;
   border-radius: 0;
-}
-
-@media screen and (max-height: 800px) {
-  .comment-form-text-emoji-toggler {
-    display: none;
-  }
 }
