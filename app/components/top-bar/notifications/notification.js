@@ -3,9 +3,8 @@ import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 
 export default Component.extend({
-  classNames: 'notification',
-  tagName: 'li',
-
+  tagName: '',
+  
   currentUser: service(),
 
   didInsertElement(...args) {

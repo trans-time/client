@@ -1,7 +1,9 @@
-{{{t "notifications.type.timelineItemComment"
-  commentaterUsername=commentaterUsername
-  ownTimelineItem=ownTimelineItem
-  ownerName=notification.notifiable.comment.timelineItem.user.username
-}}}
+{{#menuContent.menu-item onClick="handleClick"}}
+  {{{t "notifications.type.timelineItemComment"
+    commentaterUsername=commentaterUsername
+    ownTimelineItem=ownTimelineItem
+    ownerName=notification.notifiable.comment.timelineItem.user.username
+  }}}
 
-{{yield}}
+  {{yield}}
+{{/menuContent.menu-item}}

@@ -7,37 +7,23 @@ import { task, timeout } from 'ember-concurrency';
 export default Mixin.create({
   classNames: ['notification-link'],
   classNameBindings: ['notificationLinkUnread'],
-  tagName: 'a',
+  tagName: 'span',
 
   router: service(),
 
   notificationLinkUnread: not('notification.isRead'),
 
-  click(...args) {
-    this._super(...args);
+  actions: {
+    handleClick() {
+      const notification = this.get('notification');
 
-    this.get('_visit').perform();
-  },
+      if (!notification.get('isRead')) {
+        notification.set('isRead', true);
 
-  touchEnd(...args) {
-    this._super(...args);
+        notification.save();
+      }
 
-    this.get('_visit').perform();
-  },
-
-  _visit: task(function * () {
-    yield timeout(10);
-
-    if (typeOf(this.attrs.toggleNotifications) === 'function') this.attrs.toggleNotifications();
-
-    const notification = this.get('notification');
-
-    if (!notification.get('isRead')) {
-      notification.set('isRead', true);
-
-      notification.save();
+      this.transitionToNotification();
     }
-
-    this.transitionToNotification();
-  }).drop()
+  }
 });

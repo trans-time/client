@@ -7,6 +7,14 @@ md-list-item.md-no-proxy, md-list-item .md-no-style {
   padding: 0px $rhythm;
 }
 
+md-menu-content {
+  padding: 0;
+}
+
+.ember-basic-dropdown-content {
+  z-index: 99999999999999;
+}
+
 .paper-date-time-picker {
   margin-top: $rhythm;
 

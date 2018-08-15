@@ -3,8 +3,7 @@ import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 
 export default Component.extend({
-  classNames: ['top-bar-notifications', 'notifications'],
-  tagName: 'ul',
+  tagName: '',
 
   currentUser: service(),
   router: service(),
@@ -27,8 +26,11 @@ export default Component.extend({
   }),
 
   actions: {
+    handleClick() {
+    console.log(arguments)
+    },
+
     seeAllNotifications() {
-      this.attrs.toggleNotifications();
       this.get('router').transitionTo('notifications');
     }
   }

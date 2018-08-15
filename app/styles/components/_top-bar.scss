@@ -131,9 +131,24 @@
 }
 
 .notifications {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
+  height: 100%;
+  overflow-y: auto;
+
+  md-menu-content {
+    height: 100%;
+    max-height: none;
+    width: 100%;
+    overflow-x: hidden;
+
+    md-menu-item {
+      display: block;
+    }
+
+    md-menu-item > * {
+      margin: 0;
+      padding: 0;
+    }
+  }
 }
 
 .notifications-loading {
@@ -154,6 +169,15 @@
   color: $text-color;
   text-decoration: none;
   border-bottom: thin solid $medium-gray;
+
+  md-menu-item {
+    height: inherit;
+
+    button {
+      white-space: normal;
+      line-height: inherit;
+    }
+  }
 }
 
 .notification-link-all {

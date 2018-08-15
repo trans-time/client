@@ -1,5 +1,7 @@
-{{{t "notifications.type.timelineItemAt"
-  username=notification.notifiable.timelineItem.user.username
-}}}
+{{#menuContent.menu-item onClick="handleClick"}}
+  {{{t "notifications.type.timelineItemAt"
+    username=notification.notifiable.timelineItem.user.username
+  }}}
 
-{{yield}}
+  {{yield}}
+{{/menuContent.menu-item}}

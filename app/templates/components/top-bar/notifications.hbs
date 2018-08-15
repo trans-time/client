@@ -1,5 +1,5 @@
 {{#each notifications as |notification|}}
-  {{top-bar/notifications/notification notification=notification toggleNotifications=toggleNotifications}}
+  {{top-bar/notifications/notification notification=notification menuContent=menuContent}}
 {{else}}
   {{#if loading}}
     <li class="notifications-loading">
@@ -8,4 +8,6 @@
   {{/if}}
 {{/each}}
 
-<li class="notification"><a class="notification-link notification-link-all" {{action "seeAllNotifications"}}>{{t "notifications.seeAllNotifications"}}</a></li>
+{{#menuContent.menu-item onClick="seeAllNotifications"}}
+  {{t "notifications.seeAllNotifications"}}
+{{/menuContent.menu-item}}

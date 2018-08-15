@@ -1,7 +1,9 @@
-{{{t "notifications.type.commentComment"
-  commentaterUsername=commentaterUsername
-  ownComment=ownComment
-  ownerName=notification.notifiable.comment.parent.user.username
-}}}
+{{#menuContent.menu-item onClick="handleClick"}}
+  {{{t "notifications.type.commentComment"
+    commentaterUsername=commentaterUsername
+    ownComment=ownComment
+    ownerName=notification.notifiable.comment.parent.user.username
+  }}}
 
-{{yield}}
+  {{yield}}
+{{/menuContent.menu-item}}

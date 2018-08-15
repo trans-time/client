@@ -1,7 +1,9 @@
-<ul id="infinite_content" class="notifications">
-  {{#each model as |notification|}}
-    {{top-bar/notifications/notification notification=notification}}
-  {{/each}}
+<div id="infinite_content" class="notifications">
+  {{#menu-content-shim as |menuContent|}}
+    {{#each model as |notification|}}
+      {{top-bar/notifications/notification notification=notification menuContent=menuContent}}
+    {{/each}}
+  {{/menu-content-shim}}
 
   {{infinity-loader infinityModel=model scrollable="#infinite_content"}}
-</ul>
+</div>

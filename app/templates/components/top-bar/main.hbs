@@ -18,39 +18,31 @@
     </span>
   {{/if}}
   {{#if currentUser.user}}
-    <a class="top-bar-element top-bar-notification-button" {{action "toggleNotifications"}}>
-      {{#if unseenNotificationCount}}{{number-bubble number=unseenNotificationCount classNames="notification-total"}}{{/if}}
-      {{fa-icon "bell-o" size=2 class=(if unseenNotificationCount "top-bar-notification-button-highlighted")}}
-    </a>
+    {{#paper-menu as |menu|}}
+      {{#menu.trigger}}
+        {{#paper-button iconButton=true}}
+          {{#if unseenNotificationCount}}{{number-bubble number=unseenNotificationCount classNames="notification-total"}}{{/if}}
+          {{fa-icon "bell-o" size=2 class=(if unseenNotificationCount "top-bar-notification-button-highlighted")}}
+        {{/paper-button}}
+      {{/menu.trigger}}
+      {{#menu.content width=4 as |menuContent|}}
+        {{top-bar/notifications
+          menuContent=menuContent
+        }}
+      {{/menu.content}}
+    {{/paper-menu}}
   {{/if}}
-  <a class="top-bar-element" {{action "toggleMenu"}}>{{fa-icon "bars" size=2}}</a>
+
+  {{#paper-menu as |menu|}}
+    {{#menu.trigger}}
+      {{#paper-button iconButton=true}}
+        {{fa-icon "bars" size=2}}
+      {{/paper-button}}
+    {{/menu.trigger}}
+    {{#menu.content width=4 as |menuContent|}}
+      {{top-bar/menu
+        menuContent=menuContent
+      }}
+    {{/menu.content}}
+  {{/paper-menu}}
 </div>
-
-{{#if notificationsAreOpen}}
-  {{#liquid-tether
-    target=".top-bar-content"
-    attachment="top right"
-    targetAttachment="bottom right"
-    to="top-bar-menu-destination"
-    class="top-bar-menu-modal"
-  }}
-    {{top-bar/notifications
-      toggleNotifications=(action "toggleNotifications")
-    }}
-  {{/liquid-tether}}
-{{/if}}
-
-
-{{#if menuIsOpen}}
-  {{#liquid-tether
-    target=".top-bar-content"
-    attachment="top right"
-    targetAttachment="bottom right"
-    to="top-bar-menu-destination"
-    class="top-bar-menu-modal"
-  }}
-    {{top-bar/menu
-      toggleMenu=(action "toggleMenu")
-    }}
-  {{/liquid-tether}}
-{{/if}}

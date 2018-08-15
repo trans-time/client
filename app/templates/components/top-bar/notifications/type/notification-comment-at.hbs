@@ -1,5 +1,7 @@
-{{{t "notifications.type.commentAt"
-  username=notification.notifiable.comment.user.username
-}}}
+{{#menuContent.menu-item onClick="handleClick"}}
+  {{{t "notifications.type.commentAt"
+    username=notification.notifiable.comment.user.username
+  }}}
 
-{{yield}}
+  {{yield}}
+{{/menuContent.menu-item}}
