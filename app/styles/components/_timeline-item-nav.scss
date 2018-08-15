@@ -24,13 +24,15 @@
       min-height: 350px;
     }
 
-    .timeline-item-nav-chat-main {
-      height: inherit;
-    }
-
     .timeline-item-nav-slideshow-panels {
       height: 45% !important;
       width: 100% !important;
+    }
+  }
+
+  &:not(.chat-is-open) {
+    .timeline-item-nav-chat-main {
+      height: 0;
     }
   }
 }

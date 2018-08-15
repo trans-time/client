@@ -1,7 +1,3 @@
 {{#if (and chatIsOpen timelineItem.isLoaded)}}
   {{timeline-item-nav/chat/content timelineItem=timelineItem routeComment=routeComment isModerating=isModerating}}
-{{else}}
-  <div class="timeline-item-nav-chat-spinner">
-    {{fa-icon "moon-o" size=5}}
-  </div>
 {{/if}}

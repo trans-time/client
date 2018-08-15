@@ -1,18 +1,20 @@
 .timeline-item-nav-chat-main {
   display: flex;
   flex-direction: column;
-  height: 0;
   background-color: $white;
   border-top: thin dashed $light-gray;
   z-index: 10;
 }
 
 .timeline-item-nav-chat-spinner {
-  margin: auto;
-  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .timeline-item-nav-first-to-comment {
+  margin: $rhythm;
   color: $medium-gray;
 }
 
