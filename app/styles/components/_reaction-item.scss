@@ -4,6 +4,13 @@
   list-style-type: none;
 }
 
+.reaction-selector-modal-close {
+  position: fixed;
+  height: 500vh;
+  width: 500vw;
+  transform: translate3d('-50%, -50%, 0');
+}
+
 .reaction-item {
   height: 80px;
   width: 100%;

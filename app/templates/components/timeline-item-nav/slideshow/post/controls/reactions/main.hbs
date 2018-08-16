@@ -13,6 +13,14 @@
 
 {{#if shouldDisplayAllTypes}}
   {{#liquid-tether
+    target="body"
+    attachment="top left"
+    targetAttachment="top left"
+    class="modal-screen"
+  }}
+    <div class="reaction-selector-modal-close" {{action "closeDisplayAllTypes"}}></div>
+  {{/liquid-tether}}
+  {{#liquid-tether
     target=currentReactionIdHash
     attachment=tetherAttachment
     targetAttachment="middle middle"

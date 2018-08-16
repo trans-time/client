@@ -173,6 +173,13 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
   },
 
   actions: {
+    closeDisplayAllTypes() {
+      this.setProperties({
+        isOpeningDisplayAllTypes: false,
+        shouldDisplayAllTypes: false,
+      });
+    },
+
     completeDisplayAllTypes() {
       this.set('isOpeningDisplayAllTypes', false);
     },
