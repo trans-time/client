@@ -165,17 +165,18 @@
 
 .notification-link {
   display: block;
-  padding: $rhythm / 2;
   color: $text-color;
   text-decoration: none;
   border-bottom: thin solid $medium-gray;
 
   md-menu-item {
     height: inherit;
+    min-height: inherit;
 
     button {
+      padding: $rhythm;
       white-space: normal;
-      line-height: inherit;
+      line-height: 150%;
     }
   }
 }
@@ -185,11 +186,12 @@
 }
 
 .notification-link-unread {
-  background-color: $highlight-color;
+  md-menu-item {
+    background-color: $highlight-color;
+  }
 }
 
 .notification-date {
-  margin-top: $rhythm / 2;
   font-size: 80%;
-  color: $medium-gray;
+  opacity: 0.68;
 }

@@ -1,11 +1,5 @@
 {{#each notifications as |notification|}}
   {{top-bar/notifications/notification notification=notification menuContent=menuContent}}
-{{else}}
-  {{#if loading}}
-    <li class="notifications-loading">
-      {{fa-icon "spinner" pulse=true size=5}}
-    </li>
-  {{/if}}
 {{/each}}
 
 {{#menuContent.menu-item onClick="seeAllNotifications"}}

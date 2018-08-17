@@ -16,7 +16,7 @@ export default DS.Model.extend({
   notificationTimelineItemComment: DS.belongsTo('notification-timeline-item-comment'),
   notificationTimelineItemReaction: DS.belongsTo('notification-timeline-item-reaction'),
 
-  insertedAt: DS.attr('date'),
+  updatedAt: DS.attr('date'),
   isRead: DS.attr('boolean'),
   isSeen: DS.attr('boolean'),
 
