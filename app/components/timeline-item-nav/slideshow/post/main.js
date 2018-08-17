@@ -7,7 +7,7 @@ import SlideshowComponentMixin from 'client/mixins/slideshow-component';
 
 export default Component.extend(SlideshowComponentMixin, {
   classNames: ['timeline-item-nav-slideshow-post'],
-  classNameBindings: ['isBlank:timeline-item-nav-slideshow-post-blank'],
+  classNameBindings: ['isBlank:timeline-item-nav-slideshow-post-blank', 'chatIsOpen'],
 
   isOutgoing: oneWay('timelineItem.isOutgoing'),
   isIncoming: oneWay('timelineItem.isIncoming'),

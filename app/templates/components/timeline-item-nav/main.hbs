@@ -9,18 +9,12 @@
     lastTimelineItem=lastTimelineItem
     fullShare=fullShare
     isModerating=isModerating
+    routeComment=routeComment
     loadMoreTimelineItems=(action "loadMoreTimelineItems")
     changeTimelineItem=(action "changeTimelineItem")
     removeTimelineItem=(action "removeTimelineItem")
     toggleChat=(action "toggleChat")
     classNames="main-layout-constraint"
-  }}
-
-  {{timeline-item-nav/chat/main
-    chatIsOpen=chatIsOpen
-    timelineItem=timelineItem
-    routeComment=routeComment
-    isModerating=isModerating
   }}
 {{else}}
   <div class="timeline-item-nav-none">

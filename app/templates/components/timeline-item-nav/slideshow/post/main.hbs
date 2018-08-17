@@ -46,4 +46,12 @@
       expendTextOnSwipe=(action "expendTextOnSwipe")
     }}
   {{/if}}
+
+  {{#if (and chatIsOpen timelineItem.model.isLoaded)}}
+    {{timeline-item-nav/chat/content
+      timelineItem=timelineItem.model
+      routeComment=routeComment
+      isModerating=isModerating
+    }}
+  {{/if}}
 {{/nsfw-interface}}

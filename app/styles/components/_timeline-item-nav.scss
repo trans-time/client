@@ -15,24 +15,4 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-
-  &.chat-is-open {
-    overflow-y: auto;
-
-    .timeline-item-nav-slideshow-main {
-      height: 35%;
-      min-height: 350px;
-    }
-
-    .timeline-item-nav-slideshow-panels {
-      height: 45% !important;
-      width: 100% !important;
-    }
-  }
-
-  &:not(.chat-is-open) {
-    .timeline-item-nav-chat-main {
-      height: 0;
-    }
-  }
 }

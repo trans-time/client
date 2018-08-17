@@ -3,7 +3,7 @@ import { not, or, equal, oneWay } from '@ember/object/computed';
 import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
-  classNameBindings: ['hidden'],
+  classNameBindings: ['hidden', 'isCurrentTimelineItem'],
   // attributeBindings: ['style'],
 
   hidden: not('visible'),

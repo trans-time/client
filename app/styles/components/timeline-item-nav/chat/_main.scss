@@ -1,9 +1,5 @@
-.timeline-item-nav-chat-main {
-  display: flex;
-  flex-direction: column;
-  background-color: $white;
+.comments-container {
   border-top: thin dashed $light-gray;
-  z-index: 10;
 }
 
 .timeline-item-nav-chat-spinner {

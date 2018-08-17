@@ -7,7 +7,7 @@ import { isEmpty, isNone, isPresent } from '@ember/utils';
 import Component from '@ember/component';
 
 export default Component.extend({
-  classNames: ['comments'],
+  tagName: '',
 
   currentUser: service(),
   messageBus: service(),

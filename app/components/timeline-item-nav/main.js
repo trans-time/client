@@ -98,7 +98,6 @@ const TimelineItemDecorator = EmberObject.extend({
 
 export default Component.extend({
   classNames: ['timeline-item-nav'],
-  classNameBindings: ['chatIsOpen'],
 
   nextTimelineItemIndex: 0,
 

@@ -17,7 +17,7 @@
   height: 100%;
   width: 100%;
   box-shadow: 0 0 $rhythm $dark-gray;
-  background-color: $dark-gray;
+  background-color: $white;
   z-index: 1;
   will-change: transform, opacity;
 
@@ -58,6 +58,26 @@
       }
     }
   }
+
+  &.chat-is-open {
+    overflow-y: auto;
+
+    .timeline-item-nav-slideshow-main {
+      height: 35%;
+      min-height: 350px;
+    }
+
+    .timeline-item-nav-slideshow-panels {
+      height: 45% !important;
+      width: 100% !important;
+    }
+  }
+
+  &:not(.chat-is-open) {
+    .timeline-item-nav-chat-main {
+      height: 0;
+    }
+  }
 }
 
 .timeline-item-nav-slideshow-panels {
@@ -65,7 +85,6 @@
   flex-shrink: 0;
   position: relative;
   margin: 0 auto;
-  box-shadow: 0 0 $rhythm $rhythm / 2 $black;
   transition: flex-shrink 750ms ease-in-out;
   overflow: hidden;
 }
