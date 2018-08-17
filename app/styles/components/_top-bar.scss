@@ -130,27 +130,6 @@
   border: thin solid $medium-gray;
 }
 
-.notifications {
-  height: 100%;
-  overflow-y: auto;
-
-  md-menu-content {
-    height: 100%;
-    max-height: none;
-    width: 100%;
-    overflow-x: hidden;
-
-    md-menu-item {
-      display: block;
-    }
-
-    md-menu-item > * {
-      margin: 0;
-      padding: 0;
-    }
-  }
-}
-
 .notifications-loading {
   display: flex;
   align-items: center;
@@ -174,9 +153,10 @@
     min-height: inherit;
 
     button {
-      padding: $rhythm;
+      padding: $rhythm / 2;
       white-space: normal;
-      line-height: 150%;
+      line-height: 120%;
+      font-size: 80%;
     }
   }
 }
@@ -194,4 +174,30 @@
 .notification-date {
   font-size: 80%;
   opacity: 0.68;
+  margin-top: $rhythm / 4;
+}
+
+.notifications {
+  height: 100%;
+  overflow-y: auto;
+
+  md-menu-content {
+    height: 100%;
+    max-height: none;
+    width: 100%;
+    overflow-x: hidden;
+
+    md-menu-item {
+      display: block;
+    }
+
+    md-menu-item > * {
+      margin: 0;
+      padding: 0;
+    }
+
+    button {
+      padding: $rhythm / 1.5;
+    }
+  }
 }
