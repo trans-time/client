@@ -5,6 +5,7 @@ import { next } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { Promise } from 'rsvp';
+import { task, timeout } from 'ember-concurrency';
 
 export default Component.extend({
   classNames: ['timeline-item-nav-post'],
@@ -106,6 +107,7 @@ export default Component.extend({
 
     swipeState.diffY = 0;
     swipeState.startY = e.clientY;
+    swipeState.startX = e.clientX;
     swipeState.currentY = e.clientY;
     swipeState.active = true;
     swipeState.diffs.length = 0;
@@ -132,7 +134,7 @@ export default Component.extend({
     } else {
       swipeState.lockBuffer += diff;
     }
-console.log(swipeState.lockBuffer, diff, element.clientHeight, element.scrollTop, element.scrollHeight)
+
     if ((!this.get('chatIsOpen') && Math.abs(swipeState.lockBuffer) < 70) || (this.get('chatIsOpen') && Math.abs(swipeState.lockBuffer) === 0)) {
       swipeState.diffs.push(diff);
 
@@ -155,7 +157,8 @@ console.log(swipeState.lockBuffer, diff, element.clientHeight, element.scrollTop
     }
   },
 
-  _endEvent() {
+  _endEvent(event) {
+    const e = event.changedTouches ? event.changedTouches[0] : event;
     const swipeState = this.get('swipeState');
     if (!swipeState.active) return;
 
@@ -165,8 +168,12 @@ console.log(swipeState.lockBuffer, diff, element.clientHeight, element.scrollTop
 
     const precision = 5;
     const latestDiffs = swipeState.diffs.slice(Math.max(0, swipeState.diffs.length - precision), swipeState.diffs.length);
+    const isTap = Math.abs(swipeState.startY - e.clientY) < 5 && Math.abs(swipeState.startX - e.clientX) < 5;
 
-    if (latestDiffs.length > 0) {
+    if (isTap) {
+      if (this.get('hasRecentlyTapped')) this.expendTextOnSwipe(-100000);
+      else this.get('_initiateDoubleTapTask').perform();
+    } else if (latestDiffs.length > 0) {
       let velocity = latestDiffs.reduce((sum, diff) => sum + diff, 0) / Math.min(latestDiffs.length, precision);
 
       const loop = () => {
@@ -191,6 +198,14 @@ console.log(swipeState.lockBuffer, diff, element.clientHeight, element.scrollTop
       loop();
     }
   },
+
+  _initiateDoubleTapTask: task(function * () {
+    this.set('hasRecentlyTapped', true);
+
+    yield timeout(500);
+
+    this.set('hasRecentlyTapped', false);
+  }).restartable(),
 
   _checkTextOverflow() {
     const element = this.get('_constraint');

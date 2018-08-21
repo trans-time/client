@@ -53,7 +53,7 @@ export default Component.extend(SlideshowComponentMixin, {
     },
 
     expendTextOnSwipe(amount) {
-      const modifiedPanelHeight = Math.min(this.get('panelHeight'), this.get('modifiedPanelHeight') + amount);
+      const modifiedPanelHeight = Math.max(Math.min(this.get('panelHeight'), this.get('modifiedPanelHeight') + amount), this.get('panelHeight') / 3);
       this.set('modifiedPanelHeight', modifiedPanelHeight);
     },
 
