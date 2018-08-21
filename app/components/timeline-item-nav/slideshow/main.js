@@ -213,6 +213,7 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     swipeState.currentY = e.clientY;
     swipeState.active = true;
     swipeState.firstMoveEventPassed = false;
+    swipeState.swapLock = 100;
 
     if (this.get('navState.isSettling')) {
       this.set('navState.isSettling', false);
@@ -263,16 +264,26 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     const progress = previousProgress + percentChange;
     navState.get('diffs').push(percentChange);
 
+    const isVerticalSwipe = this.get('navState.axis') === 'y';
+
     if (progress >= 1) {
       this._startNextPeek(progress - 1, this._getDirection(true));
     } else if (progress <= -1) {
       this._startNextPeek(progress + 1, this._getDirection(false));
     } else if (previousProgress >= 0 && progress < 0) {
-      this._swapPeek(progress, this._getDirection(false));
+      if (isVerticalSwipe && Math.abs(swipeState.swapLock) < 100) {
+        swipeState.swapLock += swipeState.diffY;
+        navState.set('incomingPanel', null);
+      } else this._swapPeek(progress, this._getDirection(false));
     } else if (previousProgress < 0 && progress >= 0) {
-      this._swapPeek(progress, this._getDirection(true));
+      if (isVerticalSwipe && Math.abs(swipeState.swapLock) < 100) {
+        swipeState.swapLock += swipeState.diffY;
+        navState.set('incomingPanel', null);
+      } else this._swapPeek(progress, this._getDirection(true));
     } else if (!this.get('navState.incomingPanel')) {
-      this._swapPeek(progress, previousProgress > progress ? this._getDirection(false) : this._getDirection(true));
+      if (isVerticalSwipe && Math.abs(swipeState.swapLock) < 100) {
+        swipeState.swapLock += swipeState.diffY;
+      } else this._swapPeek(progress, previousProgress > progress ? this._getDirection(false) : this._getDirection(true));
     } else {
       navState.set('progress', progress);
     }
@@ -284,7 +295,8 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
 
   _endEvent(e) {
     const swipeState = this.get('swipeState');
-    if (!swipeState.active) return;
+    const navState = this.get('navState');
+    if (!swipeState.active || !navState.get('incomingPanel')) return;
 
     swipeState.diffX = swipeState.currentX - e.clientX;
     swipeState.diffY = e.clientY - swipeState.currentY;
@@ -292,7 +304,6 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     swipeState.currentY = e.clientY;
     swipeState.active = false;
 
-    const navState = this.get('navState');
     const diffs = navState.get('diffs');
     const precision = 5;
     const latestDiffs = diffs.slice(Math.max(0, diffs.length - precision), diffs.length);
@@ -378,6 +389,8 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
       progress,
       incomingPanel
     });
+
+    this.set('swipeState.swapLock', 0);
   },
 
   _checkNeedToLoadMoreTimelineItems() {
