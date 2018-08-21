@@ -277,6 +277,10 @@ p {
   canvas {
     display: none;
   }
+
+  .ember-webrtc-capture-video-flipped {
+    transform: rotateY(180deg);
+  }
 }
 
 .post-form {

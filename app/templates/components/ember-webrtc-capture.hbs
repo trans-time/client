@@ -1,3 +1,3 @@
-<a {{action "switchCamera"}} class="ember-webrtc-capture-switch">{{fa-icon "refresh" size=3}}</a>
-<video autoplay playsinline></video>
+{{#if (gt devices.length 1)}}<a {{action "switchCamera"}} class="ember-webrtc-capture-switch">{{fa-icon "refresh" size=3}}</a>{{/if}}
+<video autoplay playsinline class="{{if videoIsFlipped "ember-webrtc-capture-video-flipped"}}"></video>
 <canvas></canvas>

@@ -6,7 +6,7 @@ import { task, timeout } from 'ember-concurrency';
 export default Component.extend({
   classNames: ['ember-webrtc-capture'],
   _deviceIndex: 0,
-  _devices: computed(() => []),
+  devices: computed(() => []),
 
   didInsertElement(...args) {
     this._super(...args);
@@ -18,7 +18,7 @@ export default Component.extend({
     this._video.addEventListener('click', bind(this, () => this.get('_takePicture').perform()));
 
     navigator.mediaDevices.enumerateDevices().then((devices) => {
-      this._devices = devices.filter((device) => device.kind === 'videoinput');
+      this.set('devices', devices.filter((device) => device.kind === 'videoinput'));
       this._startCamera();
     });
   },
@@ -31,13 +31,16 @@ export default Component.extend({
   _startCamera() {
     this._stopCamera();
 
+    const device = this.devices[this._deviceIndex];
+
     navigator.mediaDevices.getUserMedia({
-      video: { deviceId: { exact: this._devices[this._deviceIndex].deviceId } },
+      video: { deviceId: { exact: device.deviceId } },
       audio: false
     }).then((stream) => {
       this.set('_stream', stream);
       this._video.srcObject = stream;
       this._video.play();
+      this.set('videoIsFlipped', ['user', 'left', 'right'].indexOf(device.getCapabilities().facingMode[0]) > -1);
     });
   },
 
@@ -69,7 +72,7 @@ export default Component.extend({
     switchCamera() {
       this._deviceIndex++;
 
-      if (this._deviceIndex >= this._devices.length) this._deviceIndex = 0;
+      if (this._deviceIndex >= this.devices.length) this._deviceIndex = 0;
 
       this._startCamera();
     }
