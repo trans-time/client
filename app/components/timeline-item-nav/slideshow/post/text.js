@@ -128,6 +128,7 @@ export default Component.extend({
   _fulfillMoveEvent(event, diff) {
     const swipeState = this.get('swipeState');
     const element = this.get('_constraint');
+    const buffer = element.clientHeight >= element.scrollHeight && !this.get('panelHeightIsModified') ? 50 : 200;
 
     if ((diff < 0 && Math.ceil(element.clientHeight + element.scrollTop) < element.scrollHeight) || (diff > 0 && (element.scrollTop > 0 || this.get('panelHeightIsModified')))) {
       swipeState.lockBuffer = 0;
@@ -135,16 +136,16 @@ export default Component.extend({
       swipeState.lockBuffer += diff;
     }
 
-    if ((!this.get('chatIsOpen') && Math.abs(swipeState.lockBuffer) < 200) || (this.get('chatIsOpen') && Math.abs(swipeState.lockBuffer) === 0)) {
+    if ((!this.get('chatIsOpen') && Math.abs(swipeState.lockBuffer) < buffer) || (this.get('chatIsOpen') && Math.abs(swipeState.lockBuffer) === 0)) {
       swipeState.diffs.push(diff);
 
       event.preventDefault();
       event.stopPropagation();
     }
 
-    if (!this.get('chatIsOpen') && this.element.clientHeight < (this.element.parentElement.clientHeight / 3) * 2 && diff < 0) {
+    if (!this.get('chatIsOpen') && diff < 0 && element.clientHeight < element.scrollHeight && this.element.clientHeight < (this.element.parentElement.clientHeight / 3) * 2) {
       this.expendTextOnSwipe(diff);
-    } else if (!this.get('chatIsOpen') && element.scrollTop === 0 && diff > 0) {
+    } else if (!this.get('chatIsOpen') && diff > 0 && element.scrollTop === 0) {
       this.expendTextOnSwipe(diff);
     } else {
       element.scrollTop -= diff;
@@ -172,7 +173,7 @@ export default Component.extend({
 
     if (isTap) {
       if (this.get('hasRecentlyTapped')) {
-        this.expendTextOnSwipe(-100000);
+        this.expendTextOnSwipe(element.clientHeight < element.scrollHeight ? -element.scrollHeight : (this.element.parentElement.clientHeight / 3) * -2);
         this.set('userRevealedText', true);
       } else this.get('_initiateDoubleTapTask').perform();
     } else if (latestDiffs.length > 0) {
@@ -181,9 +182,9 @@ export default Component.extend({
       const loop = () => {
         if (!this.element || this.get('_scollLocked')) return;
 
-        if (!this.get('chatIsOpen') && this.element.clientHeight < (this.element.parentElement.clientHeight / 3) * 2 && velocity < 0) {
+        if (!this.get('chatIsOpen') && velocity < 0 && element.clientHeight < element.scrollHeight && this.element.clientHeight < (this.element.parentElement.clientHeight / 3) * 2) {
           this.expendTextOnSwipe(velocity);
-        } else if (!this.get('chatIsOpen') && element.scrollTop === 0 && velocity > 0) {
+        } else if (!this.get('chatIsOpen') && velocity > 0 && element.scrollTop === 0) {
           this.expendTextOnSwipe(velocity);
         } else {
           element.scrollTop -= velocity;
