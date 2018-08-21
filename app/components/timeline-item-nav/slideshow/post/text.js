@@ -20,7 +20,6 @@ export default Component.extend({
   usingTouch: alias('meta.usingTouch'),
   swipeState: computed(() => {
     return {
-      lockBuffer: 0,
       diffs: []
     }
   }),
@@ -104,6 +103,7 @@ export default Component.extend({
   _startEvent(event) {
     const e = event.changedTouches ? event.changedTouches[0] : event;
     const swipeState = this.get('swipeState');
+    const element = this.get('_constraint');
 
     swipeState.diffY = 0;
     swipeState.startY = e.clientY;
@@ -111,7 +111,8 @@ export default Component.extend({
     swipeState.currentY = e.clientY;
     swipeState.active = true;
     swipeState.diffs.length = 0;
-    swipeState.lockBuffer = 0;
+    swipeState.canNavDown = Math.ceil(element.scrollTop + element.clientHeight) >= element.scrollHeight;
+    swipeState.canNavUp = element.scrollTop <= 0 && !this.get('panelHeightIsModified');
   },
 
   _moveEvent(event) {
@@ -128,15 +129,8 @@ export default Component.extend({
   _fulfillMoveEvent(event, diff) {
     const swipeState = this.get('swipeState');
     const element = this.get('_constraint');
-    const buffer = element.clientHeight >= element.scrollHeight && !this.get('panelHeightIsModified') ? 50 : 200;
-
-    if ((diff < 0 && Math.ceil(element.clientHeight + element.scrollTop) < element.scrollHeight) || (diff > 0 && (element.scrollTop > 0 || this.get('panelHeightIsModified')))) {
-      swipeState.lockBuffer = 0;
-    } else {
-      swipeState.lockBuffer += diff;
-    }
-
-    if ((!this.get('chatIsOpen') && Math.abs(swipeState.lockBuffer) < buffer) || (this.get('chatIsOpen') && Math.abs(swipeState.lockBuffer) === 0)) {
+console.log(diff, element.scrollTop, element.scrollHeight, element.clientHeight)
+    if ((!this.get('chatIsOpen') && ((diff > 0 && !swipeState.canNavUp) || (diff < 0 && !swipeState.canNavDown))) || (this.get('chatIsOpen') && ((diff > 0 && Math.floor(element.scrollTop) > 0) || (diff < 0 && Math.ceil(this.element.scrollHeight + this.element.clientHeight) < this.element.clientHeight)))) {
       swipeState.diffs.push(diff);
 
       event.preventDefault();
@@ -152,8 +146,13 @@ export default Component.extend({
 
       if (Math.ceil(element.scrollTop + element.clientHeight) >= element.scrollHeight) {
         element.scrollTop = element.scrollHeight - element.clientHeight;
+        swipeState.canNavUp = false;
       } else if (element.scrollTop <= 0) {
         element.scrollTop = 0;
+        swipeState.canNavDown = false;
+      } else {
+        swipeState.canNavUp = false;
+        swipeState.canNavDown = false;
       }
     }
   },
@@ -189,8 +188,11 @@ export default Component.extend({
         } else {
           element.scrollTop -= velocity;
 
-          if (Math.ceil(element.scrollTop + element.clientHeight) >= element.scrollHeight) return element.scrollTop = element.scrollHeight - element.clientHeight;
-          else if (element.scrollTop < 0) return element.scrollTop = 0;
+          if (Math.ceil(element.scrollTop + element.clientHeight) >= element.scrollHeight) {
+            return element.scrollTop = element.scrollHeight - element.clientHeight;
+          } else if (element.scrollTop < 0) {
+            return element.scrollTop = 0;
+          }
         }
 
         velocity *= 0.95;
