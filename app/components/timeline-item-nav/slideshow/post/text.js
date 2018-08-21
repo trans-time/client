@@ -171,8 +171,10 @@ export default Component.extend({
     const isTap = Math.abs(swipeState.startY - e.clientY) < 5 && Math.abs(swipeState.startX - e.clientX) < 5;
 
     if (isTap) {
-      if (this.get('hasRecentlyTapped')) this.expendTextOnSwipe(-100000);
-      else this.get('_initiateDoubleTapTask').perform();
+      if (this.get('hasRecentlyTapped')) {
+        this.expendTextOnSwipe(-100000);
+        this.set('userRevealedText', true);
+      } else this.get('_initiateDoubleTapTask').perform();
     } else if (latestDiffs.length > 0) {
       let velocity = latestDiffs.reduce((sum, diff) => sum + diff, 0) / Math.min(latestDiffs.length, precision);
 
