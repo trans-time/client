@@ -135,7 +135,7 @@ export default Component.extend({
       swipeState.lockBuffer += diff;
     }
 
-    if ((!this.get('chatIsOpen') && Math.abs(swipeState.lockBuffer) < 70) || (this.get('chatIsOpen') && Math.abs(swipeState.lockBuffer) === 0)) {
+    if ((!this.get('chatIsOpen') && Math.abs(swipeState.lockBuffer) < 200) || (this.get('chatIsOpen') && Math.abs(swipeState.lockBuffer) === 0)) {
       swipeState.diffs.push(diff);
 
       event.preventDefault();

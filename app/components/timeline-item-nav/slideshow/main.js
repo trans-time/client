@@ -213,7 +213,7 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     swipeState.currentY = e.clientY;
     swipeState.active = true;
     swipeState.firstMoveEventPassed = false;
-    swipeState.swapLock = 100;
+    swipeState.swapLock = 200;
 
     if (this.get('navState.isSettling')) {
       this.set('navState.isSettling', false);
@@ -271,17 +271,15 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     } else if (progress <= -1) {
       this._startNextPeek(progress + 1, this._getDirection(false));
     } else if (previousProgress >= 0 && progress < 0) {
-      if (isVerticalSwipe && Math.abs(swipeState.swapLock) < 100) {
+      if (isVerticalSwipe && Math.abs(swipeState.swapLock) < 200) {
         swipeState.swapLock += swipeState.diffY;
-        navState.set('incomingPanel', null);
       } else this._swapPeek(progress, this._getDirection(false));
     } else if (previousProgress < 0 && progress >= 0) {
-      if (isVerticalSwipe && Math.abs(swipeState.swapLock) < 100) {
+      if (isVerticalSwipe && Math.abs(swipeState.swapLock) < 200) {
         swipeState.swapLock += swipeState.diffY;
-        navState.set('incomingPanel', null);
       } else this._swapPeek(progress, this._getDirection(true));
     } else if (!this.get('navState.incomingPanel')) {
-      if (isVerticalSwipe && Math.abs(swipeState.swapLock) < 100) {
+      if (isVerticalSwipe && Math.abs(swipeState.swapLock) < 200) {
         swipeState.swapLock += swipeState.diffY;
       } else this._swapPeek(progress, previousProgress > progress ? this._getDirection(false) : this._getDirection(true));
     } else {
@@ -295,9 +293,9 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
 
   _endEvent(e) {
     const swipeState = this.get('swipeState');
-    const navState = this.get('navState');
-    if (!swipeState.active || !navState.get('incomingPanel')) return;
+    if (!swipeState.active) return;
 
+    const navState = this.get('navState');
     swipeState.diffX = swipeState.currentX - e.clientX;
     swipeState.diffY = e.clientY - swipeState.currentY;
     swipeState.currentX = e.clientX;
