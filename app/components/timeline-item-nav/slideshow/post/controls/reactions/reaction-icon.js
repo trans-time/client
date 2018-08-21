@@ -33,9 +33,11 @@ export default Component.extend(EKMixin, {
     }
   }),
 
-  totalTypeReactions: computed({
+  totalReactions: computed('reactable.reactionCount', {
     get() {
-      return this.get(`reactable.${this.get('type')}Count`);
+      const countType = this.get('isDisplayingTypeTotal') ? this.get('type') : 'reaction';
+      
+      return this.get(`reactable.${countType}Count`);
     }
   }),
 

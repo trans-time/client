@@ -62,13 +62,12 @@
   &.chat-is-open {
     overflow-y: auto;
 
-    .timeline-item-nav-slideshow-main {
-      height: 35%;
-      min-height: 350px;
+    .timeline-item-nav-post {
+      min-height: 200px;
     }
 
     .timeline-item-nav-slideshow-panels {
-      height: 45% !important;
+      height: 25% !important;
       width: 100% !important;
     }
   }

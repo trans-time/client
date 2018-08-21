@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 
 export default Component.extend({
-  classNames: ['timeline-item-nav-controls-main'],
+  tagName: '',
   modalManager: service(),
 
   actions: {

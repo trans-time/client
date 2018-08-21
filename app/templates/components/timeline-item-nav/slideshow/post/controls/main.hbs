@@ -1,43 +1,45 @@
-{{timeline-item-nav/slideshow/post/controls/reactions/main
-  reactable=timelineItem
-  keyable=true
-  isCurrentPost=isCurrentPost
-}}
+<div class="timeline-item-nav-controls-main">
+  {{timeline-item-nav/slideshow/post/controls/reactions/main
+    reactable=timelineItem
+    keyable=true
+    isCurrentPost=isCurrentPost
+  }}
 
-<a class="timeline-item-nav-controls-element timeline-item-nav-chat-icon" {{action "toggleChat"}}>
-  {{number-bubble number=commentCount classNames="chat-total"}}
-  {{fa-icon "comment-o" size=2}}
-</a>
+  <a class="timeline-item-nav-controls-element timeline-item-nav-chat-icon" {{action "toggleChat"}}>
+    {{number-bubble number=commentCount classNames="chat-total"}}
+    {{fa-icon "comment-o" size=2}}
+  </a>
 
-<a class="timeline-item-nav-controls-element" {{action "openShare"}}>
-  {{fa-icon "share-alt" size=2}}
-</a>
+  <a class="timeline-item-nav-controls-element" {{action "openShare"}}>
+    {{fa-icon "share-alt" size=2}}
+  </a>
 
-<div class="timeline-item-nav-controls-dots">
-  {{#if (gt sortedPanels.length 1)}}
-    {{#each sortedPanels as |panel|}}
-      <a class="timeline-item-nav-controls-dot {{if (eq navState.currentPanel.model.id panel.model.id) 'selected'}}">
-        {{fa-icon "circle"}}
-      </a>
-    {{/each}}
-  {{/if}}
+  <div class="timeline-item-nav-controls-dots">
+    {{#if (gt sortedPanels.length 1)}}
+      {{#each sortedPanels as |panel|}}
+        <a class="timeline-item-nav-controls-dot {{if (eq navState.currentPanel.model.id panel.model.id) 'selected'}}">
+          {{fa-icon "circle"}}
+        </a>
+      {{/each}}
+    {{/if}}
+  </div>
+
+  {{#paper-menu as |menu|}}
+    {{#menu.trigger}}
+      {{#paper-button iconButton=true}}
+        {{fa-icon "plus-square-o" size=2}}
+      {{/paper-button}}
+    {{/menu.trigger}}
+    {{#menu.content width=4 as |menuContent|}}
+      {{timeline-item-menu
+        historyIsRevealed=historyIsRevealed
+        isModerating=isModerating
+        menuContent=menuContent
+        timelineItem=timelineItem
+        toggleHistory=toggleHistory
+        removePost=removePost
+        deletePost=(route-action "deleteTimelineable" timelineItem.timelineable.content)
+      }}
+    {{/menu.content}}
+  {{/paper-menu}}
 </div>
-
-{{#paper-menu as |menu|}}
-  {{#menu.trigger}}
-    {{#paper-button iconButton=true}}
-      {{fa-icon "plus-square-o" size=2}}
-    {{/paper-button}}
-  {{/menu.trigger}}
-  {{#menu.content width=4 as |menuContent|}}
-    {{timeline-item-menu
-      historyIsRevealed=historyIsRevealed
-      isModerating=isModerating
-      menuContent=menuContent
-      timelineItem=timelineItem
-      toggleHistory=toggleHistory
-      removePost=removePost
-      deletePost=(route-action "deleteTimelineable" timelineItem.timelineable.content)
-    }}
-  {{/menu.content}}
-{{/paper-menu}}
