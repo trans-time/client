@@ -59,11 +59,15 @@ export default Component.extend({
     var context = this._canvas.getContext('2d');
     this._canvas.width = this._video.videoWidth;
     this._canvas.height = this._video.videoHeight;
-    context.drawImage(this._video, 0, 0, this._video.videoWidth, this._video.videoHeight);
+    context.save();
+    if (this.get('videoIsFlipped')) context.scale(-1, 1);
+    context.drawImage(this._video, 0, 0, this._video.videoWidth * (this.get('videoIsFlipped') ? -1 : 1), this._video.videoHeight);
 
     var data = this._canvas.toDataURL('image/jpeg', 1.0);
 
     this.attrs.takePicture(data);
+
+    context.restore();
 
     yield timeout(100);
   }).drop(),
