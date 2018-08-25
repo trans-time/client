@@ -89,6 +89,7 @@ export default Component.extend({
 
   _wheel(e) {
     if (e.deltaY && !this.get('_scollLocked')) {
+      this._determineNavability();
       this._fulfillMoveEvent(e, e.deltaY * -1);
     }
   },
@@ -111,6 +112,14 @@ export default Component.extend({
     swipeState.currentY = e.clientY;
     swipeState.active = true;
     swipeState.diffs.length = 0;
+
+    this._determineNavability();
+  },
+
+  _determineNavability() {
+    const swipeState = this.get('swipeState');
+    const element = this.get('_constraint');
+
     swipeState.canNavDown = Math.ceil(element.scrollTop + element.clientHeight) >= element.scrollHeight;
     swipeState.canNavUp = element.scrollTop <= 0 && !this.get('panelHeightIsModified');
   },
@@ -129,7 +138,7 @@ export default Component.extend({
   _fulfillMoveEvent(event, diff) {
     const swipeState = this.get('swipeState');
     const element = this.get('_constraint');
-console.log(diff, element.scrollTop, element.scrollHeight, element.clientHeight)
+
     if ((!this.get('chatIsOpen') && ((diff > 0 && !swipeState.canNavUp) || (diff < 0 && !swipeState.canNavDown))) || (this.get('chatIsOpen') && ((diff > 0 && Math.floor(element.scrollTop) > 0) || (diff < 0 && Math.ceil(this.element.scrollHeight + this.element.clientHeight) < this.element.clientHeight)))) {
       swipeState.diffs.push(diff);
 
