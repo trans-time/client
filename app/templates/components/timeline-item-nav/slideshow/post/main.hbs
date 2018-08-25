@@ -1,5 +1,5 @@
 {{#nsfw-interface matureContent=timelineItem.model}}
-  <div class="timeline-item-nav-slideshow-panels" style="height: {{{modifiedPanelHeight}}}px; width: {{{panelWidth}}}px">
+  <div class="timeline-item-nav-slideshow-panels" style={{panelStyle}}>
     {{#each sortedPanels as |panel|}}
       {{component panel.postNavComponent
         panel=panel

@@ -83,6 +83,10 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
     this._revealText()
   }),
 
+  _keyExpandOrCollapse: on(keyDown('KeyV'), function(e) {
+    this._expandOrCollapseText()
+  }),
+
   _touchStart(e) {
     this._startEvent(e);
   },
@@ -189,8 +193,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
 
     if (isTap) {
       if (this.get('hasRecentlyTapped')) {
-        this.expendTextOnSwipe(element.clientHeight < element.scrollHeight ? -element.scrollHeight : (this.element.parentElement.clientHeight / 3) * -2);
-        this.set('userRevealedText', true);
+        this._expandOrCollapseText(event);
       } else this.get('_initiateDoubleTapTask').perform();
     } else if (latestDiffs.length > 0) {
       let velocity = latestDiffs.reduce((sum, diff) => sum + diff, 0) / Math.min(latestDiffs.length, precision);
@@ -218,6 +221,22 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
       }
 
       loop();
+    }
+  },
+
+  _expandOrCollapseText(event) {
+    const element = this.get('_constraint');
+    element.focus();
+
+    if (this.get('panelHeightIsModified')) {
+      this.expendTextOnSwipe(9999999);
+    } else {
+      this.expendTextOnSwipe(element.clientHeight < element.scrollHeight ? -element.scrollHeight : (this.element.parentElement.clientHeight / 3) * -2);
+      this.set('userRevealedText', true);
+    }
+
+    if (event) {
+      event.preventDefault();
     }
   },
 

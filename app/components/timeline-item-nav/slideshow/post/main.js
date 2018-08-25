@@ -2,6 +2,7 @@ import { computed, observer } from '@ember/object';
 import { oneWay, or, sort } from '@ember/object/computed';
 import { on } from '@ember/object/evented';
 import { inject as service } from '@ember/service';
+import { htmlSafe } from '@ember/string';
 import Component from '@ember/component';
 import SlideshowComponentMixin from 'client/mixins/slideshow-component';
 
@@ -22,6 +23,12 @@ export default Component.extend(SlideshowComponentMixin, {
   panelHeightIsModified: computed('panelHeight', 'modifiedPanelHeight', {
     get() {
       return this.get('panelHeight') !== this.get('modifiedPanelHeight');
+    }
+  }),
+
+  panelStyle: computed('modifiedPanelHeight', 'panelWidth', {
+    get() {
+      return htmlSafe(`width: ${this.get('panelWidth')}px; height: ${this.get('modifiedPanelHeight')}px;`);
     }
   }),
 
