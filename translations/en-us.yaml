@@ -103,6 +103,7 @@ followers:
 general:
   cancel: "cancel"
   submit: "submit"
+  options: "options"
 home:
   title: "home"
 identities:
@@ -156,6 +157,8 @@ moderationReport:
       label: "until (blank = ∞)"
     moderatorComment:
       label: "comment"
+nav:
+  mainMenu: "main menu"
 notifications:
   notifications: "notifications"
   seeAllNotifications: "see all notifications"
@@ -220,6 +223,7 @@ post:
     text:
       placeholder: "what's up?"
 profile:
+  avatar: "avatar"
   block: "block"
   cancel: "cancel"
   changeAvatar: "change your avatar"

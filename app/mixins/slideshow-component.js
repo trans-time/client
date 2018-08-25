@@ -4,7 +4,7 @@ import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
   classNameBindings: ['hidden', 'isCurrentTimelineItem'],
-  // attributeBindings: ['style'],
+  attributeBindings: ['style', 'hidden:aria-hidden'],
 
   hidden: not('visible'),
   visible: or('isOutgoing', 'isIncoming'),

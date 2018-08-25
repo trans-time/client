@@ -1,10 +1,22 @@
 import TextField from '@ember/component/text-field';
+import { computed } from '@ember/object';
 import { on } from '@ember/object/evented';
+import { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
 import { EKOnFocusMixin, keyDown } from 'ember-keyboard';
 import { Promise } from 'rsvp';
 
 export default TextField.extend(EKOnFocusMixin, {
+  attributeBindings: ['ariaLabel:aria-label'],
+
+  intl: service(),
+
+  ariaLabel: computed({
+    get() {
+      return this.get('intl').t('search.title');
+    }
+  }),
+
   _performSearchOnKey: on(keyDown('Enter'), function() {
     this.attrs.performSearch();
   }),

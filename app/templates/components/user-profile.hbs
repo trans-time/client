@@ -2,9 +2,9 @@
   {{#if (or user.avatar isEditing)}}
     <div class="profile-header-avatar-container {{if isEditing 'profile-header-avatar-container-full-size'}}">
       {{#if isEditing}}
-        <img class="profile-header-avatar" src={{changeset.avatar}}>
+        <img alt={{t "profile.avatar"}} class="profile-header-avatar" src={{changeset.avatar}}>
       {{else if user.avatar}}
-        <img class="profile-header-avatar" srcset={{user.avatarProfile}} sizes="160px">
+        <img alt={{t "profile.avatar"}} class="profile-header-avatar" srcset={{user.avatarProfile}} sizes="160px">
       {{/if}}
       {{#if isEditing}}
         <a {{action "changeAvatar"}} class="profile-header-avatar-new-overlay">

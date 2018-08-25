@@ -22,7 +22,7 @@
       {{#menu.trigger}}
         {{#paper-button iconButton=true}}
           {{#if unseenNotificationCount}}{{number-bubble number=unseenNotificationCount classNames="notification-total"}}{{/if}}
-          {{fa-icon "bell-o" size=2 class=(if unseenNotificationCount "top-bar-notification-button-highlighted")}}
+          {{fa-icon "bell-o" size=2 ariaLabel=(t "notifications.notifications") ariaHidden=false class=(if unseenNotificationCount "top-bar-notification-button-highlighted")}}
         {{/paper-button}}
       {{/menu.trigger}}
       {{#menu.content width=4 as |menuContent|}}
@@ -36,7 +36,7 @@
   {{#paper-menu as |menu|}}
     {{#menu.trigger}}
       {{#paper-button iconButton=true}}
-        {{fa-icon "bars" size=2}}
+        {{fa-icon "bars" ariaLabel=(t "nav.mainMenu") ariaHidden=false size=2}}
       {{/paper-button}}
     {{/menu.trigger}}
     {{#menu.content width=4 as |menuContent|}}
