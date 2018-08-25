@@ -123,10 +123,6 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     }
   },
 
-  _keyToggleChat: on(keyDown('KeyC'), function() {
-    this.attrs.toggleChat();
-  }),
-
   _navDown: on(keyDown('shift+ArrowDown'), function() {
     if (this.get('chatIsOpen')) return;
 

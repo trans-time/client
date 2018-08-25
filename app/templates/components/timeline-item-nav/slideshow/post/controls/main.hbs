@@ -2,24 +2,24 @@
   {{timeline-item-nav/slideshow/post/controls/reactions/main
     reactable=timelineItem
     keyable=true
-    isCurrentPost=isCurrentPost
+    isCurrentTimelineItem=isCurrentTimelineItem
   }}
 
-  <a class="timeline-item-nav-controls-element timeline-item-nav-chat-icon" {{action "toggleChat"}}>
+  {{#paper-button onClick=(action "openShare") class="timeline-item-nav-controls-element"}}
+    {{fa-icon "share-alt" size=2}}
+  {{/paper-button}}
+
+  {{#paper-button onClick=(action "toggleChat") class="timeline-item-nav-controls-element timeline-item-nav-chat-icon"}}
     {{number-bubble number=commentCount classNames="chat-total"}}
     {{fa-icon "comment-o" size=2}}
-  </a>
-
-  <a class="timeline-item-nav-controls-element" {{action "openShare"}}>
-    {{fa-icon "share-alt" size=2}}
-  </a>
+  {{/paper-button}}
 
   <div class="timeline-item-nav-controls-dots">
     {{#if (gt sortedPanels.length 1)}}
       {{#each sortedPanels as |panel|}}
-        <a class="timeline-item-nav-controls-dot {{if (eq navState.currentPanel.model.id panel.model.id) 'selected'}}">
+        <span class="timeline-item-nav-controls-dot {{if (eq navState.currentPanel.model.id panel.model.id) 'selected'}}">
           {{fa-icon "circle"}}
-        </a>
+        </span>
       {{/each}}
     {{/if}}
   </div>

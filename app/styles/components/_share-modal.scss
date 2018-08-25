@@ -11,6 +11,10 @@
   .share-modal-clipboard {
     margin-top: $rhythm * 2;
     margin-left: auto;
+
+    &:focus {
+      background-color: #eeeeee;
+    }
   }
 }
 

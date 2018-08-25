@@ -1,21 +1,28 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { oneWay } from '@ember/object/computed';
+import { on } from '@ember/object/evented';
 import { inject as service } from '@ember/service';
+import { EKMixin, EKOnInsertMixin, keyUp } from 'ember-keyboard';
 
-export default Component.extend({
+export default Component.extend(EKMixin, EKOnInsertMixin, {
   classNames: ['main-modal-content', 'share-modal'],
 
   modalManager: service(),
 
   fullShare: oneWay('options.fullShare'),
   timelineItemId: oneWay('options.timelineItemId'),
+  keyboardFirstResponder: true,
 
   didInsertElement(...args) {
     this._super(...args);
 
     this.get('fullShare') ? this.set('selected', 0) : this.set('selected', 3);
   },
+
+  _closeModel: on(keyUp('KeyX'), function() {
+    this.get('modalManager').close();
+  }),
 
   copyUrl: computed('selected', {
     get() {

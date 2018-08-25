@@ -1,13 +1,15 @@
 import { bind } from '@ember/runloop';
 import { computed } from '@ember/object';
+import { on } from '@ember/object/evented';
 import { alias } from '@ember/object/computed';
 import { next } from '@ember/runloop';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { Promise } from 'rsvp';
 import { task, timeout } from 'ember-concurrency';
+import { EKMixin, EKOnInsertMixin, keyDown } from 'ember-keyboard';
 
-export default Component.extend({
+export default Component.extend(EKMixin, EKOnInsertMixin, {
   classNames: ['timeline-item-nav-post'],
   classNameBindings: ['textRevealed'],
 
@@ -55,12 +57,14 @@ export default Component.extend({
 
     window.addEventListener('resize', this.set('onResize',this._checkTextOverflow.bind(this)));
     this._checkTextOverflow();
+    if (this.get('shouldFocus')) this.get('_constraint').focus();
   },
 
   didReceiveAttrs(...args) {
     this._super(...args);
 
     if (this.get('isCurrentPost') && !this.get('chatIsOpen')) next(() => this.$('.timeline-item-nav-post-text').focus());
+    if (this.get('shouldFocus') && this.element) this.get('_constraint').focus();
   },
 
   willDestroyElement(...args) {
@@ -73,6 +77,10 @@ export default Component.extend({
     get() {
       return this.get('userRevealedText') || !this.get('textOverflown');
     }
+  }),
+
+  _keyRevealText: on(keyDown('ArrowDown'), function(e) {
+    this._revealText()
   }),
 
   _touchStart(e) {
@@ -239,9 +247,16 @@ export default Component.extend({
     }
   }),
 
+  _revealText() {
+    if (this.get('shouldFocus') && !this.get('userRevealedText')) {
+      this.set('userRevealedText', true);
+    }
+  },
+
   actions: {
     revealText() {
-      this.set('userRevealedText', true);
+      this._revealText();
+      this.get('_constraint').focus();
     }
   }
 });

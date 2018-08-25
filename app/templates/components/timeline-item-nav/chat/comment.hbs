@@ -33,29 +33,29 @@
         {{/rich-text}}
 
         {{#if textIsOverflown}}
-          <a {{action "expandOverflow"}} class="comment-text-expand-overflow">{{t "comments.expandOverflow"}}</a>
+          <button {{action "expandOverflow"}} class="comment-text-expand-overflow">{{t "comments.expandOverflow"}}</button>
         {{/if}}
       </div>
       <div class="comment-controls">
         {{sometimes-relative-date date=comment.insertedAt}}
         | {{timeline-item-nav/slideshow/post/controls/reactions/main reactable=comment}}
         {{#if (not timelineItem.commentsLocked)}}
-          | <a {{action "reply"}}>{{t "comments.reply"}}</a>
+          | <button {{action "reply"}} class="link-like">{{t "comments.reply"}}</button>
         {{/if}}
         {{#if (eq currentUser.user.id comment.user.id)}}
-          | <a {{action "startEditing"}} disabled={{deleteDisabled}}>{{t "comments.edit"}}</a>
-          | <a {{action "delete" comment}} disabled={{deleteDisabled}}>{{t "comments.delete"}}</a>
+          | <button {{action "startEditing"}} disabled={{deleteDisabled}} class="link-like">{{t "comments.edit"}}</button>
+          | <button {{action "delete" comment}} disabled={{deleteDisabled}} class="link-like">{{t "comments.delete"}}</button>
         {{else if (and (and (not comment.isIgnoringFlags) (not isModerating)) (not-eq comment.user.id currentUser.user.id))}}
-          | <a {{action "report"}}>{{t "comments.report"}}</a>
+          | <button {{action "report"}} class="link-like">{{t "comments.report"}}</button>
         {{/if}}
         {{#if comment.isUnderModeration}}
           | {{t "timelineItem.isUnderModeration"}}
         {{/if}}
         {{#if showHistoryToggle}}
           {{#if historyIsRevealed}}
-            | <a {{action "hideHistory"}} tabindex="0">{{t "post.hideHistory"}}</a>
+            | <button {{action "hideHistory"}} class="link-like">{{t "post.hideHistory"}}</button>
           {{else}}
-            | <a {{action "viewHistory"}} tabindex="0">{{t "post.history"}} ({{comment.textVersions.length}})</a>
+            | <button {{action "viewHistory"}} class="link-like">{{t "post.history"}} ({{comment.textVersions.length}})</button>
           {{/if}}
         {{/if}}
       </div>
@@ -83,7 +83,7 @@
     {{/each}}
 
     {{#if childrenAreCollapsed}}
-      <a {{action "expandChildren"}} class="comment-load-more">{{t "comments.loadMore"}}</a>
+      <button {{action "expandChildren"}} class="comment-load-more link-like">{{t "comments.loadMore"}}</button>
     {{/if}}
   </div>
 {{/if}}

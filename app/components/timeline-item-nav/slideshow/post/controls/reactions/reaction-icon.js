@@ -4,10 +4,10 @@ import { on } from '@ember/object/evented';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import { task, timeout } from 'ember-concurrency';
-import { EKMixin, keyUp } from 'ember-keyboard';
+import { EKMixin, EKOnInsertMixin, keyUp } from 'ember-keyboard';
 
-export default Component.extend(EKMixin, {
-  tagName: 'a',
+export default Component.extend(EKMixin, EKOnInsertMixin, {
+  tagName: 'button',
   classNames: ['timeline-item-nav-controls-element', 'reaction-icon'],
   classNameBindings: ['reacted', 'disabled'],
   attributeBindings: ['disabled', 'oncontextmenu'],
@@ -16,15 +16,21 @@ export default Component.extend(EKMixin, {
   usingTouch: alias('meta.usingTouch'),
 
   _activateMoonKey: on(keyUp('KeyA'), function() {
-    this.attrs.selectType('moon');
+    if (this.get('isCurrentTimelineItem')) this.attrs.selectType('moon');
   }),
 
   _activateStarKey: on(keyUp('KeyS'), function() {
-    this.attrs.selectType('star');
+    if (this.get('isCurrentTimelineItem')) this.attrs.selectType('star');
   }),
 
   _activateSunKey: on(keyUp('KeyD'), function() {
-    this.attrs.selectType('sun');
+    if (this.get('isCurrentTimelineItem')) this.attrs.selectType('sun');
+  }),
+
+  _activateSelf: on(keyUp('Enter'), keyUp('Space'), function() {
+    if (this.element === document.activeElement) {
+      this.attrs.selectType(this.get('type'));
+    }
   }),
 
   iconType: computed('type', {
@@ -36,7 +42,7 @@ export default Component.extend(EKMixin, {
   totalReactions: computed('reactable.reactionCount', {
     get() {
       const countType = this.get('isDisplayingTypeTotal') ? this.get('type') : 'reaction';
-      
+
       return this.get(`reactable.${countType}Count`);
     }
   }),
