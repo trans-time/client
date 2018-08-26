@@ -12,7 +12,6 @@ export default DS.Model.extend(Timelineable, {
 
   date: alias('timelineItem.date'),
   isPrivate: alias('timelineItem.isPrivate'),
-  maturityRating: alias('timelineItem.maturityRating'),
 
   panels: computed('images.[]', {
     get() {

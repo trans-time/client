@@ -1,0 +1,46 @@
+{{#if contentIsViewable}}
+  {{yield}}
+{{else}}
+  <div class="timeline-item-nav-slideshow-nsfw">
+    <h2>{{t "contentWarnings.header"}}</h2>
+    <div class="timeline-item-nav-slideshow-nsfw-info">
+      {{#link-to "users.user.profile.index" content.user.username}}
+        {{#if content.user.displayName}}
+          {{{inject-emoji content.user.displayName}}}
+        {{/if}}
+        <span class="at-username">
+          @{{content.user.username}}
+        </span>
+      {{/link-to}}
+    </div>
+    <div class="timeline-item-nav-slideshow-nsfw-info">{{{t "contentWarnings.description"}}}</div>
+    <div class="timeline-item-nav-slideshow-nsfw-info">
+      <ul>
+        {{#each content.contentWarnings as |cw|}}
+          <li>{{cw.name}}</li>
+        {{/each}}
+      </ul>
+    </div>
+    {{#if (not-eq currentUser.currentUserId "anon")}}
+      <div class="timeline-item-nav-slideshow-nsfw-info">{{{t "contentWarnings.session"}}}</div>
+      <div class="timeline-item-nav-slideshow-nsfw-info">{{{t "contentWarnings.storage"}}}</div>
+    {{/if}}
+
+    <div class="timeline-item-nav-slideshow-nsfw-buttons">
+      {{#paper-button
+        raised=true
+        onClick=(action "addCWsForSession")
+      }}
+        {{t "contentWarnings.enable"}} {{fa-icon "clock-o"}}
+      {{/paper-button}}
+      {{#if (not-eq currentUser.currentUserId "anon")}}
+        {{#paper-button
+          raised=true
+          onClick=(action "addCWsForAlways")
+        }}
+          {{t "contentWarnings.enable"}} ∞
+        {{/paper-button}}
+      {{/if}}
+    </div>
+  </div>
+{{/if}}

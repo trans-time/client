@@ -56,27 +56,18 @@
         {{/paper-checkbox}}
 
         {{#paper-checkbox
-          value=openMaturityRating
-          onChange=(action (mut openMaturityRating))
+          value=openContentWarnings
+          onChange=(action (mut openContentWarnings))
         }}
-          {{t "moderation.changeMaturityRating"}}
+          {{t "moderation.changeContentWarnings"}}
         {{/paper-checkbox}}
       </div>
 
-      {{#if openMaturityRating}}
-        <div class="moderation-panel-maturity-rating">
-          <div class="moderation-panel-maturity-rating-description">
-            {{maturity-rating rating=changeset.actionChangeMaturityRating}}
-          </div>
-          {{range-slider
-            start=changeset.actionChangeMaturityRating
-            connect="lower"
-            min=0
-            max=4
-            step=1
-            on-slide=(action (mut changeset.actionChangeMaturityRating))
-          }}
-        </div>
+      {{#if openContentWarnings}}
+        {{paper-input
+          value=changeset.actionChangeContentWarnings
+          onChange=(action (mut changeset.actionChangeContentWarnings))
+        }}
       {{/if}}
 
       {{#if changeset.actionMarkImagesForDeletion}}

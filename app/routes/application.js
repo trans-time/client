@@ -11,6 +11,7 @@ export default Route.extend(ApplicationRouteMixin, {
   messageBus: service(),
 
   init(...args) {
+    this.get('currentUser').setupStorage('anon');
     this.get('intl').setLocale('en-us');
     window.addEventListener('resize', bind(this, this._handleResize), false);
     this._super(...args);

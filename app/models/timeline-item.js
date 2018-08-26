@@ -5,6 +5,7 @@ import Reactable from 'client/mixins/model-reactable';
 
 export default DS.Model.extend(Flaggable, Reactable, {
   comments: DS.hasMany('comment'),
+  contentWarnings: DS.hasMany('content-warning'),
   post: DS.belongsTo('post'),
   tags: DS.hasMany('tag'),
   user: DS.belongsTo('user', { inverse: 'posts' }),
@@ -14,7 +15,6 @@ export default DS.Model.extend(Flaggable, Reactable, {
   commentsAreLocked: DS.attr('boolean'),
   date: DS.attr('date'),
   isMarkedForDeletion: DS.attr('boolean'),
-  maturityRating: DS.attr('number', { defaultValue: 0 }),
   isPrivate: DS.attr('boolean'),
   isUnderModeration: DS.attr('boolean'),
 

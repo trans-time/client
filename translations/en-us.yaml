@@ -43,6 +43,13 @@ comments:
 confirmation:
   cancel: "cancel"
   confirm: "confirm"
+contentWarnings:
+  header: "content warning"
+  confirmation: "this content may contain nudity. by clicking confirm, i agree that i am familiar with local laws concerning content of this nature and accept all responsibility for viewing it on <em>trans time</em>."
+  enable: "enable"
+  description: "this timeline item has the following content warnings:"
+  session: "to temporarily view content with these cws, click the first button. next time you start <em>trans time</em>, these cws will be disabled."
+  storage: "to permanently enable these cws on this device, click the second button."
 coverPage:
   lead: "<em>trans time</em> is a documentation tool and social network for trans+ people."
   followUpHeader: "purpose"
@@ -91,9 +98,9 @@ flags:
     unconsentingImage:
       name: "unconsenting use of image"
       description: "you are present in an image and want it removed"
-    incorrectMaturityRating:
-      name: "incorrect maturity rating"
-      description: "has mature content without correct label"
+    incorrectContentWarning:
+      name: "needs content warnings"
+      description: "list needed content warnings in comment"
     text:
       label: "additional comments"
 followers:
@@ -126,7 +133,7 @@ identities:
 moderation:
   banUser: "ban user"
   bannedUser: "banned user: {until}"
-  changeMaturityRating: "change maturity rating"
+  changeContentWarnings: "change content warnings"
   contractComments: "hide flags"
   deleteFlaggable: "delete content"
   deletedContent: "deleted content"
@@ -180,14 +187,6 @@ notifications:
     # timelineItemComment: "{commentaterUsername} commented on {ownTimelineItem, select, true {your} false {<strong>{ownerName}'s</strong>}} post"
     timelineItemComment: "{commentaterUsername} commented on a timeline item"
     timelineItemReactions: "{reactorUsernames} reacted to your timeline item"
-matureContent:
-  confirmation: "by clicking confirm, i agree that i am familiar with local laws concerning viewing mature content on the internet and accept all responsibility for viewing it on <em>trans time</em>."
-  enable: "enable"
-  header: "mature content"
-  current: "this content is rated:"
-  ratings: "mature content is divided into several levels. you can set your prefered level with the slider below, then choose how long to enable it."
-  session: "to temporarily enable mature content, click the first button. next time you start <em>trans time</em>, mature content will be disabled."
-  storage: "to permanently enable mature content on this device, click the second button."
 possessive:
   name: "{name}'s"
   your: "your"
@@ -207,21 +206,14 @@ post:
   report: "report"
   viewPost: "view post"
   attributes:
+    contentWarnings:
+      label: "content warnings"
     date:
       label: "date"
-    matureContent:
-      label: "mature content"
-    maturityRating:
-      description:
-        0: "no mature content"
-        1: "visible underwear"
-        2: "bare butts/exposed nipples"
-        3: "genitals/buttholes"
-      terms: "*sexually provocative or pornographic content is not allowed and will be removed at the discretion of the moderators"
     isPrivate:
       label: "private"
     text:
-      placeholder: "what's up?"
+      placeholder: "write whatever you feel like"
 profile:
   avatar: "avatar"
   block: "block"

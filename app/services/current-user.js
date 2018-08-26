@@ -1,6 +1,7 @@
-import { resolve } from 'rsvp';
-import { isEmpty } from '@ember/utils';
 import Service, { inject as service } from '@ember/service';
+import { computed } from '@ember/object';
+import { isEmpty } from '@ember/utils';
+import { resolve } from 'rsvp';
 import config from 'client/config/environment';
 import { WebSocket } from 'phoenix';
 
@@ -11,6 +12,12 @@ export default Service.extend({
   session: service(),
   store: service(),
 
+  currentUserId: computed('user.id', {
+    get() {
+      return this.get('user.id') || 'anon';
+    }
+  }),
+
   load() {
     const username = this.get('session.data.authenticated.username');
 
@@ -20,6 +27,7 @@ export default Service.extend({
       return store.query('user', { filter: { username }, include: 'followeds,followeds.followed,blockeds,blockers,current_user' }).then((users) => {
         const user = users.get('firstObject');
 
+        this.setupStorage(user.id);
         this.set('user', user);
 
         this.get('messageBus').publish('currentUserLoaded', user);
@@ -30,6 +38,22 @@ export default Service.extend({
     } else {
       return resolve();
     }
+  },
+
+  setupStorage(id) {
+    const storageId = `user-${id}`;
+    if (!sessionStorage.getItem(storageId)) sessionStorage.setItem(storageId, JSON.stringify({ approvedCWIds: [], approvedTimelineItemIds: [] }));
+    if (!localStorage.getItem(storageId)) localStorage.setItem(storageId, JSON.stringify({ approvedCWIds: [], approvedTimelineItemIds: [] }));
+  },
+
+  getStorage(storage) {
+    const storageId = `user-${this.get('currentUserId')}`;
+    return JSON.parse(storage.getItem(storageId));
+  },
+
+  setStorage(storage, value) {
+    const storageId = `user-${this.get('currentUserId')}`;
+    storage.setItem(storageId, JSON.stringify(value));
   },
 
   _connectToWebsocket(user) {

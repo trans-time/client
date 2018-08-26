@@ -1,4 +1,4 @@
-{{#nsfw-interface matureContent=timelineItem.model}}
+{{#cw-interface content=timelineItem.model}}
   <div class="timeline-item-nav-slideshow-panels" style={{panelStyle}}>
     {{#each sortedPanels as |panel|}}
       {{component panel.postNavComponent
@@ -55,4 +55,4 @@
       isModerating=isModerating
     }}
   {{/if}}
-{{/nsfw-interface}}
+{{/cw-interface}}

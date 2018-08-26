@@ -29,10 +29,10 @@
   {{/paper-checkbox}}
 
   {{#paper-checkbox
-    value=changeset.incorrectMaturityRating
-    onChange=(action (mut changeset.incorrectMaturityRating))
+    value=changeset.incorrectContentWarning
+    onChange=(action (mut changeset.incorrectContentWarning))
   }}
-    <span class="flag-modal-checkbox-label-name">{{t "flags.attributes.incorrectMaturityRating.name"}}</span> <span class="flag-modal-checkbox-label-description">{{t "flags.attributes.incorrectMaturityRating.description"}}</span>
+    <span class="flag-modal-checkbox-label-name">{{t "flags.attributes.incorrectContentWarning.name"}}</span> <span class="flag-modal-checkbox-label-description">{{t "flags.attributes.incorrectContentWarning.description"}}</span>
   {{/paper-checkbox}}
 
   {{paper-input

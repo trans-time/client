@@ -1,36 +1,21 @@
-<div class="post-form-checkboxes">
+<div class="post-form-meta">
   {{#paper-checkbox value=changeset.isPrivate onChange=(action (mut changeset.isPrivate))}}
     {{t "post.attributes.isPrivate.label"}}
   {{/paper-checkbox}}
 
-  {{#paper-checkbox value=maturityRatingOpen onChange=(action (mut maturityRatingOpen))}}
-    {{t "post.attributes.matureContent.label"}}
-  {{/paper-checkbox}}
+  {{pikaday-input
+    format="MM/DD/YYYY h:mm a"
+    value=changeset.date
+    classNames="pikaday-input"
+    onSelection=(action (mut changeset.date))
+  }}
 </div>
 
-{{#if maturityRatingOpen}}
-  <div class="post-form-maturity-rating">
-    <div class="post-form-maturity-rating-element post-form-maturity-rating-description">
-      {{maturity-rating rating=changeset.maturityRating}}
-    </div>
-    {{range-slider
-      start=changeset.maturityRating
-      connect="lower"
-      min=1
-      max=3
-      step=1
-      on-slide=(action (mut changeset.maturityRating))
-      classNames="post-form-maturity-rating-element"
-    }}
-    <div class="post-form-maturity-rating-element post-form-maturity-rating-terms">{{t "post.attributes.maturityRating.terms"}}</div>
-  </div>
-{{/if}}
-
-{{pikaday-input
-  format="MM/DD/YYYY h:mm a"
-  value=changeset.date
-  classNames="pikaday-input"
-  onSelection=(action (mut changeset.date))
+{{paper-input
+  value=changeset.contentWarnings
+  label=(t "post.attributes.contentWarnings.label")
+  onChange=(action (mut changeset.contentWarnings))
+  classNames="post-form-content-warnings"
 }}
 
 {{#emoji-picker-wrapper

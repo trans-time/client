@@ -115,17 +115,9 @@
     margin-bottom: $rhythm;
   }
 
-  .timeline-item-nav-slideshow-nsfw-maturity-rating {
-    margin: $rhythm * 2;
-    margin-top: auto;
-
-    .timeline-item-nav-slideshow-nsfw-maturity-rating-description {
-      margin-bottom: $rhythm;
-    }
-  }
-
   .timeline-item-nav-slideshow-nsfw-buttons {
     display: flex;
+    margin-top: auto;
 
     button {
       flex-grow: 1;

@@ -17,7 +17,7 @@ export default Component.extend({
     get() {
       const { flag, intl } = this.getProperties('flag', 'intl');
 
-      return ['bot', 'illicitActivity', 'trolling', 'unconsentingImage', 'incorrectMaturityRating'].reduce((accumulator, violation) => {
+      return ['bot', 'illicitActivity', 'trolling', 'unconsentingImage', 'incorrectContentWarning'].reduce((accumulator, violation) => {
         if (flag.get(violation)) accumulator.push(intl.t(`flags.attributes.${violation}.name`));
 
         return accumulator;

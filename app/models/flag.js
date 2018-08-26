@@ -14,7 +14,7 @@ export default DS.Model.extend({
   illicitActivity: DS.attr('boolean'),
   trolling: DS.attr('boolean'),
   unconsentingImage: DS.attr('boolean'),
-  incorrectMaturityRating: DS.attr('boolean'),
+  incorrectContentWarning: DS.attr('boolean'),
 
   flaggable: computed('comment', 'timelineItem', {
     get() {
