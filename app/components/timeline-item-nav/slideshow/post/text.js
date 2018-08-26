@@ -1,5 +1,5 @@
 import { bind } from '@ember/runloop';
-import { computed } from '@ember/object';
+import { computed, observer } from '@ember/object';
 import { on } from '@ember/object/evented';
 import { alias } from '@ember/object/computed';
 import { next } from '@ember/runloop';
@@ -60,13 +60,6 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
     if (this.get('shouldFocus')) this.get('_constraint').focus();
   },
 
-  didReceiveAttrs(...args) {
-    this._super(...args);
-
-    if (this.get('isCurrentPost') && !this.get('chatIsOpen')) next(() => this.$('.timeline-item-nav-post-text').focus());
-    if (this.get('shouldFocus') && this.element) this.get('_constraint').focus();
-  },
-
   willDestroyElement(...args) {
     window.removeEventListener('resize', this.get('onResize'));
 
@@ -85,6 +78,10 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
 
   _keyExpandOrCollapse: on(keyDown('KeyV'), function(e) {
     this._expandOrCollapseText()
+  }),
+
+  _shouldGainFocus: observer('shouldFocus', function() {
+    if (this.get('shouldFocus') && this.element) this.get('_constraint').focus();
   }),
 
   _touchStart(e) {
