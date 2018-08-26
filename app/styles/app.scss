@@ -319,6 +319,7 @@ p {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  overflow-x: hidden;
 
   .post-form-maturity-rating {
     flex-shrink: 0;
