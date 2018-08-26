@@ -4,6 +4,8 @@
 
 .tag-search-modal-options {
   display: flex;
+  overflow: auto;
+  margin-top: $rhythm * 1.5;
 }
 
 .tag-search-modal-sub-title {

@@ -7,13 +7,13 @@ export default Component.extend({
 
   tags: computed({
     get() {
-      return this.get('text').match(/#([a-zA-Z0-9_]*)/g).map((tag) => tag.slice(1)).filter((tag, index, self) => self.indexOf(tag) === index);
+      return (this.get('text').match(/#([a-zA-Z0-9_]*)/g) || []).map((tag) => tag.slice(1)).filter((tag, index, self) => self.indexOf(tag) === index);
     }
   }),
 
   users: computed({
     get() {
-      return this.get('text').match(/@([a-zA-Z0-9_]*)/g).map((user) => user.slice(1)).filter((user, index, self) => self.indexOf(user) === index);
+      return (this.get('text').match(/@([a-zA-Z0-9_]*)/g) || []).map((user) => user.slice(1)).filter((user, index, self) => self.indexOf(user) === index);
     }
   }),
 
