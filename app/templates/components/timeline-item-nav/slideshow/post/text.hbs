@@ -18,13 +18,13 @@
     <span class="timeline-item-nav-post-date">({{sometimes-relative-date date=timelineItem.date}})</span>
   </span>
 
-  {{rich-text text=post.text classNames="timeline-item-nav-post-current-text"}}
+  {{rich-text text=post.text author=timelineItem.user classNames="timeline-item-nav-post-current-text"}}
 
   {{#if historyIsRevealed}}
     {{#each post.textVersions as |textVersion|}}
       <div class="timeline-item-nav-post-text-version">
         <div class="moderation-panel-date">{{sometimes-relative-date date=textVersion.insertedAt}}</div>
-        {{rich-text text=textVersion.text}}
+        {{rich-text text=textVersion.text author=timelineItem.user}}
       </div>
     {{/each}}
   {{/if}}

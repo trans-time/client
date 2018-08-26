@@ -2,7 +2,7 @@
   <img srcset={{user.avatarBigThumb}} sizes="80px" class="reaction-item-avatar">
   <div class="reaction-item-text">
     <div class="reaction-item-username">{{#if user.displayName}}{{{inject-emoji user.displayName}}} {{/if}}<span class="at-username">@{{user.username}}</span></div>
-    <div class="reaction-item-description">{{rich-text text=user.userProfile.description}}</div>
+    <div class="reaction-item-description">{{rich-text text=user.userProfile.description author=user}}</div>
   </div>
   <div class="reaction-item-reaction">{{fa-icon iconType size=2 flip="horizontal"}}</div>
 {{/link-to}}

@@ -9,7 +9,7 @@
         {{#paper-button onClick="grantPrivateAccess" raised=true disabled=buttonDisabled class="follow-item-button"}}{{t "followers.grant"}}{{/paper-button}}
       {{/if}}
     {{else}}
-      <div class="follow-item-description">{{rich-text text=user.userProfile.description}}</div>
+      <div class="follow-item-description">{{rich-text text=user.userProfile.description author=user}}</div>
     {{/if}}
   </div>
 {{/link-to}}

@@ -13,5 +13,11 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
 
   _keyClose: on(keyDown('Escape'), function() {
     this.get('modalManager').close('reject');
-  })
+  }),
+
+  actions: {
+    close() {
+      this._keyClose();
+    }
+  }
 });

@@ -5,7 +5,7 @@
     targetAttachment="top left"
     class="main-modal"
   }}
-    <div class="main-modal-screen"></div>
+    <div class="main-modal-screen" {{action "close"}}></div>
     {{component componentPath options=options}}
   {{/liquid-tether}}
 {{/if}}

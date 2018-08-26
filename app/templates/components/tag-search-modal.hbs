@@ -1,0 +1,42 @@
+<h1 class="tag-search-modal-title">{{t "tagSearch.title"}}</h1>
+
+{{#if author}}
+  <div class="share-modal-timeline-options">
+    {{#paper-button raised=true primary=(eq selected "author") onClick=(action "select" "author")}}{{t "tagSearch.selectAuthor" username=author.username}}{{/paper-button}}
+    {{#paper-button raised=true primary=(eq selected "all") onClick=(action "select" "all")}}{{t "tagSearch.selectAll"}}{{/paper-button}}
+  </div>
+{{/if}}
+
+<div class="tag-search-modal-options">
+  {{#if selectedTags}}
+    <div class="tag-search-modal-option-set">
+      <h2 class="tag-search-modal-sub-title">{{t "tagSearch.tags"}}</h2>
+      <ul class="tag-search-modal-option-list">
+        {{#each selectedTags as |tag|}}
+          <li class="tag-search-modal-option-item">
+            {{#paper-checkbox value=tag.selected onChange=(action (mut tag.selected))}}
+              #{{tag.name}}
+            {{/paper-checkbox}}
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+  {{/if}}
+
+  {{#if (and selectedUsers (eq selected "author"))}}
+    <div class="tag-search-modal-option-set">
+      <h2 class="tag-search-modal-sub-title">{{t "tagSearch.users"}}</h2>
+      <ul class="tag-search-modal-option-list">
+        {{#each selectedUsers as |user|}}
+          <li class="tag-search-modal-option-item">
+            {{#paper-checkbox value=user.selected onChange=(action (mut user.selected))}}
+              @{{user.name}}
+            {{/paper-checkbox}}
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+  {{/if}}
+</div>
+
+{{#paper-button raised=true primary=true onClick=(action "search")}}{{t "tagSearch.search"}}{{/paper-button}}

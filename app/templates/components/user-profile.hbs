@@ -115,7 +115,7 @@
     </div>
   {{else if user.userProfile.description}}
     <div class="profile-description">
-      {{rich-text text=user.userProfile.description}}
+      {{rich-text text=user.userProfile.description author=user}}
     </div>
   {{/if}}
 </div>

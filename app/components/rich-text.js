@@ -1,8 +1,21 @@
 import Component from '@ember/component';
+import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 
 export default Component.extend({
-  router: service(),
+  modalManager: service(),
+
+  tags: computed({
+    get() {
+      return this.get('text').match(/#([a-zA-Z0-9_]*)/g).map((tag) => tag.slice(1)).filter((tag, index, self) => self.indexOf(tag) === index);
+    }
+  }),
+
+  users: computed({
+    get() {
+      return this.get('text').match(/@([a-zA-Z0-9_]*)/g).map((user) => user.slice(1)).filter((user, index, self) => self.indexOf(user) === index);
+    }
+  }),
 
   didInsertElement(...args) {
     this._super(...args);
@@ -13,7 +26,9 @@ export default Component.extend({
           if (event.code && event.code !== 'Enter') return;
           event.preventDefault();
           event.stopPropagation();
-          this.get('router').transitionTo('search', { queryParams: { query: element.dataset.tag } });
+          const { tags, users, author } = this.getProperties('tags', 'users', 'author');
+
+          this.get('modalManager').open('tag-search-modal', () => {}, () => {}, { author, tags, users, tag: element.dataset.tag.slice(1) });
         });
       });
     });
@@ -24,7 +39,9 @@ export default Component.extend({
           if (event.code && event.code !== 'Enter') return;
           event.preventDefault();
           event.stopPropagation();
-          this.get('router').transitionTo('users.user.profile', element.dataset.username);
+          const { tags, users, author } = this.getProperties('tags', 'users', 'author');
+
+          this.get('modalManager').open('tag-search-modal', () => {}, () => {}, { author, tags, users, user: element.dataset.username.slice(1) });
         });
       });
     });

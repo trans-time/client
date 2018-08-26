@@ -254,6 +254,13 @@ share:
   orPost: "— or —"
   post: "just this post"
   clipboard: "copy url"
+tagSearch:
+  search: "search"
+  selectAuthor: "{username}'s timeline"
+  selectAll: "everyone"
+  tags: "tags"
+  title: "tag search"
+  users: "users"
 tagSummary:
   start: "start"
   tags: "#tags"

@@ -23,12 +23,12 @@
           {{#each comment.textVersions as |textVersion|}}
             <div class="comment-text-version">
               <div>{{sometimes-relative-date date=textVersion.insertedAt}}</div>
-              {{rich-text text=textVersion.text}}
+              {{rich-text text=textVersion.text author=comment.user}}
             </div>
           {{/each}}
         {{/if}}
 
-        {{#rich-text text=comment.text}}
+        {{#rich-text text=comment.text author=comment.user}}
           {{#link-to "users.user.profile.index" comment.user.username class="comment-user-link" disabled=isCollapsedChild classNames="comment-username-link"}}{{#if comment.user.displayName}}{{{inject-emoji comment.user.displayName}}} {{/if}}<span class="at-username">@{{comment.user.username}}</span>{{/link-to}}
         {{/rich-text}}
 

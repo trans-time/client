@@ -1,0 +1,23 @@
+.tag-search-modal-title {
+  margin-top: 0;
+}
+
+.tag-search-modal-options {
+  display: flex;
+}
+
+.tag-search-modal-sub-title {
+
+}
+
+.tag-search-modal-option-set {
+  flex-shrink: 0;
+  flex-grow: 1;
+  text-align: left;
+}
+
+.tag-search-modal-option-list {
+  list-style: none;
+  padding: 0;
+  margin-left: $rhythm;
+}
