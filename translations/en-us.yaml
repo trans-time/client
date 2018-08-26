@@ -52,16 +52,18 @@ contentWarnings:
   storage: "to permanently enable these cws on this device, click the second button."
 coverPage:
   lead: "<em>trans time</em> is a documentation tool and social network for trans+ people."
+  gettingStarted: "getting started"
+  gettingStarted1: "if you'd like a quick tutorial on how to use the site, <a href='https://www.transtime.is/users/celeste/timeline?lastTimelineItem=true&tags=%5B%22tutorial%22%5D'>celeste</a> can help you out!"
   followUpHeader: "purpose"
   followUp1: "when we transition, we're often transitioning in <strong>many ways</strong> at once: our relationships, our affect, our art, our bodies—and countless other less tangible transitions too."
   followUp2: "by documenting and sharing our stories, we hope to further develop a <strong>collective understanding</strong> of how transitioning reshapes our lives."
-  followUp3: "this self-knowledge is essential in a time when <strong>medical</strong> and <strong>political</strong> entities that don't understand us also aim to define, mobilize, and profit off of us."
+  followUp3: "this self-knowledge is essential in a time when medical and political organizations that don't understand us also aim to <strong>define</strong>, <strong>mobilize</strong>, and <strong>profit</strong> off of us."
   features:
     content: "document, share, and discuss your transition in a <strong>proactively moderated</strong> community"
     connections: "find trans+ people with similiar <strong>*identities</strong>, including religion, race, sexuality, and gender"
     timelines: "view somebody's whole timeline, or filter it by <strong>#tag</strong>, as with: #face, #chest, #family, #fashion, or #art"
-    privacy: "control who sees your content with <strong>private/public posts</strong>"
-  note: "<em>trans time</em> will never sell your data or advertise to you. we are a non-profit committed to creating a safe, non-exploitative space on the web."
+    contentWarnings: "select which <strong>content warnings</strong> to allow on your feed, on a per-device basis"
+  note: "<em>trans time</em> will never sell your data or advertise to you. we are not here to make a profit, but to creating a safe space on the web for trans+ people."
 errors:
   validations:
     confirmation: "doesn't match"
