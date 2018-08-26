@@ -185,18 +185,22 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   },
 
   _wheel(e) {
-    if (e.deltaX > 0) {
-      this._navRight();
-    } else if (e.deltaX < 0) {
-      this._navLeft();
-    }
+    this.get('_wheelTask').perform(e);
+  },
 
-    if (e.deltaY > 0) {
+  _wheelTask: task(function * (e) {
+    if (e.deltaX > 10) {
+      this._navRight();
+    } else if (e.deltaX < -10) {
+      this._navLeft();
+    } else if (e.deltaY > 10) {
       this._navDown();
-    } else if (e.deltaY < 0) {
+    } else if (e.deltaY < -10) {
       this._navUp();
     }
-  },
+
+    yield timeout(100);
+  }).drop(),
 
   _startEvent(e) {
     const swipeState = this.get('swipeState');
