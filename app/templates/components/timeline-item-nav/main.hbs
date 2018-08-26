@@ -1,23 +1,29 @@
-{{#if decoratedTimelineItems}}
-  {{timeline-item-nav/slideshow/main
-    chatIsOpen=chatIsOpen
-    direction=direction
-    decoratedTimelineItems=decoratedTimelineItems
-    tag=tag
-    timelineItem=timelineItem
-    initialTimelineItemId=initialTimelineItemId
-    lastTimelineItem=lastTimelineItem
-    fullShare=fullShare
-    isModerating=isModerating
-    routeComment=routeComment
-    loadMoreTimelineItems=(action "loadMoreTimelineItems")
-    changeTimelineItem=(action "changeTimelineItem")
-    removeTimelineItem=(action "removeTimelineItem")
-    toggleChat=(action "toggleChat")
-    classNames="main-layout-constraint"
-  }}
-{{else}}
+{{#if refreshingTimelineItems}}
   <div class="timeline-item-nav-none">
-    {{t "post.none"}}
+    {{fa-icon "spinner" pulse=true size=5}}
   </div>
+{{else}}
+  {{#if decoratedTimelineItems}}
+    {{timeline-item-nav/slideshow/main
+      chatIsOpen=chatIsOpen
+      direction=direction
+      decoratedTimelineItems=decoratedTimelineItems
+      tag=tag
+      timelineItem=timelineItem
+      initialTimelineItemId=initialTimelineItemId
+      lastTimelineItem=lastTimelineItem
+      fullShare=fullShare
+      isModerating=isModerating
+      routeComment=routeComment
+      loadMoreTimelineItems=(action "loadMoreTimelineItems")
+      changeTimelineItem=(action "changeTimelineItem")
+      removeTimelineItem=(action "removeTimelineItem")
+      toggleChat=(action "toggleChat")
+      classNames="main-layout-constraint"
+    }}
+  {{else}}
+    <div class="timeline-item-nav-none">
+      {{t "post.none"}}
+    </div>
+  {{/if}}
 {{/if}}

@@ -130,11 +130,22 @@ export default Component.extend({
   },
 
   addTodecoratedTimelineItems: on('init', observer('timelineItems.[]', function() {
-    const { decoratedTimelineItems, timelineItems, nextTimelineItemIndex } = this.getProperties('decoratedTimelineItems', 'timelineItems', 'nextTimelineItemIndex');
-    if (!timelineItems || decoratedTimelineItems.get('length') > timelineItems.get('length') || timelineItems.get('length') === 0) {
+    const { decoratedTimelineItems, timelineItems } = this.getProperties('decoratedTimelineItems', 'timelineItems');
+    if (!timelineItems || timelineItems.get('length') === 0) {
       return;
     }
-    const newTimelineItems = timelineItems.slice(nextTimelineItemIndex).sort((a, b) => {
+
+    if (timelineItems.query.initial_query && decoratedTimelineItems.get('length') > 0 && !this.get('refreshingTimelineItems')) {
+      this.set('nextTimelineItemIndex', 0);
+      decoratedTimelineItems.clear();
+      this.set('refreshingTimelineItems', true);
+
+      next(() => {
+        this.set('refreshingTimelineItems', false);
+      })
+    }
+
+    const newTimelineItems = timelineItems.slice(this.get('nextTimelineItemIndex')).sort((a, b) => {
       const aDate = a.get('date');
       const bDate = b.get('date');
       return aDate > bDate ? -1 : aDate < bDate ? 1 : 0;
