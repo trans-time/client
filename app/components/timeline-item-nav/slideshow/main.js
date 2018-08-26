@@ -189,17 +189,19 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   },
 
   _wheelTask: task(function * (e) {
-    if (e.deltaX > 10) {
+    const threshold = 50;
+
+    if (e.deltaX > threshold) {
       this._navRight();
-    } else if (e.deltaX < -10) {
+    } else if (e.deltaX < -threshold) {
       this._navLeft();
-    } else if (e.deltaY > 10) {
+    } else if (e.deltaY > threshold) {
       this._navDown();
-    } else if (e.deltaY < -10) {
+    } else if (e.deltaY < -threshold) {
       this._navUp();
     }
 
-    yield timeout(100);
+    yield timeout(50);
   }).drop(),
 
   _startEvent(e) {
