@@ -51,7 +51,9 @@ export default Component.extend({
         this.get('router').transitionTo('search', { queryParams: { query: this.get('selectedTags').filter((tag) => tag.selected).map((tag) => `#${tag.name}`).join(' ') } });
       } else {
         this.get('router').transitionTo('users.user.timeline', this.get('author.username'), {
+          refreshModel: true,
           queryParams: {
+            timelineItemId: null,
             relationships: this.get('selectedUsers').filter((tag) => tag.selected).map((user) => user.name),
             tags: this.get('selectedTags').filter((user) => user.selected).map((tag) => tag.name)
           }
