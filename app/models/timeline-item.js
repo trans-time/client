@@ -14,6 +14,7 @@ export default DS.Model.extend(Flaggable, Reactable, {
   commentCount: DS.attr('number'),
   commentsAreLocked: DS.attr('boolean'),
   date: DS.attr('date'),
+  insertedAt: DS.attr('date'),
   isMarkedForDeletion: DS.attr('boolean'),
   isPrivate: DS.attr('boolean'),
   isUnderModeration: DS.attr('boolean'),

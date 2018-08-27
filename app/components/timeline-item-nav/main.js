@@ -5,6 +5,7 @@ import EmberObject, { computed, observer } from '@ember/object';
 import { alias, oneWay, equal, sort } from '@ember/object/computed';
 import { next } from '@ember/runloop';
 import { inject as service } from '@ember/service';
+import { camelize } from '@ember/string';
 import { isBlank, isEmpty, isPresent } from '@ember/utils';
 
 const PanelDecorator = EmberObject.extend({
@@ -145,9 +146,11 @@ export default Component.extend({
       })
     }
 
+    const decoratedTimelineItemIds = decoratedTimelineItems.mapBy('model.id');
+    const sortBy = camelize(timelineItems.query.sort[0] === '-' ? timelineItems.query.sort.slice(1) : timelineItems.query.sort);
     const newTimelineItems = timelineItems.slice(this.get('nextTimelineItemIndex')).sort((a, b) => {
-      const aDate = a.get('date');
-      const bDate = b.get('date');
+      const aDate = a.get(sortBy);
+      const bDate = b.get(sortBy);
       return aDate > bDate ? -1 : aDate < bDate ? 1 : 0;
     }).map((model, index) => {
       return TimelineItemDecorator.create({
@@ -158,7 +161,7 @@ export default Component.extend({
 
     if (newTimelineItems.get('length') === 0) return;
 
-    decoratedTimelineItems.get('lastObject.model.date') > newTimelineItems[0].get('model.date') ? decoratedTimelineItems.pushObjects(newTimelineItems) : decoratedTimelineItems.unshiftObjects(newTimelineItems);
+    decoratedTimelineItems.get(`lastObject.model.${sortBy}`) > newTimelineItems[0].get(`model.${sortBy}`) ? decoratedTimelineItems.pushObjects(newTimelineItems) : decoratedTimelineItems.unshiftObjects(newTimelineItems);
 
     this.set('nextTimelineItemIndex', timelineItems.get('length'));
   })),

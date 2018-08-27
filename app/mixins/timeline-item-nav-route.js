@@ -64,7 +64,7 @@ export default Mixin.create({
 
       if (query.should_progress === shouldProgress && query.from_timeline_item_id === fromTimelineItemId) return reject();
 
-      if (query.sort === 'date') query.sort = '-date';
+      if (query.sort[0] !== '-') query.sort = `-${query.sort}`;
       query.initial_query = false
       query.should_progress = shouldProgress;
       query.from_timeline_item_id = fromTimelineItemId;

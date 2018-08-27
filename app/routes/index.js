@@ -39,7 +39,7 @@ export default Route.extend(TimelineItemNavRouteMixin, {
     if (isBlank(user)) return;
 
     return this.store.query('timeline-item', {
-      sort: '-date',
+      sort: '-inserted_at',
       filter: {
         blocked: false,
         is_marked_for_deletion: false,
