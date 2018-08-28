@@ -35,9 +35,17 @@ export default DS.Model.extend({
     }
   }),
 
-  avatarThumb: computed('avatar', {
+  avatarOrDummy: computed('avatar', {
     get() {
       const src = this.get('avatar');
+
+      return isNone(src) ? '/default_avatar/full.jpeg' : src;
+    }
+  }),
+
+  avatarThumb: computed('avatarOrDummy', {
+    get() {
+      const src = this.get('avatarOrDummy');
 
       if (isNone(src)) return;
 
@@ -49,9 +57,9 @@ export default DS.Model.extend({
     }
   }),
 
-  avatarBigThumb: computed('avatar', {
+  avatarBigThumb: computed('avatarOrDummy', {
     get() {
-      const src = this.get('avatar');
+      const src = this.get('avatarOrDummy');
 
       if (isNone(src)) return;
 
@@ -63,9 +71,9 @@ export default DS.Model.extend({
     }
   }),
 
-  avatarProfile: computed('avatar', {
+  avatarProfile: computed('avatarOrDummy', {
     get() {
-      const src = this.get('avatar');
+      const src = this.get('avatarOrDummy');
 
       if (isNone(src)) return;
 
@@ -77,9 +85,9 @@ export default DS.Model.extend({
     }
   }),
 
-  avatarFull: computed('avatar', {
+  avatarFull: computed('avatarOrDummy', {
     get() {
-      return this.get('avatar');
+      return this.get('avatarOrDummy');
     }
   })
 });
