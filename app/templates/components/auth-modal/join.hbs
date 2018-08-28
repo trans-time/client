@@ -39,6 +39,10 @@
     {{/paper-item}}
   {{/paper-list}}
 
+  {{#paper-checkbox value=changeset.coc onChange=(action (mut changeset.coc))}}
+    {{{t "users.attributes.coc.label"}}}
+  {{/paper-checkbox}}
+
   {{#paper-checkbox value=changeset.tos onChange=(action (mut changeset.tos))}}
     {{{t "users.attributes.tos.label"}}}
   {{/paper-checkbox}}

@@ -111,6 +111,16 @@ p {
   height: 50px;
 }
 
+.full-height-scrollable-content {
+  height: 100%;
+  overflow: auto;
+  padding: $rhythm;
+
+  a {
+    word-break: break-all;
+  }
+}
+
 .at-username {
   color: $medium-gray;
   font-weight: normal;

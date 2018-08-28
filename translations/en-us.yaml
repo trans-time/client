@@ -64,6 +64,11 @@ coverPage:
     timelines: "view somebody's whole timeline, or filter it by <strong>#tag</strong>, as with: #face, #chest, #family, #fashion, or #art"
     contentWarnings: "select which <strong>content warnings</strong> to allow on your feed, on a per-device basis"
   note: "<em>trans time</em> will never sell your data or advertise to you. we are not here to make a profit, but to creating a safe space on the web for trans+ people."
+documents:
+  coc: "code of conduct"
+  cookiePolicy: "cookie policy"
+  privacyPolicy: "privacy policy"
+  tos: "terms of service"
 errors:
   validations:
     confirmation: "doesn't match"
@@ -282,6 +287,8 @@ users:
       label: "email"
     password:
       label: "password"
+    coc:
+      label: "i seriously, actually read the <a href='/code-of-conduct' target='_blank'>code of conduct</a> (it's short and important)"
     tos:
       label: "by signing up, i agree to the <a href='/tos' target='_blank'>terms of service</a> and <a href='/privacy-policy' target='_blank'>privacy policy</a>, including <a href='/cookie-policy' target='_blank'>cookie use</a>."
     username:

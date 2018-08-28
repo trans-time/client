@@ -8,7 +8,7 @@ export default Route.extend({
   beforeModel(...args) {
     this._super(...args);
 
-    const title = this.get('intl').t('documents.tos');
+    const title = this.get('intl').t('documents.coc');
 
     this.set('titleToken', title);
     this.get('topBarManager').setTitle(title);

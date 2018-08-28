@@ -21,6 +21,9 @@ const SessionValidations = {
     validatePresence(true),
     validateLength({ min: 6 })
   ],
+  coc: [
+    (key, newValue) => newValue
+  ],
   tos: [
     (key, newValue) => newValue
   ],
