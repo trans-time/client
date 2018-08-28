@@ -96,7 +96,7 @@ export default Component.extend({
 
     uploadImage(file) {
       getImageOrientation(file.blob, (orientation) => {
-        if (orientation === 1) {
+        if (Math.abs(orientation) === 1) {
           file.readAsDataURL().then((dataUri) => {
             this.attrs.addImage(dataUri);
           });
@@ -110,7 +110,7 @@ export default Component.extend({
             canvas.width =  [0, 180].indexOf(rotation) > -1 ? image.width : image.height;
 
             const ctx = canvas.getContext('2d');
-
+            
             ctx.translate(canvas.width / 2,canvas.height / 2);
             ctx.rotate(rotation * Math.PI/180);
             if ([2,4,5,7].indexOf(orientation) > -1) ctx.scale(-1, 1);
