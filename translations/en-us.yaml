@@ -259,7 +259,7 @@ share:
   here: "here"
   end: "end"
   orPost: "— or —"
-  post: "just this post"
+  post: "just this card"
   clipboard: "copy url"
 tagSearch:
   search: "search"
