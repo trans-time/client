@@ -149,12 +149,12 @@
 .timeline-item-nav-post-comment-container {
   display: flex;
   flex-direction: column;
-  overflow: auto;
 }
 
 @media (min-width: 1000px) {
   .timeline-item-nav-post-comment-container {
     flex-grow: 1;
+    overflow: auto;
   }
 
   .timeline-item-nav-slideshow-main {
@@ -172,21 +172,6 @@
       border-top: 0;
     }
 
-    &.timeline-item-nav-slideshow-post-blank {
-      .timeline-item-nav-post-comment-container {
-        max-width: 1080px;
-      }
-
-      .timeline-item-nav-slideshow-panels {
-        display: block;
-        background-color: $white;
-
-        .timeline-item-nav-slideshow-panel {
-          display: none;
-        }
-      }
-    }
-
     &.chat-is-open {
     }
   }
@@ -195,6 +180,15 @@
     flex-grow: 1;
     height: 100%;
     min-height: 50%;
+  }
+
+  .timeline-item-nav-post-meta {
+    display: block;
+    margin-bottom: $rhythm;
+  }
+
+  .timeline-item-nav-post .timeline-item-nav-post-current-text {
+    display: block;
   }
 }
 
