@@ -155,7 +155,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
       event.stopPropagation();
     }
 
-    if (!this.get('chatIsOpen') && diff < 0 && element.clientHeight < element.scrollHeight && this.element.clientHeight < (this.element.parentElement.clientHeight / 3) * 2) {
+    if (!this.get('chatIsOpen') && diff < 0 && element.clientHeight < element.scrollHeight && this.element.clientHeight < (this.element.parentElement.parentElement.clientHeight / 3) * 2) {
       this.expendTextOnSwipe(diff);
     } else if (!this.get('chatIsOpen') && diff > 0 && element.scrollTop === 0) {
       this.expendTextOnSwipe(diff);
@@ -198,7 +198,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
       const loop = () => {
         if (!this.element || this.get('_scollLocked')) return;
 
-        if (!this.get('chatIsOpen') && velocity < 0 && element.clientHeight < element.scrollHeight && this.element.clientHeight < (this.element.parentElement.clientHeight / 3) * 2) {
+        if (!this.get('chatIsOpen') && velocity < 0 && element.clientHeight < element.scrollHeight && this.element.clientHeight < (this.element.parentElement.parentElement.clientHeight / 3) * 2) {
           this.expendTextOnSwipe(velocity);
         } else if (!this.get('chatIsOpen') && velocity > 0 && element.scrollTop === 0) {
           this.expendTextOnSwipe(velocity);
@@ -228,7 +228,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
     if (this.get('panelHeightIsModified')) {
       this.expendTextOnSwipe(9999999);
     } else {
-      this.expendTextOnSwipe(element.clientHeight < element.scrollHeight ? -element.scrollHeight : (this.element.parentElement.clientHeight / 3) * -2);
+      this.expendTextOnSwipe(element.clientHeight < element.scrollHeight ? -element.scrollHeight : (this.element.parentElement.parentElement.clientHeight / 3) * -2);
       this.set('userRevealedText', true);
     }
 

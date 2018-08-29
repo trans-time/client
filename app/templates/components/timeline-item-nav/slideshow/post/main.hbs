@@ -14,45 +14,47 @@
     </div>
   </div>
 
-  {{#if shouldRenderPost}}
-    {{#timeline-item-nav/slideshow/post/text
-      chatIsOpen=chatIsOpen
-      historyIsRevealed=historyIsRevealed
-      timelineItem=timelineItem.model
-      post=post
-      isBlank=isBlank
-      isCurrentTimelineItem=isCurrentTimelineItem
-      panelHeightIsModified=panelHeightIsModified
-      shouldFocus=isCurrentTimelineItem
-      scrollLocked=(not-eq navState.progress 0)
-      classNames="main-layout-constraint"
-      isModerating=isModerating
-      expendTextOnSwipe=(action "expendTextOnSwipe")
-    }}
-      {{#if (not isModerating)}}
-        {{timeline-item-nav/slideshow/post/controls/main
-          historyIsRevealed=historyIsRevealed
-          timelineItem=timelineItem.model
-          isCurrentTimelineItem=isCurrentTimelineItem
-          isModerating=isModerating
-          sortedPanels=sortedPanels
-          navState=navState
-          fullShare=fullShare
-          commentCount=timelineItem.model.commentCount
-          classNames="main-layout-constraint"
-          toggleChat=(action "toggleChat")
-          toggleHistory=(action "toggleHistory")
-          removePost=removePost
-        }}
-      {{/if}}
-    {{/timeline-item-nav/slideshow/post/text}}
-  {{/if}}
+  <div class="timeline-item-nav-post-comment-container">
+    {{#if shouldRenderPost}}
+      {{#timeline-item-nav/slideshow/post/text
+        chatIsOpen=chatIsOpen
+        historyIsRevealed=historyIsRevealed
+        timelineItem=timelineItem.model
+        post=post
+        isBlank=isBlank
+        isCurrentTimelineItem=isCurrentTimelineItem
+        panelHeightIsModified=panelHeightIsModified
+        shouldFocus=isCurrentTimelineItem
+        scrollLocked=(not-eq navState.progress 0)
+        classNames="main-layout-constraint"
+        isModerating=isModerating
+        expendTextOnSwipe=(action "expendTextOnSwipe")
+      }}
+        {{#if (not isModerating)}}
+          {{timeline-item-nav/slideshow/post/controls/main
+            historyIsRevealed=historyIsRevealed
+            timelineItem=timelineItem.model
+            isCurrentTimelineItem=isCurrentTimelineItem
+            isModerating=isModerating
+            sortedPanels=sortedPanels
+            navState=navState
+            fullShare=fullShare
+            commentCount=timelineItem.model.commentCount
+            classNames="main-layout-constraint"
+            toggleChat=(action "toggleChat")
+            toggleHistory=(action "toggleHistory")
+            removePost=removePost
+          }}
+        {{/if}}
+      {{/timeline-item-nav/slideshow/post/text}}
+    {{/if}}
 
-  {{#if (and chatIsOpen timelineItem.model.isLoaded)}}
-    {{timeline-item-nav/chat/content
-      timelineItem=timelineItem.model
-      routeComment=routeComment
-      isModerating=isModerating
-    }}
-  {{/if}}
+    {{#if (and chatIsOpen timelineItem.model.isLoaded)}}
+      {{timeline-item-nav/chat/content
+        timelineItem=timelineItem.model
+        routeComment=routeComment
+        isModerating=isModerating
+      }}
+    {{/if}}
+  </div>
 {{/cw-interface}}

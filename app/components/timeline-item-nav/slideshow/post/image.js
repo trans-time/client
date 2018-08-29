@@ -24,5 +24,5 @@ export default Component.extend(SlideshowPanelComponentMixin, {
     }
   }),
 
-  sizes: '(max-width: 720px) 100vw, 720px'
+  sizes: '100vw'
 });

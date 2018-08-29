@@ -38,13 +38,13 @@ body > .ember-view:not(.liquid-destination), html, body {
 body > .ember-view:not(.liquid-destination) {
   display: flex;
   flex-direction: column;
-  max-width: 720px;
+  max-width: 2160px;
   margin: 0 auto;
 }
 
 @media (min-resolution: 2dppx) {
   body > .ember-view:not(.liquid-destination) {
-    max-width: 780px;
+    max-width: 1440px;
   }
 }
 
