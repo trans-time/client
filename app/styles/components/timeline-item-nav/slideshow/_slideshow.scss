@@ -163,6 +163,11 @@
 
   .timeline-item-nav-slideshow-panels {
     flex-grow: 0;
+    height: 100% !important;
+  }
+
+  .timeline-item-nav-resize-toggle {
+    display: none;
   }
 
   .timeline-item-nav-slideshow-post {
