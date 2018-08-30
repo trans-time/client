@@ -2,8 +2,12 @@
 
 {{#if author}}
   <div class="share-modal-timeline-options">
-    {{#paper-button raised=true primary=(eq selected "author") onClick=(action "select" "author")}}{{t "tagSearch.selectAuthor" username=author.username}}{{/paper-button}}
-    {{#paper-button raised=true primary=(eq selected "all") onClick=(action "select" "all")}}{{t "tagSearch.selectAll"}}{{/paper-button}}
+    {{#paper-button raised=true primary=(eq selected "author") onClick=(action "select" "author") class="tag-search-modal-button"}}
+      {{t "tagSearch.selectAuthor" username=author.username}}
+    {{/paper-button}}
+    {{#paper-button raised=true primary=(eq selected "all") onClick=(action "select" "all") class="tag-search-modal-button"}}
+      {{t "tagSearch.selectAll"}}
+    {{/paper-button}}
   </div>
 {{/if}}
 
@@ -32,6 +36,9 @@
             {{#paper-checkbox value=user.selected onChange=(action (mut user.selected))}}
               @{{user.name}}
             {{/paper-checkbox}}
+            <button class="link-like tag-search-modal-link" {{action "goToProfile" user.name}}>
+              {{fa-icon "link"}}
+            </button>
           </li>
         {{/each}}
       </ul>
@@ -39,4 +46,4 @@
   {{/if}}
 </div>
 
-{{#paper-button raised=true primary=true onClick=(action "search")}}{{t "tagSearch.search"}}{{/paper-button}}
+{{#paper-button raised=true primary=true onClick=(action "search") class="tag-search-modal-button"}}{{t "tagSearch.search"}}{{/paper-button}}

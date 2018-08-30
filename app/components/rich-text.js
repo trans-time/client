@@ -28,7 +28,7 @@ export default Component.extend({
           event.stopPropagation();
           const { tags, users, author } = this.getProperties('tags', 'users', 'author');
 
-          this.get('modalManager').open('tag-search-modal', () => {}, () => {}, { author, tags, users, tag: element.dataset.tag.slice(1) });
+          this.get('modalManager').open('tag-search-modal', () => {}, () => {}, { author, tags, users, tag: element.dataset.tag });
         });
       });
     });
@@ -41,7 +41,7 @@ export default Component.extend({
           event.stopPropagation();
           const { tags, users, author } = this.getProperties('tags', 'users', 'author');
 
-          this.get('modalManager').open('tag-search-modal', () => {}, () => {}, { author, tags, users, user: element.dataset.username.slice(1) });
+          this.get('modalManager').open('tag-search-modal', () => {}, () => {}, { author, tags, users, user: element.dataset.username });
         });
       });
     });

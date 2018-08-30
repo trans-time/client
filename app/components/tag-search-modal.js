@@ -3,7 +3,7 @@ import { oneWay } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 
 export default Component.extend({
-  classNames: ['main-modal-content', 'share-modal'],
+  classNames: ['main-modal-content', 'tag-search-modal'],
   selected: 'all',
 
   modalManager: service(),
@@ -42,6 +42,12 @@ export default Component.extend({
   },
 
   actions: {
+    goToProfile(username) {
+      this.get('router').transitionTo('users.user.profile', username);
+
+      this.get('modalManager').close();
+    },
+
     select(selection) {
       this.set('selected', selection);
     },
