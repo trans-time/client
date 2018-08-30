@@ -10,6 +10,7 @@ import { inject as service } from '@ember/service';
 import Component from '@ember/component';
 import EmberObject, { computed } from '@ember/object';
 import { on } from '@ember/object/evented';
+import { htmlSafe } from '@ember/string';
 import TouchActionMixin from 'ember-hammertime/mixins/touch-action';
 import { task, timeout } from 'ember-concurrency';
 import { EKMixin, EKOnInsertMixin, keyDown } from 'ember-keyboard';
@@ -45,6 +46,7 @@ const NavState = EmberObject.extend({
 
 export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   classNames: ['timeline-item-nav-slideshow-main'],
+  attributeBindings: ['style'],
 
   panelHeight: 1800,
   panelWidth: 1440,
@@ -53,7 +55,10 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   usingTouch: alias('meta.usingTouch'),
   isLoadingMoreTimelineItems: notEmpty('loadingMoreTimelineItemsPromise'),
 
-  swipeState: computed(() => { return { }}),
+  swipeState: computed(() => { return {
+    wheelX: 0,
+    wheelY: 0
+  }}),
   navState: computed(() => NavState.create({
     progress: 0,
     diffs: []
@@ -112,15 +117,23 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   },
 
   _determinePanelSize() {
+    const useDesktopView = this.element.parentElement.clientWidth > 1000
     const naturalPanelHeight = this.element.parentElement.clientHeight;
-    const idealPanelHeight = this.element.parentElement.clientWidth > 1000 ? naturalPanelHeight : naturalPanelHeight - 130;
+    const idealPanelHeight = useDesktopView ? naturalPanelHeight : naturalPanelHeight - 130;
     const ratio = 4 / 5;
+
     if (this.element.parentElement.clientWidth / idealPanelHeight >= ratio) {
       this.set('panelHeight', Math.min(idealPanelHeight, 1800));
       this.set('panelWidth', this.panelHeight * ratio);
     } else {
       this.set('panelWidth', Math.min(this.element.parentElement.clientWidth, 1440));
       this.set('panelHeight', this.panelWidth * (1 / ratio));
+    }
+
+    if (useDesktopView) {
+      this.set('style', htmlSafe(`height: ${this.get('panelHeight')}px;`));
+    } else {
+      this.set('style', undefined);
     }
   },
 
@@ -186,24 +199,37 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   },
 
   _wheel(e) {
-    this.get('_wheelTask').perform(e);
-  },
-
-  _wheelTask: task(function * (e) {
-    const threshold = 50;
-
-    if (e.deltaX > threshold) {
-      this._navRight();
-    } else if (e.deltaX < -threshold) {
-      this._navLeft();
-    } else if (e.deltaY > threshold) {
-      this._navDown();
-    } else if (e.deltaY < -threshold) {
-      this._navUp();
+    const deltaY = e.deltaY !== 0 && Math.abs(e.deltaY) <= 3 ? e.deltaY * 33 : e.deltaY;
+    const deltaX = e.deltaX !== 0 && Math.abs(e.deltaX) <= 3 ? e.deltaX * 33 : e.deltaX;
+    const swipeState = this.get('swipeState');
+    if ((deltaY > 0 && swipeState.wheelY < 0) || (deltaY < 0 && swipeState.wheelY > 0)) {
+      swipeState.wheelY = 0;
+    } else {
+      swipeState.wheelY += deltaY;
     }
 
-    yield timeout(50);
-  }).drop(),
+    if ((deltaX > 0 && swipeState.wheelX < 0) || (deltaX < 0 && swipeState.wheelX > 0)) {
+      swipeState.wheelX = 0;
+    } else {
+      swipeState.wheelX += deltaX;
+    }
+
+    const threshold = 50;
+
+    if (swipeState.wheelX > threshold) {
+      this._navRight();
+      swipeState.wheelX = 0;
+    } else if (swipeState.wheelX < -threshold) {
+      this._navLeft();
+      swipeState.wheelX = 0;
+    } else if (swipeState.wheelY > threshold) {
+      this._navDown();
+      swipeState.wheelY = 0;
+    } else if (swipeState.wheelY < -threshold) {
+      this._navUp();
+      swipeState.wheelY = 0;
+    }
+  },
 
   _startEvent(e) {
     const swipeState = this.get('swipeState');
@@ -217,6 +243,8 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     swipeState.active = true;
     swipeState.firstMoveEventPassed = false;
     swipeState.swapLock = 250;
+    swipeState.wheelY = 0;
+    swipeState.wheelX = 0;
 
     if (this.get('navState.isSettling')) {
       this.set('navState.isSettling', false);

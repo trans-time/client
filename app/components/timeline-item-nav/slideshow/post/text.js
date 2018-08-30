@@ -98,8 +98,9 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
 
   _wheel(e) {
     if (e.deltaY && !this.get('_scollLocked')) {
+      const deltaY = e.deltaY !== 0 && Math.abs(e.deltaY) <= 3 ? e.deltaY * 33 : e.deltaY;
       this._determineNavability();
-      this._fulfillMoveEvent(e, e.deltaY * -1);
+      this._fulfillMoveEvent(e, deltaY * -1);
     }
   },
 

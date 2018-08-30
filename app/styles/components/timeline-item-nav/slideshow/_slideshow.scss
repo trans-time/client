@@ -1,5 +1,4 @@
 .timeline-item-nav-slideshow-main {
-  flex-grow: 1;
   position: relative;
   perspective: 100px;
   margin: 0 auto;
@@ -198,6 +197,10 @@
 }
 
 @media (max-width: 999px) {
+  .timeline-item-nav-slideshow-main {
+    flex-grow: 1;
+  }
+
   .timeline-item-nav-slideshow-post {
     &.chat-is-open {
       overflow-y: auto;
