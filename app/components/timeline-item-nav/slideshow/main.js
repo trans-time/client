@@ -201,10 +201,10 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   },
 
   _wheel(e) {
-    if ((this.get('lethargy').check(e) === false && Math.abs(e.deltaY) > Math.abs(e.deltaX)) || this.get('swipeState.wheelLocked') ) return;
+    if (this.get('swipeState.wheelLocked')) return;
 
-    const deltaY = e.deltaY !== 0 && Math.abs(e.deltaY) <= 3 ? e.deltaY * 33 : e.deltaY;
-    const deltaX = e.deltaX !== 0 && Math.abs(e.deltaX) <= 3 ? e.deltaX * 33 : e.deltaX;
+    const deltaY = e.deltaY !== 0 && Math.abs(e.deltaY) <= 3 ? e.deltaY * 22 : e.deltaY;
+    const deltaX = e.deltaX !== 0 && Math.abs(e.deltaX) <= 3 ? e.deltaX * 22 : e.deltaX;
     const swipeState = this.get('swipeState');
     if ((deltaY > 0 && swipeState.wheelY < 0) || (deltaY < 0 && swipeState.wheelY > 0)) {
       swipeState.wheelY = 0;
@@ -218,12 +218,12 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
       swipeState.wheelX += deltaX;
     }
 
-    const threshold = 50;
+    const threshold = 60;
 
-    if (swipeState.wheelX > threshold) {
+    if (swipeState.wheelX > threshold * 0.2) {
       this._navRight();
       this._handlePostWheel();
-    } else if (swipeState.wheelX < -threshold) {
+    } else if (swipeState.wheelX < -threshold * 0.2) {
       this._navLeft();
       this._handlePostWheel();
     } else if (swipeState.wheelY > threshold) {

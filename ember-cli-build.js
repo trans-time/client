@@ -40,7 +40,5 @@ module.exports = function(defaults) {
     hinting: process.env.EMBER_CLI_TEST_COMMAND || !isProductionLikeBuild
   });
 
-  app.import('bower_components/lethargy/lethargy.js');
-
   return app.toTree();
 };
