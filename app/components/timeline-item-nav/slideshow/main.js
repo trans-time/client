@@ -67,8 +67,6 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   didInsertElement(...args) {
     this._super(...args);
 
-    this.set('lethargy', new Lethargy());
-
     this.element.addEventListener('touchstart', bind(this, this._touchStart));
     this.element.addEventListener('touchmove', bind(this, this._touchMove), { passive: false });
     this.element.addEventListener('touchend', bind(this, this._touchEnd));
