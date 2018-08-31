@@ -67,6 +67,8 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   didInsertElement(...args) {
     this._super(...args);
 
+    this.lethargy = new Lethargy(7, 60);
+
     this.element.addEventListener('touchstart', bind(this, this._touchStart));
     this.element.addEventListener('touchmove', bind(this, this._touchMove), { passive: false });
     this.element.addEventListener('touchend', bind(this, this._touchEnd));
@@ -199,50 +201,26 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   },
 
   _wheel(e) {
-    if (this.get('swipeState.wheelLocked')) return;
+    if (navigator.platform.toUpperCase().indexOf('MAC') >= 0 && this.lethargy.check(e) === false) return;
 
-    const deltaY = e.deltaY !== 0 && Math.abs(e.deltaY) <= 3 ? e.deltaY * 22 : e.deltaY;
-    const deltaX = e.deltaX !== 0 && Math.abs(e.deltaX) <= 3 ? e.deltaX * 22 : e.deltaX;
     const swipeState = this.get('swipeState');
-    if ((deltaY > 0 && swipeState.wheelY < 0) || (deltaY < 0 && swipeState.wheelY > 0)) {
-      swipeState.wheelY = 0;
-    } else {
-      swipeState.wheelY += deltaY;
-    }
+    const event = {
+      deltaX: e.deltaX !== 0 && Math.abs(e.deltaX) === 1 ? 66 * Math.sign(e.deltaX) : -e.deltaX,
+      deltaY: e.deltaY !== 0 && Math.abs(e.deltaY) === 3 ? 66 * Math.sign(e.deltaY) : -e.deltaY
+    };
 
-    if ((deltaX > 0 && swipeState.wheelX < 0) || (deltaX < 0 && swipeState.wheelX > 0)) {
-      swipeState.wheelX = 0;
-    } else {
-      swipeState.wheelX += deltaX;
-    }
-
-    const threshold = 60;
-
-    if (swipeState.wheelX > threshold * 0.2) {
-      this._navRight();
-      this._handlePostWheel();
-    } else if (swipeState.wheelX < -threshold * 0.2) {
-      this._navLeft();
-      this._handlePostWheel();
-    } else if (swipeState.wheelY > threshold) {
-      this._navDown();
-      this._handlePostWheel();
-    } else if (swipeState.wheelY < -threshold) {
-      this._navUp();
-      this._handlePostWheel();
-    }
+    if (!swipeState.active) this._startEvent(event, { usingWheel: true });
+    this._moveEvent(event);
+    this.get('_wheelEndTask').perform(event);
   },
 
-  _handlePostWheel() {
-    const swipeState = this.get('swipeState');
-    swipeState.wheelY = 0;
-    swipeState.wheelX = 0;
-    swipeState.wheelLocked = true;
+  _wheelEndTask: task(function * (event) {
+    yield timeout(100);
 
-    later(() => swipeState.wheelLocked = false, 250);
-  },
+    this._endEvent(event);
+  }).restartable(),
 
-  _startEvent(e) {
+  _startEvent(e, options = {}) {
     const swipeState = this.get('swipeState');
 
     swipeState.diffX = 0;
@@ -256,6 +234,7 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     swipeState.swapLock = 250;
     swipeState.wheelY = 0;
     swipeState.wheelX = 0;
+    swipeState.usingWheel = options.usingWheel;
 
     if (this.get('navState.isSettling')) {
       this.set('navState.isSettling', false);
@@ -268,12 +247,12 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
 
   _moveEvent(e) {
     const swipeState = this.get('swipeState');
-    if (!swipeState.active) return;
+    if (!swipeState.active || (swipeState.usingWheel && e.type === 'mousemove')) return;
 
     // in case it's activated by a swipe event from a child, such as the text swipe
     if (swipeState.firstMoveEventPassed) {
-      swipeState.diffX = swipeState.currentX - e.clientX;
-      swipeState.diffY =  e.clientY - swipeState.currentY;
+      swipeState.diffX = e.deltaX !== undefined ? e.deltaX : swipeState.currentX - e.clientX;
+      swipeState.diffY = e.deltaY !== undefined ? e.deltaY : e.clientY - swipeState.currentY;
     } else {
       swipeState.firstMoveEventPassed = true;
     }
@@ -338,8 +317,8 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     if (!swipeState.active) return;
 
     const navState = this.get('navState');
-    swipeState.diffX = swipeState.currentX - e.clientX;
-    swipeState.diffY = e.clientY - swipeState.currentY;
+    swipeState.diffX = e.deltaX !== undefined ? e.deltaX : swipeState.currentX - e.clientX;
+    swipeState.diffY =  e.deltaY !== undefined ? e.deltaY : e.clientY - swipeState.currentY;
     swipeState.currentX = e.clientX;
     swipeState.currentY = e.clientY;
     swipeState.active = false;
@@ -347,8 +326,9 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     const diffs = navState.get('diffs');
     const precision = 5;
     const latestDiffs = diffs.slice(Math.max(0, diffs.length - precision), diffs.length);
-    let velocity = navState.get('progress') > 0.5 ? 0.001 : -0.001;
+    let velocity = navState.get('progress') > 0.5 ? 0.01 : -0.01;
     if (latestDiffs.length > 0) velocity = latestDiffs.reduce((sum, diff) => sum + diff, 0) / Math.min(latestDiffs.length, precision);
+    velocity = velocity < 0 ? Math.min(velocity, -0.01) : Math.max(0.01, velocity);
     if (navState.get('incomingPanel') === 'edge' && this._getNeighbor(navState.get('currentPanel'), velocity < 0 ? this._getDirection(false) : this._getDirection(true)) === 'edge') velocity *= -1;
 
     navState.setProperties({
