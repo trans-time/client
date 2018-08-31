@@ -4,7 +4,7 @@ import {
   all
 } from 'rsvp';
 import { isEmpty, isPresent } from '@ember/utils';
-import { bind } from '@ember/runloop';
+import { bind, later } from '@ember/runloop';
 import { alias, notEmpty } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
@@ -66,6 +66,8 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
 
   didInsertElement(...args) {
     this._super(...args);
+
+    this.set('lethargy', new Lethargy());
 
     this.element.addEventListener('touchstart', bind(this, this._touchStart));
     this.element.addEventListener('touchmove', bind(this, this._touchMove), { passive: false });
@@ -199,6 +201,8 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   },
 
   _wheel(e) {
+    if ((this.get('lethargy').check(e) === false && Math.abs(e.deltaY) > Math.abs(e.deltaX)) || this.get('swipeState.wheelLocked') ) return;
+
     const deltaY = e.deltaY !== 0 && Math.abs(e.deltaY) <= 3 ? e.deltaY * 33 : e.deltaY;
     const deltaX = e.deltaX !== 0 && Math.abs(e.deltaX) <= 3 ? e.deltaX * 33 : e.deltaX;
     const swipeState = this.get('swipeState');
@@ -218,17 +222,26 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
 
     if (swipeState.wheelX > threshold) {
       this._navRight();
-      swipeState.wheelX = 0;
+      this._handlePostWheel();
     } else if (swipeState.wheelX < -threshold) {
       this._navLeft();
-      swipeState.wheelX = 0;
+      this._handlePostWheel();
     } else if (swipeState.wheelY > threshold) {
       this._navDown();
-      swipeState.wheelY = 0;
+      this._handlePostWheel();
     } else if (swipeState.wheelY < -threshold) {
       this._navUp();
-      swipeState.wheelY = 0;
+      this._handlePostWheel();
     }
+  },
+
+  _handlePostWheel() {
+    const swipeState = this.get('swipeState');
+    swipeState.wheelY = 0;
+    swipeState.wheelX = 0;
+    swipeState.wheelLocked = true;
+
+    later(() => swipeState.wheelLocked = false, 250);
   },
 
   _startEvent(e) {
