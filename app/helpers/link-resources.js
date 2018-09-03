@@ -6,7 +6,7 @@ export function linkResources([text]) {
   if (isEmpty(text)) return;
 
   text.string = text.string.replace(/@([a-zA-Z0-9_]*)/g, '<a class="link undecorated" data-username=$1 tabindex="0">@$1</a>');
-  text.string = text.string.replace(/#([a-zA-Z0-9_]*)/g, '<a class="link undecorated" data-tag=$1 tabindex="0">$1</a>');
+  text.string = text.string.replace(/#([a-zA-Z0-9_]*)/g, '<a class="link undecorated" data-tag=$1 tabindex="0">#$1</a>');
 
   return htmlSafe(text);
 }
