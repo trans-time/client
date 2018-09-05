@@ -9,6 +9,32 @@
   z-index: 3;
   transition: flex-shrink 500ms ease-out;
 
+  .timeline-item-nav-post-cws-container {
+    margin: $rhythm / 2 $rhythm $rhythm;
+    font-size: 82%;
+  }
+
+  .timeline-item-nav-post-cws {
+    display: inline;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    .timeline-item-nav-post-cw {
+      display: inline;
+
+      &:after {
+        content: ",";
+      }
+
+      &:last-child {
+        &:after {
+          content: "";
+        }
+      }
+    }
+  }
+
   .timeline-item-nav-post-text-version {
     border-bottom: thin solid $light-gray;
     margin-bottom: $rhythm;
