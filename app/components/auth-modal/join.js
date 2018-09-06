@@ -46,7 +46,7 @@ export default Component.extend({
   init(...args) {
     this._super(...args);
 
-    this.set('changeset', new Changeset(this.set('model', this.get('store').createRecord('user')), lookupValidator(SessionValidations), SessionValidations));
+    this.set('changeset', new Changeset(this.set('model', this.get('store').createRecord('user', { isTrans: true })), lookupValidator(SessionValidations), SessionValidations));
     this.get('changeset').validate();
   },
 

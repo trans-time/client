@@ -52,9 +52,9 @@ contentWarnings:
   session: "to temporarily view content with these cws, click the first button. next time you start <em>trans time</em>, these cws will be disabled."
   storage: "to permanently enable these cws on this device, click the second button."
 coverPage:
-  lead: "<em>trans time</em> is a documentation tool and social network for trans+ people."
+  lead: "<em>trans time</em> is a documentation tool for trans+ people and their networks."
   gettingStarted: "getting started"
-  gettingStarted1: "if you'd like a quick tutorial on how to use the site, <a href='https://www.transtime.is/users/celeste/timeline?lastTimelineItem=true&tags=%5B%22tutorial%22%5D'>celeste</a> can help you out!"
+  gettingStarted1: "if you'd like a quick tutorial on how to use the site, <a href='https://www.transtime.is/users/celeste/timeline?lastTimelineItem=true&tags=%5B%22tutorial%22%5D'>celeste</a> would be happy to help you out! ^__^"
   followUpHeader: "purpose"
   followUp1: "when we transition, we're often transitioning in <strong>many ways</strong> at once: our relationships, our affect, our art, our bodies—and countless other less tangible transitions too."
   followUp2: "by documenting and sharing our stories, we hope to further develop a <strong>collective understanding</strong> of how transitioning reshapes our lives."
@@ -288,6 +288,8 @@ users:
       label: "email"
     password:
       label: "password"
+    isTrans:
+      label: "i identify as trans+ (you don't have to check this)"
     coc:
       label: "i seriously, actually read the <a href='/code-of-conduct' target='_blank'>code of conduct</a> (it's short and important)"
     tos:

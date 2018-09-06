@@ -39,6 +39,10 @@
     {{/paper-item}}
   {{/paper-list}}
 
+  {{#paper-checkbox value=changeset.isTrans onChange=(action (mut changeset.isTrans))}}
+    {{{t "users.attributes.isTrans.label"}}}
+  {{/paper-checkbox}}
+
   {{#paper-checkbox value=changeset.coc onChange=(action (mut changeset.coc))}}
     {{{t "users.attributes.coc.label"}}}
   {{/paper-checkbox}}
