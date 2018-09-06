@@ -140,7 +140,6 @@ p {
 .cover-page {
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
   padding: $rhythm;
   height: 100%;
   max-height: 900px;
@@ -161,6 +160,7 @@ p {
   font-size: 135%;
   font-weight: bold;
   text-align: center;
+  margin-top: $rhythm * 3;
   margin-bottom: $rhythm * 2;
 }
 
@@ -174,7 +174,6 @@ p {
   padding-left: $rhythm;
   list-style: none;
   font-size: 95%;
-  margin-bottom: $rhythm * 3;
 
   li {
     display: flex;
@@ -193,7 +192,7 @@ p {
 
 .cover-page-note {
   flex-shrink: 0;
-  margin-top: auto;
+  margin-top: $rhythm * 6;
   padding-top: $rhythm;
   border-top: 3px dashed $dark-gray;
   font-size: 110%;
