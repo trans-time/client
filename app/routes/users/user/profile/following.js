@@ -7,6 +7,6 @@ export default Route.extend(InfinityRoute, {
   model() {
     const user = this.modelFor('users.user');
 
-    return this.infinityModel('follow', { perPage: 10, startingPage: 1, filter: { follower_id: user.id }, include: 'followed,followed.user_profile' });
+    return this.infinityModel('follow', { perPage: 10, startingPage: 1, sort: '-inserted_at', filter: { follower_id: user.id }, include: 'followed,followed.user_profile' });
   }
 });
