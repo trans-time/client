@@ -22,6 +22,10 @@ export default Component.extend({
       this.get('router').transitionTo('account');
     },
 
+    toMailSettings() {
+      this.get('router').transitionTo('subscriptions');
+    },
+
     toModeration() {
       this.get('router').transitionTo(this.get('currentUser.user.isModerator') ? 'moderation.reports' : 'moderation.flags');
     },

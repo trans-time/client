@@ -11,6 +11,10 @@
     {{fa-icon "gear"}}
     <span>{{t "account.account"}}</span>
   {{/menuContent.menu-item}}
+  {{#menuContent.menu-item onClick="toMailSettings"}}
+    {{fa-icon "envelope"}}
+    <span>{{t "mail.settings"}}</span>
+  {{/menuContent.menu-item}}
   {{#menuContent.menu-item onClick="toModeration"}}
     {{fa-icon "gavel"}}
     <span>{{t "moderation.moderation"}}</span>

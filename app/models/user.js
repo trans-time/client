@@ -15,6 +15,7 @@ export default DS.Model.extend({
   indictions: DS.hasMany('moderation-report', { inverse: 'indicted' }),
   notifications: DS.hasMany('notification', { polymorphic: true }),
   posts: DS.hasMany('post', { async: true, inverse: 'user' }),
+  subscriptions: DS.hasMany('subscription'),
   timelineItems: DS.hasMany('timeline-item', { async: true, inverse: 'user' }),
   userIdentities: DS.hasMany('user-identity'),
   currentUser: DS.belongsTo('current-user'),

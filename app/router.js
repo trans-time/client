@@ -55,6 +55,9 @@ Router.map(function() {
   this.route('privacy-policy');
   this.route('cookie-policy');
   this.route('code-of-conduct');
+  this.route('subscriptions');
+  this.route('email-confirmation');
+  this.route('email-recovery');
 });
 
 export default Router;

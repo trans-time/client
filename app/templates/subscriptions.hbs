@@ -1,0 +1,22 @@
+<div class="full-height-scrollable-content">
+  {{#each model as |subscriptionType|}}
+    <div>
+      {{#paper-checkbox
+        onChange=(route-action "toggleSubscription" subscriptionType)
+        value=(gt subscriptionType.subscriptions.length 0)
+      }}
+        {{subscriptionType.name}}
+      {{/paper-checkbox}}
+    </div>
+  {{/each}}
+
+  <div>
+    {{#paper-button
+      raised=true
+      warn=true
+      onClick=(route-action "unsubscribeFromAll" model)
+    }}
+      {{t "mail.unsubscribeAll"}}
+    {{/paper-button}}
+  </div>
+</div>

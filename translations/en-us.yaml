@@ -2,7 +2,7 @@ account:
   account: "account"
   changeEmail: "change email"
   changePassword: "change password"
-  emailChangeSuccess: "email successfully updated"
+  emailChangeSuccess: "please confirm your new email address"
   passwordChangeSuccess: "password successfully updated"
   submit: "submit"
   attributes:
@@ -136,6 +136,22 @@ identities:
       label: "name"
     startDate:
       label: "start date"
+mail:
+  confirmation: "email confirmation"
+  emailConfirmed: "email confirmed"
+  emailRecovery: "email recovery"
+  emailRestored: "email restored"
+  invalidConfirmationToken: "this email address has already been confirmed. if necessary, go to accounts -> new email to try again"
+  invalidConfirmationTokenTitle: "oops!"
+  invalidRecoveryToken: "your recovery token is invalid. please feel free to reach out to us at <a href='mailto:help@transtime.is'>help@transtime.is</a>."
+  invalidRecoveryTokenTitle: "oops!"
+  invalidSubscriptionToken: "your mail token has expired. please login to manage your subscriptions, or if you have a more recent email from us, try clicking its unsubscribe link instead."
+  invalidSubscriptionTokenTitle: "oops!"
+  settings: "email"
+  title: "email subscriptions"
+  successfullySubscribed: "successfully subscribed to {name}"
+  successfullyUnsubscribed: "successfully unsubscribed from {name}"
+  unsubscribeAll: "unsubscribe from everything"
 moderation:
   banUser: "ban user"
   bannedUser: "banned user: {until}"
@@ -297,12 +313,15 @@ users:
 remote:
   errors:
     title:
+      email: "email"
       forbidden: "forbidden"
       format: "format"
       invalid: "invalid"
       length: "length"
       unique: "non-unique"
     detail:
+      email:
+        unique: "is already being used by a user"
       forbidden:
         commentsAreLocked: "comments are locked"
         mismatchedTokenAndUserId: "user token and id do not match"
