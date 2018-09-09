@@ -58,6 +58,7 @@ Router.map(function() {
   this.route('subscriptions');
   this.route('email-confirmation');
   this.route('email-recovery');
+  this.route('email-unlock');
 });
 
 export default Router;
