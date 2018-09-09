@@ -6,6 +6,7 @@ export default DS.Model.extend({
   notificationCommentAt: DS.belongsTo('notification-comment-at'),
   notificationCommentComment: DS.belongsTo('notification-comment-comment'),
   notificationCommentReaction: DS.belongsTo('notification-comment-reaction'),
+  notificationEmailConfirmation: DS.belongsTo('notification-email-confirmation'),
   notificationFollow: DS.belongsTo('notification-follow'),
   notificationModerationRequest: DS.belongsTo('notification-moderation-request'),
   notificationModerationResolution: DS.belongsTo('notification-moderation-resolution'),
@@ -25,6 +26,7 @@ export default DS.Model.extend({
       return this.get('notificationCommentAt.content')
         || this.get('notificationCommentComment.content')
         || this.get('notificationCommentReaction.content')
+        || this.get('notificationEmailConfirmation.content')
         || this.get('notificationFollow.content')
         || this.get('notificationModerationRequest.content')
         || this.get('notificationModerationResolution.content')

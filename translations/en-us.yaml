@@ -200,6 +200,7 @@ notifications:
     # commentComment: "{commentaterUsername} replied to {ownComment, select, true {your} false {<strong>{ownerName}'s</strong>}} comment"
     commentComment: "{commentaterUsername} replied to a comment"
     commentReactions: "{reactorUsernames} reacted to your comment"
+    emailConfirmation: "you haven't confirmed your email yet. if you never received a confirmation email, you may have provided the wrong email address. please update your email address to be certain."
     follow: "<strong>{username}</strong> followed you"
     moderationRequest: "new moderation requests"
     moderationResolution: "a moderator has weighed in on your flag"
