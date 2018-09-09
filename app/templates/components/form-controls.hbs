@@ -17,8 +17,10 @@
   }}
 </div>
 
-{{g-recaptcha
-  onSuccess=(action "onCaptchaResolved")
-  ref=(mut gRecaptcha)
-  size="invisible"
-}}
+{{#if changeset}}
+  {{g-recaptcha
+    onSuccess=(action "onCaptchaResolved")
+    ref=(mut gRecaptcha)
+    size="invisible"
+  }}
+{{/if}}
