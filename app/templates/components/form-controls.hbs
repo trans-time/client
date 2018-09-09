@@ -1,15 +1,24 @@
-{{yield}}
+<div class="form-controls">
+  {{yield}}
 
-{{paper-button
-  label=(t "general.cancel")
-  onClick=(action "handleCancel")
-  data-test-form-controls-cancel=""
-}}
+  {{paper-button
+    label=(t "general.cancel")
+    onClick=(action "handleCancel")
+    data-test-form-controls-cancel=""
+  }}
 
-{{form.submit-button
-  label=(t "general.submit")
-  disabled=disabled
-  raised=true
-  primary=true
-  data-test-form-controls-submit=""
+  {{paper-button
+    label=(t "general.submit")
+    onClick=(action "handleSubmit")
+    disabled=disabled
+    raised=true
+    primary=true
+    data-test-form-controls-submit=""
+  }}
+</div>
+
+{{g-recaptcha
+  onSuccess=(action "onCaptchaResolved")
+  ref=(mut gRecaptcha)
+  size="invisible"
 }}

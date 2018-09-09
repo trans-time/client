@@ -334,6 +334,7 @@ remote:
       invalid:
         dateAfterNow: "date is in the future"
         password: "password"
+        recaptcha: "reCaptcha response"
         startDateAfterEndDate: "start date is after end date"
         usernameOrPassword: "username or password"
       length:

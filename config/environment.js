@@ -32,6 +32,11 @@ module.exports = function(environment) {
       features: [
         'Intl.~locale.en-US'
       ]
+    },
+
+    gReCaptcha: {
+      jsUrl: 'https://recaptcha.net/recaptcha/api.js?render=explicit',
+      siteKey: '6LfCT28UAAAAAN28PKrUUx1vrCCufEDBjHK-I-Hc'
     }
   };
 

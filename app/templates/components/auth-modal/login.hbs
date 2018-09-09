@@ -24,7 +24,7 @@
     {{/paper-item}}
   {{/paper-list}}
 
-  {{#form-controls form=form cancel=(action "cancel")}}
+  {{#form-controls form=form changeset=changeset cancel=(action "cancel")}}
     {{paper-button
       label=(t "auth.join")
       onClick=(action "join")

@@ -51,7 +51,7 @@
     {{{t "users.attributes.tos.label"}}}
   {{/paper-checkbox}}
 
-  {{#form-controls form=form disabled=disabled cancel=(action "cancel")}}
+  {{#form-controls form=form disabled=disabled changeset=changeset cancel=(action "cancel")}}
     {{paper-button
       label=(t "auth.login")
       onClick=(action "login")

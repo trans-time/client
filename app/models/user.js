@@ -30,6 +30,7 @@ export default DS.Model.extend({
   password: DS.attr('string'),
   pronouns: DS.attr('string'),
   username: DS.attr('string'),
+  reCaptchaResponse: DS.attr(),
 
   tags: computed('timelineItems.@each.tag', {
     get() {

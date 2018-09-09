@@ -1,6 +1,7 @@
 .form-controls {
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
 
   button {
     font-size: 105%;

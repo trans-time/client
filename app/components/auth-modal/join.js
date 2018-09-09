@@ -63,9 +63,9 @@ export default Component.extend({
       this.get('changeset').save().catch((reason) => {
         this.set('errorMessage', reason.error || reason);
       }).then(() => {
-        const { username, password } = this.get('changeset').getProperties('username', 'password');
+        const { username, password, reCaptchaResponse } = this.get('changeset').getProperties('username', 'password', 'reCaptchaResponse');
 
-        this.get('session').authenticate('authenticator:basic', username, password).catch((reason) => {
+        this.get('session').authenticate('authenticator:basic', username, password, reCaptchaResponse).catch((reason) => {
           this.set('errorMessage', reason.error || reason);
         });
       });

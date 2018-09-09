@@ -87,6 +87,22 @@ p {
   margin: $rhythm 0;
 }
 
+.grecaptcha-badge {
+  position: static !important;
+  width: 100% !important;
+  height: inherit !important;
+  box-shadow: none !important;
+  text-align: right;
+
+  .grecaptcha-logo {
+    margin: $rhythm * 2 $rhythm $rhythm;
+  }
+
+  iframe {
+    width: 100% !important;
+  }
+}
+
 .main-content {
   overflow: auto;
 }
