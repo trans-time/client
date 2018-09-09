@@ -17,9 +17,13 @@ account:
     previousPassword:
       label: "previous password"
 auth:
+  clickForPasswordReset: "forgot your password?"
   join: "join"
   login: "login"
   logout: "logout"
+  usernameOrEmail: "username or email"
+  passwordResetRequest: "password reset"
+  passwordResetRequestCompleted: "an email has been sent to your address!"
 comments:
   cancel: "cancel"
   comment: "comment"
@@ -139,12 +143,16 @@ identities:
 mail:
   confirmation: "email confirmation"
   emailConfirmed: "email confirmed"
+  emailPasswordReset: "password reset"
+  emailPasswordResetComplete: "password reset"
   emailRecovery: "email recovery"
   emailRestored: "email restored"
   emailUnlock: "account unlock"
   emailUnlocked: "account unlocked"
   invalidConfirmationToken: "this email address has already been confirmed. if necessary, go to accounts -> new email to try again"
   invalidConfirmationTokenTitle: "oops!"
+  invalidPasswordResetToken: "your token has expired. you can get a new one by clicking 'reset password' from the login menu again."
+  invalidPasswordResetTokenTitle: "oops!"
   invalidRecoveryToken: "your recovery token is invalid. please feel free to reach out to us at <a href='mailto:help@transtime.is'>help@transtime.is</a>."
   invalidRecoveryTokenTitle: "oops!"
   invalidSubscriptionToken: "your mail token has expired. please login to manage your subscriptions, or if you have a more recent email from us, try clicking its unsubscribe link instead."

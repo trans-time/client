@@ -4,18 +4,11 @@ import Component from '@ember/component';
 import Changeset from 'ember-changeset';
 import lookupValidator from 'ember-changeset-validations';
 import {
-  validateFormat,
-  validatePresence,
-  validateLength
+  validatePresence
 } from 'ember-changeset-validations/validators';
 
-const SessionValidations = {
-  password: [
-    validatePresence(true),
-    validateLength({ min: 6 })
-  ],
+const PasswordResetRequestValidations = {
   username: [
-    validateFormat({ regex: /^[a-zA-Z0-9_]*$/ }),
     validatePresence(true)
   ]
 };
@@ -24,14 +17,16 @@ export default Component.extend({
   classNames: ['main-modal-content'],
 
   modalManager: service(),
+  paperToaster: service(),
   session: service(),
+  store: service(),
 
   disabled: or('changeset.isInvalid', 'changeset.isPristine'),
 
   didReceiveAttrs(...args) {
     this._super(...args);
 
-    this.set('changeset', new Changeset({}, lookupValidator(SessionValidations), SessionValidations));
+    this.set('changeset', new Changeset(this.get('store').createRecord('email-password-reset-request'), lookupValidator(PasswordResetRequestValidations), PasswordResetRequestValidations));
     this.get('changeset').validate();
   },
 
@@ -40,18 +35,16 @@ export default Component.extend({
       this.get('modalManager').close('reject');
     },
 
-    join() {
-      this.get('modalManager').open('auth-modal/join');
-    },
-
-    passwordResetRequest() {
-      this.get('modalManager').open('auth-modal/password-reset-request');
+    login() {
+      this.get('modalManager').open('auth-modal/login');
     },
 
     submit() {
-      const { username, password, reCaptchaResponse } = this.get('changeset').getProperties('username', 'password', 'reCaptchaResponse');
-
-      this.get('session').authenticate('authenticator:basic', username, password, reCaptchaResponse).catch((reason) => {
+      this.get('changeset').save().then(() => {
+        this.get('paperToaster').show(this.get('intl').t('auth.passwordResetRequestCompleted'), {
+          duration: 2000
+        });
+      }).catch((reason) => {
         this.set('errorMessage', reason.error || reason);
       });
     }

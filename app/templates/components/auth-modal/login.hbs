@@ -24,6 +24,12 @@
     {{/paper-item}}
   {{/paper-list}}
 
+  {{paper-button
+    label=(t "auth.clickForPasswordReset")
+    onClick=(action "passwordResetRequest")
+    classNames="auth-form-reset-password-link"
+  }}
+
   {{#form-controls form=form changeset=changeset cancel=(action "cancel")}}
     {{paper-button
       label=(t "auth.join")
