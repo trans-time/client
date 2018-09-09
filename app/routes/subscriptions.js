@@ -25,7 +25,7 @@ export default Route.extend({
     this.set('mailSubscriptionToken', params.mailSubscriptionToken);
 
     return this.store.query('subscriptionType', {
-      mail_token: params.mailSubscriptionToken,
+      mail_subscription_token: params.mailSubscriptionToken,
       include: 'subscriptions'
     });
   },
