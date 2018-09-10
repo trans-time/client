@@ -42,7 +42,14 @@ export default DS.Model.extend({
     get() {
       const src = this.get('avatar');
 
-      return isNone(src) ? '/default_avatar/full.jpeg' : src;
+      if (isNone(src)) {
+        const deterministicId = this.get('username').split('').reduce((sum, char) => {
+          return sum + char.charCodeAt(0);
+        }, 0) % 5;
+        return `/default_avatars/${deterministicId}/full.jpeg`;
+      } else {
+        return src;
+      }
     }
   }),
 
