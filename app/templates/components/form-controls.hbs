@@ -1,6 +1,4 @@
 <div class="form-controls">
-  {{yield}}
-
   {{paper-button
     label=(t "general.cancel")
     onClick=(action "handleCancel")
@@ -16,6 +14,8 @@
     data-test-form-controls-submit=""
   }}
 </div>
+
+{{yield}}
 
 {{#if changeset}}
   {{g-recaptcha

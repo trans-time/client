@@ -142,10 +142,11 @@ p {
   font-weight: normal;
 }
 
-.auth-form-reset-password-link {
+.text-button {
   width: 100%;
   text-align: right;
   font-size: 80%;
+  margin: $rhythm 0 0;
 }
 
 .pikaday-input {

@@ -53,10 +53,9 @@
 
   {{#form-controls form=form disabled=disabled changeset=changeset cancel=(action "cancel")}}
     {{paper-button
-      label=(t "auth.login")
+      label=(t "auth.alreadyHaveAnAccount")
       onClick=(action "login")
-      classNames="form-controls-align-left"
-      data-test-join-login-button=""
+      classNames="text-button"
     }}
   {{/form-controls}}
 {{/paper-form}}
