@@ -1,16 +1,16 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import InfinityRoute from "ember-infinity/mixins/route";
 
-export default Route.extend(InfinityRoute, {
+export default Route.extend({
   perPageParam: 'page_size',
 
   currentUser: service(),
+  infinity: service(),
   intl: service(),
   topBarManager: service(),
 
   model() {
-    return this.infinityModel('notification', { sort: '-updated_at', perPage: 12, startingPage: 1 });
+    return this.infinity.model('notification', { sort: '-updated_at', perPage: 12, startingPage: 1 });
   },
 
   beforeModel(...args) {

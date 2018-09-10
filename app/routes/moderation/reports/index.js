@@ -1,13 +1,13 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import InfinityRoute from "ember-infinity/mixins/route";
 
-export default Route.extend(InfinityRoute, {
+export default Route.extend({
   perPageParam: 'page_size',
 
   currentUser: service(),
+  infinity: service(),
 
   model() {
-    return this.infinityModel('moderation-report', { sort: 'is_resolved', filter: { should_ignore: false }, perPage: 10, startingPage: 1, include: 'flags,indicted,verdicts' });
+    return this.infinity.model('moderation-report', { sort: 'is_resolved', filter: { should_ignore: false }, perPage: 10, startingPage: 1, include: 'flags,indicted,verdicts' });
   }
 });

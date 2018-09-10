@@ -1,15 +1,15 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import InfinityRoute from "ember-infinity/mixins/route";
 
-export default Route.extend(InfinityRoute, {
+export default Route.extend({
   perPageParam: 'page_size',
 
   intl: service(),
+  infinity: service(),
   topBarManager: service(),
 
   model() {
-    return this.infinityModel('reaction', { perPage: 12, startingPage: 1, sort: '-inserted_at', filter: { comment_id: this.modelFor('comments.comment').id }, include: 'user' });
+    return this.infinity.model('reaction', { perPage: 12, startingPage: 1, sort: '-inserted_at', filter: { comment_id: this.modelFor('comments.comment').id }, include: 'user' });
   },
 
   beforeModel(...args) {
