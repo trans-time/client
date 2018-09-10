@@ -142,7 +142,7 @@ export default Component.extend(AuthenticatedActionMixin, {
   _uploadAvatar() {
     this.get('modalManager').open('uploading-modal');
 
-    const blob = this.get('changeset.avatarUpload');
+    const blob = this.get('changeset.avatarUpload.content') || this.get('changeset.avatarUpload');
     blob.name = `avatar-${this.get('currentUserModel.username')}.${blob.type.split('/')[1]}`;
     const [newFile] = this.get('queue')._addFiles([blob], 'blob');
     const path = `${config.host}${config.rootURL}${getOwner(this).lookup('adapter:application').get('namespace')}/avatars`;
@@ -205,7 +205,7 @@ export default Component.extend(AuthenticatedActionMixin, {
     },
 
     startEditing() {
-      this.set('changeset', new Changeset(assign(this.get('user.userProfile.content'), { avatar: this.get('user.avatarFull') }), lookupValidator(ProfileValidations), ProfileValidations));
+      this.set('changeset', new Changeset(this.get('user.userProfile.content'), lookupValidator(ProfileValidations), ProfileValidations));
       this.get('changeset').validate();
       this.set('isEditing', true);
     },
@@ -235,7 +235,7 @@ export default Component.extend(AuthenticatedActionMixin, {
     updateEditing() {
       this.set('isSaving', true);
       if (isPresent(this.get('user.userProfile.avatar')) && isNone(this.get('changeset.avatar'))) this._deleteAvatar();
-      else if (isPresent(this.get('changeset.avatarUpload'))) this._uploadAvatar();
+      else if (this.get('changeset.avatarUpload')) this._uploadAvatar();
       else this._saveChanges();
     }
   }
