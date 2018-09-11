@@ -41,7 +41,7 @@ export default BaseAuthenticator.extend({
     return new Promise((resolve, reject) => {
       const useResponse = this.get('rejectWithResponse');
       const { resourceName, identificationAttributeName, tokenAttributeName } = this.getProperties('resourceName', 'identificationAttributeName', 'tokenAttributeName');
-      const data = { data: { attributes: { password, identification, re_captcha_response: reCaptchaResponse } } };
+      const data = { data: { attributes: { password, identification, 're-captcha-response': reCaptchaResponse } } };
 
       this.makeRequest(data).then((response) => {
         if (response.ok) {

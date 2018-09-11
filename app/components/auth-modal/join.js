@@ -62,12 +62,9 @@ export default Component.extend({
     submit() {
       this.get('changeset').save().catch((reason) => {
         this.set('errorMessage', reason.error || reason);
-      }).then(() => {
-        const { username, password, reCaptchaResponse } = this.get('changeset').getProperties('username', 'password', 'reCaptchaResponse');
-
-        this.get('session').authenticate('authenticator:basic', username, password, reCaptchaResponse).catch((reason) => {
-          this.set('errorMessage', reason.error || reason);
-        });
+      }).then((user) => {
+        this.get('session').authenticate('authenticator:token', user.getProperties('username', 'token'));
+        user.set('token', undefined);
       });
     }
   }
