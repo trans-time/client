@@ -10,8 +10,9 @@ import getImageOrientation from 'client/utils/get-image-orientation';
 const hasWebRTCSupport = isPresent(navigator.mediaDevices);
 
 export default Component.extend({
-  cameraOn: hasWebRTCSupport,
   hasWebRTCSupport,
+  hidden: true,
+  cameraOn: false,
 
   classNames: ['image-editor'],
 
@@ -42,15 +43,10 @@ export default Component.extend({
   containerStyle: computed({
     get() {
       const $imageContainer = this.$();
-      const destinationWidth = this.get('width');
-      const destinationHeight = this.get('height');
-      const height = $imageContainer.height();
-      const width = $imageContainer.width();
-      const idealWidth = height * (destinationWidth / destinationHeight);
+      const width = Math.min($imageContainer.width(), this.width);
+      const height = width * (this.height / this.width);
 
-      if (height >= destinationHeight && width >= destinationWidth) return htmlSafe('');
-      else if (width > idealWidth) return htmlSafe(`height: ${height}px; width: ${idealWidth}px;`);
-      else return htmlSafe(`height: ${width * (destinationHeight / destinationWidth)}px; width: ${width}px;`);
+      return htmlSafe(`height: ${height}px; width: ${width}px;`);
     }
   }),
 
@@ -74,11 +70,22 @@ export default Component.extend({
     },
 
     openCamera() {
-      this.set('cameraOn', true);
+      if (this.cameraOn) {
+        this.setProperties({
+          cameraOn: false,
+          hidden: true
+        });
+      } else {
+        this.setProperties({
+          cameraOn: true,
+          hidden: false
+        });
+      }
     },
 
     selectImage(image) {
       this.setProperties({
+        hidden: false,
         cameraOn: false,
         displayImage: image
       })
@@ -110,7 +117,7 @@ export default Component.extend({
             canvas.width =  [0, 180].indexOf(rotation) > -1 ? image.width : image.height;
 
             const ctx = canvas.getContext('2d');
-            
+
             ctx.translate(canvas.width / 2,canvas.height / 2);
             ctx.rotate(rotation * Math.PI/180);
             if ([2,4,5,7].indexOf(orientation) > -1) ctx.scale(-1, 1);

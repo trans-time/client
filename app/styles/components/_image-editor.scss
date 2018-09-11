@@ -1,15 +1,35 @@
 .image-editor {
-  display: flex;
-  flex-grow: 1;
   position: relative;
-  background-color: $dark-gray;
+  background-color: $white;
   z-index: 101;
+}
+
+.image-editor-controls {
+  display: flex;
+  border-bottom: thin solid $light-gray;
+
+  .image-editor-control {
+    flex-grow: 1;
+    font-size: 200%;
+    padding: $rhythm;
+    background-color: $white;
+    text-align: center;
+    border-right: thin solid $light-gray;
+
+    &:last-child {
+      border-right: 0;
+    }
+  }
 }
 
 .image-editor-container {
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
+
+  &.hidden {
+    display: none;
+  }
 }
 
 .image-editor-container-curtain {
@@ -27,27 +47,21 @@
 
 .image-editor-display-image-delete {
   position: absolute;
-  top: 0;
-  right: 0;
+  bottom: 0;
+  width: 100%;
+  margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 150%;
-  height: $rhythm * 2;
-  width: $rhythm * 2;
-  margin: $rhythm;
+  font-size: 200%;
   padding: $rhythm;
   background-color: $white;
   color: $dark-gray;
-  border-radius: 50%;
   opacity: 0.38;
+  box-sizing: border-box;
 }
 
 .image-editor-carousel {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
   display: flex;
   flex-direction: row;
   overflow-y: hidden;
@@ -73,7 +87,6 @@
     background-color: $medium-gray;
     color: $white;
     border-radius: 10px;
-    opacity: 0.38;
     margin: 1px;
 
     img {
@@ -101,6 +114,10 @@
     height: 105px;
     width: 105px;
   }
+
+  .image-editor-carousel {
+    justify-content: center;
+  }
 }
 
 .user-profile-avatar-editor-controls {
@@ -127,10 +144,6 @@
 
 
 .post-form-image-editor {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-
   .image-editor-container {
     max-height: 1800px;
     max-width: 1440px;

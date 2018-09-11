@@ -57,6 +57,7 @@ export default Component.extend({
     this._super(...args);
 
     args[0].preventDefault();
+    args[0].stopPropagation();
     this._moveEvent(args[0].changedTouches[0]);
   },
 

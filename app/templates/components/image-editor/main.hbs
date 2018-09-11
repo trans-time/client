@@ -1,18 +1,5 @@
-<div class="image-editor-container" style={{containerStyle}}>
-  <div class="image-editor-container-curtain">
-    {{#if cameraOn}}
-      {{ember-webrtc-capture
-        takePicture=(action "takePicture")
-      }}
-    {{else if displayImage}}
-      {{image-editor/display-image displayImage=displayImage}}
-      <a class="image-editor-display-image-delete" {{action "deleteImage" displayImage}}>{{fa-icon "close"}}</a>
-    {{/if}}
-  </div>
-</div>
-
-<div class="image-editor-carousel">
-  <div class="image-editor-carousel-item">
+<div class="image-editor-controls">
+  <div class="image-editor-control">
     {{#file-dropzone name="photos" as |dropzone queue|}}
       {{#if dropzone.active}}
         {{#if dropzone.valid}}
@@ -34,11 +21,26 @@
   </div>
 
   {{#if hasWebRTCSupport}}
-    <div class="image-editor-carousel-item">
+    <div class="image-editor-control">
       <a {{action "openCamera"}}>{{fa-icon "camera"}}</a>
     </div>
   {{/if}}
+</div>
 
+<div class="image-editor-container {{if hidden 'hidden'}}" style={{containerStyle}}>
+  <div class="image-editor-container-curtain">
+    {{#if cameraOn}}
+      {{ember-webrtc-capture
+        takePicture=(action "takePicture")
+      }}
+    {{else if displayImage}}
+      {{image-editor/display-image displayImage=displayImage}}
+      <a class="image-editor-display-image-delete" {{action "deleteImage" displayImage}}>{{fa-icon "close"}}</a>
+    {{/if}}
+  </div>
+</div>
+
+<div class="image-editor-carousel">
   {{#sortable-objects sortableObjectList=panels sortEndAction="sortEndAction" enableSort=true useSwap=true inPlace=true}}
     {{#each panels as |panel|}}
       {{#draggable-object content=panel isSortable=true}}

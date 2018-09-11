@@ -1,12 +1,16 @@
-import { computed } from '@ember/object';
-import { or } from '@ember/object/computed';
-import { isPresent } from '@ember/utils';
 import Component from '@ember/component';
+import { A } from '@ember/array';
+import { computed, get } from '@ember/object';
+import { filter, or, sort } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import { isNone, isPresent } from '@ember/utils';
+import { Promise, resolve } from 'rsvp';
 import Changeset from 'ember-changeset';
 import lookupValidator from 'ember-changeset-validations';
 import {
   validateLength
 } from 'ember-changeset-validations/validators';
+import { task, timeout } from 'ember-concurrency';
 
 const PostValidations = {
   text: [
@@ -15,9 +19,14 @@ const PostValidations = {
 };
 
 export default Component.extend({
-  view: 'text',
+  height: 1800,
+  width: 1440,
 
   classNames: ['post-form'],
+
+  store: service(),
+
+  orderedImages: sort('post.images', (a, b) => a.get('order') - b.get('order')),
 
   disabled: computed('changeset.isInvalid', 'changeset.isPristine', '_panelsAddedOrRemoved', '_panelOrderChanged', {
     get() {
@@ -48,15 +57,30 @@ export default Component.extend({
     }
   }),
 
-  viewPath: computed('view', {
-    get() {
-      return `post-form/${this.get('view')}`;
-    }
-  }),
+  _addImage: task(function * (src) {
+    const post = this.get('post');
+    const image = this.get('store').createRecord('image', {
+      post,
+      src,
+      order: (this.get('orderedImages.lastObject.order') || 0) + 1,
+      positioning: {
+        x: 50,
+        y: 50
+      }
+    });
+
+    post.get('images').pushObject(image);
+
+    yield timeout(50);
+  }).drop(),
 
   actions: {
-    transition(view) {
-      this.set('view', view);
+    addImage(dataUri) {
+      this.get('_addImage').perform(dataUri);
+    },
+
+    removeImage(image) {
+      image.set('src', undefined);
     }
   }
 });

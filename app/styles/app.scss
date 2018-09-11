@@ -328,6 +328,7 @@ p {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  overflow: auto;
 }
 
 .post-form-main {
@@ -338,110 +339,108 @@ p {
   overflow: auto;
 }
 
+.post-form-text-and-meta {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 300px;
+  border-top: thin solid $light-gray;
+}
+
 .post-form-content-warnings {
   margin: $rhythm 0 0;
+  padding: 0;
+  width: inherit;
 
   label, input {
     padding-left: $rhythm !important;
   }
 
+  label {
+    width: inherit !important;
+  }
+
+  input {
+    border-color: $light-gray !important;
+  }
+
   .md-errors-spacer {
     display: none;
   }
+
+  &.md-focused {
+    input {
+      border-color: #3f51b5 !important;
+    }
+  }
 }
 
-.post-form-text {
+.post-form-meta {
   display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  overflow-x: hidden;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  padding: $rhythm $rhythm;
+  justify-content: space-between;
+  border-bottom: thin solid $light-gray;
 
-  .post-form-maturity-rating {
-    flex-shrink: 0;
-    overflow: hidden;
-    border: thin solid $medium-gray;
-
-    .post-form-maturity-rating-element {
-      margin: $rhythm / 2 $rhythm * 2;
-    }
-
-    .post-form-maturity-rating-description {
-      padding-bottom: $rhythm / 2;
-    }
-
-    .post-form-maturity-rating-terms {
-      font-size: 80%;
-      padding-top: $rhythm / 2;
-    }
+  .md-checkbox {
+    margin: 0;
   }
 
-  .post-form-meta {
-    display: flex;
-    flex-wrap: wrap;
-    flex-shrink: 0;
-    padding: $rhythm $rhythm;
-    justify-content: space-between;
-    border-bottom: thin solid $light-gray;
-
-    .md-checkbox {
-      margin: 0;
-    }
-
-    .pikaday-input {
-      border: 0;
-      padding: 0;
-      text-align: right;
-      width: 160px;
-    }
-  }
-
-  .post-form-text-emoji-wrapper {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-    min-height: 200px;
-  }
-
-  .post-form-textarea-container {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-    position: relative;
-  }
-
-  .post-form-taggable-textarea {
-    display: flex;
-    flex-grow: 1;
-  }
-
-  .post-form-textarea {
-    flex-grow: 1;
-    resize: none;
-    padding: $rhythm;
+  .pikaday-input {
     border: 0;
-    outline: 0;
-  }
-
-  .post-form-text-emoji-toggler {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background: none;
-    border: none;
-    outline: none;
-    opacity: 0.68;
-
-    .emojione {
-      margin: 0;
-    }
-  }
-
-  .post-form-text-emoji-picker {
-    position: absolute;
-    bottom: 2px;
-    right: 2px;
+    padding: 0;
+    text-align: right;
+    width: 160px;
   }
 }
+
+.post-form-text-emoji-wrapper {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  min-height: 200px;
+}
+
+.post-form-textarea-container {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  position: relative;
+}
+
+.post-form-taggable-textarea {
+  display: flex;
+  flex-grow: 1;
+}
+
+.post-form-textarea {
+  flex-grow: 1;
+  resize: none;
+  padding: $rhythm;
+  border: 0;
+  outline: 0;
+}
+
+.post-form-text-emoji-toggler {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: none;
+  border: none;
+  outline: none;
+  opacity: 0.68;
+
+  .emojione {
+    margin: 0;
+  }
+}
+
+.post-form-text-emoji-picker {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  }
 
 .post-form-controls {
   display: flex;
@@ -468,4 +467,20 @@ p {
   padding: $rhythm;
   background: none;
   border: none;
+}
+
+
+@media (min-width: 1000px) {
+  .post-form-main {
+    flex-direction: row;
+    overflow-x: hidden;
+
+    .post-form-image-editor {
+      width: 450px;
+    }
+
+    .post-form-text-and-meta {
+      border-top: 0;
+    }
+  }
 }
