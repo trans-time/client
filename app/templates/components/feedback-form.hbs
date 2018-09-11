@@ -1,0 +1,41 @@
+{{#paper-form onSubmit=(action "handleSubmit") as |form|}}
+  {{#paper-list}}
+    {{#paper-item}}
+      {{form.input
+        value=changeset.email
+        type="email"
+        autofocus=true
+        label=(t "feedback.attributes.email.label")
+        onChange=(action (mut changeset.email))
+        errors=changeset.error.email.validation
+      }}
+    {{/paper-item}}
+
+    {{#paper-item}}
+      {{paper-input
+        value=changeset.body
+        textarea=true
+        block=true
+        label=(t "feedback.attributes.body.label")
+        onChange=(action (mut changeset.body))
+        errors=changeset.error.body.validation
+      }}
+    {{/paper-item}}
+  {{/paper-list}}
+
+  <div class="form-controls">
+    {{paper-button
+      disabled=(or changeset.isInvalid changeset.isPristine)
+      raised=true
+      primary=true
+      label=(t "general.submit")
+      onClick=(action "handleSubmit")
+    }}
+  </div>
+
+  {{g-recaptcha
+    onSuccess=(action "onCaptchaResolved")
+    ref=(mut gRecaptcha)
+    size="invisible"
+  }}
+{{/paper-form}}

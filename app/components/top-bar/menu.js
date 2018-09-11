@@ -10,6 +10,10 @@ export default Component.extend({
   session: service(),
 
   actions: {
+    feedback() {
+      this.get('router').transitionTo('feedback');
+    },
+
     login() {
       this.get('modalManager').open('auth-modal/login');
     },

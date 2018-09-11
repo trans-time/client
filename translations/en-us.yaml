@@ -85,6 +85,13 @@ errors:
     tooLong: "is too long"
     tooShort: "is too short"
     url: "must be a valid url"
+feedback:
+  leaveFeedback: "feedback/bug report"
+  attributes:
+    body:
+      label: "leave your feedback here"
+    email:
+      label: "email (if you want to provide it)"
 reactions:
   viewAll: "view all"
 file:

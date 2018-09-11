@@ -19,11 +19,17 @@
     {{fa-icon "gavel"}}
     <span>{{t "moderation.moderation"}}</span>
   {{/menuContent.menu-item}}
+  {{#menuContent.menu-item onClick="feedback"}}
+    <span>{{t "feedback.leaveFeedback"}}</span>
+  {{/menuContent.menu-item}}
   {{#menuContent.menu-item onClick="logout"}}
     <span>{{t "auth.logout"}}</span>
   {{/menuContent.menu-item}}
 {{else}}
   {{#menuContent.menu-item onClick="login"}}
     <span>{{t "auth.login"}}</span>
+  {{/menuContent.menu-item}}
+  {{#menuContent.menu-item onClick="feedback"}}
+    <span>{{t "feedback.leaveFeedback"}}</span>
   {{/menuContent.menu-item}}
 {{/if}}
