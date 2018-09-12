@@ -18,10 +18,10 @@ import config from '../config/environment';
 
 const ProfileValidations = {
   description: [
-    validateLength({ max: 1000 })
+    validateLength({ max: 64 })
   ],
   displayName: [
-    validateLength({ max: 100 })
+    validateLength({ max: 64 })
   ],
   pronouns: [
     validateLength({ max: 64 })

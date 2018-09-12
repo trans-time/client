@@ -96,10 +96,9 @@
 .profile-additional-content {
   display: flex;
   flex-direction: column;
-  flex-shrink: 0.5;
+  flex-shrink: 0;
   overflow-x: auto;
   box-shadow: 0 2px 2px 0 $light-gray;
-  max-height: 9%;
 
   &.profile-additional-content-full-height {
     max-height: 70%;
