@@ -14,8 +14,10 @@ export default Component.extend({
     this._video = this.element.getElementsByTagName('VIDEO')[0];
     this._canvas = this.element.getElementsByTagName('CANVAS')[0];
 
-    this._video.addEventListener('touchend', bind(this, () => this.get('_takePicture').perform()));
-    this._video.addEventListener('click', bind(this, () => this.get('_takePicture').perform()));
+    this._video.addEventListener('touchstart', bind(this, (e) => this._initiatePicture(e)));
+    this._video.addEventListener('mousedown', bind(this, (e) => this._initiatePicture(e)));
+    this._video.addEventListener('touchend', bind(this, (e) => this.get('_takePicture').perform(e)));
+    this._video.addEventListener('mouseup', bind(this, (e) => this.get('_takePicture').perform(e)));
 
     navigator.mediaDevices.enumerateDevices().then((devices) => {
       this.set('devices', devices.filter((device) => device.kind === 'videoinput'));
@@ -55,7 +57,16 @@ export default Component.extend({
     if (stream) stream.getTracks()[0].stop();
   },
 
-  _takePicture: task(function * () {
+  _initiatePicture(e) {
+    this.set('startX', this._getLocation(e, 'clientX'));
+    this.set('startY', this._getLocation(e, 'clientY'));
+
+  },
+
+  _takePicture: task(function * (e) {
+    if (Math.abs(this.startX - this._getLocation(e, 'clientX')) > 5) return;
+    if (Math.abs(this.startY - this._getLocation(e, 'clientY')) > 5) return;
+    
     var context = this._canvas.getContext('2d');
     this._canvas.width = this._video.videoWidth;
     this._canvas.height = this._video.videoHeight;
@@ -71,6 +82,10 @@ export default Component.extend({
 
     yield timeout(100);
   }).drop(),
+
+  _getLocation(e, location) {
+    return e.changedTouches ? e.changedTouches[0][location] : e[location];
+  },
 
   actions: {
     switchCamera() {
