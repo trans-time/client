@@ -14,10 +14,10 @@
 <div class="timeline-item-nav-post-constraint timeline-item-nav-post-text" tabindex="-1">
   <span class="timeline-item-nav-post-meta">
     {{#if timelineItem.isPrivate}}
-      {{fa-icon "unlock-alt"}}
+      {{fa-icon "unlock-alt"}} |
     {{/if}}
     {{#if timelineItem.isUnderModeration}}
-      <span class="timeline-item-nav-post-under-moderation">| {{t "timelineItem.isUnderModeration"}} |</span>
+      <span class="timeline-item-nav-post-under-moderation">{{t "timelineItem.isUnderModeration"}} |</span>
     {{/if}}
     {{#link-to "users.user.profile.index" timelineItem.user.username classNames="timeline-item-nav-post-username"}}
       {{#if post.timelineItem.user.displayName}}

@@ -30,7 +30,7 @@ export default Route.extend(TimelineItemNavRouteMixin, {
 
     const user = this.modelFor('users.user');
 
-    return this.store.query('timeline-item', {
+    return this.infinity.model('timeline-item', {
       sort: params.lastTimelineItem ? 'date' : '-date',
       filter: {
         blocked: false,

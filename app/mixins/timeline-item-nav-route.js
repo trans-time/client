@@ -12,6 +12,7 @@ export default Mixin.create({
     }
   },
 
+  infinity: service(),
   messageBus: service(),
   router: service(),
 
@@ -60,7 +61,7 @@ export default Mixin.create({
     },
 
     loadMoreTimelineItems(resolve, reject, shouldProgress, fromTimelineItemId) {
-      const query = this.get('_timelineItems.query');
+      const query = this.get('_timelineItems.extraParams');
 
       if (query.should_progress === shouldProgress && query.from_timeline_item_id === fromTimelineItemId) return reject();
 
@@ -69,15 +70,19 @@ export default Mixin.create({
       query.should_progress = shouldProgress;
       query.from_timeline_item_id = fromTimelineItemId;
 
-      this.store.query('timelineItem', query).then((timelineItems) => {
-        this.get('_timelineItems').pushObjects(timelineItems.get('content'));
+      this.set('_timelineItems.extraParams', query)
 
-        const reachedEnd = timelineItems.get('content.length') < query.page_size;
+      this.infinity.loadNextPage(this._timelineItems).then(() => resolve()).catch(() => reject());
 
-        resolve(shouldProgress ? { reachedFirstTimelineItem: reachedEnd } : { reachedLastTimelineItem: reachedEnd });
-      }).catch(() => {
-        reject();
-      });
+      // this.store.query('timelineItem', query).then((timelineItems) => {
+      //   this.get('_timelineItems').pushObjects(timelineItems.get('content'));
+      //
+      //   const reachedEnd = timelineItems.get('content.length') < query.page_size;
+      //
+      //   resolve(shouldProgress ? { reachedFirstTimelineItem: reachedEnd } : { reachedLastTimelineItem: reachedEnd });
+      // }).catch(() => {
+      //   reject();
+      // });
     }
   }
 });

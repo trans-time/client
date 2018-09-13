@@ -35,7 +35,7 @@ export default Route.extend(TimelineItemNavRouteMixin, {
       reachedLastTimelineItem: false
     });
 
-    return this.store.query('timeline-item', {
+    return this.infinity.model('timeline-item', {
       sort: '-inserted_at',
       filter: {
         blocked: false,

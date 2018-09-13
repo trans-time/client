@@ -136,7 +136,7 @@ export default Component.extend({
       return;
     }
 
-    if (!timelineItems.query || (timelineItems.query.initial_query && decoratedTimelineItems.get('length') > 0 && !this.get('refreshingTimelineItems'))) {
+    if (!timelineItems.extraParams || (timelineItems.extraParams.initial_query && decoratedTimelineItems.get('length') > 0 && !this.get('refreshingTimelineItems'))) {
       this.set('nextTimelineItemIndex', 0);
       decoratedTimelineItems.clear();
       this.set('refreshingTimelineItems', true);
@@ -147,8 +147,8 @@ export default Component.extend({
     }
 
     const decoratedTimelineItemIds = decoratedTimelineItems.mapBy('model.id');
-    const sortBy = camelize(timelineItems.query ? timelineItems.query.sort[0] === '-' ? timelineItems.query.sort.slice(1) : timelineItems.query.sort : 'date');
-    const newTimelineItems = timelineItems.slice(this.get('nextTimelineItemIndex')).sort((a, b) => {
+    const sortBy = camelize(timelineItems.extraParams ? timelineItems.extraParams.sort[0] === '-' ? timelineItems.extraParams.sort.slice(1) : timelineItems.extraParams.sort : 'date');
+    const newTimelineItems = timelineItems.filter((timelineItem) => decoratedTimelineItemIds.indexOf(timelineItem.id) === -1).sort((a, b) => {
       const aDate = a.get(sortBy);
       const bDate = b.get(sortBy);
       return aDate > bDate ? -1 : aDate < bDate ? 1 : 0;
@@ -183,7 +183,7 @@ export default Component.extend({
     },
 
     loadMoreTimelineItems(...args) {
-      this.sendAction('action', ...args);
+      this.attrs.loadMoreTimelineItems(...args);
     },
 
     removeTimelineItem(timelineItem) {
