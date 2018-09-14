@@ -63,13 +63,14 @@ coverPage:
   gettingStarted: "getting started"
   gettingStarted1: "if you'd like a quick tutorial on how to use the site, <a href='https://www.transtime.is/users/celeste/timeline?lastTimelineItem=true&tags=%5B%22tutorial%22%5D'>celeste</a> would be happy to help you out! ^__^"
   purposeHeader: "purpose"
-  purpose1: "we see many aspects of transitioning as <strong>medically</strong> and <strong>culturally</strong> new, and we believe that by documenting and sharing our stories, we can help each other develop a collective understanding of what it means to transition, how to survive the hardest parts of it, and what we can do to lead our <strong>best lives</strong>."
+  purpose1: "we see many aspects of transitioning as <strong>medically</strong> and <strong>culturally</strong> new, and despite this newness, we also see forces outside of the trans+ community trying to define us. we believe that by sharing our stories, we can discover <strong>common patterns</strong> amongst ourselves, even as we arrive at our own <strong>definitions</strong> of transness."
+  purpose2: "through this process, we believe that we can <strong>help each other</strong> come to terms with ourselves and (when necessary) to be <strong>a coherent voice</strong> in the world."
   features:
     content: "document, share, and discuss your transition in a <strong>proactively moderated</strong> community"
     connections: "find trans+ people with similiar <strong>*identities</strong>, including religion, race, sexuality, and gender"
     timelines: "view somebody's whole timeline, or filter it by <strong>#tag</strong>, as with: #face, #chest, #feels, #fashion, or #art"
     contentWarnings: "select which <strong>content warnings</strong> to allow on your feed, on a per-device basis"
-  note: "<em>trans time</em> will never sell your data or advertise to you. we are a community supported non-profit excited to be participating in today's trans+ awakening."
+  note: "<em>trans time</em> will never sell your data or advertise to you. we are a community supported non-profit, and we're simply excited to be participating in today's trans+ awakening."
 documents:
   coc: "code of conduct"
   cookiePolicy: "cookie policy"
