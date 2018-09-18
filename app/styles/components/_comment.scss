@@ -6,7 +6,7 @@
 
 .comments-container {
   flex-grow: 1;
-  padding: $rhythm / 2;
+  padding: $rhythm;
 }
 
 .comments-locked {
@@ -74,6 +74,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex-grow: 1;
   overflow: hidden;
 }
 
@@ -86,7 +87,6 @@
 }
 
 .comment-text {
-  font-size: 80%;
   min-height: 33px;
   background: #eee;
   border-radius: 5px;
@@ -105,7 +105,11 @@
   margin-top: $rhythm / 4;
   padding-top: $rhythm / 4;
   color: $medium-gray;
-  font-size: 65%;
+  font-size: 90%;
+
+  .chat-total {
+    display: none;
+  }
 }
 
 .comment-children {
