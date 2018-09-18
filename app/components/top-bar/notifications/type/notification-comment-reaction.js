@@ -16,7 +16,7 @@ export default Component.extend(NotificationComponentMixin, {
         return reaction.get('user.displayName') || reaction.get('user.username');
       }).slice(0, 2).map((username) => `<strong>${username}</strong>`);
       const reactorCount = this.get('notification.notifiable.comment.reactionCount') - usernames.length;
-
+      
       switch (reactorCount) {
         case 0: return this._listWithAnd(usernames);
         case 1: return this._listWithAnd(usernames.concat(['1 other']));

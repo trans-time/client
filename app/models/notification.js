@@ -6,6 +6,7 @@ export default DS.Model.extend({
   notificationCommentAt: DS.belongsTo('notification-comment-at'),
   notificationCommentComment: DS.belongsTo('notification-comment-comment'),
   notificationCommentReaction: DS.belongsTo('notification-comment-reaction'),
+  notificationCommentReactionV2: DS.belongsTo('notification-comment-reaction-v2'),
   notificationEmailConfirmation: DS.belongsTo('notification-email-confirmation'),
   notificationFollow: DS.belongsTo('notification-follow'),
   notificationModerationRequest: DS.belongsTo('notification-moderation-request'),
@@ -16,6 +17,7 @@ export default DS.Model.extend({
   notificationTimelineItemAt: DS.belongsTo('notification-timeline-item-at'),
   notificationTimelineItemComment: DS.belongsTo('notification-timeline-item-comment'),
   notificationTimelineItemReaction: DS.belongsTo('notification-timeline-item-reaction'),
+  notificationTimelineItemReactionV2: DS.belongsTo('notification-timeline-item-reaction-v2'),
 
   updatedAt: DS.attr('date'),
   isRead: DS.attr('boolean'),
@@ -26,6 +28,7 @@ export default DS.Model.extend({
       return this.get('notificationCommentAt.content')
         || this.get('notificationCommentComment.content')
         || this.get('notificationCommentReaction.content')
+        || this.get('notificationCommentReactionV2.content')
         || this.get('notificationEmailConfirmation.content')
         || this.get('notificationFollow.content')
         || this.get('notificationModerationRequest.content')
@@ -36,6 +39,7 @@ export default DS.Model.extend({
         || this.get('notificationTimelineItemAt.content')
         || this.get('notificationTimelineItemComment.content')
         || this.get('notificationTimelineItemReaction.content')
+        || this.get('notificationTimelineItemReactionV2.content')
     }
   })
 });

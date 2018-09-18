@@ -1,0 +1,8 @@
+{{#menuContent.menu-item onClick="handleClick"}}
+  {{{t "notifications.type.timelineItemReactionV2"
+    reactorUsername=notification.notifiable.reaction.user.username
+    text=notification.notifiable.reaction.timelineItem.post.text
+  }}}
+
+  {{yield}}
+{{/menuContent.menu-item}}
