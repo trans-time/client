@@ -1,8 +1,9 @@
+import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { alias, oneWay } from '@ember/object/computed'
 import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/string';
-import Component from '@ember/component';
+import { task, timeout } from 'ember-concurrency';
 
 export default Component.extend({
   tagName: 'img',
@@ -41,6 +42,8 @@ export default Component.extend({
 
     dragState.diffX = 0;
     dragState.diffY = 0;
+    dragState.startX = e.clientX;
+    dragState.startY = e.clientY;
     dragState.currentX = e.clientX;
     dragState.currentY = e.clientY;
     dragState.active = true;
@@ -89,16 +92,33 @@ export default Component.extend({
     this._super(...args);
 
     if (this.get('usingTouch')) return;
-    this._endEvent();
+    this._endEvent(...args);
   },
 
   touchEnd(...args) {
     this._super(...args);
 
-    this._endEvent();
+    this._endEvent(args[0].changedTouches[0]);
   },
 
-  _endEvent() {
+  _endEvent(e) {
+    const dragState = this.get('dragState');
+    const isTap = Math.abs(dragState.startY - e.clientY) < 5 && Math.abs(dragState.startX - e.clientX) < 5;
+
+    if (isTap) {
+      if (this.get('hasRecentlyTapped')) {
+        this.closeCamera();
+      } else this.get('_initiateDoubleTapTask').perform();
+    }
+
     this.set('dragState.active', false);
-  }
+  },
+
+  _initiateDoubleTapTask: task(function * () {
+    this.set('hasRecentlyTapped', true);
+
+    yield timeout(500);
+
+    this.set('hasRecentlyTapped', false);
+  }).restartable()
 });

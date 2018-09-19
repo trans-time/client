@@ -63,6 +63,13 @@ export default Component.extend({
     }
   },
 
+  _closeCamera() {
+    this.setProperties({
+      cameraOn: false,
+      hidden: true
+    });
+  },
+
   actions: {
     deleteImage(image) {
       this.attrs.removeImage(image);
@@ -71,16 +78,17 @@ export default Component.extend({
 
     openCamera() {
       if (this.cameraOn) {
-        this.setProperties({
-          cameraOn: false,
-          hidden: true
-        });
+        this._closeCamera();
       } else {
         this.setProperties({
           cameraOn: true,
           hidden: false
         });
       }
+    },
+
+    closeCamera() {
+      this._closeCamera();
     },
 
     selectImage(image) {

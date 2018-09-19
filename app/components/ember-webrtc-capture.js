@@ -66,7 +66,7 @@ export default Component.extend({
   _takePicture: task(function * (e) {
     if (Math.abs(this.startX - this._getLocation(e, 'clientX')) > 5) return;
     if (Math.abs(this.startY - this._getLocation(e, 'clientY')) > 5) return;
-    
+
     var context = this._canvas.getContext('2d');
     this._canvas.width = this._video.videoWidth;
     this._canvas.height = this._video.videoHeight;

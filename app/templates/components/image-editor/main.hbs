@@ -34,7 +34,10 @@
         takePicture=(action "takePicture")
       }}
     {{else if displayImage}}
-      {{image-editor/display-image displayImage=displayImage}}
+      {{image-editor/display-image
+        displayImage=displayImage
+        closeCamera=(action "closeCamera")
+      }}
       <a class="image-editor-display-image-delete" {{action "deleteImage" displayImage}}>{{fa-icon "close"}}</a>
     {{/if}}
   </div>
