@@ -326,10 +326,21 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     const diffs = navState.get('diffs');
     const precision = 5;
     const latestDiffs = diffs.slice(Math.max(0, diffs.length - precision), diffs.length);
-    let velocity = navState.get('progress') > 0.5 ? 0.01 : -0.01;
+    const progress = navState.get('progress');
+    let velocity = progress > 0.5 ? 0.01 : -0.01;
     if (latestDiffs.length > 0) velocity = latestDiffs.reduce((sum, diff) => sum + diff, 0) / Math.min(latestDiffs.length, precision);
     velocity = velocity < 0 ? Math.min(velocity, -0.01) : Math.max(0.01, velocity);
-    if (navState.get('incomingPanel') === 'edge' && this._getNeighbor(navState.get('currentPanel'), velocity < 0 ? this._getDirection(false) : this._getDirection(true)) === 'edge') velocity *= -1;
+
+    const notReversingMidSwipe = Math.sign(velocity) === Math.sign(progress);
+    const wasSwipingTowardsEdge = navState.get('incomingPanel') === 'edge';
+    const stillSwipingTowardsEdge = this._getNeighbor(
+      navState.get('currentPanel'),
+      velocity < 0
+        ? this._getDirection(false)
+        : this._getDirection(true)
+      ) === 'edge';
+
+    if (wasSwipingTowardsEdge && stillSwipingTowardsEdge && notReversingMidSwipe) velocity *= -1;
 
     navState.setProperties({
       diffs: [],
