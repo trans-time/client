@@ -8,7 +8,9 @@ import { task, timeout } from 'ember-concurrency';
 export default Component.extend({
   tagName: 'img',
   classNames: ['image-editor-display-image'],
-  attributeBindings: ['src', 'style'],
+  attributeBindings: ['src', 'style', 'draggable'],
+
+  draggable: false,
 
   meta: service(),
   positioning: oneWay('displayImage.positioning'),
@@ -53,6 +55,8 @@ export default Component.extend({
     this._super(...args);
 
     if (this.get('usingTouch')) return;
+    args[0].preventDefault();
+    args[0].stopPropagation();
     this._moveEvent(args[0]);
   },
 
@@ -111,6 +115,10 @@ export default Component.extend({
       } else this.get('_initiateDoubleTapTask').perform();
     }
 
+    this.set('dragState.active', false);
+  },
+
+  mouseLeave() {
     this.set('dragState.active', false);
   },
 
