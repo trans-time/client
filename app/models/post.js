@@ -8,6 +8,7 @@ export default DS.Model.extend(Timelineable, {
   user: DS.belongsTo('user', { inverse: 'posts' }),
   images: DS.hasMany('image'),
 
+  shortText: DS.attr('string'),
   text: DS.attr('string'),
 
   date: alias('timelineItem.date'),

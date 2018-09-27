@@ -12,7 +12,7 @@ export default Route.extend({
     return this.infinity.model('reaction', { perPage: 12, startingPage: 1, filter: { timeline_item_id: this.modelFor('timeline-items.timeline-item').id }, include: 'user' });
   },
 
-  beforeModel(...args) {
+  afterModel(...args) {
     this._super(...args);
 
     const title = this.get('intl').t('post.reactions');

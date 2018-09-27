@@ -5,6 +5,6 @@ import NotificationComponentMixin from 'client/mixins/notification-component';
 
 export default Component.extend(NotificationComponentMixin, {
   transitionToNotification() {
-    this.get('router').transitionTo('comments.comment.reactions', this.get('notification.notifiable.comment.id'));
+    this.get('router').transitionTo('comments.comment.reactions', this.get('notification.notifiable.reaction.comment.id'));
   }
 });

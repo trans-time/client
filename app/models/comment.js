@@ -13,6 +13,7 @@ export default DS.Model.extend(Flaggable, Reactable, {
   commentCount: DS.attr('number'),
   insertedAt: DS.attr('date'),
   isMarkedForDeletion: DS.attr('boolean'),
+  shortText: DS.attr('string'),
   text: DS.attr('string'),
   isUnderModeration: DS.attr('boolean'),
 

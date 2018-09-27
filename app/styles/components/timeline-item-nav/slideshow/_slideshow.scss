@@ -148,11 +148,11 @@
 .timeline-item-nav-post-comment-container {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 }
 
 @media (min-width: 1000px) {
   .timeline-item-nav-post-comment-container {
-    flex-grow: 1;
     overflow: auto;
   }
 
