@@ -40,6 +40,8 @@ module.exports = function(defaults) {
   });
 
   app.import('bower_components/lethargy/lethargy.js');
+  app.import('bower_components/linkifyjs/linkify.js');
+  app.import('bower_components/linkifyjs/linkify-html.js');
 
   return app.toTree();
 };

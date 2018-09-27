@@ -7,9 +7,9 @@ import markdownit from 'markdown-it';
 export function markdownRender([markdown]) {
   if (isEmpty(markdown)) return;
 
-  const html = markdownit().render(markdown).replace(/<a /g, '<a target="_blank"');
+  let html = markdownit().render(markdown).replace(/<a /g, '<a target="_blank"');
 
-  return htmlSafe(html);
+  return htmlSafe(linkifyHtml(html));
 }
 
 export default helper(markdownRender);

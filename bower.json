@@ -7,6 +7,7 @@
     "emojione-css": "https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/sprites/emojione.sprites.css",
     "emojione-png": "https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/assets/sprites/emojione.sprites.png",
     "emojione-defs": "https://raw.githubusercontent.com/Ranks/emojione/v2.2.7/emoji.json",
-    "lethargy": "^1.0.4"
+    "lethargy": "^1.0.4",
+    "linkifyjs": "^2.1.6"
   }
 }
