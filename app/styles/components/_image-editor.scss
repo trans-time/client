@@ -106,7 +106,8 @@
   width: 100%;
   max-width: 600px;
   z-index: 101;
-
+  overflow: auto;
+  
   .image-editor-container {
     max-height: 1440px;
     max-width: 1440px;
