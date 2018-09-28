@@ -148,7 +148,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
   _fulfillMoveEvent(event, diff) {
     const swipeState = this.get('swipeState');
     const element = this.get('_constraint');
-
+    
     if ((!this.get('chatIsOpen') && ((diff > 0 && !swipeState.canNavUp) || (diff < 0 && !swipeState.canNavDown))) || (this.get('chatIsOpen') && ((diff > 0 && Math.floor(element.scrollTop) > 0) || (diff < 0 && Math.ceil(this.element.scrollHeight + this.element.clientHeight) < this.element.clientHeight)))) {
       swipeState.diffs.push(diff);
 

@@ -63,8 +63,9 @@
     display: inline;
 
     p {
+      // use padding, as margins will prevent touch events from firing
+      padding-top: $rhythm;
       margin: 0;
-      margin-top: $rhythm;
     }
 
     p:first-child {
