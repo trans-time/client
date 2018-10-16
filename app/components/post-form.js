@@ -21,6 +21,7 @@ const PostValidations = {
 export default Component.extend({
   height: 1800,
   width: 1440,
+  mode: 'text',
 
   classNames: ['post-form'],
 
@@ -81,6 +82,14 @@ export default Component.extend({
 
     removeImage(image) {
       image.set('src', undefined);
+    },
+
+    switchToText() {
+      this.set('mode', 'text');
+    },
+
+    switchToCamera() {
+      this.set('mode', 'camera');
     }
   }
 });

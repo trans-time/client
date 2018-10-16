@@ -1,59 +1,75 @@
 <div class="post-form-main">
-  <div class="post-form-image-editor">
-    {{image-editor/main
-      panels=orderedImages
-      addImage=(action "addImage")
-      removeImage=(action "removeImage")
-      height=height
-      width=width
-    }}
-  </div>
-
-  <div class="post-form-text-and-meta">
-    <div class="post-form-meta">
-      {{#paper-checkbox value=changeset.isPrivate onChange=(action (mut changeset.isPrivate))}}
-        {{t "post.attributes.isPrivate.label"}}
-      {{/paper-checkbox}}
-
-      {{pikaday-input
-        format="MM/DD/YYYY h:mm a"
-        value=changeset.date
-        classNames="pikaday-input"
-        onSelection=(action (mut changeset.date))
+  {{#if (eq mode "text")}}
+    <div class="post-form-image-editor post-form-image-editor-large-media">
+      {{image-editor/main
+        panels=orderedImages
+        addImage=(action "addImage")
+        removeImage=(action "removeImage")
+        height=height
+        width=width
       }}
     </div>
 
-    {{paper-input
-      value=changeset.contentWarnings
-      label=(t "post.attributes.contentWarnings.label")
-      onChange=(action (mut changeset.contentWarnings))
-      classNames="post-form-content-warnings"
-    }}
+    <div class="post-form-text-and-meta">
+      <div class="post-form-meta">
+        {{#paper-checkbox value=changeset.isPrivate onChange=(action (mut changeset.isPrivate))}}
+          {{t "post.attributes.isPrivate.label"}}
+        {{/paper-checkbox}}
 
-    {{#emoji-picker-wrapper
-      text                = changeset.text
-      inputSelector       = ".post-form-textarea"
-      emojiInsertedAction = (action (mut changeset.text))
-      classNames="post-form-text-emoji-wrapper"
-      as |h|
-    }}
-
-      <div class="post-form-textarea-container">
-        {{#taggable-textarea/main classNames="post-form-taggable-textarea"}}
-          {{textarea value=changeset.text placeholder=(t "post.attributes.text.placeholder") class="post-form-textarea"}}
-        {{/taggable-textarea/main}}
-        {{component h.emojiAssist}}
-
-        {{component h.emojiPickerToggler class="post-form-text-emoji-toggler"}}
-
-        {{component h.emojiPicker class="post-form-text-emoji-picker"}}
+        {{pikaday-input
+          format="MM/DD/YYYY h:mm a"
+          value=changeset.date
+          classNames="pikaday-input"
+          onSelection=(action (mut changeset.date))
+        }}
       </div>
 
-    {{/emoji-picker-wrapper}}
-  </div>
+      {{paper-input
+        value=changeset.contentWarnings
+        label=(t "post.attributes.contentWarnings.label")
+        onChange=(action (mut changeset.contentWarnings))
+        classNames="post-form-content-warnings"
+      }}
+
+      {{#emoji-picker-wrapper
+        text                = changeset.text
+        inputSelector       = ".post-form-textarea"
+        emojiInsertedAction = (action (mut changeset.text))
+        classNames="post-form-text-emoji-wrapper"
+        as |h|
+      }}
+
+        <div class="post-form-textarea-container">
+          {{#taggable-textarea/main classNames="post-form-taggable-textarea"}}
+            {{textarea value=changeset.text placeholder=(t "post.attributes.text.placeholder") class="post-form-textarea"}}
+          {{/taggable-textarea/main}}
+          {{component h.emojiAssist}}
+
+          {{component h.emojiPickerToggler class="post-form-text-emoji-toggler"}}
+
+          {{component h.emojiPicker class="post-form-text-emoji-picker"}}
+        </div>
+
+      {{/emoji-picker-wrapper}}
+    </div>
+  {{else}}
+    <div class="post-form-image-editor">
+      {{image-editor/main
+        cameraOn=true
+        hidden=false
+        panels=orderedImages
+        addImage=(action "addImage")
+        removeImage=(action "removeImage")
+        height=height
+        width=width
+      }}
+    </div>
+  {{/if}}
 </div>
 
 <div class="post-form-controls main-layout-constraint">
   <button class="post-form-controls-element" {{action (route-action "cancel" changeset)}}>{{fa-icon "times" size=2}}</button>
+  <button class="post-form-controls-element post-form-controls-element-small-media {{if (eq mode 'text') 'post-form-controls-element-active'}}" {{action (action "switchToText" changeset)}}>{{fa-icon "font" size=2}}</button>
+  <button class="post-form-controls-element post-form-controls-element-small-media {{if (eq mode 'camera') 'post-form-controls-element-active'}}" {{action (action "switchToCamera" changeset)}}>{{fa-icon "camera" size=2}}</button>
   <button class="post-form-controls-element" {{action (route-action "submit" changeset)}} disabled={{disabled}}>{{fa-icon "check" size=2}}</button>
 </div>

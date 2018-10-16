@@ -255,7 +255,7 @@ post:
     isPrivate:
       label: "private"
     text:
-      placeholder: "how's transing?"
+      placeholder: "how's life?"
 profile:
   avatar: "avatar"
   block: "block"

@@ -331,6 +331,10 @@ p {
   overflow: auto;
 }
 
+.post-form-image-editor-large-media {
+  display: none;
+}
+
 .post-form-main {
   position: relative;
   display: flex;
@@ -467,6 +471,19 @@ p {
   padding: $rhythm;
   background: none;
   border: none;
+
+  &:first {
+    margin-right: auto;
+  }
+
+  &:last {
+    margin-left: auto;
+  }
+
+  &.post-form-controls-element-active {
+    background-color: $black;
+    color: $white;
+  }
 }
 
 
@@ -480,9 +497,17 @@ p {
       border-right: thin dashed $light-gray;
     }
 
+    .post-form-image-editor-large-media {
+      display: block;
+    }
+
     .post-form-text-and-meta {
       border-top: 0;
     }
+  }
+
+  .post-form-controls-element-small-media {
+    display: none;
   }
 }
 

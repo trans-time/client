@@ -1,3 +1,19 @@
+<div class="image-editor-container {{if hidden 'hidden'}}" style={{containerStyle}}>
+  <div class="image-editor-container-curtain">
+    {{#if cameraOn}}
+      {{ember-webrtc-capture
+        takePicture=(action "takePicture")
+      }}
+    {{else if displayImage}}
+      {{image-editor/display-image
+        displayImage=displayImage
+        closeCamera=(action "closeCamera")
+      }}
+      <a class="image-editor-display-image-delete" {{action "deleteImage" displayImage}}>{{fa-icon "close"}}</a>
+    {{/if}}
+  </div>
+</div>
+
 <div class="image-editor-controls">
   <div class="image-editor-control">
     {{#file-dropzone name="photos" as |dropzone queue|}}
@@ -25,22 +41,6 @@
       <a {{action "openCamera"}}>{{fa-icon "camera"}}</a>
     </div>
   {{/if}}
-</div>
-
-<div class="image-editor-container {{if hidden 'hidden'}}" style={{containerStyle}}>
-  <div class="image-editor-container-curtain">
-    {{#if cameraOn}}
-      {{ember-webrtc-capture
-        takePicture=(action "takePicture")
-      }}
-    {{else if displayImage}}
-      {{image-editor/display-image
-        displayImage=displayImage
-        closeCamera=(action "closeCamera")
-      }}
-      <a class="image-editor-display-image-delete" {{action "deleteImage" displayImage}}>{{fa-icon "close"}}</a>
-    {{/if}}
-  </div>
 </div>
 
 <div class="image-editor-carousel">
