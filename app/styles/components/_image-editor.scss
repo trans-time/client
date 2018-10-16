@@ -137,10 +137,6 @@
     height: 105px;
     width: 105px;
   }
-
-  .image-editor-carousel {
-    justify-content: center;
-  }
 }
 
 .user-profile-avatar-editor-controls {
@@ -149,7 +145,7 @@
   justify-content: flex-start;
   flex-shrink: 0;
   background-color: $white;
-  border: 1px solid $medium-gray;
+  border-top: 1px solid $light-gray;
   border-bottom: 0;
   padding: 4px;
   padding-bottom: 0;
@@ -175,5 +171,33 @@
   .image-editor-carousel-item {
     height: 135px;
     width: 108px;
+  }
+}
+
+
+
+
+@media (min-width: 1000px) {
+  .image-editor-controls-and-carousel {
+    flex-direction: column;
+  }
+
+  .image-editor-controls {
+    flex-direction: row;
+    height: inherit !important;
+    width: inherit !important;
+    flex-grow: 1;
+    border-bottom: thin solid $light-gray;
+
+    .image-editor-control {
+      &:first-child {
+        border-bottom: 0;
+        border-right: thin solid $light-gray;
+      }
+    }
+  }
+
+  .image-editor-carousel {
+    background-color: transparent;
   }
 }

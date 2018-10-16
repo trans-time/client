@@ -20,8 +20,8 @@
 <div class="tag-summary-list {{if (eq currentSubmenu 'tags') 'tag-summary-list-active'}}">
   {{#each tags as |tag|}}
     {{#paper-button
-      raised=true
-      primary=tag.selected
+      raised=tag.selected
+      accent=tag.selected
       disabled=(not tag.isValid)
       onClick=(action "toggleTag" tag)
       class="tag-summary-list-item"
@@ -34,8 +34,8 @@
 <div class="tag-summary-list {{if (eq currentSubmenu 'relationships') 'tag-summary-list-active'}}">
   {{#each users as |user|}}
     {{#paper-button
-      raised=true
-      primary=user.selected
+      raised=user.selected
+      accent=user.selected
       disabled=(not user.isValid)
       onClick=(action "toggleTag" user)
       class="tag-summary-list-item"
