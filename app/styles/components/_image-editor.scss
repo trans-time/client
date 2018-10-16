@@ -4,20 +4,38 @@
   z-index: 101;
 }
 
+.image-editor-controls-and-carousel {
+  display: flex;
+  flex-direction: row;
+}
+
 .image-editor-controls {
   display: flex;
-  border-bottom: thin solid $light-gray;
+  flex-shrink: 0;
+  flex-direction: column;
 
   .image-editor-control {
     flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    display: flex;
     font-size: 200%;
-    padding: $rhythm;
     background-color: $white;
     text-align: center;
-    border-right: thin solid $light-gray;
 
-    &:last-child {
-      border-right: 0;
+    &:first-child {
+      border-bottom: thin solid $light-gray;
+    }
+
+    a, div, label {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+
+    a {
+      box-sizing: border-box;
+      padding: $rhythm;
     }
   }
 }
@@ -64,9 +82,11 @@
 
 .image-editor-carousel {
   display: flex;
+  flex-grow: 1;
   flex-direction: row;
   overflow-y: hidden;
   overflow-x: auto;
+  background-color: $light-gray;
 
   .sortable-objects {
     display: flex;
@@ -107,7 +127,7 @@
   max-width: 600px;
   z-index: 101;
   overflow: auto;
-  
+
   .image-editor-container {
     max-height: 1440px;
     max-width: 1440px;

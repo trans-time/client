@@ -14,48 +14,50 @@
   </div>
 </div>
 
-<div class="image-editor-controls">
-  <div class="image-editor-control">
-    {{#file-dropzone name="photos" as |dropzone queue|}}
-      {{#if dropzone.active}}
-        {{#if dropzone.valid}}
-          {{t "file.drop"}}
+<div class="image-editor-controls-and-carousel">
+  <div class="image-editor-controls image-editor-carousel-item">
+    {{#if hasWebRTCSupport}}
+      <div class="image-editor-control">
+        <a {{action "openCamera"}}>{{fa-icon "camera"}}</a>
+      </div>
+    {{/if}}
+
+    <div class="image-editor-control">
+      {{#file-dropzone name="photos" as |dropzone queue|}}
+        {{#if dropzone.active}}
+          {{#if dropzone.valid}}
+            {{t "file.drop"}}
+          {{else}}
+            {{t "file.invalid"}}
+          {{/if}}
+        {{else if queue.files.length}}
+          {{t "file.progress" length=queue.files.length progress=queue.progress}}
         {{else}}
-          {{t "file.invalid"}}
+          {{#file-upload name="imageFile"
+                         accept="image/*"
+                         multiple=true
+                         onfileadd=(action "uploadImage")}}
+            <a id="upload-image" tabindex=0>{{fa-icon "plus"}}</a>
+          {{/file-upload}}
         {{/if}}
-      {{else if queue.files.length}}
-        {{t "file.progress" length=queue.files.length progress=queue.progress}}
-      {{else}}
-        {{#file-upload name="imageFile"
-                       accept="image/*"
-                       multiple=true
-                       onfileadd=(action "uploadImage")}}
-          <a id="upload-image" tabindex=0>{{fa-icon "plus"}}</a>
-        {{/file-upload}}
-      {{/if}}
-    {{/file-dropzone}}
+      {{/file-dropzone}}
+    </div>
   </div>
 
-  {{#if hasWebRTCSupport}}
-    <div class="image-editor-control">
-      <a {{action "openCamera"}}>{{fa-icon "camera"}}</a>
-    </div>
-  {{/if}}
-</div>
-
-<div class="image-editor-carousel">
-  {{#sortable-objects sortableObjectList=panels sortEndAction="sortEndAction" enableSort=true useSwap=true inPlace=true}}
-    {{#each panels as |panel|}}
-      {{#draggable-object content=panel isSortable=true}}
-        {{#if (and panel.src (not panel.isMarkedForDeletion))}}
-          {{image-editor/carousel-image
-            panel=panel
-            width=width
-            height=height
-            select=(action "selectImage" panel)
-          }}
-        {{/if}}
-      {{/draggable-object}}
-    {{/each}}
-  {{/sortable-objects}}
+  <div class="image-editor-carousel">
+    {{#sortable-objects sortableObjectList=panels sortEndAction="sortEndAction" enableSort=true useSwap=true inPlace=true}}
+      {{#each panels as |panel|}}
+        {{#draggable-object content=panel isSortable=true}}
+          {{#if (and panel.src (not panel.isMarkedForDeletion))}}
+            {{image-editor/carousel-image
+              panel=panel
+              width=width
+              height=height
+              select=(action "selectImage" panel)
+            }}
+          {{/if}}
+        {{/draggable-object}}
+      {{/each}}
+    {{/sortable-objects}}
+  </div>
 </div>
