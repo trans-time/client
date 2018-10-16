@@ -20,7 +20,7 @@
   {{#if currentUser.user}}
     {{#paper-menu as |menu|}}
       {{#menu.trigger}}
-        {{#paper-button iconButton=true}}
+        {{#paper-button classNames="top-bar-button" iconButton=true}}
           {{#if unseenNotificationCount}}{{number-bubble number=unseenNotificationCount classNames="notification-total"}}{{/if}}
           {{fa-icon "bell-o" size=2 ariaLabel=(t "notifications.notifications") ariaHidden=false class=(if unseenNotificationCount "top-bar-notification-button-highlighted")}}
         {{/paper-button}}
@@ -31,12 +31,16 @@
         }}
       {{/menu.content}}
     {{/paper-menu}}
+
+    {{#paper-button classNames="top-bar-button" iconButton=true onClick="newPost"}}
+      {{fa-icon "plus-square-o"  size=2 ariaLabel=(t "posts.new") ariaHidden=false}}
+    {{/paper-button}}
   {{/if}}
 
   {{#paper-menu as |menu|}}
     {{#menu.trigger}}
-      {{#paper-button iconButton=true}}
-        {{fa-icon "bars" ariaLabel=(t "nav.mainMenu") ariaHidden=false size=2}}
+      {{#paper-button classNames="top-bar-button" iconButton=true}}
+        {{fa-icon "gear" ariaLabel=(t "nav.mainMenu") ariaHidden=false size=2}}
       {{/paper-button}}
     {{/menu.trigger}}
     {{#menu.content width=4 as |menuContent|}}

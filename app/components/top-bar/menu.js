@@ -36,10 +36,6 @@ export default Component.extend({
 
     toProfile() {
       this.get('router').transitionTo('users.user.profile', this.get('currentUser.user.username'));
-    },
-
-    newPost() {
-      this.get('router').transitionTo('posts.new');
     }
   }
 });

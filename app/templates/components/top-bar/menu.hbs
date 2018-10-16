@@ -1,8 +1,4 @@
 {{#if session.isAuthenticated}}
-  {{#menuContent.menu-item onClick="newPost"}}
-    {{fa-icon "plus-circle"}}
-    <span>{{t "post.new"}}</span>
-  {{/menuContent.menu-item}}
   {{#menuContent.menu-item onClick="toProfile"}}
     {{fa-icon "user-circle"}}
     <span>{{t "profile.profile"}}</span>

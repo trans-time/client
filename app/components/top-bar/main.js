@@ -35,6 +35,10 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
       this._iconAction();
     },
 
+    newPost() {
+      this.get('router').transitionTo('posts.new');
+    },
+
     toggleMenu() {
       this.toggleProperty('menuIsOpen');
     },

@@ -6,6 +6,10 @@
   z-index: 100;
   font-size: 85%;
 
+   .top-bar-button {
+     flex-shrink: 0;
+   }
+
   .top-bar-content {
     display: flex;
     align-items: center;
