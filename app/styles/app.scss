@@ -440,7 +440,7 @@ p {
   position: absolute;
   bottom: 2px;
   right: 2px;
-  }
+}
 
 .post-form-controls {
   display: flex;
@@ -483,5 +483,11 @@ p {
     .post-form-text-and-meta {
       border-top: 0;
     }
+  }
+}
+
+@media (pointer: coarse) {
+  .eeo-emojiPicker-toggler {
+    display: none;
   }
 }
