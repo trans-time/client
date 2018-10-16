@@ -1,6 +1,6 @@
 <div class="image-editor-container {{if hidden 'hidden'}}" style={{containerStyle}}>
   <div class="image-editor-container-curtain">
-    {{#if cameraOn}}
+    {{#if (and hasWebRTCSupport cameraOn)}}
       {{ember-webrtc-capture
         takePicture=(action "takePicture")
       }}
