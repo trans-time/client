@@ -14,9 +14,7 @@ export default Route.extend(ImageUploadMixin, {
     const user = this.get('user');
 
     return this.store.createRecord('post', {
-      timelineItem: this.store.createRecord('timeline-item', {
-        date: new Date(Date.now())
-      }),
+      timelineItem: this.store.createRecord('timeline-item'),
       user
     });
   },

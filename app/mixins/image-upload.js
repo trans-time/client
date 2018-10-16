@@ -24,25 +24,28 @@ export default Mixin.create({
   uploadAndSave: task(function * (model) {
     this.get('modalManager').open('uploading-modal');
 
-    const post = yield model.save().catch(() => this.get('modalManager').close());
-    const promises = model.get('_content.panels').map((panel) => {
-      return get(this, 'uploadImageTask').perform(panel);
-    });
-
-    all(promises).then(() => {
-      this.get('modalManager').close();
-
-      if (this.router.get('currentRouteName') === 'posts.post.edit') {
-        history.back();
-      } else {
-        this.transitionTo('users.user.timeline', this.get('currentUser.user'));
-      }
-    }).catch(() => {
-      this.get('modalManager').close();
-      this.get('paperToaster').show(this.get('intl').t('upload.unsuccessful'), {
-        duration: 4000,
-        toastClass: 'paper-toaster-error-container'
+    yield model.save().then((post) => {
+      const promises = model.get('_content.panels').map((panel) => {
+        return get(this, 'uploadImageTask').perform(panel);
       });
+
+      all(promises).then(() => {
+        this.get('modalManager').close();
+
+        if (this.router.get('currentRouteName') === 'posts.post.edit') {
+          history.back();
+        } else {
+          this.transitionTo('users.user.timeline', this.get('currentUser.user'));
+        }
+      }, () => {
+        this.get('modalManager').close();
+        this.get('paperToaster').show(this.get('intl').t('upload.unsuccessful'), {
+          duration: 4000,
+          toastClass: 'paper-toaster-error-container'
+        });
+      });
+    }, () => {
+      this.get('modalManager').close();
     });
   }),
 
@@ -135,6 +138,7 @@ export default Mixin.create({
     },
 
     submit(model) {
+      if (!model.get('date')) model.set('date', new Date);
       this.get('uploadAndSave').perform(model);
     }
   }

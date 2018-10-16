@@ -251,7 +251,7 @@ post:
     contentWarnings:
       label: "content warnings"
     date:
-      label: "date"
+      label: "select a date"
     isPrivate:
       label: "private"
     text:
