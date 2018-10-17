@@ -105,6 +105,14 @@ export default Component.extend(AuthenticatedActionMixin, {
     return isNone(userIdentity.get('endDate'));
   }),
 
+  websiteDomain: computed('user.userProfile.website', {
+    get() {
+      const website = this.get('user.userProfile.website');
+
+      if (website) return website.indexOf('http') === 0 ? website.split('//')[1] : website;
+    }
+  }),
+
   websiteHref: computed('user.userProfile.website', {
     get() {
       const website = this.get('user.userProfile.website');

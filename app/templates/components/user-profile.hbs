@@ -73,8 +73,10 @@
     </div>
   {{/if}}
 
-  <div class="profile-user-name">
-    @{{user.username}}
+  <div class="profile-user-info">
+    <div class="profile-user-name">
+      @{{user.username}}
+    </div>
 
     {{#if user.pronouns}}
       <span class="profile-pronouns">
@@ -86,7 +88,7 @@
       <span class="profile-website">
         {{fa-icon "link"}}
         <a href={{websiteHref}} target="_blank">
-          {{user.userProfile.website}}
+          {{websiteDomain}}
         </a>
       </span>
     {{/if}}

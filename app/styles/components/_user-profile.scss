@@ -134,26 +134,29 @@
   padding-bottom: 0;
 }
 
-.profile-user-name {
+.profile-user-info {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   opacity: 0.82;
-  padding: $rhythm / 2 $rhythm;
-  padding-top: $rhythm / 4;
+  padding: $rhythm / 4 $rhythm $rhythm / 2;
+  overflow: hidden;
+}
+
+.profile-user-name {
+  margin-right: $rhythm / 2;
 }
 
 .profile-pronouns {
-  margin-left: $rhythm / 2;
+  margin-right: $rhythm / 2;
   font-size: 68%;
 }
 
 .profile-website {
   font-size: 80%;
-  margin-left: $rhythm / 2;
   overflow: hidden;
   text-overflow: ellipsis;
   box-sizing: border-box;
+  white-space: nowrap;
 
   a {
     text-decoration: none;
