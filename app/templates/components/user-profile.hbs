@@ -1,16 +1,18 @@
 <div class="profile-header">
-  <div class="profile-header-avatar-container {{if isEditing 'profile-header-avatar-container-full-size'}}">
-    {{#if (and isEditing changeset.avatar)}}
-      <img alt={{t "profile.avatar"}} class="profile-header-avatar" src={{changeset.avatar}}>
-    {{else}}
-      <img alt={{t "profile.avatar"}} class="profile-header-avatar" srcset={{user.avatarProfile}} sizes="160px">
-    {{/if}}
-    {{#if isEditing}}
-      <a {{action "changeAvatar"}} class="profile-header-avatar-new-overlay">
-        {{fa-icon "camera" size=2}}
-        <div class="profile-header-avatar-new-overlay-text">{{t "profile.changeAvatar"}}</div>
-      </a>
-    {{/if}}
+  <div class="profile-header-primary">
+    <div class="profile-header-avatar-container {{if isEditing 'profile-avatar-sizing'}}">
+      {{#if (and isEditing changeset.avatar)}}
+        <img alt={{t "profile.avatar"}} class="profile-header-avatar profile-avatar-sizing" src={{changeset.avatar}}>
+      {{else}}
+        <img alt={{t "profile.avatar"}} class="profile-header-avatar profile-avatar-sizing" srcset={{user.avatarProfile}} sizes="160px">
+      {{/if}}
+      {{#if isEditing}}
+        <a {{action "changeAvatar"}} class="profile-header-avatar-new-overlay profile-avatar-sizing">
+          {{fa-icon "camera" size=2}}
+          <div class="profile-header-avatar-new-overlay-text">{{t "profile.changeAvatar"}}</div>
+        </a>
+      {{/if}}
+    </div>
   </div>
 
   <div class="profile-header-content">
@@ -47,33 +49,58 @@
       {{#paper-button onClick="follow" raised=true primary=true disabled=followDisabled class="profile-header-button"}}{{t "profile.follow"}}{{/paper-button}}
       {{#paper-button onClick="block" raised=true disabled=followDisabled class="profile-header-button"}}{{t "profile.block"}}{{/paper-button}}
     {{/liquid-if}}
-
-    {{#liquid-if (and user.userProfile.website (not isEditing))}}
-      <div class="profile-website">
-        <a href={{websiteHref}} target="_blank">{{user.userProfile.website}}</a>
-      </div>
-    {{/liquid-if}}
   </div>
 </div>
 
 
-{{#if (and (not isEditing) (or user.pronouns user.userIdentities))}}
-  <div class="profile-pronouns-and-identities">
-    <span class="profile-pronouns">{{{inject-emoji user.pronouns}}}</span>
+{{#if (not isEditing)}}
+  {{#if user.userIdentities}}
+    <div class="profile-identities">
+      {{#if currentIdentities}}
+        {{#each currentIdentities as |userIdentity|}}
+          <a class="profile-user-identity" {{action "searchIdentity" userIdentity.identity.name}}>*<span class="profile-user-identity-content">{{userIdentity.identity.name}}</span></a>
+        {{/each}}
+      {{/if}}
+      {{#if (not-eq currentIdentities.length user.userIdentities.length)}}
+        {{#link-to "users.user.identities.index" class="profile-user-identity profile-user-identity-history"}}{{fa-icon "map-o"}}{{/link-to}}
+      {{/if}}
+    </div>
+  {{/if}}
 
-    {{#if currentIdentities}}
-      {{#each currentIdentities as |userIdentity|}}
-        <a class="profile-user-identity" {{action "searchIdentity" userIdentity.identity.name}}>*<span class="profile-user-identity-content">{{userIdentity.identity.name}}</span></a>
-      {{/each}}
+  {{#if user.displayName}}
+    <div class="profile-display-name">
+      {{user.displayName}}
+    </div>
+  {{/if}}
+
+  <div class="profile-user-name">
+    @{{user.username}}
+
+    {{#if user.pronouns}}
+      <span class="profile-pronouns">
+        ({{{inject-emoji user.pronouns}}})
+      </span>
     {{/if}}
-    {{#if (not-eq currentIdentities.length user.userIdentities.length)}}
-      {{#link-to "users.user.identities.index" class="profile-user-identity profile-user-identity-history"}}{{fa-icon "map-o"}}{{/link-to}}
+
+    {{#if user.userProfile.website}}
+      <span class="profile-website">
+        {{fa-icon "link"}}
+        <a href={{websiteHref}} target="_blank">
+          {{user.userProfile.website}}
+        </a>
+      </span>
     {{/if}}
   </div>
+
+  {{#if user.userProfile.description}}
+    <div class="profile-description">
+      {{rich-text text=user.userProfile.description author=user}}
+    </div>
+  {{/if}}
 {{/if}}
 
-<div class="profile-additional-content {{if isEditing 'profile-additional-content-full-height'}}">
-  {{#if isEditing}}
+{{#if isEditing}}
+  <div class="profile-additional-content profile-additional-content-full-height">
     <div class="profile-field">
       {{paper-input
         value=changeset.displayName
@@ -98,9 +125,7 @@
         errors=changeset.error.pronouns.validation
       }}
     </div>
-  {{/if}}
 
-  {{#if isEditing}}
     <div class="profile-field">
       {{paper-input
         value=changeset.description
@@ -111,12 +136,8 @@
         errors=changeset.error.description.validation
       }}
     </div>
-  {{else if user.userProfile.description}}
-    <div class="profile-description">
-      {{rich-text text=user.userProfile.description author=user}}
-    </div>
-  {{/if}}
-</div>
+  </div>
+{{/if}}
 
 <div class="profile-body">
   {{outlet}}

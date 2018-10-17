@@ -18,7 +18,7 @@ import config from '../config/environment';
 
 const ProfileValidations = {
   description: [
-    validateLength({ max: 64 })
+    validateLength({ max: 1000 })
   ],
   displayName: [
     validateLength({ max: 64 })
