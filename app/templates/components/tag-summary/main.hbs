@@ -1,3 +1,5 @@
+
+
 {{#paper-tabs
   center=false
   stretch=true
@@ -17,30 +19,39 @@
   </a>
 {{/paper-tabs}}
 
+<div class="tag-summary-filter-wrapper">
+  {{fa-icon "search"}}
+  {{paper-input value=filter onChange="filter" classNames="tag-summary-filter"}}
+</div>
+
 <div class="tag-summary-list {{if (eq currentSubmenu 'tags') 'tag-summary-list-active'}}">
-  {{#each tags as |tag|}}
-    {{#paper-button
-      raised=tag.selected
-      accent=tag.selected
-      disabled=(not tag.isValid)
-      onClick=(action "toggleTag" tag)
-      class="tag-summary-list-item"
-    }}
-      #{{tag.model.name}}: {{tag.amount}}
-    {{/paper-button}}
+  {{#each (sort-by "amount:desc" tags) as |tag|}}
+    {{#if tag.isValid}}
+      {{#paper-button
+        raised=tag.selected
+        accent=tag.selected
+        disabled=(not tag.isValid)
+        onClick=(action "toggleTag" tag)
+        class="tag-summary-list-item"
+      }}
+        #{{tag.model.name}}: {{tag.amount}}
+      {{/paper-button}}
+    {{/if}}
   {{/each}}
 </div>
 
 <div class="tag-summary-list {{if (eq currentSubmenu 'relationships') 'tag-summary-list-active'}}">
-  {{#each users as |user|}}
-    {{#paper-button
-      raised=user.selected
-      accent=user.selected
-      disabled=(not user.isValid)
-      onClick=(action "toggleTag" user)
-      class="tag-summary-list-item"
-    }}
-      @{{user.model.username}}: {{user.amount}}
-    {{/paper-button}}
+  {{#each (sort-by "amount:desc" users) as |user|}}
+    {{#if user.isValid}}
+      {{#paper-button
+        raised=user.selected
+        accent=user.selected
+        disabled=(not user.isValid)
+        onClick=(action "toggleTag" user)
+        class="tag-summary-list-item"
+      }}
+        @{{user.model.username}}: {{user.amount}}
+      {{/paper-button}}
+    {{/if}}
   {{/each}}
 </div>

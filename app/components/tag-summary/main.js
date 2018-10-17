@@ -2,7 +2,7 @@ import { A } from '@ember/array';
 import { isBlank, isEmpty } from '@ember/utils';
 import { inject as service } from '@ember/service';
 import Component from '@ember/component';
-import { oneWay, gt, filterBy, mapBy } from '@ember/object/computed';
+import { oneWay, filterBy, mapBy } from '@ember/object/computed';
 import EmberObject, { computed, get } from '@ember/object';
 import { capitalize } from '@ember/string';
 import { pluralize } from 'ember-inflector';
@@ -16,7 +16,13 @@ const Summary = EmberObject.extend({
     }
   }),
   selectedTimelineItemIds: oneWay('component.selectedTimelineItemIds'),
-  isValid: gt('amount', 0),
+  isValid: computed('amount', 'component.filter', {
+    get() {
+      const name = this.get('model.name') || this.get('model.username');
+
+      return this.amount > 0 && (isBlank(this.component.filter) || name.toLowerCase().indexOf(this.component.filter.toLowerCase()) > -1);
+    }
+  }),
   amount: computed('selectedTimelineItemIds.[]', {
     get() {
       const { timelineItemIds, selectedTimelineItemIds } = this.getProperties('timelineItemIds', 'selectedTimelineItemIds');
@@ -31,6 +37,7 @@ const Summary = EmberObject.extend({
 })
 
 export default Component.extend({
+  filter: '',
   tagName: '',
 
   currentUser: service(),
@@ -129,17 +136,22 @@ export default Component.extend({
       });
 
       return summaries;
-    }, A()).sort((a, b) => b.get('timelineItemIds.length') - a.get('timelineItemIds.length'));
+    }, A());
   },
 
   actions: {
     clear() {
       this.get('router').transitionTo('users.user.profile', { queryParams: { tags: [], relationships: [], submenu: this.get('submenu') }})
+      this.set('filter', '');
     },
 
     changeSubmenu(submenu) {
       const { selectedTagNames, selectedUserNames } = this.getProperties('selectedTagNames', 'selectedUserNames');
       this.get('router').transitionTo('users.user.profile', { queryParams: { tags: selectedTagNames, relationships: selectedUserNames, submenu: submenu === 'tags' ? null : submenu }});
+    },
+
+    filter(filter) {
+      this.set('filter', filter);
     },
 
     toggleTag(tag) {

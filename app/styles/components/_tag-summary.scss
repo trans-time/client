@@ -58,3 +58,22 @@
   background-color: #3f51b5;
   color: $white;
 }
+
+.tag-summary-filter-wrapper {
+  display: flex;
+  align-items: center;
+  margin: $rhythm;
+
+  i {
+    color: $light-gray;
+    margin-right: $rhythm;
+  }
+}
+
+.tag-summary-filter {
+  margin: 0;
+
+  .md-errors-spacer {
+    display: none;
+  }
+}

@@ -141,6 +141,9 @@
   </div>
 {{/if}}
 
-<div class="profile-body">
-  {{outlet}}
-</div>
+
+{{#if (not isEditing)}}
+  <div class="profile-body">
+    {{outlet}}
+  </div>
+{{/if}}
