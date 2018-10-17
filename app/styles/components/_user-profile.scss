@@ -130,15 +130,14 @@
 .profile-display-name {
   font-weight: bold;
   font-size: 110%;
-  padding: $rhythm / 2 $rhythm;
-  padding-bottom: 0;
+  padding: $rhythm / 2 $rhythm 0;
 }
 
 .profile-user-info {
   display: flex;
   align-items: center;
   opacity: 0.82;
-  padding: $rhythm / 4 $rhythm $rhythm / 2;
+  padding: 0 $rhythm $rhythm / 2;
   overflow: hidden;
 }
 
