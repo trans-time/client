@@ -219,6 +219,12 @@ p {
       margin-bottom: 0;
     }
   }
+
+  i {
+    flex-shrink: 0;
+    width: 50px;
+    text-align: center;
+  }
 }
 
 .cover-page-note {
@@ -536,7 +542,7 @@ p {
   }
 
   .cover-page-feature-list {
-    margin-top: 0;
+    margin-top: $rhythm * 3;
     font-size: 110%;
   }
 
