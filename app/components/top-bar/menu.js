@@ -18,6 +18,10 @@ export default Component.extend({
       this.get('modalManager').open('auth-modal/login');
     },
 
+    join() {
+      this.get('modalManager').open('auth-modal/join');
+    },
+
     logout() {
       this.get('session').invalidate();
     },
