@@ -169,13 +169,19 @@ p {
 }
 
 .cover-page-main {
+  display: flex;
+  flex-wrap: wrap;
   overflow-x: auto;
+}
+
+.cover-page-block {
   flex-grow: 1;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .cover-page-lead {
   font-size: 125%;
-  text-align: justify;
   margin-bottom: $rhythm * 2;
 }
 
@@ -194,6 +200,7 @@ p {
 }
 
 .cover-page-feature-list {
+  margin-top: $rhythm * 2;
   padding-left: $rhythm;
   list-style: none;
   font-size: 95%;
@@ -214,13 +221,12 @@ p {
 }
 
 .cover-page-note {
-  flex-shrink: 0;
+  flex-grow: 1;
   margin-top: $rhythm * 6;
   padding-top: $rhythm;
   border-top: 3px dashed $dark-gray;
   font-size: 110%;
   text-align: justify;
-  box-shadow: 0 -1px 3px -2px $dark-gray;
 }
 
 
@@ -509,6 +515,32 @@ p {
 
   .post-form-controls-element-small-media {
     display: none;
+  }
+
+  .cover-page-main {
+    flex-grow: 1;
+  }
+
+  .cover-page-block {
+    width: 50%;
+    padding: $rhythm * 3;
+  }
+
+  .cover-page-lead {
+    font-size: 185%;
+  }
+
+  .cover-page-paragraph {
+    font-size: 125%;
+  }
+
+  .cover-page-feature-list {
+    margin-top: 0;
+    font-size: 110%;
+  }
+
+  .cover-page-note {
+    font-size: 125%;
   }
 }
 

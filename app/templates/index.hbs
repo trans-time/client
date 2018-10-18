@@ -11,25 +11,25 @@
 {{else}}
   <div class="cover-page">
     <div class="cover-page-main">
-      <div class="cover-page-lead">{{{t "coverPage.lead"}}}</div>
+      <div class="cover-page-block">
+        <p class="cover-page-lead">{{{t "coverPage.lead"}}}</p>
+        <p class="cover-page-paragraph">{{{t "coverPage.tool"}}}</p>
+        <p class="cover-page-paragraph">{{{t "coverPage.gettingStarted"}}}</p>
+      </div>
 
-      <ul class="cover-page-feature-list">
-        <li>{{fa-icon "share-alt" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.connections"}}}</span></li>
+      <div class="cover-page-block">
+        <ul class="cover-page-feature-list">
+          <li>{{fa-icon "transgender-alt" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.content"}}}</span></li>
 
-        <li>{{fa-icon "hashtag" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.timelines"}}}</span></li>
+          <li>{{fa-icon "asterisk" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.connections"}}}</span></li>
 
-        <li>{{fa-icon "exclamation-circle" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.contentWarnings"}}}</span></li>
+          <li>{{fa-icon "hashtag" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.timelines"}}}</span></li>
 
-        <li>{{fa-icon "transgender-alt" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.content"}}}</span></li>
-      </ul>
+          <li>{{fa-icon "exclamation-circle" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.contentWarnings"}}}</span></li>
+        </ul>
+      </div>
 
-      <div class="cover-page-sub-header">{{fa-icon "star-half-o"}} {{{t "coverPage.gettingStarted"}}} {{fa-icon "star-half-o" flip="horizontal"}}</div>
-      <div class="cover-page-follow-up">{{{t "coverPage.gettingStarted1"}}}</div>
-
-      <div class="cover-page-sub-header">{{fa-icon "star-half-o"}} {{{t "coverPage.purposeHeader"}}} {{fa-icon "star-half-o" flip="horizontal"}}</div>
-      <div class="cover-page-follow-up">{{{t "coverPage.purpose1"}}}</div>
-
-      <div class="cover-page-note">{{fa-icon "asterisk"}} {{{t "coverPage.note"}}}</div>
+      <div class="cover-page-note">{{fa-icon "star-half-o"}} {{{t "coverPage.note"}}}</div>
     </div>
   </div>
 {{/if}}
