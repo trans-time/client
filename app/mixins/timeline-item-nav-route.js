@@ -72,17 +72,13 @@ export default Mixin.create({
 
       this.set('_timelineItems.extraParams', query)
 
-      this.infinity.loadNextPage(this._timelineItems).then(() => resolve()).catch(() => reject());
+      const previousLength = this.get('_timelineItems.length');
 
-      // this.store.query('timelineItem', query).then((timelineItems) => {
-      //   this.get('_timelineItems').pushObjects(timelineItems.get('content'));
-      //
-      //   const reachedEnd = timelineItems.get('content.length') < query.page_size;
-      //
-      //   resolve(shouldProgress ? { reachedFirstTimelineItem: reachedEnd } : { reachedLastTimelineItem: reachedEnd });
-      // }).catch(() => {
-      //   reject();
-      // });
+      this.infinity.loadNextPage(this._timelineItems).then((timelineItems) => {
+        const reachedEnd = timelineItems.get('content.length') - previousLength < 10;
+
+        resolve(shouldProgress ? { reachedFirstTimelineItem: reachedEnd } : { reachedLastTimelineItem: reachedEnd });
+      }).catch(() => reject());
     }
   }
 });

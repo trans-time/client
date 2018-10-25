@@ -4,14 +4,6 @@ import SlideshowComponent from './slideshow-component';
 
 export default Mixin.create(SlideshowComponent, {
   classNames: ['timeline-item-nav-slideshow-panel'],
-  attributeBindings: ['role'],
-
-  role: 'none',
-
-  isAnimating: equal('axis', 'x'),
-
-  isOutgoing: oneWay('panel.isOutgoing'),
-  isIncoming: oneWay('panel.isIncoming'),
 
   didInsertElement(...args) {
     this._super(...args);

@@ -14,27 +14,10 @@ export default Component.extend(SlideshowComponentMixin, {
   isIncoming: oneWay('timelineItem.isIncoming'),
   isBlank: oneWay('timelineItem.isBlank'),
   keyboardActivated: oneWay('isCurrentPost'),
-  modifiedPanelHeight: oneWay('panelHeight'),
   shouldRenderPost: or('visible', 'timelineItem.shouldPrerender'),
   sortedPanels: sort('timelineItem.panels', (a, b) => a.get('model.order') - b.get('model.order')),
 
   messageBus: service(),
-
-  panelHeightIsModified: computed('panelHeight', 'modifiedPanelHeight', {
-    get() {
-      return this.get('panelHeight') !== this.get('modifiedPanelHeight');
-    }
-  }),
-
-  panelStyle: computed('modifiedPanelHeight', 'panelWidth', {
-    get() {
-      return htmlSafe(`width: ${this.get('panelWidth')}px; height: ${this.get('modifiedPanelHeight')}px;`);
-    }
-  }),
-
-  _resetModifiedPanelHeight: observer('visible', function() {
-    if (!this.get('visible')) this.set('modifiedPanelHeight', this.get('panelHeight'));
-  }),
 
   post: computed({
     get() {
@@ -48,22 +31,7 @@ export default Component.extend(SlideshowComponentMixin, {
     }
   }),
 
-  expandButtonDisabled: computed('modifiedPanelHeight', 'panelHeight', {
-    get() {
-      return this.get('modifiedPanelHeight') === this.get('panelHeight');
-    }
-  }),
-
   actions: {
-    expandPanels() {
-      this.set('modifiedPanelHeight', this.get('panelHeight'));
-    },
-
-    expendTextOnSwipe(amount) {
-      const modifiedPanelHeight = Math.max(Math.min(this.get('panelHeight'), this.get('modifiedPanelHeight') + amount), this.get('panelHeight') / 3);
-      this.set('modifiedPanelHeight', modifiedPanelHeight);
-    },
-
     toggleChat() {
       this.attrs.toggleChat();
     },

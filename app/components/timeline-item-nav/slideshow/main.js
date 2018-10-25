@@ -48,9 +48,6 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   classNames: ['timeline-item-nav-slideshow-main'],
   attributeBindings: ['style'],
 
-  panelHeight: 1800,
-  panelWidth: 1440,
-
   meta: service(),
   usingTouch: alias('meta.usingTouch'),
   isLoadingMoreTimelineItems: notEmpty('loadingMoreTimelineItemsPromise'),
@@ -67,370 +64,81 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   didInsertElement(...args) {
     this._super(...args);
 
-    this.lethargy = new Lethargy(7, 60);
-
-    this.element.addEventListener('touchstart', bind(this, this._touchStart));
-    this.element.addEventListener('touchmove', bind(this, this._touchMove), { passive: false });
-    this.element.addEventListener('touchend', bind(this, this._touchEnd));
-    this.element.addEventListener('wheel', bind(this, this._wheel));
-
-    if (!this.get('usingTouch')) {
-      const startEvent = bind(this, this._startEvent);
-      const moveEvent = bind(this, this._moveEvent);
-      const outEvent = bind(this, this._outEvent);
-      const endEvent = bind(this, this._endEvent);
-      const removeClickEvents = () => {
-        this.set('usingTouch', true);
-        this.element.removeEventListener('mousedown', startEvent);
-        this.element.removeEventListener('mousemove', moveEvent);
-        this.element.removeEventListener('mouseup', endEvent);
-        this.element.removeEventListener('mouseout', outEvent);
-        this.element.removeEventListener('touchstart', removeClickEvents);
-      };
-
-      this.element.addEventListener('mousedown', startEvent);
-      this.element.addEventListener('mousemove', moveEvent);
-      this.element.addEventListener('mouseout', outEvent);
-      this.element.addEventListener('mouseup', endEvent);
-      this.element.addEventListener('touchstart', removeClickEvents);
-    }
-
     const initialTimelineItemId = this.get('initialTimelineItemId');
     let timelineItem
     if (isPresent(initialTimelineItemId)) timelineItem = this.get('decoratedTimelineItems').find((decoratedTimelineItem) => decoratedTimelineItem.model.id === initialTimelineItemId);
     if (isEmpty(timelineItem)) timelineItem = this.get('lastTimelineItem') ? this.get('decoratedTimelineItems.lastObject') : this.get('decoratedTimelineItems.firstObject');
-    const currentPanel = timelineItem.get('panels.firstObject');
+    this._scrollToTimelineItem(timelineItem.model.id);
 
-    this.attrs.changeTimelineItem(timelineItem.get('model'));
-    this.set('navState.currentPanel', currentPanel);
-    this.get('_loadNeighborMatrix').perform(currentPanel);
-    this._boundSettle = this._settle.bind(this);
-    this._boundDeterminePanelSize = this._determinePanelSize.bind(this);
+    const visibleTimelineItems = this._gatherVisibleTimelineItems();
 
-    this._boundDeterminePanelSize();
+    this.attrs.changeTimelineItem(visibleTimelineItems[0].model);
+    this.set('navState.currentPanel', visibleTimelineItems[0].get('panels.firstObject'));
+    this.set('navState.lastTimelineItem', visibleTimelineItems[visibleTimelineItems.length - 1]);
 
-    window.addEventListener('resize', this._boundDeterminePanelSize);
+    visibleTimelineItems.forEach((timelineItem) => {
+      this._loadNeighborMatrix(timelineItem.get('panels.firstObject'));
+    });
+
+    this._setupIntersectionObserver();
+    this._checkNeedToLoadMoreTimelineItems();
   },
 
-  willDestroyElement() {
-    window.removeEventListener('resize', this._boundDeterminePanelSize);
+  _gatherVisibleTimelineItems() {
+    const slideshowBounding = this.element.getBoundingClientRect();
+    const visibleTimelineItems = Array.from(this.element.querySelectorAll('.timeline-item-nav-slideshow-post')).filter((element) => {
+      const bounding = element.getBoundingClientRect();
 
-    return this._super(...arguments);
+      return bounding.top >= slideshowBounding.top && (bounding.height + bounding.top >= slideshowBounding.bottom || bounding.bottom <= slideshowBounding.bottom);
+    });
+    const visibleTimelineItemIds = visibleTimelineItems.map((ti) => ti.dataset.timelineItemId);
+
+    return this.decoratedTimelineItems.filter((timelineItem) => visibleTimelineItemIds.indexOf(timelineItem.model.id) > -1);
   },
 
-  _determinePanelSize() {
-    const useDesktopView = this.element.parentElement.clientWidth > 1000
-    const naturalPanelHeight = this.element.parentElement.clientHeight;
-    const idealPanelHeight = useDesktopView ? naturalPanelHeight : naturalPanelHeight - 130;
-    const ratio = 4 / 5;
-
-    if (this.element.parentElement.clientWidth / idealPanelHeight >= ratio) {
-      this.set('panelHeight', Math.min(idealPanelHeight, 1800));
-      this.set('panelWidth', this.panelHeight * ratio);
-    } else {
-      this.set('panelWidth', Math.min(this.element.parentElement.clientWidth, 1440));
-      this.set('panelHeight', this.panelWidth * (1 / ratio));
+  _setupIntersectionObserver() {
+    const options = {
+      root: document.querySelector('.timeline-item-nav-slideshow-main'),
+      rootMargin: '0px',
+      threshold: [0, 1]
     }
+    const callback = (entries, observer) => {
+      entries.forEach((entry) => {
+        const id = entry.target.dataset.timelineItemId;
+        const timelineItem = this.decoratedTimelineItems.find((timelineItem) => timelineItem.model.id === id);
+        const currentPanel = timelineItem.get('panels.firstObject');
+        this._loadNeighborMatrix(currentPanel);
 
-    if (useDesktopView) {
-      this.set('style', htmlSafe(`height: ${this.get('panelHeight')}px;`));
-    } else {
-      this.set('style', undefined);
-    }
-  },
-
-  _navDown: on(keyDown('shift+ArrowDown'), function() {
-    if (this.get('chatIsOpen')) return;
-
-    this._manualNav('down', 'y', -1);
-  }),
-
-  _navLeft: on(keyDown('shift+ArrowLeft'), function() {
-    this._manualNav('left', 'x', -1);
-  }),
-
-  _navRight: on(keyDown('shift+ArrowRight'), function() {
-    this._manualNav('right', 'x', 1);
-  }),
-
-  _navUp: on(keyDown('shift+ArrowUp'), function() {
-    if (this.get('chatIsOpen')) return;
-
-    this._manualNav('up', 'y', 1);
-  }),
-
-  _manualNav(direction, axis, velocityDirection) {
-    const navState = this.get('navState');
-    const progress = navState.get('progress');
-
-    if (progress === 0 && this._getNeighbor(navState.get('currentPanel'), direction) !== 'edge') {
-      this._swapPeek(navState.set('progress', 0.001 * velocityDirection), direction);
-      navState.set('axis', axis);
-    }
-
-    if (navState.get('axis') === axis) {
-      const hadBeenSettling = navState.get('isSettling');
-
-      navState.setProperties({
-        diffs: [],
-        isSettling: true
+        if (entry.isIntersecting && entry.boundingClientRect.y < entry.rootBounds.y) {
+          this.attrs.changeTimelineItem(timelineItem.model);
+          this.set('navState.currentPanel', currentPanel);
+        } else if (entry.boundingClientRect.y >= entry.rootBounds.y && entry.intersectionRect.height !== entry.boundingClientRect.height && entry.intersectionRect.height !== 0) {
+          this.set('navState.lastTimelineItem', timelineItem);
+        }
       });
 
-      if (velocityDirection === -1) {
-        navState.get('progress') > 0 ? navState.set('velocity', -0.01) : navState.incrementProperty('velocity', -0.03);
-      } else {
-        navState.get('progress') < 0 ? navState.set('velocity', 0.01) : navState.incrementProperty('velocity', 0.03);
-      }
-
-
-      if (!hadBeenSettling) this._settle();
-    }
-  },
-
-  _touchStart(e) {
-    this._startEvent(e.changedTouches[0]);
-  },
-
-  _touchMove(e) {
-    if (!this.get('chatIsOpen')) e.preventDefault();
-    this._moveEvent(e.changedTouches[0]);
-  },
-
-  _touchEnd(e) {
-    this._endEvent(e.changedTouches[0]);
-  },
-
-  _wheel(e) {
-    if (navigator.platform.toUpperCase().indexOf('MAC') >= 0 && this.lethargy.check(e) === false) return;
-
-    const swipeState = this.get('swipeState');
-    const event = {
-      deltaX: e.deltaX !== 0 && Math.abs(e.deltaX) === 1 ? 66 * Math.sign(e.deltaX) : -e.deltaX,
-      deltaY: e.deltaY !== 0 && Math.abs(e.deltaY) === 3 ? 66 * Math.sign(e.deltaY) : -e.deltaY
+      this._checkNeedToLoadMoreTimelineItems();
     };
 
-    if (!swipeState.active) this._startEvent(event, { usingWheel: true });
-    this._moveEvent(event);
-    this.get('_wheelEndTask').perform(event);
+    this.set('intersectionObserver', new IntersectionObserver(callback, options));
   },
 
-  _wheelEndTask: task(function * (event) {
-    yield timeout(100);
-
-    this._endEvent(event);
-  }).restartable(),
-
-  _startEvent(e, options = {}) {
-    const swipeState = this.get('swipeState');
-
-    swipeState.diffX = 0;
-    swipeState.diffY = 0;
-    swipeState.startX = e.clientX;
-    swipeState.startY = e.clientY;
-    swipeState.currentX = e.clientX;
-    swipeState.currentY = e.clientY;
-    swipeState.active = true;
-    swipeState.firstMoveEventPassed = false;
-    swipeState.swapLock = 250;
-    swipeState.wheelY = 0;
-    swipeState.wheelX = 0;
-    swipeState.usingWheel = options.usingWheel;
-
-    if (this.get('navState.isSettling')) {
-      this.set('navState.isSettling', false);
-    } else {
-      swipeState.locked = true;
-      swipeState.lockedX = 0;
-      swipeState.lockedY = 0;
-    }
-  },
-
-  _moveEvent(e) {
-    const swipeState = this.get('swipeState');
-    if (!swipeState.active || (swipeState.usingWheel && e.type === 'mousemove')) return;
-
-    // in case it's activated by a swipe event from a child, such as the text swipe
-    if (swipeState.firstMoveEventPassed) {
-      swipeState.diffX = e.deltaX !== undefined ? e.deltaX : swipeState.currentX - e.clientX;
-      swipeState.diffY = e.deltaY !== undefined ? e.deltaY : e.clientY - swipeState.currentY;
-    } else {
-      swipeState.firstMoveEventPassed = true;
-    }
-    swipeState.currentX = e.clientX;
-    swipeState.currentY = e.clientY;
-
-    const navState = this.get('navState');
-
-    if (swipeState.locked) {
-      swipeState.lockedX += swipeState.diffX;
-      swipeState.lockedY += swipeState.diffY;
-
-      const threshold = 5;
-
-      if (Math.abs(swipeState.lockedX) > threshold && Math.abs(swipeState.lockedX) >= Math.abs(swipeState.lockedY)) {
-        navState.set('axis', 'x');
-        swipeState.locked = false;
-      } else if (!this.get('chatIsOpen') && Math.abs(swipeState.lockedY) > threshold && Math.abs(swipeState.lockedY) > Math.abs(swipeState.lockedX)) {
-        navState.set('axis', 'y');
-        swipeState.locked = false;
-      } else {
-        return;
-      }
-    }
-
-    const previousProgress = navState.get('progress');
-    const horizontalNav = navState.get('axis') === 'x';
-
-    const percentChange = horizontalNav ? (swipeState.diffX / window.innerWidth) : (swipeState.diffY / window.innerHeight);
-    const progress = previousProgress + percentChange;
-    navState.get('diffs').push(percentChange);
-
-    const isVerticalSwipe = this.get('navState.axis') === 'y';
-
-    if (progress >= 1) {
-      this._startNextPeek(progress - 1, this._getDirection(true));
-    } else if (progress <= -1) {
-      this._startNextPeek(progress + 1, this._getDirection(false));
-    } else if (previousProgress >= 0 && progress < 0) {
-      if (isVerticalSwipe && Math.abs(swipeState.swapLock) < 250) {
-        swipeState.swapLock += swipeState.diffY;
-      } else this._swapPeek(progress, this._getDirection(false));
-    } else if (previousProgress < 0 && progress >= 0) {
-      if (isVerticalSwipe && Math.abs(swipeState.swapLock) < 250) {
-        swipeState.swapLock += swipeState.diffY;
-      } else this._swapPeek(progress, this._getDirection(true));
-    } else if (!this.get('navState.incomingPanel')) {
-      if (isVerticalSwipe && Math.abs(swipeState.swapLock) < 250) {
-        swipeState.swapLock += swipeState.diffY;
-      } else this._swapPeek(progress, previousProgress > progress ? this._getDirection(false) : this._getDirection(true));
-    } else {
-      navState.set('progress', progress);
-    }
-  },
-
-  _outEvent(e) {
-    if (!this.element.contains(e.toElement || e.relatedTarget)) this._endEvent(e);
-  },
-
-  _endEvent(e) {
-    const swipeState = this.get('swipeState');
-    if (!swipeState.active) return;
-
-    const navState = this.get('navState');
-    swipeState.diffX = e.deltaX !== undefined ? e.deltaX : swipeState.currentX - e.clientX;
-    swipeState.diffY =  e.deltaY !== undefined ? e.deltaY : e.clientY - swipeState.currentY;
-    swipeState.currentX = e.clientX;
-    swipeState.currentY = e.clientY;
-    swipeState.active = false;
-
-    const diffs = navState.get('diffs');
-    const precision = 5;
-    const latestDiffs = diffs.slice(Math.max(0, diffs.length - precision), diffs.length);
-    const progress = navState.get('progress');
-    let velocity = progress > 0.5 ? 0.01 : -0.01;
-    if (latestDiffs.length > 0) velocity = latestDiffs.reduce((sum, diff) => sum + diff, 0) / Math.min(latestDiffs.length, precision);
-    velocity = velocity < 0 ? Math.min(velocity, -0.01) : Math.max(0.01, velocity);
-
-    const notReversingMidSwipe = Math.sign(velocity) === Math.sign(progress);
-    const wasSwipingTowardsEdge = navState.get('incomingPanel') === 'edge';
-    const stillSwipingTowardsEdge = this._getNeighbor(
-      navState.get('currentPanel'),
-      velocity < 0
-        ? this._getDirection(false)
-        : this._getDirection(true)
-      ) === 'edge';
-
-    if (wasSwipingTowardsEdge && stillSwipingTowardsEdge && notReversingMidSwipe) velocity *= -1;
-
-    navState.setProperties({
-      diffs: [],
-      velocity,
-      isSettling: true
-    });
-
-    this._settle();
-  },
-
-  _settle() {
-    if (isEmpty(this.element)) return;
-
-    const navState = this.get('navState');
-    const previousProgress = navState.get('progress');
-    let progress = previousProgress + navState.get('velocity');
-
-    if (progress > 1 || progress < -1) {
-      this._startNextPeek(0, progress <= 1 ? this._getDirection(false) : this._getDirection(true));
-      navState.setProperties({
-        isSettling: false,
-        incomingPanel: null,
-        axis: null,
-        velocity: 0
-      });
-    } else if ((previousProgress >= 0 && progress < 0) || (previousProgress < 0 && progress >= 0)) {
-      navState.setProperties({
-        isSettling: false,
-        progress: 0,
-        incomingPanel: null,
-        axis: null,
-        velocity: 0
-      });
-    } else if (navState.get('isSettling')) {
-      navState.set('progress', progress);
-      requestAnimationFrame(this._boundSettle);
-    }
-  },
-
-  _startNextPeek(progress, direction) {
-    const navState = this.get('navState');
-    const previousPanel = navState.get('currentPanel');
-    const currentPanel = this._getNeighbor(previousPanel, direction);
-
-    if (currentPanel !== 'edge') {
-      const prerender = (panel, direction, prerender) => {
-        const neighbor = this._getNeighbor(panel, direction);
-
-        if (neighbor !== 'edge') neighbor.set('timelineItem.shouldPrerender', prerender);
-      }
-
-      prerender(previousPanel, 'up', false);
-      prerender(previousPanel, 'down', false);
-      prerender(currentPanel, 'up', true);
-      prerender(currentPanel, 'down', true);
-
-      const incomingPanel = this._getNeighbor(currentPanel, direction);
-
-      navState.setProperties({
-        progress,
-        currentPanel,
-        incomingPanel,
-        direction
-      });
-
-      this.attrs.changeTimelineItem(currentPanel.get('timelineItem.model'));
-      this.get('_loadNeighborMatrix').perform(currentPanel);
-      this._checkNeedToLoadMoreTimelineItems();
-    }
-  },
-
-  _swapPeek(progress, direction) {
-    const currentPanel = this.get('navState.currentPanel');
-    const incomingPanel = this._getNeighbor(currentPanel, direction);
-
-    this.get('navState').setProperties({
-      progress,
-      incomingPanel
-    });
-
-    this.set('swipeState.swapLock', 0);
+  _scrollToTimelineItem(id) {
+    const element = this.$(`[data-timeline-item-id=${id}]`).get(0);
+    this.element.scrollTop = element.getBoundingClientRect().top - this.element.getBoundingClientRect().top;
   },
 
   _checkNeedToLoadMoreTimelineItems() {
     const timelineItems = this.get('decoratedTimelineItems');
-    const currentTimelineItem = this.get('navState.currentPanel.timelineItem');
-    const index = timelineItems.indexOf(currentTimelineItem);
-    const nearingEnd = index > timelineItems.length - 3;
+    const firstTimelineItem = this.get('navState.currentPanel.timelineItem');
+    const lastTimelineItem = this.get('navState.lastTimelineItem');
+    const firstIndex = timelineItems.indexOf(firstTimelineItem);
+    const lastIndex = timelineItems.indexOf(lastTimelineItem);
+    const nearingEnd = lastIndex > timelineItems.length - 5 && !this.get('reachedLastTimelineItem');
+    const nearingStart = firstIndex < 5 && !this.get('reachedFirstTimelineItem');
 
-    if (((nearingEnd && !this.get('reachedLastTimelineItem')) || (index < 2 && !this.get('reachedFirstTimelineItem'))) && !this.get('isLoadingMoreTimelineItems')) {
+    if ((nearingEnd || nearingStart) && !this.get('isLoadingMoreTimelineItems')) {
+      const scrollHeight = this.element.scrollHeight;
       const loadingMoreTimelineItemsPromise = new EmberPromise((resolve, reject) => {
         this.attrs.loadMoreTimelineItems(resolve, reject, !nearingEnd, nearingEnd ? timelineItems.get('lastObject.model.id') : timelineItems.get('firstObject.model.id'));
       });
@@ -439,11 +147,17 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
 
       loadingMoreTimelineItemsPromise.then((newProperties) => {
         this.setProperties(newProperties);
-        this.get('_loadNeighborMatrix').perform(this.get('navState.currentPanel'));
+        this._loadNeighborMatrix(this.get('navState.currentPanel'));
 
         if (this.get('navState.incomingPanel') === 'edge') {
           this.set('navState.incomingPanel', this._getNeighbor(this.get('navState.currentPanel'), this.get('navState.direction')));
         }
+
+        // if (nearingStart) {
+        //   Ember.run.next(() => {
+        //     this.element.scrollTop += this.element.scrollHeight - scrollHeight;
+        //   });
+        // }
       }).finally(() => {
         this.get('_completeTimelineItemLoadTask').perform();
       });
@@ -457,18 +171,19 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     this._checkNeedToLoadMoreTimelineItems();
   }),
 
-  _loadNeighborMatrix: task(function * (panel) {
+  _loadNeighborMatrix: async function(panel) {
+    if (!panel) return;
     panel.set('shouldLoad', true);
-    yield panel.get('loadPromise');
-    yield this._loadNeighbors(panel);
-    yield this._loadNeighbors(this._getNeighbor(panel, 'right'));
-    yield this._loadNeighbors(this._getNeighbor(panel, 'down'));
-    yield this._loadNeighbors(this._getNeighbor(panel, 'up'));
-    yield this._loadNeighbors(this._getNeighbor(panel, 'left'));
-  }).restartable(),
+    await panel.get('loadPromise');
+    await this._loadNeighbors(panel);
+    await this._loadNeighbors(this._getNeighbor(panel, 'right'));
+    await this._loadNeighbors(this._getNeighbor(panel, 'down'));
+    await this._loadNeighbors(this._getNeighbor(panel, 'up'));
+    await this._loadNeighbors(this._getNeighbor(panel, 'left'));
+  },
 
   _loadNeighbors(panel) {
-    if (panel === 'edge' || panel.get('hasLoadedNeighbors')) return resolve();
+    if (!panel || panel === 'edge' || panel.get('hasLoadedNeighbors')) return resolve();
 
     const promise = all(['right', 'down', 'up', 'left'].map((direction) => {
       const neighbor = this._getNeighbor(panel, direction);
