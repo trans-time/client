@@ -94,3 +94,14 @@ md-menu-content {
     margin-left: $rhythm / 2;
   }
 }
+
+.md-button.md-icon-button {
+  height: initial;
+  width: initial;
+  line-height: initial;
+  min-height: 0;
+  min-width: 0;
+  margin: 0;
+  padding: $rhythm;
+  border-radius: 0;
+}

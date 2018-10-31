@@ -1,9 +1,7 @@
 <div class="timeline-item-nav-controls-main">
-  {{timeline-item-nav/slideshow/post/controls/reactions/main
-    reactable=timelineItem
-    keyable=true
-    isCurrentTimelineItem=isCurrentTimelineItem
-  }}
+  {{#paper-button onClick=(action "toggleReaction") class="timeline-item-nav-controls-element reaction-icon"}}
+    {{fa-icon "moon-o" size=2 class=(if timelineItem.currentUserReaction 'reacted')}}
+  {{/paper-button}}
 
   {{#paper-button onClick=(action "openShare") class="timeline-item-nav-controls-element"}}
     {{fa-icon "share-alt" size=2}}
@@ -13,16 +11,6 @@
     {{number-bubble number=commentCount classNames="chat-total"}}
     {{fa-icon "comment-o" size=2}}
   {{/paper-button}}
-
-  <div class="timeline-item-nav-controls-dots">
-    {{#if (gt sortedPanels.length 1)}}
-      {{#each sortedPanels as |panel|}}
-        <span class="timeline-item-nav-controls-dot {{if (eq navState.currentPanel.model.id panel.model.id) 'selected'}}">
-          {{fa-icon "circle"}}
-        </span>
-      {{/each}}
-    {{/if}}
-  </div>
 
   {{#paper-menu as |menu|}}
     {{#menu.trigger}}

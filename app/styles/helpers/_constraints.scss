@@ -1,5 +1,4 @@
 .top-bar-layout-constraint {
-  width: 100%;
   margin: 0 auto;
   box-sizing: border-box;
 }
@@ -9,4 +8,8 @@
   max-width: 100%;
   margin: 0 auto;
   box-sizing: border-box;
+}
+
+.content-constraint, .top-bar-layout-constraint {
+  max-width: 1440px;
 }

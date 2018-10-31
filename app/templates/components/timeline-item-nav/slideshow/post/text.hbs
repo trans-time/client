@@ -11,7 +11,7 @@
   </div>
 {{/if}}
 
-<div class="timeline-item-nav-post-constraint timeline-item-nav-post-text" tabindex="-1">
+<div class="timeline-item-nav-post-constraint timeline-item-nav-post-text {{if userRevealedText 'timeline-item-nav-post-constraint-revealed'}}" tabindex="-1">
   <span class="timeline-item-nav-post-meta">
     {{#if timelineItem.isPrivate}}
       {{fa-icon "lock"}} |
@@ -41,4 +41,8 @@
   {{/if}}
 </div>
 
-<button class="reveal-text-toggle" {{action "revealText"}}>{{t "post.more"}}</button>
+{{#if textHidden}}
+  <button {{action "revealText"}} class="reveal-text-toggle">
+    {{t "post.more"}}
+  </button>
+{{/if}}

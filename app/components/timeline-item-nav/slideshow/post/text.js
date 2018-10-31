@@ -29,50 +29,33 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
   didInsertElement(...args) {
     this._super(...args);
 
-    window.addEventListener('resize', this.set('onResize',this._checkTextOverflow.bind(this)));
     this._checkTextOverflow();
+
+    const element = this.get('_constraint');
+    window.addEventListener('resize', this._checkTextOverflow.bind(this));
+    element.addEventListener('dblclick', this._expandOrCollapseText.bind(this));
+    element.addEventListener('touchend', this._checkForDoubleTap.bind(this));
   },
 
-  willDestroyElement(...args) {
-    window.removeEventListener('resize', this.get('onResize'));
-
-    this._super(...args);
-  },
-
-  textRevealed: computed('userRevealedText', 'textOverflown', {
+  textHidden: computed('userRevealedText', 'textOverflown', {
     get() {
-      return this.get('userRevealedText') || !this.get('textOverflown');
+      return !this.get('userRevealedText') && this.get('textOverflown');
     }
   }),
-
-  _keyRevealText: on(keyDown('ArrowDown'), function(e) {
-    this._revealText()
-  }),
-
-  _keyExpandOrCollapse: on(keyDown('KeyV'), function(e) {
-    this._expandOrCollapseText()
-  }),
-
-  _determineNavability() {
-    const swipeState = this.get('swipeState');
-    const element = this.get('_constraint');
-
-    swipeState.canNavDown = Math.ceil(element.scrollTop + element.clientHeight) >= element.scrollHeight;
-    swipeState.canNavUp = element.scrollTop <= 0 && !this.get('panelHeightIsModified');
-  },
 
   _expandOrCollapseText(event) {
-    const element = this.get('_constraint');
-
-    if (this.get('panelHeightIsModified')) {
-      this.expendTextOnSwipe(9999999);
-    } else {
-      this.expendTextOnSwipe(element.clientHeight < element.scrollHeight ? -element.scrollHeight : (this.element.parentElement.parentElement.clientHeight / 3) * -2);
-      this.set('userRevealedText', true);
-    }
+    this.toggleProperty('userRevealedText');
 
     if (event) {
       event.preventDefault();
+    }
+  },
+
+  _checkForDoubleTap(event) {
+    if (this.hasRecentlyTapped) {
+      this._expandOrCollapseText(event);
+    } else {
+      this._initiateDoubleTapTask.perform();
     }
   },
 
@@ -87,7 +70,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
   _checkTextOverflow() {
     const element = this.get('_constraint');
 
-    this.set('textOverflown', element.clientHeight > 200);
+    this.set('textOverflown', element.clientHeight < element.scrollHeight);
   },
 
   _scollLocked: computed('scrollLocked', 'isBlank', {

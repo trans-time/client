@@ -1,12 +1,8 @@
 {{#cw-interface content=timelineItem.model}}
-  <div class="timeline-item-nav-slideshow-panels">
-    {{#each sortedPanels as |panel|}}
-      {{component panel.postNavComponent
-        panel=panel
-        navState=navState
-      }}
-    {{/each}}
-  </div>
+  {{timeline-item-nav/slideshow/post/panels
+    panels=sortedPanels
+    navState=navState
+  }}
 
   <div class="timeline-item-nav-post-comment-container">
     {{#timeline-item-nav/slideshow/post/text

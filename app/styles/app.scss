@@ -32,20 +32,12 @@ body > .ember-view:not(.liquid-destination), html, body, .main-application-conte
   height: 100%;
   width: 100%;
   margin: 0px;
-  overflow: hidden;
 }
 
 .main-application-content {
   display: flex;
   flex-direction: column;
-  max-width: 1440px;
   margin: 0 auto;
-}
-
-@media (min-resolution: 2dppx) {
-  .main-application-content {
-    max-width: 1440px;
-  }
 }
 
 html, body {
@@ -554,5 +546,15 @@ p {
 @media (pointer: coarse) {
   .eeo-emojiPicker-toggler {
     display: none;
+  }
+}
+
+
+button, a {
+  transition: all 250ms !important;
+
+  &:hover, &:focus {
+    font-weight: 900 !important;
+    font-size: 125% !important;
   }
 }
