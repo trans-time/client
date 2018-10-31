@@ -1,7 +1,11 @@
 {{#cw-interface content=timelineItem.model}}
   {{timeline-item-nav/slideshow/post/panels
     panels=sortedPanels
-    navState=navState
+    activePanels=activePanels
+    scrollLeft=scrollLeft
+    slidePanels=slidePanels
+    defaultPanelHeight=defaultPanelHeight
+    setPanelIndex=(action "setPanelIndex")
   }}
 
   <div class="timeline-item-nav-post-comment-container">
@@ -26,6 +30,7 @@
           navState=navState
           fullShare=fullShare
           commentCount=timelineItem.model.commentCount
+          panelIndex=panelIndex
           classNames="main-layout-constraint"
           toggleChat=(action "toggleChat")
           toggleHistory=(action "toggleHistory")

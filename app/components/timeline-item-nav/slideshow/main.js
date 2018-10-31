@@ -61,6 +61,12 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     diffs: []
   })),
 
+  scrollLeft: 0,
+
+  defaultPanelHeight: computed(() => {
+    if (document.body.clientWidth < 1000) return document.body.clientWidth * 1.25;
+  }),
+
   didInsertElement(...args) {
     this._super(...args);
 
@@ -82,6 +88,10 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
 
     this._setupIntersectionObserver();
     this._checkNeedToLoadMoreTimelineItems();
+
+    window.addEventListener('resize', () => {
+      this.notifyPropertyChange('defaultPanelHeight');
+    });
   },
 
   _gatherVisibleTimelineItems() {
@@ -221,6 +231,11 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
 
     toggleChat() {
       this.attrs.toggleChat();
+    },
+
+    slidePanels(activePanels, scrollLeft) {
+      this.set('activePanels', activePanels);
+      this.set('scrollLeft', scrollLeft);
     }
   }
 });

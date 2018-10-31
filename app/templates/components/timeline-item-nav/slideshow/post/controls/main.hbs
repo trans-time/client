@@ -12,6 +12,16 @@
     {{fa-icon "comment-o" size=2}}
   {{/paper-button}}
 
+  <div class="timeline-item-nav-controls-dots">
+    {{#if (gt sortedPanels.length 1)}}
+      {{#each sortedPanels as |panel index|}}
+        <span class="timeline-item-nav-controls-dot {{if (eq panelIndex index) 'selected'}}">
+          {{fa-icon "circle"}}
+        </span>
+      {{/each}}
+    {{/if}}
+  </div>
+
   {{#paper-menu as |menu|}}
     {{#menu.trigger}}
       {{#paper-button iconButton=true}}

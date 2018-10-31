@@ -2,7 +2,7 @@ import { equal, oneWay } from '@ember/object/computed';
 import Mixin from '@ember/object/mixin';
 import SlideshowComponent from './slideshow-component';
 
-export default Mixin.create(SlideshowComponent, {
+export default Mixin.create({
   classNames: ['timeline-item-nav-slideshow-panel'],
 
   didInsertElement(...args) {

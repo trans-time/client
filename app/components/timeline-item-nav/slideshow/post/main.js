@@ -10,6 +10,8 @@ export default Component.extend(SlideshowComponentMixin, {
   classNames: ['timeline-item-nav-slideshow-post'],
   classNameBindings: ['isBlank:timeline-item-nav-slideshow-post-blank', 'chatIsOpen'],
 
+  panelIndex: 0,
+
   isOutgoing: oneWay('timelineItem.isOutgoing'),
   isIncoming: oneWay('timelineItem.isIncoming'),
   isBlank: oneWay('timelineItem.isBlank'),
@@ -32,6 +34,10 @@ export default Component.extend(SlideshowComponentMixin, {
   }),
 
   actions: {
+    setPanelIndex(panelIndex) {
+      this.set('panelIndex', panelIndex);
+    },
+
     toggleChat() {
       this.attrs.toggleChat();
     },
