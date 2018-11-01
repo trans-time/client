@@ -64,7 +64,7 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   scrollLeft: 0,
 
   defaultPanelHeight: computed(() => {
-    if (document.body.clientWidth < 1000) return document.body.clientWidth * 1.25;
+    if (document.body.clientWidth < 800) return document.body.clientWidth * 1.25;
   }),
 
   didInsertElement(...args) {
@@ -135,7 +135,7 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
 
   _scrollToTimelineItem(id) {
     const element = this.$(`[data-timeline-item-id=${id}]`).get(0);
-    this.element.scrollTop = element.getBoundingClientRect().top - this.element.getBoundingClientRect().top;
+    this.element.scrollTop = 1 + element.getBoundingClientRect().top - this.element.getBoundingClientRect().top;
   },
 
   _checkNeedToLoadMoreTimelineItems() {
