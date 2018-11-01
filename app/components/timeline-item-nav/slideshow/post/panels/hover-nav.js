@@ -12,13 +12,11 @@ export default Component.extend({
 
         this.hoverScroll(amount);
 
-        loop(Math.max(Math.min(amount * 1.15, 15), -15));
+        loop(Math.max(Math.min(amount * 1.25, 15), -15));
       });
     }
 
-    Ember.run.later(() => {
-      loop(this.direction);
-    }, 100);
+    loop(this.direction);
   },
 
   mouseLeave() {
