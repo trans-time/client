@@ -8,10 +8,10 @@ export default Component.extend({
   attributeBindings: ['style'],
 
   didInsertElement() {
-    this.element.addEventListener('scroll', (e) => {
+    this._carousel.addEventListener('scroll', (e) => {
       if (this._scrollNotificationsDisabled) return;
 
-      this.slidePanels(this.element, this.element.scrollLeft);
+      this.slidePanels(this._carousel, this._carousel.scrollLeft);
     });
 
     return this._super(...arguments);
@@ -29,15 +29,21 @@ export default Component.extend({
     }
   }),
 
+  _carousel: computed({
+    get() {
+      return this.element.querySelector('.timeline-item-nav-slideshow-panels-carousel');
+    }
+  }),
+
   _setOffsetLeft() {
     this._setPanelIndex();
-    if (this.activePanels === this.element) return;
+    if (this.activePanels === this._carousel) return;
     this._disableScrollNotificationTask.perform();
-    this.element.scrollLeft = this.scrollLeft;
+    this._carousel.scrollLeft = this.scrollLeft;
   },
 
   _setPanelIndex() {
-    let panelIndex = Math.round(this.element.scrollLeft / this.element.clientWidth);
+    let panelIndex = Math.round(this._carousel.scrollLeft / this._carousel.clientWidth);
     if (panelIndex > this.panels.length - 1) panelIndex = this.panels.length - 1;
 
     this.setPanelIndex(panelIndex);
@@ -49,5 +55,11 @@ export default Component.extend({
     yield timeout(500);
 
     this.set('_scrollNotificationsDisabled', false);
-  }).restartable()
+  }).restartable(),
+
+  actions: {
+    hoverScroll(amount) {
+      this._carousel.scrollLeft += amount;
+    }
+  }
 });

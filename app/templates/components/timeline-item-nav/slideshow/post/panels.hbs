@@ -1,5 +1,19 @@
-{{#each panels as |panel|}}
-  {{component panel.postNavComponent
-    panel=panel
-  }}
-{{/each}}
+{{timeline-item-nav/slideshow/post/panels/hover-nav
+  classNames="hover-nav-left"
+  direction=-0.1
+  hoverScroll=(action "hoverScroll")
+}}
+
+<div class="timeline-item-nav-slideshow-panels-carousel">
+  {{#each panels as |panel|}}
+    {{component panel.postNavComponent
+      panel=panel
+    }}
+  {{/each}}
+</div>
+
+{{timeline-item-nav/slideshow/post/panels/hover-nav
+  classNames="hover-nav-right"
+  direction=0.1
+  hoverScroll=(action "hoverScroll")
+}}
