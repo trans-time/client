@@ -1,0 +1,13 @@
+{{#each timelineItems as |timelineItem|}}
+  {{#if timelineItem.panels.firstObject.srcset}}
+    {{timeline-item-nav/slideshow/modal-nav/timeline-item
+      timelineItem=timelineItem
+      activePanels=activePanels
+      scrollLeft=scrollLeft
+      style=style
+      sizes="100vw"
+      slidePanels=(action "slidePanels")
+      openModalNav=(action "openModalNav")
+    }}
+  {{/if}}
+{{/each}}

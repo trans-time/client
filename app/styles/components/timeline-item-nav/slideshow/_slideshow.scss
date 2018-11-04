@@ -58,6 +58,7 @@
 
 .timeline-item-nav-slideshow-panel {
   z-index: 1;
+  cursor: pointer;
 }
 
 .timeline-item-nav-slideshow-nsfw {
@@ -174,6 +175,7 @@
   bottom: 0;
   width: 133px;
   z-index: 9999;
+  cursor: pointer;
 
   &.hover-nav-left {
     left: 0;

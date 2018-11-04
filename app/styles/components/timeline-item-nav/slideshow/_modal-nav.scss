@@ -1,0 +1,32 @@
+.modal-nav {
+  display: flex;
+  flex-direction: column;
+  background-color: $white;
+  z-index: 101;
+  transform: translateZ(1px);
+  overflow: auto;
+  scroll-snap-type: y mandatory;
+  scroll-snap-stop: always;
+
+  .timeline-item-nav-slideshow-panels {
+    height: 100% !important;
+    width: 100%;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+
+  .timeline-item-nav-slideshow-panels-carousel {
+    scroll-snap-type: x mandatory;
+    scroll-snap-stop: always;
+    overflow: auto;
+  }
+
+  .timeline-item-nav-slideshow-panel {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+
+  .hover-nav {
+    display: none;
+  }
+}

@@ -22,7 +22,5 @@ export default Component.extend(SlideshowPanelComponentMixin, {
     get() {
       if (this.get('panel.shouldLoad')) return this.get('panel.srcset');
     }
-  }),
-
-  sizes: '100vw'
+  })
 });

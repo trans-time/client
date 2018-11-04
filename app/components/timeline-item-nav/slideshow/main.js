@@ -49,6 +49,7 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   attributeBindings: ['style'],
 
   meta: service(),
+  modalManager: service(),
   usingTouch: alias('meta.usingTouch'),
   isLoadingMoreTimelineItems: notEmpty('loadingMoreTimelineItemsPromise'),
 
@@ -223,6 +224,13 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   },
 
   actions: {
+    openModalNav(panel) {
+      this.modalManager.open('timeline-item-nav/slideshow/modal-nav', () => {}, () => {}, {
+        panel,
+        timelineItems: this.decoratedTimelineItems
+      });
+    },
+
     removeTimelineItem(timelineItem) {
       this.attrs.removeTimelineItem(timelineItem);
       if (this.get('navState.currentPanel').getNeighbor('up') !== 'edge') this._navUp();

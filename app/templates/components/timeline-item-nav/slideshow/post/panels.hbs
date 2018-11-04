@@ -4,10 +4,13 @@
   hoverScroll=(action "hoverScroll")
 }}
 
-<div class="timeline-item-nav-slideshow-panels-carousel">
+<div data-timeline-item-id="{{timelineItemId}}" class="timeline-item-nav-slideshow-panels-carousel">
   {{#each panels as |panel|}}
     {{component panel.postNavComponent
       panel=panel
+      sizes=sizes
+      style=style
+      openModalNav=openModalNav
     }}
   {{/each}}
 </div>

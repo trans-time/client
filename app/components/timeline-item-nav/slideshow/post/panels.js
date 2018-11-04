@@ -5,7 +5,7 @@ import { task, timeout } from 'ember-concurrency';
 
 export default Component.extend({
   classNames: ['timeline-item-nav-slideshow-panels'],
-  attributeBindings: ['style'],
+  attributeBindings: ['minHeightStyle:style'],
 
   didInsertElement() {
     this._carousel.addEventListener('scroll', (e) => {
@@ -23,7 +23,7 @@ export default Component.extend({
     if (this.element) this._setOffsetLeft();
   },
 
-  style: computed('defaultPanelHeight', {
+  minHeightStyle: computed('defaultPanelHeight', {
     get() {
       return htmlSafe(`min-height: ${this.defaultPanelHeight}px;`);
     }

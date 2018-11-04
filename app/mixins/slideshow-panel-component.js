@@ -1,9 +1,11 @@
-import { equal, oneWay } from '@ember/object/computed';
 import Mixin from '@ember/object/mixin';
-import SlideshowComponent from './slideshow-component';
+import { oneWay } from '@ember/object/computed';
 
 export default Mixin.create({
   classNames: ['timeline-item-nav-slideshow-panel'],
+  attributeBindings: ['dataPanelId:data-panel-id', 'style'],
+
+  dataPanelId: oneWay('panel.model.id'),
 
   didInsertElement(...args) {
     this._super(...args);
@@ -13,5 +15,9 @@ export default Mixin.create({
 
   loadPanel() {
     this.set('panel.isLoaded', true);
+  },
+
+  doubleClick() {
+    this.openModalNav(this.panel);
   }
 });
