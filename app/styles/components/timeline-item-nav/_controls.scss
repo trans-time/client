@@ -56,6 +56,12 @@
 .reaction-icon {
   position: relative;
   transition: opacity 500ms;
+  width: inherit;
+  min-width: initial;
+  margin: 0;
+  padding: $rhythm;
+  border-radius: 50%;
+  line-height: initial;
 
   i {
     transition: color 500ms, text-shadow 500ms;

@@ -33,7 +33,7 @@ const ProfileValidations = {
 };
 
 export default Component.extend(AuthenticatedActionMixin, {
-  classNames: ['profile'],
+  classNames: ['profile', 'content-constraint'],
 
   followDisabled: false,
   isEditing: false,

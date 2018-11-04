@@ -24,7 +24,7 @@
     text-align: center;
 
     &:first-child {
-      border-bottom: thin solid $light-gray;
+      border-bottom: 2px dashed $dark-gray;
     }
 
     a, div, label {
@@ -145,7 +145,7 @@
   justify-content: flex-start;
   flex-shrink: 0;
   background-color: $white;
-  border-top: 1px solid $light-gray;
+  border-top: 2px dashed $dark-gray;
   border-bottom: 0;
   padding: 4px;
   padding-bottom: 0;
@@ -187,12 +187,12 @@
     height: inherit !important;
     width: inherit !important;
     flex-grow: 1;
-    border-bottom: thin solid $light-gray;
+    border-bottom: 2px dashed $dark-gray;
 
     .image-editor-control {
       &:first-child {
         border-bottom: 0;
-        border-right: thin solid $light-gray;
+        border-right: 2px dashed $dark-gray;
       }
     }
   }

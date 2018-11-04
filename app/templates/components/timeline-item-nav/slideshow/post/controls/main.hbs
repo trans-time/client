@@ -1,7 +1,5 @@
 <div class="timeline-item-nav-controls-main">
-  {{#paper-button onClick=(action "toggleReaction") class="timeline-item-nav-controls-element reaction-icon"}}
-    {{fa-icon "moon-o" size=2 class=(if timelineItem.currentUserReaction 'reacted')}}
-  {{/paper-button}}
+  {{timeline-item-nav/slideshow/post/controls/reactions/main reactable=timelineItem}}
 
   {{#paper-button onClick=(action "openShare") class="timeline-item-nav-controls-element"}}
     {{fa-icon "share-alt" size=2}}

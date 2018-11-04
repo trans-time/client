@@ -18,6 +18,12 @@
   @include emojione-size(18px);
 }
 
+* {
+  &:focus {
+    outline: 0;
+  }
+}
+
 html, body {
   overscroll-behavior: none;
 }
@@ -369,18 +375,8 @@ p {
     width: inherit !important;
   }
 
-  input {
-    border-color: $light-gray !important;
-  }
-
   .md-errors-spacer {
     display: none;
-  }
-
-  &.md-focused {
-    input {
-      border-color: #3f51b5 !important;
-    }
   }
 }
 
@@ -391,7 +387,7 @@ p {
   flex-shrink: 0;
   padding: $rhythm $rhythm;
   justify-content: space-between;
-  border-bottom: thin solid $light-gray;
+  border-bottom: 2px dashed $dark-gray;
 
   .md-checkbox {
     margin: 0;
@@ -436,7 +432,7 @@ p {
   flex-grow: 1;
   resize: none;
   padding: $rhythm;
-  border: 0;
+  border: 0 !important;
   outline: 0;
 }
 
@@ -466,7 +462,7 @@ p {
   justify-content: space-between;
   flex-shrink: 0;
   background-color: $white;
-  border-top: thin solid $light-gray;
+  border-top: 2px dashed $dark-gray;
   border-bottom: 0;
   padding-bottom: 0;
 
@@ -487,7 +483,7 @@ p {
   border: none;
 
   &.post-form-controls-element-active {
-    background-color: $black;
+    background-color: $dark-gray;
     color: $white;
   }
 }
@@ -496,11 +492,12 @@ p {
 @media (min-width: 800px) {
   .post-form-main {
     flex-direction: row;
-    overflow-x: hidden;
+    overflow: hidden;
 
     .post-form-image-editor {
       width: 450px;
-      border-right: thin dashed $light-gray;
+      border-right: 2px dashed $dark-gray;
+      overflow: auto;
     }
 
     .post-form-image-editor-large-media {
@@ -509,6 +506,7 @@ p {
 
     .post-form-text-and-meta {
       border-top: 0;
+      overflow: auto;
     }
   }
 
@@ -556,5 +554,90 @@ button, a {
   &:hover, &:focus {
     font-weight: 900 !important;
     font-size: 125% !important;
+  }
+}
+
+md-input-container.md-default-theme {
+  .md-input {
+    border-bottom: 2px dashed $dark-gray;
+    transition: all 250ms;
+  }
+
+  label {
+    color: $dark-gray;
+  }
+}
+
+md-input-container.md-default-theme.md-focused.md-input-focused {
+  .md-input {
+    border-style: solid;
+    border-color: $dark-gray;
+    border-bottom-width: 4px;
+  }
+
+  label {
+    color: $dark-gray;
+  }
+}
+
+md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon {
+  background-color: $primary-color;
+}
+
+md-checkbox.md-default-theme:not(.md-checked) .md-icon, md-checkbox:not(.md-checked) .md-icon {
+  border: 2px dashed $dark-gray;
+}
+
+.ember-text-area {
+  border: 2px dashed $dark-gray;
+  transition: all 250ms;
+
+  &:focus {
+    outline: 0;
+    border-width: 4px;
+    border-style: solid;
+  }
+}
+
+.md-default-theme.md-button.md-raised, .tag-summary-time-button {
+  box-shadow: 0;
+  border: 2px dotted transparent;
+  background-color: $white;
+  color: $medium-gray;
+
+  &:hover, &:focus {
+    border-color: $medium-gray;
+    font-size: 105% !important;
+
+    &:not(:disabled) {
+      background-color: $white;
+    }
+  }
+}
+
+.md-default-theme.md-button.md-primary.md-raised, .tag-summary-time-button-primary {
+  border: 4px solid $dark-gray;
+  background-color: $white;
+  color: $dark-gray;
+  box-shadow: 0;
+
+  &:hover, &:focus {
+    border-color: $dark-gray;
+    color: $white;
+
+    &:not(:disabled) {
+      background-color: $primary-color;
+    }
+  }
+
+  &:disabled {
+    border-color: $light-gray;
+    background-color: $light-gray;
+    color: $medium-gray;
+
+    &:hover, &:focus {
+      font-weight: initial !important;
+      font-size: initial !important;
+    }
   }
 }

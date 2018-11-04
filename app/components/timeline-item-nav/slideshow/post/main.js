@@ -39,7 +39,7 @@ export default Component.extend(SlideshowComponentMixin, {
     },
 
     toggleChat() {
-      this.attrs.toggleChat();
+      this.toggleProperty('chatIsOpen');
     },
 
     toggleHistory() {

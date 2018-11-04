@@ -13,17 +13,17 @@
       {{fa-icon "spinner" pulse=true size=5}}
     </div>
   {{/if}}
-</div>
 
-{{#if (not isModerating)}}
-  {{#if timelineItem.commentsLocked}}
-    <div class="comments-locked">{{t "comments.locked"}}</div>
-  {{else}}
-    {{timeline-item-nav/chat/comment-form
-      timelineItem=timelineItem
-      commentable=timelineItem
-      addComment=(action "addComment")
-      classNames="comment-form-post-reply"
-    }}
+  {{#if (not isModerating)}}
+    {{#if timelineItem.commentsLocked}}
+      <div class="comments-locked">{{t "comments.locked"}}</div>
+    {{else}}
+      {{timeline-item-nav/chat/comment-form
+        timelineItem=timelineItem
+        commentable=timelineItem
+        addComment=(action "addComment")
+        classNames="comment-form-post-reply"
+      }}
+    {{/if}}
   {{/if}}
-{{/if}}
+</div>

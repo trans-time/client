@@ -1,6 +1,5 @@
 {{#each decoratedTimelineItems as |timelineItem index|}}
   {{timeline-item-nav/slideshow/post/main
-    chatIsOpen=chatIsOpen
     timelineItem=timelineItem
     intersectionObserver=intersectionObserver
     navState=navState
@@ -11,7 +10,6 @@
     scrollLeft=scrollLeft
     defaultPanelHeight=defaultPanelHeight
     removePost=(action "removeTimelineItem" timelineItem)
-    toggleChat=(action "toggleChat")
     slidePanels=(action "slidePanels")
     classNames="content-constraint"
   }}
