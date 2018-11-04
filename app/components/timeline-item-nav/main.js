@@ -10,7 +10,8 @@ import { isBlank, isEmpty, isPresent } from '@ember/utils';
 
 const PanelDecorator = EmberObject.extend({
   isLoaded: alias('model.srcIsLoaded'),
-  shouldLoad: alias('model.srcShouldLoad'),
+  // shouldLoad: alias('model.srcShouldLoad'),
+  shouldLoad: true,
   loadPromise: alias('model.loadPromise'),
 
   postNavComponent: oneWay('model.postNavComponent'),
