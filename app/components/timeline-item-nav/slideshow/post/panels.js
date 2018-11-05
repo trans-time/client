@@ -59,9 +59,10 @@ export default Component.extend({
 
   actions: {
     scrollHorizontal(direction) {
-      if (direction > 0 && this._carousel.scrollLeft + this._carousel.clientWidth + 45 >= this._carousel.scrollWidth) {
+      const scrollbarWidth = 45;
+      if (direction > 0 && this._carousel.scrollLeft + this._carousel.clientWidth + scrollbarWidth >= this._carousel.scrollWidth) {
         this._carousel.scrollLeft = 0;
-      } else if (direction < 0 && this._carousel.scrollLeft === 0) {
+      } else if (direction < 0 && this._carousel.scrollLeft <= scrollbarWidth) {
         this._carousel.scrollLeft = this._carousel.scrollWidth;
       } else {
         this._carousel.scrollLeft += direction * this.element.querySelector('.timeline-item-nav-slideshow-panel').clientWidth;
