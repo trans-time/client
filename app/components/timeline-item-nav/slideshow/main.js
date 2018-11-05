@@ -100,7 +100,7 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     const visibleTimelineItems = Array.from(this.element.querySelectorAll('.timeline-item-nav-slideshow-post')).filter((element) => {
       const bounding = element.getBoundingClientRect();
 
-      return bounding.top >= slideshowBounding.top && (bounding.height + bounding.top >= slideshowBounding.bottom || bounding.bottom <= slideshowBounding.bottom);
+      return bounding.top >= slideshowBounding.top - 1 && (bounding.height + bounding.top >= slideshowBounding.bottom || bounding.bottom <= slideshowBounding.bottom);
     });
     const visibleTimelineItemIds = visibleTimelineItems.map((ti) => ti.dataset.timelineItemId);
 
