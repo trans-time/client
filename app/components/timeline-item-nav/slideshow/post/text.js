@@ -44,10 +44,12 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
   }),
 
   _expandOrCollapseText(event) {
-    this.toggleProperty('userRevealedText');
+    if (!this.userRevealedText) {
+      this.set('userRevealedText', true);
 
-    if (event) {
-      event.preventDefault();
+      if (event) {
+        event.preventDefault();
+      }
     }
   },
 
