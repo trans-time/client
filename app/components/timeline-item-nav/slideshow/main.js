@@ -245,8 +245,7 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     scrollVertical(direction, timelineItemId) {
       const index = this.decoratedTimelineItems.indexOf(this.decoratedTimelineItems.find((ti) => ti.model.id.toString() === timelineItemId.toString()));
       const list = direction > 0 ? this.decoratedTimelineItems.slice(index + 1) : this.decoratedTimelineItems.slice(0, index).reverse();
-      const nextTimelineItem = list.find((ti) => ti.panels.firstObject.srcset !== undefined)
-      console.log(nextTimelineItem.model.id)
+      const nextTimelineItem = list.find((ti) => ti.panels.firstObject.srcset !== undefined);
 
       this._scrollToTimelineItem(nextTimelineItem.model.id);
     },

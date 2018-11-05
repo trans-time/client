@@ -1,4 +1,32 @@
 <div data-timeline-item-id="{{timelineItemId}}" class="timeline-item-nav-slideshow-panels-carousel">
+  {{#timeline-item-nav/slideshow/post/panels/hover-nav
+    classNames="hover-nav-up"
+    scroll=(action "scrollVertical" -1 timelineItemId)
+  }}
+    {{fa-icon "chevron-up" size=4}}
+  {{/timeline-item-nav/slideshow/post/panels/hover-nav}}
+
+  {{#timeline-item-nav/slideshow/post/panels/hover-nav
+    classNames="hover-nav-down"
+    scroll=(action "scrollVertical" 1 timelineItemId)
+  }}
+    {{fa-icon "chevron-down" size=4}}
+  {{/timeline-item-nav/slideshow/post/panels/hover-nav}}
+
+  {{#timeline-item-nav/slideshow/post/panels/hover-nav
+    classNames="hover-nav-right"
+    scroll=(action "scrollHorizontal" 1 timelineItemId)
+  }}
+    {{fa-icon "chevron-right" size=4}}
+  {{/timeline-item-nav/slideshow/post/panels/hover-nav}}
+
+  {{#timeline-item-nav/slideshow/post/panels/hover-nav
+    classNames="hover-nav-left"
+    scroll=(action "scrollHorizontal" -1 timelineItemId)
+  }}
+    {{fa-icon "chevron-left" size=4}}
+  {{/timeline-item-nav/slideshow/post/panels/hover-nav}}
+
   {{#each panels as |panel|}}
     {{component panel.postNavComponent
       panel=panel
@@ -8,31 +36,3 @@
     }}
   {{/each}}
 </div>
-
-{{#timeline-item-nav/slideshow/post/panels/hover-nav
-  classNames="hover-nav-up"
-  scroll=(action "scrollVertical" -1 timelineItemId)
-}}
-  {{fa-icon "chevron-up" size=4}}
-{{/timeline-item-nav/slideshow/post/panels/hover-nav}}
-
-{{#timeline-item-nav/slideshow/post/panels/hover-nav
-  classNames="hover-nav-down"
-  scroll=(action "scrollVertical" 1 timelineItemId)
-}}
-  {{fa-icon "chevron-down" size=4}}
-{{/timeline-item-nav/slideshow/post/panels/hover-nav}}
-
-{{#timeline-item-nav/slideshow/post/panels/hover-nav
-  classNames="hover-nav-right"
-  scroll=(action "scrollHorizontal" 1 timelineItemId)
-}}
-  {{fa-icon "chevron-right" size=4}}
-{{/timeline-item-nav/slideshow/post/panels/hover-nav}}
-
-{{#timeline-item-nav/slideshow/post/panels/hover-nav
-  classNames="hover-nav-left"
-  scroll=(action "scrollHorizontal" -1 timelineItemId)
-}}
-  {{fa-icon "chevron-left" size=4}}
-{{/timeline-item-nav/slideshow/post/panels/hover-nav}}
