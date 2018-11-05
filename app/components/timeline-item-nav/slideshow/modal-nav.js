@@ -7,7 +7,7 @@ import { htmlSafe } from '@ember/string';
 export default Component.extend({
   classNames: ['modal-nav'],
   attributeBindings: ['style'],
-  
+
   modalManager: service(),
   panel: alias('modalManager.options.panel'),
   timelineItems: alias('modalManager.options.timelineItems'),
@@ -64,6 +64,10 @@ export default Component.extend({
     slidePanels(activePanels, scrollLeft) {
       this.set('activePanels', activePanels);
       this.set('scrollLeft', scrollLeft);
+    },
+
+    scrollVertical(direction) {
+      this.element.scrollTop += direction * this.element.querySelector('.timeline-item-nav-slideshow-panel').clientHeight;
     }
   }
 });

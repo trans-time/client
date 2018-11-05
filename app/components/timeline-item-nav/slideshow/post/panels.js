@@ -58,8 +58,12 @@ export default Component.extend({
   }).restartable(),
 
   actions: {
-    hoverScroll(amount) {
-      this._carousel.scrollLeft += amount;
+    scrollHorizontal(direction) {
+      this._carousel.scrollLeft += direction * this.element.querySelector('.timeline-item-nav-slideshow-panel').clientWidth;
+    },
+
+    scrollVertical(direction) {
+      this.scrollVertical(direction);
     }
   }
 });

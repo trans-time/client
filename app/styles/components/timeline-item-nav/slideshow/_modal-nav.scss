@@ -18,7 +18,6 @@
   .timeline-item-nav-slideshow-panels-carousel {
     scroll-snap-type: x mandatory;
     scroll-snap-stop: always;
-    overflow: auto;
   }
 
   .timeline-item-nav-slideshow-panel {
@@ -27,6 +26,8 @@
   }
 
   .hover-nav {
-    display: none;
+    &.hover-nav-up, &.hover-nav-down {
+      display: flex;
+    }
   }
 }

@@ -171,18 +171,47 @@
 
 .hover-nav {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 133px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 9999;
   cursor: pointer;
+  opacity: 0;
+  color: $light-gray;
+  background-color: $dark-gray;
+  transition: opacity 250ms;
+
+  &.hover-nav-up, &.hover-nav-down {
+    display: none;
+    height: 133px;
+    left: 0;
+    right: 0;
+  }
+
+  &.hover-nav-right, &.hover-nav-left {
+    width: 133px;
+    top: 0;
+    bottom: 0;
+  }
+
+  &.hover-nav-up {
+    top: 0;
+  }
+
+  &.hover-nav-right {
+    right: 0;
+  }
+
+  &.hover-nav-down {
+    bottom: 0;
+  }
 
   &.hover-nav-left {
     left: 0;
   }
 
-  &.hover-nav-right {
-    right: 0;
+  &:hover {
+    opacity: 0.68;
   }
 }
 

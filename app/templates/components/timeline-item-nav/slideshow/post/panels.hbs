@@ -1,9 +1,3 @@
-{{timeline-item-nav/slideshow/post/panels/hover-nav
-  classNames="hover-nav-left"
-  direction=-0.1
-  hoverScroll=(action "hoverScroll")
-}}
-
 <div data-timeline-item-id="{{timelineItemId}}" class="timeline-item-nav-slideshow-panels-carousel">
   {{#each panels as |panel|}}
     {{component panel.postNavComponent
@@ -15,8 +9,34 @@
   {{/each}}
 </div>
 
-{{timeline-item-nav/slideshow/post/panels/hover-nav
-  classNames="hover-nav-right"
-  direction=0.1
-  hoverScroll=(action "hoverScroll")
+{{#timeline-item-nav/slideshow/post/panels/hover-nav
+  classNames="hover-nav-up"
+  direction=-1
+  scroll=(action "scrollVertical")
 }}
+  {{fa-icon "chevron-up" size=4}}
+{{/timeline-item-nav/slideshow/post/panels/hover-nav}}
+
+{{#timeline-item-nav/slideshow/post/panels/hover-nav
+  classNames="hover-nav-right"
+  direction=1
+  scroll=(action "scrollHorizontal")
+}}
+  {{fa-icon "chevron-right" size=4}}
+{{/timeline-item-nav/slideshow/post/panels/hover-nav}}
+
+{{#timeline-item-nav/slideshow/post/panels/hover-nav
+  classNames="hover-nav-down"
+  direction=1
+  scroll=(action "scrollVertical")
+}}
+  {{fa-icon "chevron-down" size=4}}
+{{/timeline-item-nav/slideshow/post/panels/hover-nav}}
+
+{{#timeline-item-nav/slideshow/post/panels/hover-nav
+  classNames="hover-nav-left"
+  direction=-1
+  scroll=(action "scrollHorizontal")
+}}
+  {{fa-icon "chevron-left" size=4}}
+{{/timeline-item-nav/slideshow/post/panels/hover-nav}}
