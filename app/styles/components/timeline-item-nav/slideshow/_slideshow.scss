@@ -157,7 +157,8 @@
 }
 
 .timeline-item-nav-slideshow-panels-carousel {
-  display: relative;
+  display: flex;
+  flex-direction: row;
   overflow-x: auto;
   overflow-y: hidden;
 
