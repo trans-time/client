@@ -159,15 +159,7 @@
 .timeline-item-nav-slideshow-panels-carousel {
   display: flex;
   flex-direction: row;
-  overflow-x: auto;
-  overflow-y: hidden;
-
-  -ms-overflow-style: none;
-  overflow: -moz-scrollbars-none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  overflow: hidden;
 }
 
 .hover-nav {
@@ -243,18 +235,16 @@
     box-sizing: border-box;
   }
 
-
-  .timeline-item-nav-slideshow-post-blank {
-    border-top: 4px dashed $dark-gray;
+  .timeline-item-nav-slideshow-post {
     border-bottom: 4px dashed $dark-gray;
-
-    + .timeline-item-nav-slideshow-post-blank {
-      border-top: 0;
-    }
   }
 
   .hover-nav {
-    display: none;
+    width: 50%;
+
+    &:hover {
+      opacity: 0;
+    }
   }
 }
 
