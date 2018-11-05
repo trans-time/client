@@ -8,7 +8,7 @@ export default Component.extend({
   meta: service(),
 
   click() {
-    if (!this.meta.usingTouch) this.scroll(this.direction);
+    if (!this.meta.usingTouch) this.scroll();
   },
 
   touchStart(e) {
@@ -30,7 +30,7 @@ export default Component.extend({
     const { clientX, clientY } = e.changedTouches[0];
 
     if (this.touchActivated && Math.abs(this.clientX - clientX) < 5 && Math.abs(this.clientY - clientY) < 5) {
-      this.scroll(this.direction);
+      this.scroll();
     }
   },
 

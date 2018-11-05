@@ -159,7 +159,7 @@
 .timeline-item-nav-slideshow-panels-carousel {
   display: flex;
   flex-direction: row;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .hover-nav {
@@ -175,7 +175,6 @@
   transition: opacity 250ms;
 
   &.hover-nav-up, &.hover-nav-down {
-    display: none;
     height: 133px;
     left: 0;
     right: 0;
@@ -222,12 +221,7 @@
   }
 
   .timeline-item-nav-slideshow-panels-carousel {
-    scroll-snap-type: x mandatory;
-    scroll-snap-stop: always;
-  }
-
-  .timeline-item-nav-slideshow-panel {
-    scroll-snap-align: start;
+    overflow: hidden;
   }
 
   .timeline-item-nav-post-comment-container {
@@ -240,8 +234,6 @@
   }
 
   .hover-nav {
-    width: 50%;
-
     &:hover {
       opacity: 0;
     }

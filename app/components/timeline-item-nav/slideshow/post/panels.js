@@ -69,8 +69,8 @@ export default Component.extend({
       }
     },
 
-    scrollVertical(direction) {
-      this.scrollVertical(direction);
+    scrollVertical(direction, timelineItemId) {
+      this.scrollVertical(direction, timelineItemId);
     }
   }
 });

@@ -135,8 +135,8 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
   },
 
   _scrollToTimelineItem(id) {
-    const element = this.$(`[data-timeline-item-id=${id}]`).get(0);
-    this.element.scrollTop = 1 + element.getBoundingClientRect().top - this.element.getBoundingClientRect().top;
+    const element = this.element.querySelector(`[data-timeline-item-id="${id}"]`);
+    this.element.scrollTop = element.offsetTop;
   },
 
   _checkNeedToLoadMoreTimelineItems() {
@@ -240,6 +240,15 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
 
     toggleChat() {
       this.attrs.toggleChat();
+    },
+
+    scrollVertical(direction, timelineItemId) {
+      const index = this.decoratedTimelineItems.indexOf(this.decoratedTimelineItems.find((ti) => ti.model.id.toString() === timelineItemId.toString()));
+      const list = direction > 0 ? this.decoratedTimelineItems.slice(index + 1) : this.decoratedTimelineItems.slice(0, index).reverse();
+      const nextTimelineItem = list.find((ti) => ti.panels.firstObject.srcset !== undefined)
+      console.log(nextTimelineItem.model.id)
+
+      this._scrollToTimelineItem(nextTimelineItem.model.id);
     },
 
     slidePanels(activePanels, scrollLeft) {

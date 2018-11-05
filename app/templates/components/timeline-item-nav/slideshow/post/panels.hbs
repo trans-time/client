@@ -11,32 +11,28 @@
 
 {{#timeline-item-nav/slideshow/post/panels/hover-nav
   classNames="hover-nav-up"
-  direction=-1
-  scroll=(action "scrollVertical")
+  scroll=(action "scrollVertical" -1 timelineItemId)
 }}
   {{fa-icon "chevron-up" size=4}}
 {{/timeline-item-nav/slideshow/post/panels/hover-nav}}
 
 {{#timeline-item-nav/slideshow/post/panels/hover-nav
   classNames="hover-nav-right"
-  direction=1
-  scroll=(action "scrollHorizontal")
+  scroll=(action "scrollHorizontal" 1 timelineItemId)
 }}
   {{fa-icon "chevron-right" size=4}}
 {{/timeline-item-nav/slideshow/post/panels/hover-nav}}
 
 {{#timeline-item-nav/slideshow/post/panels/hover-nav
   classNames="hover-nav-down"
-  direction=1
-  scroll=(action "scrollVertical")
+  scroll=(action "scrollVertical" 1 timelineItemId)
 }}
   {{fa-icon "chevron-down" size=4}}
 {{/timeline-item-nav/slideshow/post/panels/hover-nav}}
 
 {{#timeline-item-nav/slideshow/post/panels/hover-nav
   classNames="hover-nav-left"
-  direction=-1
-  scroll=(action "scrollHorizontal")
+  scroll=(action "scrollHorizontal" -1 timelineItemId)
 }}
   {{fa-icon "chevron-left" size=4}}
 {{/timeline-item-nav/slideshow/post/panels/hover-nav}}
