@@ -23,6 +23,14 @@ export default Component.extend({
       });
     });
 
+    this.element.addEventListener('scroll', (e) => {
+      window.requestAnimationFrame(() => {
+        const index = Math.floor(this.element.scrollTop / (this.element.clientHeight - 1));
+        const currentTimelineItem = this.element.querySelectorAll('.timeline-item-nav-slideshow-panels-carousel')[index];
+        this.modalManager.options.scrollToTimelineItem(currentTimelineItem.dataset.timelineItemId);
+      });
+    });
+
     return this._super(...arguments);
   },
 

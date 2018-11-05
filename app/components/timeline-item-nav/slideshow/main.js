@@ -227,7 +227,8 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     openModalNav(panel) {
       this.modalManager.open('timeline-item-nav/slideshow/modal-nav', () => {}, () => {}, {
         panel,
-        timelineItems: this.decoratedTimelineItems
+        timelineItems: this.decoratedTimelineItems,
+        scrollToTimelineItem: this._scrollToTimelineItem.bind(this)
       });
     },
 
