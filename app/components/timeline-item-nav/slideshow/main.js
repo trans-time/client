@@ -137,7 +137,7 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
 
   _scrollToTimelineItem(id) {
     const element = this.element.querySelector(`[data-timeline-item-id="${id}"]`);
-    this.element.scrollTop = element.offsetTop;
+    if (element) this.element.scrollTop = element.offsetTop;
   },
 
   _checkNeedToLoadMoreTimelineItems() {

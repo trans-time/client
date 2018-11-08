@@ -11,23 +11,29 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
   store: service(),
 
   _keyToggleShare: on(keyUp('KeyX'), function() {
-    if (this.get('isCurrentTimelineItem')) {
-      const fullShare = this.get('fullShare');
-      this.get('modalManager').open('share-modal', () => {}, () => {}, { fullShare, timelineItemId: this.get('timelineItem.id') });
-    }
+    if (this.get('isCurrentTimelineItem')) this._share();
   }),
 
   _keyToggleChat: on(keyUp('KeyC'), function() {
-    if (this.get('isCurrentTimelineItem')) this.attrs.toggleChat();
+    if (this.get('isCurrentTimelineItem')) this._chat();
   }),
+
+  _share() {
+    const fullShare = this.get('fullShare');
+    this.get('modalManager').open('share-modal', () => {}, () => {}, { fullShare, timelineItemId: this.get('timelineItem.id') });
+  },
+
+  _chat() {
+    this.attrs.toggleChat();
+  },
 
   actions: {
     openShare() {
-      this._keyToggleShare();
+      this._share();
     },
 
     toggleChat() {
-      this.attrs.toggleChat();
+      this._chat();
     }
   }
 });

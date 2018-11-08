@@ -13,7 +13,7 @@ export default Component.extend({
   contentIsViewable: computed('cwManager.approvedCWIds', {
     get() {
       const approvedCWIds = this.get('cwManager.approvedCWIds');
-
+return true
       return this.get('content.contentWarnings').every((cw) => approvedCWIds.indexOf(cw.id) > -1);
     }
   }),

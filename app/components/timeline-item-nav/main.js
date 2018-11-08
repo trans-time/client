@@ -133,7 +133,7 @@ export default Component.extend({
 
   addTodecoratedTimelineItems: on('init', observer('timelineItems.[]', function() {
     const { decoratedTimelineItems, timelineItems } = this.getProperties('decoratedTimelineItems', 'timelineItems');
-    if (!timelineItems || timelineItems.get('length') === 0) {
+    if (!timelineItems || timelineItems.get('length') === 0 || typeof timelineItems[0] === 'string') {
       return;
     }
 
