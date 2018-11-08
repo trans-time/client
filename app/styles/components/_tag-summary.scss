@@ -29,6 +29,13 @@
   &.tag-summary-list-active {
     display: flex;
   }
+
+  button {
+    &:hover {
+      font-weight: normal !important;
+      font-size: $base-font-size !important;
+    }
+  }
 }
 
 .tag-summary-time-buttons {
