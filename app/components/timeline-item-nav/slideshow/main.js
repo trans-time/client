@@ -77,15 +77,16 @@ export default Component.extend(TouchActionMixin, EKMixin, EKOnInsertMixin, {
     if (isEmpty(timelineItem)) timelineItem = this.get('lastTimelineItem') ? this.get('decoratedTimelineItems.lastObject') : this.get('decoratedTimelineItems.firstObject');
     this._scrollToTimelineItem(timelineItem.model.id);
 
-    const visibleTimelineItems = this._gatherVisibleTimelineItems();
+    this.attrs.changeTimelineItem(timelineItem.model.id);
+    // const visibleTimelineItems = this._gatherVisibleTimelineItems();
 
-    this.attrs.changeTimelineItem(visibleTimelineItems[0].model);
-    this.set('navState.currentPanel', visibleTimelineItems[0].get('panels.firstObject'));
-    this.set('navState.lastTimelineItem', visibleTimelineItems[visibleTimelineItems.length - 1]);
-
-    visibleTimelineItems.forEach((timelineItem) => {
-      this._loadNeighborMatrix(timelineItem.get('panels.firstObject'));
-    });
+    // this.attrs.changeTimelineItem(visibleTimelineItems[0].model);
+    // this.set('navState.currentPanel', visibleTimelineItems[0].get('panels.firstObject'));
+    // this.set('navState.lastTimelineItem', visibleTimelineItems[visibleTimelineItems.length - 1]);
+    //
+    // visibleTimelineItems.forEach((timelineItem) => {
+    //   this._loadNeighborMatrix(timelineItem.get('panels.firstObject'));
+    // });
 
     this._setupIntersectionObserver();
     this._checkNeedToLoadMoreTimelineItems();

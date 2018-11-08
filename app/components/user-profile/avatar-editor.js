@@ -1,10 +1,11 @@
+import Component from '@ember/component';
 import { A } from '@ember/array';
 import { computed, get } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { isNone, isPresent } from '@ember/utils';
 import { Promise, resolve } from 'rsvp';
-import Component from '@ember/component';
+import calculateInitialPosition from 'client/utils/calculate-initial-position';
 import { task, timeout } from 'ember-concurrency';
 
 export default Component.extend({
@@ -26,16 +27,18 @@ export default Component.extend({
 
   _replacePanel(src) {
     const panels = this.get('panels');
+    const imageElement = new Image();
 
-    panels.clear();
+    imageElement.onload = () => {
+      const positioning = calculateInitialPosition(this.height, this.width, imageElement);
 
-    panels.pushObject({
-      src,
-      positioning: {
-        x: 50,
-        y: 50
-      }
-    });
+      panels.clear();
+      panels.pushObject({
+        src,
+        positioning
+      });
+    }
+    imageElement.src = src;
   },
 
   _addImage: task(function * (dataUri) {
@@ -56,19 +59,17 @@ export default Component.extend({
 
     return new Promise((resolve) => {
       img.onload = () => {
-        if (img.naturalHeight / img.naturalWidth < height / width) {
-          const sectionWidth = (img.naturalHeight / height) * width;
-          const percentX = get(panel, 'positioning.x') / 100;
-          const startX = (img.naturalWidth - sectionWidth) * percentX;
-
-          canvas.getContext('2d').drawImage(img, startX, 0, sectionWidth, img.naturalHeight, 0, 0, width, height);
-        } else {
-          const sectionHeight = (img.naturalWidth / width) * height;
-          const percentY = get(panel, 'positioning.y') / 100;
-          const startY = (img.naturalHeight - sectionHeight) * percentY;
-
-          canvas.getContext('2d').drawImage(img, 0, startY, img.naturalWidth, sectionHeight, 0, 0, width, height);
-        }
+        canvas.getContext('2d').drawImage(
+          img,
+          img.naturalWidth * panel.positioning[0],
+          img.naturalHeight * panel.positioning[1],
+          (img.naturalWidth * panel.positioning[2]) - (img.naturalWidth * panel.positioning[0]),
+          (img.naturalHeight * panel.positioning[3]) - (img.naturalHeight * panel.positioning[1]),
+          0,
+          0,
+          width,
+          height
+        );
 
         canvas.toBlob((blob) => {
           resolve(blob);

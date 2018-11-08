@@ -5,6 +5,7 @@ import { filter, or, sort } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { isNone, isPresent } from '@ember/utils';
 import { Promise, resolve } from 'rsvp';
+import calculateInitialPosition from 'client/utils/calculate-initial-position';
 import Changeset from 'ember-changeset';
 import lookupValidator from 'ember-changeset-validations';
 import {
@@ -60,17 +61,22 @@ export default Component.extend({
 
   _addImage: task(function * (src) {
     const post = this.get('post');
-    const image = this.get('store').createRecord('image', {
-      post,
-      src,
-      order: (this.get('orderedImages.lastObject.order') || 0) + 1,
-      positioning: {
-        x: 50,
-        y: 50
-      }
-    });
 
-    post.get('images').pushObject(image);
+    const imageElement = new Image();
+
+    imageElement.onload = () => {
+      const positioning = calculateInitialPosition(this.height, this.width, imageElement);
+
+      const image = this.get('store').createRecord('image', {
+        positioning,
+        post,
+        src,
+        order: (this.get('orderedImages.lastObject.order') || 0) + 1
+      });
+
+      post.get('images').pushObject(image);
+    }
+    imageElement.src = src;
 
     yield timeout(50);
   }).drop(),

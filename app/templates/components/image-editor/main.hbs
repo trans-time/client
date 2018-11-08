@@ -1,4 +1,4 @@
-<div class="image-editor-container {{if hidden 'hidden'}}" style={{containerStyle}}>
+<div class="image-editor-container {{if hidden 'hidden'}}">
   <div class="image-editor-container-curtain">
     {{#if (and hasWebRTCSupport cameraOn)}}
       {{ember-webrtc-capture
@@ -7,9 +7,11 @@
     {{else if displayImage}}
       {{image-editor/display-image
         displayImage=displayImage
+        width=width
+        height=height
         closeCamera=(action "closeCamera")
       }}
-      <a class="image-editor-display-image-delete" {{action "deleteImage" displayImage}}>{{fa-icon "close"}}</a>
+      <a class="image-editor-display-image-delete" {{action "deleteImage" displayImage}}>{{fa-icon "close" size=2}}</a>
     {{/if}}
   </div>
 </div>

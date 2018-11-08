@@ -79,19 +79,17 @@ export default Mixin.create({
 
     yield new Promise((resolve, reject) => {
       img.onload = () => {
-        if (img.naturalHeight / img.naturalWidth < canvasHeight / canvasWidth) {
-          const width = (img.naturalHeight / canvasHeight) * canvasWidth;
-          const percentX = panel.get('positioning.x') / 100;
-          const startX = (img.naturalWidth - width) * percentX;
-
-          canvas.getContext('2d').drawImage(img, startX, 0, width, img.naturalHeight, 0, 0, canvasWidth, canvasHeight);
-        } else {
-          const height = (img.naturalWidth / canvasWidth) * canvasHeight;
-          const percentY = panel.get('positioning.y') / 100;
-          const startY = (img.naturalHeight - height) * percentY;
-
-          canvas.getContext('2d').drawImage(img, 0, startY, img.naturalWidth, height, 0, 0, canvasWidth, canvasHeight);
-        }
+        canvas.getContext('2d').drawImage(
+          img,
+          img.naturalWidth * panel.positioning[0],
+          img.naturalHeight * panel.positioning[1],
+          (img.naturalWidth * panel.positioning[2]) - (img.naturalWidth * panel.positioning[0]),
+          (img.naturalHeight * panel.positioning[3]) - (img.naturalHeight * panel.positioning[1]),
+          0,
+          0,
+          canvasWidth,
+          canvasHeight
+        );
 
         canvas.toBlob((blob) => {
           blob.name = `post-${panel.get('post.id')}-panel-${panel.get('order')}.${blob.type.split('/')[1]}`;

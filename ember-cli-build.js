@@ -42,6 +42,12 @@ module.exports = function(defaults) {
   app.import('bower_components/lethargy/lethargy.js');
   app.import('bower_components/linkifyjs/linkify.js');
   app.import('bower_components/linkifyjs/linkify-html.js');
+  app.import('node_modules/croppie/croppie.css');
+  app.import('node_modules/croppie/croppie.js', {
+    using: [
+      { transformation: 'amd', as: 'croppie' }
+    ]
+  });
 
   return app.toTree();
 };

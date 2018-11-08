@@ -22,34 +22,6 @@ export default Component.extend({
 
   user: oneWay('currentUser.user'),
 
-  init(...args) {
-    this._super(...args);
-
-    this.get('messageBus').subscribe('didResize', this, this._adjustImageContainer);
-  },
-
-  _adjustImageContainer() {
-    this.notifyPropertyChange('containerStyle');
-  },
-
-  didInsertElement(...args) {
-    this._super(...args);
-
-    Ember.run.later(() => {
-      this.notifyPropertyChange('containerStyle');
-    }, 100);
-  },
-
-  containerStyle: computed({
-    get() {
-      const $imageContainer = this.$();
-      const width = Math.min($imageContainer.width(), this.width);
-      const height = width * (this.height / this.width);
-
-      return htmlSafe(`height: ${height}px; width: ${width}px;`);
-    }
-  }),
-
   _getRotation(orientation) {
     switch(orientation) {
       case 1: return 0;
