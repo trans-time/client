@@ -14,26 +14,28 @@ export default Component.extend({
   src: oneWay('displayImage.src'),
 
   didInsertElement() {
-    this.set('croppie', new Croppie(this.imgElement, this.croppieOptions));
+    if (this.displayImage.isNew) {
+      this.set('croppie', new Croppie(this.imgElement, this.croppieOptions));
 
-    this.element.querySelector('.croppie-container').addEventListener('update', (ev) => {
-      const points = ev.detail.points;
+      this.element.querySelector('.croppie-container').addEventListener('update', (ev) => {
+        const points = ev.detail.points;
 
-      const positioning = [
-        points[0] / this.imgElement.naturalWidth,
-        points[1] / this.imgElement.naturalHeight,
-        points[2] / this.imgElement.naturalWidth,
-        points[3] / this.imgElement.naturalHeight
-      ];
+        const positioning = [
+          points[0] / this.imgElement.naturalWidth,
+          points[1] / this.imgElement.naturalHeight,
+          points[2] / this.imgElement.naturalWidth,
+          points[3] / this.imgElement.naturalHeight
+        ];
 
-      this.set('positioning', positioning);
-    });
+        this.set('positioning', positioning);
+      });
+    }
 
     return this._super(...arguments);
   },
 
   didReceiveAttrs() {
-    if (this.croppie) {
+    if (this.displayImage.isNew && this.croppie) {
       next(() => {
         const points = this.positioning[0] !== undefined ? [
           this.positioning[0] * this.imgElement.naturalWidth,
@@ -49,12 +51,6 @@ export default Component.extend({
         });
       });
     }
-
-    return this._super(...arguments);
-  },
-
-  willDestroyElement() {
-    this.croppie.destroy();
 
     return this._super(...arguments);
   },
