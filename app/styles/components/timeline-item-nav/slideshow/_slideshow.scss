@@ -327,3 +327,13 @@
     }
   }
 }
+
+@supports (-webkit-overflow-scrolling: touch) {
+  // CSS specific to iOS devices
+  // https://stackoverflow.com/questions/30102792/css-media-query-target-only-ios-devices
+
+  // to prevent the carousel from hijacking vertical swipe events
+  .timeline-item-nav-slideshow-panels-carousel {
+    overflow: hidden;
+  }
+}
