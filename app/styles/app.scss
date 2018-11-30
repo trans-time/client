@@ -34,6 +34,11 @@ html {
   position: fixed;
 }
 
+body :last-child {
+  // ensure that recaptcha appears on safari
+  transform: translateZ(10px);
+}
+
 body > .ember-view:not(.liquid-destination), html, body, .main-application-content {
   height: 100%;
   width: 100%;
