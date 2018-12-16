@@ -1,38 +1,9 @@
-{{#if session.isAuthenticated}}
-  {{timeline-item-nav/main
-    timelineItems=model
-    initialTimelineItemId=timelineItemId
-    commentsAreOpen=comments
-    loadMoreTimelineItems=(route-action "loadMoreTimelineItems")
-    changeTimelineItem=(action "changeTimelineItem")
-    openComments=(action "openComments")
-    closeComments=(action "closeComments")
-  }}
-{{else}}
-  <div class="cover-page content-constraint">
-    <div class="cover-page-main">
-      <div class="cover-page-block">
-        <p class="cover-page-lead">{{{t "coverPage.lead"}}}</p>
-        <p class="cover-page-paragraph">{{{t "coverPage.polytemporal"}}}</p>
-        <p class="cover-page-paragraph">{{{t "coverPage.tool"}}}</p>
-        <p class="cover-page-paragraph">{{{t "coverPage.gettingStarted"}}}</p>
-      </div>
-
-      <div class="cover-page-block">
-        <ul class="cover-page-feature-list">
-          <li>{{fa-icon "transgender-alt" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.content"}}}</span></li>
-
-          <li>{{fa-icon "unlock-alt" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.privacy"}}}</span></li>
-
-          <li>{{fa-icon "asterisk" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.connections"}}}</span></li>
-
-          <li>{{fa-icon "hashtag" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.timelines"}}}</span></li>
-
-          <li>{{fa-icon "exclamation" size=2 class="cover-page-feature-list-icon"}}<span class="cover-page-feature-list-text">{{{t "coverPage.features.contentWarnings"}}}</span></li>
-        </ul>
-      </div>
-
-      <div class="cover-page-note">{{fa-icon "star-half-o"}} {{{t "coverPage.note"}}}</div>
-    </div>
-  </div>
-{{/if}}
+{{timeline-item-nav/main
+  timelineItems=model
+  initialTimelineItemId=timelineItemId
+  commentsAreOpen=comments
+  loadMoreTimelineItems=(route-action "loadMoreTimelineItems")
+  changeTimelineItem=(action "changeTimelineItem")
+  openComments=(action "openComments")
+  closeComments=(action "closeComments")
+}}

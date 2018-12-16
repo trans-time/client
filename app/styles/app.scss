@@ -34,7 +34,7 @@ html {
   position: fixed;
 }
 
-body :last-child {
+body > div:nth-last-child(1 of :not(.ember-view)) {
   // ensure that recaptcha appears on safari
   transform: translateZ(10px);
 }

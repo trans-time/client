@@ -35,18 +35,19 @@ export default Route.extend(TimelineItemNavRouteMixin, {
     });
 
     const user = this.get('user');
-
-    if (isBlank(user)) return;
+    const filter = isBlank(user) ? {
+      query: "@celeste #welcome"
+    } : {
+      blocked: false,
+      is_marked_for_deletion: false,
+      follower_id: user.get('id'),
+      is_private: false,
+      is_under_moderation: false
+    };
 
     return this.infinity.model('timeline-item', {
       sort: '-inserted_at',
-      filter: {
-        blocked: false,
-        is_marked_for_deletion: false,
-        follower_id: user.get('id'),
-        is_private: false,
-        is_under_moderation: false
-      },
+      filter,
       from_timeline_item_id: params.timelineItemId,
       page_size: 10,
       initial_query: true,
