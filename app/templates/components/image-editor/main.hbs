@@ -13,12 +13,14 @@
       }}
       <a class="image-editor-display-image-delete" {{action "deleteImage" displayImage}}>{{fa-icon "close" size=2}}</a>
 
-      {{paper-input
-        value=displayImage.caption
-        label=(t "file.caption")
-        onChange=(action (mut displayImage.caption))
-        classNames="image-editor-display-image-caption"
-      }}
+      {{#if captionable}}
+        {{paper-input
+          value=displayImage.caption
+          label=(t "file.caption")
+          onChange=(action (mut displayImage.caption))
+          classNames="image-editor-display-image-caption"
+        }}
+      {{/if}}
     {{/if}}
   </div>
 </div>

@@ -21,7 +21,7 @@
 
 <div class="tag-summary-filter-wrapper">
   {{fa-icon "search"}}
-  {{paper-input value=filter onChange="filter" classNames="tag-summary-filter"}}
+  {{paper-input value=filter ariaLabel=(t "tagSummary.search") onChange="filter" classNames="tag-summary-filter"}}
 </div>
 
 <div class="tag-summary-list {{if (eq currentSubmenu 'tags') 'tag-summary-list-active'}}">

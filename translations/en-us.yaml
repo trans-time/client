@@ -131,6 +131,9 @@ followers:
   revoke: "revoke private access"
 general:
   cancel: "cancel"
+  comments: "comments"
+  moon: "moon"
+  share: "share"
   submit: "submit"
   options: "options"
 home:
@@ -308,6 +311,7 @@ tagSearch:
 tagSummary:
   beginning: "view (from beginning)"
   end: "view"
+  search: "search"
   tags: "#tags"
   relationships: "@relationships"
 timelineItem:

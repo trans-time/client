@@ -2,12 +2,12 @@
   {{timeline-item-nav/slideshow/post/controls/reactions/main reactable=timelineItem}}
 
   {{#paper-button onClick=(action "openShare") class="timeline-item-nav-controls-element"}}
-    {{fa-icon "share-alt" size=2}}
+    {{fa-icon "share-alt" size=2 ariaLabel=(t "general.share") ariaHidden=false}}
   {{/paper-button}}
 
   {{#paper-button onClick=(action "toggleChat") class="timeline-item-nav-controls-element timeline-item-nav-chat-icon"}}
     {{number-bubble number=commentCount classNames="chat-total"}}
-    {{fa-icon "comment-o" size=2}}
+    {{fa-icon "comment-o" size=2 ariaLabel=(t "general.comments") ariaHidden=false}}
   {{/paper-button}}
 
   <div class="timeline-item-nav-controls-dots">

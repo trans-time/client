@@ -2,6 +2,6 @@
   {{#each model as |follow|}}
     {{follow-item user=follow.follower follow=follow}}
   {{/each}}
-
-  {{infinity-loader infinityModel=model scrollable="#infinite_content"}}
 </ul>
+
+{{infinity-loader infinityModel=model scrollable="#infinite_content"}}
