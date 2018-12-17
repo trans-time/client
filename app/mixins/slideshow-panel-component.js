@@ -5,6 +5,7 @@ export default Mixin.create({
   classNames: ['timeline-item-nav-slideshow-panel'],
   attributeBindings: ['dataPanelId:data-panel-id', 'style'],
 
+  alt: oneWay('panel.model.caption'),
   dataPanelId: oneWay('panel.model.id'),
 
   didInsertElement(...args) {

@@ -35,6 +35,9 @@ export default Component.extend({
 
     const device = this.devices[this._deviceIndex];
 
+    if (!device) return this.set('noDevice', true);
+    else this.set('noDevice', false);
+
     navigator.mediaDevices.getUserMedia({
       video: { deviceId: { exact: device.deviceId } },
       audio: false

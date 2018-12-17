@@ -338,6 +338,11 @@ p {
   .ember-webrtc-capture-video-flipped {
     transform: rotateY(180deg);
   }
+
+  .ember-webrtc-capture-no-device {
+    padding: $rhythm * 2;
+    border-bottom: 2px dashed $black;
+  }
 }
 
 .post-form {

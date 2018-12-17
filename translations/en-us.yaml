@@ -96,9 +96,11 @@ reactions:
   viewAll: "view all"
 file:
   addAnImage: "add an Image."
+  caption: "caption (for screen readers)"
   dragAndDrop: "drag and drop images onto this area to upload them or"
   drop: "drop to upload"
   invalid: "file is invalid"
+  noDevice: "no video device detected; please use the file upload instead"
   progress: "uploading {length} files. ({progress}%)"
   uploadImages: "upload Images"
 flags:

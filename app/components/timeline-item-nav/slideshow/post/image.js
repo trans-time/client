@@ -8,7 +8,7 @@ export default Component.extend(SlideshowPanelComponentMixin, {
   tagName: 'img',
   classNames: ['timeline-item-nav-slideshow-image'],
   classNameBindings: ['deleted'],
-  attributeBindings: ['srcset', 'sizes'],
+  attributeBindings: ['alt', 'srcset', 'sizes'],
 
   deleted: oneWay('panel.model.isMarkedForDeletion'),
 
