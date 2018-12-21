@@ -1,0 +1,15 @@
+{{paper-input
+  value=model.subject
+  label=(t "announcements.attributes.subject.label")
+  onChange=(action (mut model.subject))
+}}
+
+{{paper-input
+  textarea=true
+  block=true
+  label=(t "announcements.attributes.body.label")
+  value=model.body
+  onChange=(action (mut model.body))
+}}
+
+<button {{action (route-action "submit" model)}}>{{t "general.submit"}}</button>

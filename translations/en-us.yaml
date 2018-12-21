@@ -16,6 +16,13 @@ account:
       label: "confirm new password"
     previousPassword:
       label: "previous password"
+announcements:
+  new: "make announcement"
+  attributes:
+    body:
+      label: "body"
+    subject:
+      label: "subject"
 auth:
   alreadyHaveAnAccount: "already have an account?"
   clickForPasswordReset: "forgot your password?"
@@ -353,6 +360,7 @@ remote:
         accountLocked: "account locked; please unlock via email or wait 24hrs"
         commentsAreLocked: "comments are locked"
         mismatchedTokenAndUserId: "user token and id do not match"
+        mustBeAdmin: "must be an admin to perform this action"
         mustBeModerator: "must be a moderator to perform this action"
         mustNotBeBanned: "must not be banned"
       format:

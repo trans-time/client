@@ -51,6 +51,7 @@ Router.map(function() {
     });
   });
   this.route('notifications');
+  this.route('announcements');
   this.route('tos');
   this.route('privacy-policy');
   this.route('cookie-policy');
