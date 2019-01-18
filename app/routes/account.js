@@ -54,7 +54,11 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
     toggleIsPublic() {
       this.currentUser.user.toggleProperty('isPublic');
-      this.currentUser.user.save();
+      this.currentUser.user.save().then(() => {
+        this.get('paperToaster').show(this.get('intl').t(`users.${this.currentUser.user.isPublic ? 'isPublicPublicChangeSuccess' : 'isPublicPrivateChangeSuccess'}`), {
+          duration: 4000
+        });
+      });
     },
 
     willTransition(...args) {
