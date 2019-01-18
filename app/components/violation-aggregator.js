@@ -19,7 +19,7 @@ export default Component.extend({
       const flags = this.get('report.flags');
 
       return flags.reduce((accumulator, flag) => {
-        ['bot', 'illicitActivity', 'trolling', 'unconsentingImage', 'incorrectContentWarning'].forEach((violation) => {
+        ['bot', 'illicitActivity', 'trolling', 'unconsentingImage'].forEach((violation) => {
           if (flag.get(violation)) accumulator.incrementProperty(intl.t(`flags.attributes.${violation}.name`));
         });
 

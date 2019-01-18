@@ -1,16 +1,5 @@
 {{yield}}
 
-{{#if timelineItem.contentWarnings}}
-  <div class="timeline-item-nav-post-cws-container">
-    {{t "contentWarnings.abbreviation"}}:
-    <ul class="timeline-item-nav-post-cws">
-      {{#each timelineItem.contentWarnings as |cw|}}
-        <li class="timeline-item-nav-post-cw">{{cw.name}}</li>
-      {{/each}}
-    </ul>
-  </div>
-{{/if}}
-
 <div class="timeline-item-nav-post-constraint timeline-item-nav-post-text {{if userRevealedText 'timeline-item-nav-post-constraint-revealed'}}" tabindex="-1">
   <span class="timeline-item-nav-post-meta">
     {{#if timelineItem.isPrivate}}

@@ -84,10 +84,6 @@
     button {
       flex-grow: 1;
       margin: 0;
-
-      &:first-child {
-        margin-right: $rhythm;
-      }
     }
   }
 }
@@ -230,6 +226,17 @@
     pointer-events: none;
   }
 
+  .timeline-item-nav-slideshow-nsfw {
+    .timeline-item-nav-slideshow-nsfw-buttons {
+      flex-wrap: wrap;
+
+      button {
+        margin-bottom: $rhythm;
+        width: 100%;
+      }
+    }
+  }
+
   .timeline-item-nav-post-comment-container {
     max-height: 250px;
     box-sizing: border-box;
@@ -265,6 +272,17 @@
   .timeline-item-nav-post-and-panels {
     display: flex;
     max-width: 100%;
+  }
+
+  .timeline-item-nav-slideshow-nsfw {
+    border: 4px solid $black;
+    width: 100%;
+
+    button {
+      &:first-child {
+        margin-right: $rhythm;
+      }
+    }
   }
 
   .timeline-item-nav-post-comment-container, .timeline-item-nav-slideshow-nsfw {

@@ -28,13 +28,6 @@
     <span class="flag-modal-checkbox-label-name">{{t "flags.attributes.unconsentingImage.name"}}</span> <span class="flag-modal-checkbox-label-description">{{t "flags.attributes.unconsentingImage.description"}}</span>
   {{/paper-checkbox}}
 
-  {{#paper-checkbox
-    value=changeset.incorrectContentWarning
-    onChange=(action (mut changeset.incorrectContentWarning))
-  }}
-    <span class="flag-modal-checkbox-label-name">{{t "flags.attributes.incorrectContentWarning.name"}}</span> <span class="flag-modal-checkbox-label-description">{{t "flags.attributes.incorrectContentWarning.description"}}</span>
-  {{/paper-checkbox}}
-
   {{paper-input
     value=changeset.text
     textarea=true

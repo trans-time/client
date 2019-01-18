@@ -41,7 +41,6 @@ export default Component.extend({
     this._super(...args);
 
     this.set('changeset', new Changeset(this.get('post'), lookupValidator(PostValidations), PostValidations));
-    this.set('changeset.contentWarnings', this.get('post.timelineItem.contentWarnings').map((cw) => cw.get('name')).join(', '));
     this.get('changeset').validate();
     this.get('post.panels').forEach((panel) => {
       panel.set('positioning', [0, 0, 1, 1]);

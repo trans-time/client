@@ -13,10 +13,8 @@ export default DS.Model.extend({
   actionMarkFlaggableForDeletion: DS.attr('boolean'),
   actionIgnoreFlags: DS.attr('boolean'),
   actionLockComments: DS.attr('boolean'),
-  actionChangeContentWarnings: DS.attr('string'),
   actionMarkImagesForDeletion: DS.attr('boolean'),
   deleteImageIds: DS.attr(),
-  previousContentWarnings: DS.attr('string'),
   banUserUntil: DS.attr('date'),
   lockCommentsUntil: DS.attr('date'),
 

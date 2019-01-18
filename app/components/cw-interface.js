@@ -10,37 +10,37 @@ export default Component.extend({
   cwManager: service(),
   modalManager: service(),
 
-  contentIsViewable: computed('cwManager.approvedCWIds', {
+  contentIsViewable: computed('cwManager.approvedTagIds', {
     get() {
-      const approvedCWIds = this.get('cwManager.approvedCWIds');
-return true
-      return this.get('content.contentWarnings').every((cw) => approvedCWIds.indexOf(cw.id) > -1);
+      const approvedTagIds = this.get('cwManager.approvedTagIds');
+      
+      return this.get('content.tags').every((tag) => approvedTagIds.indexOf(tag.id) > -1);
     }
   }),
 
-  _addCWsFor(storage) {
-    const approvedCWIds = this.get('cwManager.approvedCWIds');
-    const contentWarnings = this.get('content.contentWarnings');
+  _addTagsFor(storage) {
+    const approvedTagIds = this.get('cwManager.approvedTagIds');
+    const tags = this.get('content.tags');
     const maturityWarnings = ['nsfw', 'nudity', 'nude', 'mature'];
 
-    if (contentWarnings.any((cw) => maturityWarnings.indexOf(cw.get('name').toLowerCase()) > -1  && approvedCWIds.indexOf(cw.get('id')) === -1)) {
+    if (tags.any((tag) => maturityWarnings.indexOf(tag.get('name').toLowerCase()) > -1  && approvedTagIds.indexOf(tag.get('id')) === -1)) {
       new Promise((resolve, reject) => {
         this.get('modalManager').open('confirmation-modal', resolve, reject, { content: this.get('intl').t('contentWarnings.confirmation') });
       }).then(() => {
-        this.get('cwManager').approveCWs(storage, contentWarnings);
+        this.get('cwManager').approveTags(storage, tags);
       });
     } else {
-      this.get('cwManager').approveCWs(storage, contentWarnings);
+      this.get('cwManager').approveTags(storage, tags);
     }
   },
 
   actions: {
     addCWsForSession() {
-      this._addCWsFor(sessionStorage);
+      this._addTagsFor(sessionStorage);
     },
 
     addCWsForAlways() {
-      this._addCWsFor(localStorage);
+      this._addTagsFor(localStorage);
     }
   }
 });

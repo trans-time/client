@@ -68,18 +68,6 @@ export default Component.extend({
     }
   }),
 
-  openContentWarnings: computed('_openContentWarnings', 'changeset.actionChangeContentWarnings', {
-    get() {
-      return this.get('_openContentWarnings') || this.get('changeset.actionChangeContentWarnings');
-    },
-    set(key, value) {
-      if (value === true) this.set('changeset.actionChangeContentWarnings', this.get('report.flaggable.contentWarnings').map((cw) => cw.get('name')).join(', '))
-      else this.set('changeset.actionChangeContentWarnings', null)
-
-      return this.set('_openContentWarnings', value);
-    }
-  }),
-
   _submit(properties) {
     this.set('isSubmitting', true);
 

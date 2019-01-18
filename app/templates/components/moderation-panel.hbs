@@ -54,21 +54,7 @@
         }}
           {{t "moderation.deleteMedia"}}
         {{/paper-checkbox}}
-
-        {{#paper-checkbox
-          value=openContentWarnings
-          onChange=(action (mut openContentWarnings))
-        }}
-          {{t "moderation.changeContentWarnings"}}
-        {{/paper-checkbox}}
       </div>
-
-      {{#if openContentWarnings}}
-        {{paper-input
-          value=changeset.actionChangeContentWarnings
-          onChange=(action (mut changeset.actionChangeContentWarnings))
-        }}
-      {{/if}}
 
       {{#if changeset.actionMarkImagesForDeletion}}
         <div class="moderation-panel-delete-media">

@@ -29,13 +29,6 @@
         {{/if}}
       </div>
 
-      {{paper-input
-        value=changeset.contentWarnings
-        label=(t "post.attributes.contentWarnings.label")
-        onChange=(action (mut changeset.contentWarnings))
-        classNames="post-form-content-warnings"
-      }}
-
       {{#emoji-picker-wrapper
         text                = changeset.text
         inputSelector       = ".post-form-textarea"

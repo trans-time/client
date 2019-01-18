@@ -60,11 +60,10 @@ confirmation:
 contentWarnings:
   abbreviation: "CWs"
   header: "content warning"
-  confirmation: "this content may contain nudity. by clicking confirm, i agree that i am familiar with local laws concerning content of this nature and accept all responsibility for viewing it on <em>trans time</em>."
-  enable: "enable"
-  description: "this timeline item has the following content warnings:"
-  session: "to temporarily view content with these cws, click the first button. next time you start <em>trans time</em>, these cws will be disabled."
-  storage: "to permanently enable these cws on this device, click the second button."
+  confirmation: "this post contains NSFW content. by clicking confirm, i agree that i am familiar with local laws concerning content of this nature and accept all responsibility for viewing it on <em>trans time</em>."
+  approveTemporarily: "approve tags temporarily"
+  approveIndefinitely: "approve tags indefinitely"
+  description: "this post has the following tags:"
 coverPage:
   lead: "we are a documentation community for <strong>trans</strong>, <strong>questioning</strong>, and <strong>gender nonconforming</strong> people."
   polytemporal: "we believe that transitioning is more than a single linear process. it's a <strong>tangle of many changes</strong>: to our relationships, our affect, our presentation, and perhaps even our bodies."
