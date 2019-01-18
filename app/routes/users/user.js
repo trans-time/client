@@ -7,13 +7,15 @@ export default Route.extend({
 
   model(params) {
     return this.store.query('user', { filter: { username: params.username } }).then(function(users) {
-      return users.get('firstObject');
+      return users.get('firstObject') || [];
     });
   },
 
   afterModel(model) {
-    this.set('titleToken', model.get('username'));
-    this._setTopBar(model);
+    if (model) {
+      this.set('titleToken', model.get('username'));
+      this._setTopBar(model);
+    }
 
     this._super(...arguments);
   },

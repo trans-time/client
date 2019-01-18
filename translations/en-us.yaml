@@ -322,6 +322,7 @@ tagSummary:
   tags: "#tags"
   relationships: "@relationships"
 timelineItem:
+  none: "sorry, this content has been removed/never existed/you lack permission to view it."
   matureContent: "mature content"
   isPrivate: "private"
   timelineItem: "timeline item"
@@ -331,11 +332,14 @@ upload:
   unsuccessful: "something went wrong, but please try again in a few minutes"
   uploading: "uploading"
 users:
+  none: "we couldn't find a user by that name with a public account"
   attributes:
     email:
       label: "email"
     password:
       label: "password"
+    isPublic:
+      label: "allow non-TransTime users to view my profile/content"
     isTrans:
       label: "i identify as trans+ (you don't have to check this)"
     coc:

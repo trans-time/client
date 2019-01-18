@@ -3,6 +3,7 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 import { inject as service } from '@ember/service';
 
 export default Route.extend(AuthenticatedRouteMixin, {
+  currentUser: service(),
   intl: service(),
   paperToaster: service(),
   topBarManager: service(),
@@ -19,7 +20,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
   model() {
     return {
       emailChange: this.store.createRecord('email-change'),
-      passwordChange: this.store.createRecord('user-password')
+      passwordChange: this.store.createRecord('user-password'),
+      currentUser: this.currentUser.user
     }
   },
 
@@ -48,6 +50,11 @@ export default Route.extend(AuthenticatedRouteMixin, {
       }).catch((...args) => {
         reject(...args);
       });
+    },
+
+    toggleIsPublic() {
+      this.currentUser.user.toggleProperty('isPublic');
+      this.currentUser.user.save();
     },
 
     willTransition(...args) {

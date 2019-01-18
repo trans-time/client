@@ -47,6 +47,10 @@
     {{{t "users.attributes.tos.label"}}}
   {{/paper-checkbox}}
 
+  {{#paper-checkbox value=changeset.isPublic onChange=(action (mut changeset.isPublic))}}
+    {{{t "users.attributes.isPublic.label"}}}
+  {{/paper-checkbox}}
+
   {{#form-controls form=form disabled=disabled changeset=changeset cancel=(action "cancel")}}
     {{paper-button
       label=(t "auth.alreadyHaveAnAccount")

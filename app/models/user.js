@@ -26,6 +26,7 @@ export default DS.Model.extend({
   email: DS.attr('string'),
   displayName: DS.attr('string'),
   isModerator: DS.attr('boolean'),
+  isPublic: DS.attr('boolean'),
   isTrans: DS.attr('boolean'),
   password: DS.attr('string'),
   pronouns: DS.attr('string'),

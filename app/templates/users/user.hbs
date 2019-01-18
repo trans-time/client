@@ -1,1 +1,7 @@
-{{liquid-outlet}}
+{{#if model}}
+  {{liquid-outlet}}
+{{else}}
+  <div class="full-height-scrollable-content content-constraint">
+    {{t "users.none"}}
+  </div>
+{{/if}}
