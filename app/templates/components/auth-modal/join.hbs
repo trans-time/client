@@ -39,6 +39,15 @@
     {{/paper-item}}
   {{/paper-list}}
 
+  {{paper-date-time-picker
+    label=(t "users.attributes.birthday.label")
+    placeholder=(t "users.attributes.birthday.placeholder")
+    value=currentUser.user.birthday
+    onClear=(action (mut changeset.birthdayCleared))
+    onSelection=(action (mut changeset.birthday))
+    classNames="birthday-form"
+  }}
+
   {{#paper-checkbox value=changeset.coc onChange=(action (mut changeset.coc))}}
     {{{t "users.attributes.coc.label"}}}
   {{/paper-checkbox}}

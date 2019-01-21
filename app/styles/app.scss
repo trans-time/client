@@ -651,3 +651,19 @@ md-checkbox.md-default-theme:not(.md-checked) .md-icon, md-checkbox:not(.md-chec
     }
   }
 }
+
+.birthday-form {
+  margin-bottom: $rhythm;
+
+  label {
+    align-items: center !important;
+  }
+
+  a {
+    display: none;
+  }
+}
+
+.account-field {
+  margin: $rhythm * 2 $rhythm;
+}

@@ -332,9 +332,13 @@ upload:
   uploading: "uploading"
 users:
   none: "we couldn't find a user by that name with a public account"
+  birthdaySuccessfullyUpdate: "birthday successfully updated"
   isPublicPrivateChangeSuccess: "your account is now private"
   isPublicPublicChangeSuccess: "your account is now public"
   attributes:
+    birthday:
+      label: "birthday"
+      placeholder: "birthday is required"
     email:
       label: "email"
     password:

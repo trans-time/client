@@ -23,6 +23,7 @@ export default DS.Model.extend({
   verdicts: DS.hasMany('verdict'),
 
   avatar: DS.attr('string'),
+  birthday: DS.attr('date'),
   email: DS.attr('string'),
   displayName: DS.attr('string'),
   isModerator: DS.attr('boolean'),

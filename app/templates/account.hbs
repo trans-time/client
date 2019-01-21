@@ -9,7 +9,13 @@
     submit=(route-action "changeEmail")
   }}
 
-  {{#paper-checkbox value=model.currentUser.isPublic onChange=(route-action "toggleIsPublic")}}
-    {{{t "users.attributes.isPublic.label"}}}
-  {{/paper-checkbox}}
+  <div class="account-field">
+    {{birthday-form}}
+  </div>
+
+  <div class="account-field">
+    {{#paper-checkbox value=model.currentUser.isPublic onChange=(route-action "toggleIsPublic")}}
+      {{{t "users.attributes.isPublic.label"}}}
+    {{/paper-checkbox}}
+  </div>
 </div>
