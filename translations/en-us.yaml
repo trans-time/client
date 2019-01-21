@@ -68,14 +68,14 @@ coverPage:
   lead: "we are a documentation community for <strong>trans</strong>, <strong>questioning</strong>, and <strong>gender nonconforming</strong> people."
   polytemporal: "we believe that transitioning is more than a single linear process. it's a <strong>tangle of many changes</strong>: to our relationships, our affect, our presentation, and perhaps even our bodies."
   tool: "as a tool, <em>trans time</em> can help you tease apart and explore the many threads of your transition. as a community, we're here to compare notes, find people we can identify with, and help each other lead our best lives."
-  gettingStarted: "if you'd like a quick tutorial on how to use the app, <a href='https://www.transtime.is/users/celeste/timeline?tags=%5B\"tutorial\"%5D'>celeste</a> would be happy to help out! ^__^"
+  gettingStarted: "if you'd like a quick tutorial on how to use the app, <a href='https://www.transtime.is/users/celeste/timeline?tags=%5B\"welcome\"%5D'>celeste</a> would be happy to help out! ^__^"
   features:
     content: "document, share, and discuss your transition in a <strong>proactively moderated</strong> community"
     connections: "connect with trans+ people who have similiar <strong>*identities</strong>"
     timelines: "use <strong>#tags</strong> to create custom stories"
-    privacy: "make both public and <strong>private</strong> posts, and when you delete them, we'll delete them too"
+    privacy: "create either a public or <strong>private</strong> account, and when you delete them, we'll delete them too"
     contentWarnings: "filter your feed with <strong>content warnings</strong>"
-  note: "<em>trans time</em> is volunteer-run and community-supported. we will never advertise to you or sell your data. instead, we want to create something transformative, beautiful, weird, and liberatory; let's see what we can grow in this little corner of the web. <3 <3 <3"
+  note: "we're trans-led and volunteer-run. we'll never advertise to you or sell your data, and we're committed to creating something transformative, beautiful, weird, and liberatory; let's see what we can grow in this little corner of the web. <3 <3 <3"
 documents:
   coc: "code of conduct"
   cookiePolicy: "cookie policy"

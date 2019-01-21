@@ -35,9 +35,10 @@ export default Route.extend(TimelineItemNavRouteMixin, {
     });
 
     const user = this.get('user');
-    const filter = isBlank(user) ? {
-      query: "@celeste #welcome"
-    } : {
+
+    if (isBlank(user)) return;
+
+    const filter = {
       blocked: false,
       is_marked_for_deletion: false,
       follower_id: user.get('id'),
