@@ -252,6 +252,7 @@ p {
 }
 
 .follow-item {
+  display: flex;
   height: 80px;
   width: 100%;
   max-width: 450px;
@@ -260,7 +261,6 @@ p {
 }
 
 .follow-item-link {
-  display: flex;
   height: 100%;
   text-decoration: none;
   color: inherit;
@@ -295,12 +295,12 @@ p {
 }
 
 .follow-item-description {
-  font-size: 80%;
+  margin-top: $rhythm / 3;
   overflow: hidden;
-  text-overflow: ellipsis;
 
-  p:first-child {
-    margin-top: 0;
+  .profile-identities {
+    padding: 0;
+    flex-wrap: nowrap;
   }
 }
 
@@ -666,4 +666,29 @@ md-checkbox.md-default-theme:not(.md-checked) .md-icon, md-checkbox:not(.md-chec
 
 .account-field {
   margin: $rhythm * 2 $rhythm;
+}
+
+.suggestions-modal {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  max-height: 607px;
+
+  .suggestions-modal-main-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: auto;
+  }
+
+  .suggestions-modal-button-container {
+    flex-shrink: 0;
+  }
+
+  .suggestions-modal-suggestions {
+    flex-grow: 1;
+    overflow: hidden;
+    display: flex;
+  }
 }

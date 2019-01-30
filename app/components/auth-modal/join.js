@@ -65,6 +65,7 @@ export default Component.extend({
       }).then((user) => {
         this.get('session').authenticate('authenticator:token', user.getProperties('username', 'token'));
         user.set('token', undefined);
+        this.get('modalManager').open('auth-modal/identities');
       });
     }
   }

@@ -3,6 +3,10 @@
     {{fa-icon "user-circle"}}
     <span>{{t "profile.profile"}}</span>
   {{/menuContent.menu-item}}
+  {{#menuContent.menu-item onClick="toUserSuggestions"}}
+    {{fa-icon "users"}}
+    <span>{{t "suggestions.title"}}</span>
+  {{/menuContent.menu-item}}
   {{#menuContent.menu-item onClick="toAccount"}}
     {{fa-icon "gear"}}
     <span>{{t "account.account"}}</span>

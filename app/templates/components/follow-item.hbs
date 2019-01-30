@@ -1,15 +1,28 @@
-{{#link-to "users.user.profile" user.username class="follow-item-link"}}
+{{#link-to "users.user.profile" user.username class="follow-item-link" disabled=true}}
   <img srcset={{user.avatarBigThumb}} sizes="80px" class="follow-item-avatar">
-  <div class="follow-item-text">
-    <div class="follow-item-username">{{#if user.displayName}}{{{inject-emoji user.displayName}}} {{/if}}<span class="at-username">@{{user.username}}</span>{{#if (and isCurrentUserFollower follow.hasRequestedPrivate)}}<span class="follow-item-secondary-title"> - {{t "followers.hasRequestedPrivate"}}</span>{{/if}}</div>
-    {{#if isCurrentUserFollower}}
-      {{#if follow.canViewPrivate}}
-        {{#paper-button onClick="revokePrivateAccess" raised=true warn=true disabled=buttonDisabled class="follow-item-button"}}{{t "followers.revoke"}}{{/paper-button}}
-      {{else}}
-        {{#paper-button onClick="grantPrivateAccess" raised=true disabled=buttonDisabled class="follow-item-button"}}{{t "followers.grant"}}{{/paper-button}}
-      {{/if}}
-    {{else}}
-      <div class="follow-item-description">{{rich-text text=user.userProfile.description author=user}}</div>
-    {{/if}}
-  </div>
 {{/link-to}}
+
+<div class="follow-item-text">
+  <div class="follow-item-username">{{#if user.displayName}}{{{inject-emoji user.displayName}}} {{/if}}<span class="at-username">@{{user.username}}</span>{{#if (and isCurrentUserFollower follow.hasRequestedPrivate)}}<span class="follow-item-secondary-title"> - {{t "followers.hasRequestedPrivate"}}</span>{{/if}}</div>
+  {{#if isCurrentUserFollower}}
+    {{#if follow.canViewPrivate}}
+      {{#paper-button onClick="revokePrivateAccess" raised=true warn=true disabled=buttonDisabled class="follow-item-button"}}{{t "followers.revoke"}}{{/paper-button}}
+    {{else}}
+      {{#paper-button onClick="grantPrivateAccess" raised=true disabled=buttonDisabled class="follow-item-button"}}{{t "followers.grant"}}{{/paper-button}}
+    {{/if}}
+  {{else}}
+    <div class="follow-item-description">
+      <div class="profile-identities">
+        {{#each user.userIdentities as |userIdentity|}}
+          <span class="profile-user-identity">*<span class="profile-user-identity-content">{{userIdentity.identity.name}}</span></span>
+        {{/each}}
+      </div>
+    </div>
+    
+    {{#if currentFollow}}
+      {{#paper-button onClick=(action "unfollow") disabled=buttonDisabled class="follow-item-button"}}{{t "profile.unfollow"}}{{/paper-button}}
+    {{else}}
+      {{#paper-button onClick=(action "follow") raised=true disabled=buttonDisabled  class="follow-item-button"}}{{t "profile.follow"}}{{/paper-button}}
+    {{/if}}
+  {{/if}}
+</div>

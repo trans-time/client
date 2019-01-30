@@ -1,0 +1,7 @@
+<ul id="infinite_content" class="follow-items">
+  {{#each users as |user|}}
+    {{follow-item user=user shouldShowFollowInterface=true disabled=true}}
+  {{/each}}
+
+  {{!-- {{infinity-loader infinityModel=users scrollable="#infinite_content"}} --}}
+</ul>

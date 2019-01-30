@@ -7,7 +7,6 @@ import { WebSocket } from 'phoenix';
 
 export default Service.extend({
   messageBus: service(),
-  modalManager: service(),
   phoenixSocket: service(),
   session: service(),
   store: service(),
@@ -32,7 +31,6 @@ export default Service.extend({
 
         this.get('messageBus').publish('currentUserLoaded', user);
 
-        this.get('modalManager').close('resolve');
         this._connectToWebsocket(user);
       });
     } else {

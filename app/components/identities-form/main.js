@@ -28,6 +28,14 @@ export default Component.extend({
 
   store: service(),
 
+  didInsertElement(...args) {
+    this._super(...args);
+
+    this.set('changesets', this.changesets.filter((changeset) => changeset.get('name.length') > 0));
+
+    this._addNewIdentity();
+  },
+
   didReceiveAttrs(...args) {
     this._super(...args);
 
@@ -54,9 +62,17 @@ export default Component.extend({
     return changeset;
   },
 
+  _addNewIdentity() {
+    this.get('changesets').pushObject(this._generateChangeset(this.get('store').createRecord('user-identity', { user: this.get('user') })));
+  },
+
   actions: {
+    cancel() {
+      this.attrs.cancel();
+    },
+
     newUserIdentity() {
-      this.get('changesets').pushObject(this._generateChangeset(this.get('store').createRecord('user-identity', { user: this.get('user') })));
+      this._addNewIdentity();
     },
 
     removeUserIdentity(userIdentity) {

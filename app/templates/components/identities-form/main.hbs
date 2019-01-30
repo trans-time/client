@@ -1,4 +1,4 @@
-{{#paper-form classNames="identities-form" onSubmit=(route-action "submit" changesets) as |form|}}
+{{#paper-form classNames="identities-form" onSubmit=(action "submit" changesets) as |form|}}
   <div class="identities-form-identities">
     {{#each changesets as |userIdentity|}}
       {{identities-form/identity userIdentity=userIdentity removeUserIdentity=(action "removeUserIdentity" userIdentity)}}
@@ -6,12 +6,9 @@
   </div>
 
   <div class="identities-form-controls">
-    {{#link-to "users.user.profile.index" class="identities-form-controls-anchor"}}
-      {{fa-icon "times" size=2 ariaLabel=(t "general.cancel") ariaHidden=false}}
-    {{/link-to}}
-    {{#paper-button onClick="newUserIdentity" raised=true primary=true class="identities-form-controls-button"}}{{t "identities.add"}}{{/paper-button}}
-    <button {{action (action "submit")}} disabled={{disabled}} class="identities-form-controls-anchor {{if disabled 'identities-form-controls-anchor-disabled'}}">
-      {{fa-icon "check" size=2 ariaLabel=(t "general.submit") ariaHidden=false}}
-    </button>
+    {{yield (hash
+      newUserIdentity=(action "newUserIdentity")
+      userIdentities=changesets
+    )}}
   </div>
 {{/paper-form}}

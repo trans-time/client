@@ -62,6 +62,7 @@ Router.map(function() {
   this.route('email-unlock');
   this.route('email-password-reset');
   this.route('feedback');
+  this.route('user-suggestions');
 });
 
 export default Router;

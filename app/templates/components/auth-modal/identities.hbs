@@ -1,13 +1,13 @@
-<div class="content-constraint">
-  <div class="padded">{{t "identities.explanation"}}</div>
+<div class="padded">{{t "identities.explanation"}}</div>
 
-  {{#identities-form/main user=model as |form|}}
+{{#if currentUser.user}}
+  {{#identities-form/main user=currentUser.user as |form|}}
     <button {{action "cancel"}} class="identities-form-controls-anchor">
-      {{fa-icon "times" size=2 ariaLabel=(t "general.cancel") ariaHidden=false}}
+      {{t "general.exit"}}
     </button>
     {{#paper-button onClick=(action form.newUserIdentity) raised=true primary=true class="identities-form-controls-button"}}{{t "identities.add"}}{{/paper-button}}
     <button {{action "submit" form.userIdentities}} disabled={{disabled}} class="identities-form-controls-anchor {{if disabled 'identities-form-controls-anchor-disabled'}}">
-      {{fa-icon "check" size=2 ariaLabel=(t "general.submit") ariaHidden=false}}
+      {{t "general.continue"}}
     </button>
   {{/identities-form/main}}
-</div>
+{{/if}}

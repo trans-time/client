@@ -139,6 +139,9 @@ followers:
 general:
   cancel: "cancel"
   comments: "comments"
+  continue: "continue"
+  done: "done"
+  exit: "exit"
   moon: "moon"
   share: "share"
   submit: "submit"
@@ -146,6 +149,7 @@ general:
 home:
   title: "home"
 identities:
+  explanation: "*identities* can help users with similiar backgrounds find you. for instance, you might identities like 'black', 'ace', and 'trans_feminine'. you can also provide a date range for any identities that have come and gone, if you want."
   add: "add identity"
   delete: "delete identity"
   endDateBlank: "*leave blank if this identity is ongoing"
@@ -308,6 +312,9 @@ share:
   orPost: "— or —"
   post: "just this card"
   clipboard: "copy url"
+suggestions:
+  description: "users you may be interested in following"
+  title: "find users"
 tagSearch:
   search: "search"
   selectAuthor: "{username}'s timeline"

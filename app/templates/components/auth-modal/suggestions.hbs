@@ -1,0 +1,11 @@
+<div class="suggestions-modal-main-content">
+  <h2 class="text-center">
+    {{t "suggestions.description"}}
+  </h2>
+
+  {{user-suggestions classNames="suggestions-modal-suggestions"}}
+</div>
+
+<div class="suggestions-modal-button-container">
+  {{#paper-button onClick="done" raised=true class="width-100 margin-0"}}{{t "general.done"}}{{/paper-button}}
+</div>

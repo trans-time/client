@@ -40,6 +40,10 @@ export default Component.extend({
 
     toProfile() {
       this.get('router').transitionTo('users.user.profile', this.get('currentUser.user.username'));
+    },
+
+    toUserSuggestions() {
+      this.get('router').transitionTo('user-suggestions');
     }
   }
 });
