@@ -30,6 +30,10 @@ export default Component.extend({
       this.get('router').transitionTo('account');
     },
 
+    toContentWarnings() {
+      this.get('router').transitionTo('content-warnings');
+    },
+
     toMailSettings() {
       this.get('router').transitionTo('subscriptions');
     },

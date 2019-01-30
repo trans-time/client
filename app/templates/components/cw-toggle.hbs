@@ -1,0 +1,22 @@
+<h1>{{t "contentWarnings.toggle.header"}}</h1>
+<p>{{t "contentWarnings.toggle.description"}}</p>
+
+<div class="timeline-item-nav-slideshow-nsfw-buttons padded">
+  {{#paper-button
+    raised=true
+    primary=(eq shouldHideWarnings false)
+    classNames="width-100 margin-0"
+    onClick=(action "showWarnings")
+  }}
+    {{t "contentWarnings.toggle.show"}}
+  {{/paper-button}}
+
+  {{#paper-button
+    raised=true
+    primary=(eq shouldHideWarnings true)
+    classNames="width-100 margin-0"
+    onClick=(action "hideWarnings")
+  }}
+    {{t "contentWarnings.toggle.hide"}}
+  {{/paper-button}}
+</div>

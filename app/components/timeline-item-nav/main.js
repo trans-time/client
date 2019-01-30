@@ -103,7 +103,9 @@ export default Component.extend({
 
   nextTimelineItemIndex: 0,
 
+  cwManager: service(),
   messageBus: service(),
+  modalManager: service(),
 
   decoratedTimelineItems: computed(() => A()),
 
@@ -119,6 +121,7 @@ export default Component.extend({
     this._super(...args);
 
     this.get('messageBus').subscribe('closeComments', this, this._toggleComments);
+    if (this.cwManager.shouldHideWarnings === undefined) this.modalManager.open("cw-toggle-modal");
   },
 
   didReceiveAttrs(...args) {

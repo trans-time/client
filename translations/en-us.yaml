@@ -58,9 +58,16 @@ confirmation:
   cancel: "cancel"
   confirm: "confirm"
 contentWarnings:
+  toggle:
+    header: "content warnings?"
+    description: "to avoid seeing triggering content, you can opt-in to using content warnings, which will let you choose which #tags are safe."
+    show: "show content warnings"
+    hide: "hide content warnings"
   abbreviation: "CWs"
   header: "content warning"
+  contentWarnings: "content warnings"
   confirmation: "this post contains NSFW content. by clicking confirm, i agree that i am familiar with local laws concerning content of this nature and accept all responsibility for viewing it on <em>trans time</em>."
+  approve: "approve tag(s)"
   approveTemporarily: "approve tags temporarily"
   approveIndefinitely: "approve tags indefinitely"
   description: "this post has the following tags:"

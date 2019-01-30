@@ -4,6 +4,14 @@ import { computed } from '@ember/object';
 export default Service.extend({
   currentUser: service(),
 
+  shouldHideWarnings: computed({
+    get() {
+      const cu = this.get('currentUser');
+
+      return cu.getStorage(localStorage).hideWarnings;
+    }
+  }),
+
   approvedTagIds: computed('currentUser.currentUserId', {
     get() {
       const cu = this.get('currentUser');
@@ -25,5 +33,23 @@ export default Service.extend({
     cu.setStorage(storage, userSettings);
 
     this.notifyPropertyChange('approvedTagIds');
+  },
+
+  hideWarnings() {
+    const cu = this.get('currentUser');
+    const userSettings = cu.getStorage(localStorage);
+    userSettings.hideWarnings = true;
+
+    cu.setStorage(localStorage, userSettings);
+    this.notifyPropertyChange('shouldHideWarnings');
+  },
+
+  showWarnings() {
+    const cu = this.get('currentUser');
+    const userSettings = cu.getStorage(localStorage);
+    userSettings.hideWarnings = false;
+
+    cu.setStorage(localStorage, userSettings);
+    this.notifyPropertyChange('shouldHideWarnings');
   }
 });

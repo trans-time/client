@@ -10,10 +10,12 @@ export default Component.extend({
   cwManager: service(),
   modalManager: service(),
 
-  contentIsViewable: computed('cwManager.approvedTagIds', {
+  contentIsViewable: computed('cwManager.approvedTagIds', 'cwManager.shouldHideWarnings', {
     get() {
+      if (this.cwManager.shouldHideWarnings) return true;
+
       const approvedTagIds = this.get('cwManager.approvedTagIds');
-      
+
       return this.get('content.tags').every((tag) => approvedTagIds.indexOf(tag.id) > -1);
     }
   }),

@@ -25,18 +25,10 @@
     <div class="timeline-item-nav-slideshow-nsfw-buttons">
       {{#paper-button
         raised=true
-        onClick=(action "addCWsForSession")
+        onClick=(action "addCWsForAlways")
       }}
-        {{t "contentWarnings.approveTemporarily"}}
+        {{t "contentWarnings.approve"}}
       {{/paper-button}}
-      {{#if (not-eq currentUser.currentUserId "anon")}}
-        {{#paper-button
-          raised=true
-          onClick=(action "addCWsForAlways")
-        }}
-          {{t "contentWarnings.approveIndefinitely"}}
-        {{/paper-button}}
-      {{/if}}
     </div>
   </div>
 {{/if}}

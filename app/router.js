@@ -63,6 +63,7 @@ Router.map(function() {
   this.route('email-password-reset');
   this.route('feedback');
   this.route('user-suggestions');
+  this.route('content-warnings');
 });
 
 export default Router;
