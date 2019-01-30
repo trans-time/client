@@ -1,4 +1,4 @@
-{{#link-to "users.user.profile" user.username class="follow-item-link" disabled=true}}
+{{#link-to "users.user.profile" user.username class="follow-item-link"}}
   <img srcset={{user.avatarBigThumb}} sizes="80px" class="follow-item-avatar">
 {{/link-to}}
 
@@ -18,7 +18,7 @@
         {{/each}}
       </div>
     </div>
-    
+
     {{#if currentFollow}}
       {{#paper-button onClick=(action "unfollow") disabled=buttonDisabled class="follow-item-button"}}{{t "profile.unfollow"}}{{/paper-button}}
     {{else}}

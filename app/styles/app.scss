@@ -674,21 +674,21 @@ md-checkbox.md-default-theme:not(.md-checked) .md-icon, md-checkbox:not(.md-chec
   height: 100%;
   overflow: hidden;
   max-height: 607px;
+}
 
-  .suggestions-modal-main-content {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    overflow: auto;
-  }
+.suggestions-modal-main-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: auto;
+}
 
-  .suggestions-modal-button-container {
-    flex-shrink: 0;
-  }
+.suggestions-modal-button-container {
+  flex-shrink: 0;
+}
 
-  .suggestions-modal-suggestions {
-    flex-grow: 1;
-    overflow: hidden;
-    display: flex;
-  }
+.suggestions-modal-suggestions {
+  flex-grow: 1;
+  overflow: hidden;
+  display: flex;
 }

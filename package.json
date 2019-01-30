@@ -67,7 +67,7 @@
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-message-bus": "^0.3.5",
     "ember-moment": "^7.4.1",
-    "ember-paper": "^1.0.0-beta.20",
+    "ember-paper": "git@github.com:miguelcobain/ember-paper.git#ec4f659529ba04d778dd61b8bc09cead9ae55475",
     "ember-phoenix": "^0.1.7",
     "ember-pikaday-time": "0.0.7",
     "ember-resolver": "^4.0.0",
