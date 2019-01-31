@@ -64,6 +64,7 @@ Router.map(function() {
   this.route('feedback');
   this.route('user-suggestions');
   this.route('content-warnings');
+  this.route('login');
 });
 
 export default Router;

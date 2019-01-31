@@ -25,8 +25,7 @@ export default Route.extend(TimelineItemNavRouteMixin, {
 
     const title = args[1].queryParams.query;
 
-    this.set('titleToken', title);
-    this.get('topBarManager').setTitle(title);
+    this.get('topBarManager').showSearchBar(title);
   },
 
   model(params) {

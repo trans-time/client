@@ -19,7 +19,7 @@ export default Component.extend({
   _searchTask: task(function * (query, cursorIndex, resolveSelection) {
     yield timeout(250);
 
-    if ((['#', '@', '*'].includes(query.charAt(0)) && query.length < 4) || query.length < 3) return;
+    if ((['#', '@', '*'].includes(query.charAt(0)) && query.length < 2) || query.length < 1) return;
 
     const results = yield this.get(`_cache.${query}`) || this.get('store').queryRecord('search-query', { filter: { query }, include: 'identities,tags,users' });
 

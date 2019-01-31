@@ -7,9 +7,19 @@ import { EKOnFocusMixin, keyDown } from 'ember-keyboard';
 import { Promise } from 'rsvp';
 
 export default TextField.extend(EKOnFocusMixin, {
-  attributeBindings: ['ariaLabel:aria-label'],
+  attributeBindings: ['ariaLabel:aria-label', 'autocomplete'],
+  autocomplete: 'off',
 
   intl: service(),
+
+  didInsertElement(...args) {
+    this._super(...args);
+
+    const search = location.search.substring(1);
+    const queryParams = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
+
+    this.element.value = decodeURIComponent(queryParams.query) || '';
+  },
 
   ariaLabel: computed({
     get() {
