@@ -99,9 +99,15 @@
   }
 }
 
+.moderation-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .moderation-panel {
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   max-height: 75%;
   overflow-x: auto;
   box-shadow: 1px 1px 5px $dark-gray;

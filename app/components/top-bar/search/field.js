@@ -16,6 +16,9 @@ export default TextField.extend(EKOnFocusMixin, {
     this._super(...args);
 
     const search = location.search.substring(1);
+
+    if (search.length === 0) return;
+
     const queryParams = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
 
     this.element.value = decodeURIComponent(queryParams.query) || '';
