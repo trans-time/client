@@ -304,6 +304,8 @@ profile:
       label: "display name"
     pronouns:
       label: "pronouns"
+    username:
+      label: "username"
     website:
       label: "website"
 search:

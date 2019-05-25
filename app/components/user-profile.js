@@ -12,7 +12,8 @@ import Changeset from 'ember-changeset';
 import lookupValidator from 'ember-changeset-validations';
 import {
   validateFormat,
-  validateLength
+  validateLength,
+  validatePresence
 } from 'ember-changeset-validations/validators';
 import config from '../config/environment';
 
@@ -25,6 +26,11 @@ const ProfileValidations = {
   ],
   pronouns: [
     validateLength({ max: 64 })
+  ],
+  username: [
+    validateLength({ max: 64 }),
+    validateFormat({ regex: /^[a-zA-Z0-9_]*$/ }),
+    validatePresence(true)
   ],
   website: [
     validateFormat({ type: 'url', allowBlank: true }),
@@ -170,12 +176,14 @@ export default Component.extend(AuthenticatedActionMixin, {
   },
 
   _saveChanges() {
+    const usernameChanged = this.get('changeset.username') !== this.get('user.username');
     this.get('changeset').save().then((model) => {
       this._stopEditing();
       this.attrs.updateModel(this.get('user'));
     }).finally(() => {
       this.get('modalManager').close();
       this.set('isSaving', false);
+      this.get('router').transitionTo("users.user.profile", this.get('user.username'));
     });
   },
 

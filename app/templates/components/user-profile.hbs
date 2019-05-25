@@ -105,6 +105,14 @@
   <div class="profile-additional-content profile-additional-content-full-height">
     <div class="profile-field">
       {{paper-input
+        value=changeset.username
+        label=(t "profile.attributes.username.label")
+        onChange=(action (mut changeset.username))
+        errors=changeset.error.username.validation
+      }}
+    </div>
+    <div class="profile-field">
+      {{paper-input
         value=changeset.displayName
         label=(t "profile.attributes.displayName.label")
         onChange=(action (mut changeset.displayName))

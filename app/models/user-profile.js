@@ -11,5 +11,6 @@ export default DS.Model.extend({
 
   avatar: alias('user.avatar'),
   displayName: alias('user.displayName'),
-  pronouns: alias('user.pronouns')
+  pronouns: alias('user.pronouns'),
+  username: alias('user.username')
 });
