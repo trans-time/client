@@ -28,6 +28,7 @@
   .top-bar-search {
     box-sizing: border-box;
     width: 100%;
+    max-width: 350px;
     font-size: 1.4em;
     outline: 0;
     border: 0;
@@ -91,6 +92,15 @@
   margin: 0;
   padding: 0;
   box-shadow: 1px 1px 3px $light-gray;
+  z-index: 10;
+}
+
+.search-bar-results-screen {
+  position: absolute;
+  width: 200vw;
+  height: 100vh;
+  z-index: 9;
+  transform: translateX(-50%);
 }
 
 .search-bar-results-group-name {

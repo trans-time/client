@@ -63,3 +63,7 @@
     {{/each}}
   {{/top-bar/search/result-group}}
 </ul>
+
+{{#if results}}
+  {{top-bar/search/screen cancel=(action "cancel")}}
+{{/if}}
