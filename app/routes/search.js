@@ -1,5 +1,6 @@
 import { alias } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
+import { next } from '@ember/runloop';
 import Route from '@ember/routing/route';
 import TimelineItemNavRouteMixin from 'client/mixins/timeline-item-nav-route';
 
@@ -25,7 +26,11 @@ export default Route.extend(TimelineItemNavRouteMixin, {
 
     const title = args[1].queryParams.query;
 
-    this.get('topBarManager').showSearchBar(title);
+    this.get('topBarManager').setTitle('');
+
+    next(() => {
+      this.get('topBarManager').showSearchBar(title);
+    });
   },
 
   model(params) {

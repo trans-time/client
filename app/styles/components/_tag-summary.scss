@@ -23,29 +23,21 @@
 
 .tag-summary-list {
   display: none;
-  overflow-x: auto;
+  overflow-x: hidden;
   flex-wrap: wrap;
 
   &.tag-summary-list-active {
     display: flex;
-  }
-
-  button {
-    &:hover {
-      font-weight: normal !important;
-      font-size: $base-font-size !important;
-    }
   }
 }
 
 .tag-summary-time-buttons {
   position: fixed;
   bottom: 0;
-  background: white;
   z-index: 1;
   flex-shrink: 0;
   margin-top: auto;
-  border-top: 4px dashed $dark-gray;
+  border-top: 4px dashed $light-gray;
 }
 
 .tag-summary-time-button {
@@ -65,7 +57,7 @@
   margin: $rhythm;
 
   i {
-    color: $light-gray;
+    color: $dark-gray;
     margin-right: $rhythm;
   }
 }

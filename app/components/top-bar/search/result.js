@@ -9,23 +9,23 @@ export default Component.extend(EKMixin, EKOnFocusMixin, {
 
   tabindex: 0,
 
-  click(...args) {
-    this._super(...args);
-
-    this.attrs.choose();
+  click(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.attrs.choose(event);
   },
 
-  touchEnd(...args) {
-    this._super(...args);
-
-    this.attrs.choose();
+  touchEnd(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.attrs.choose(event);
   },
 
   _cancel: on(keyDown('Escape'), function() {
     this.attrs.cancel();
   }),
 
-  _choose: on(keyDown('Enter'), function() {
+  _choose: on(keyDown('Enter'), function(event) {
     this.attrs.choose();
   }),
 

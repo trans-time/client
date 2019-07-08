@@ -88,7 +88,8 @@
 
 .comment-text {
   min-height: 33px;
-  background: #eee;
+  background: $dark-gray;
+  color: $white;
   border-radius: 5px;
   padding: $rhythm / 2;
 

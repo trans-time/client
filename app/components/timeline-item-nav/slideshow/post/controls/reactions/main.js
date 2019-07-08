@@ -62,7 +62,7 @@ export default Component.extend(AuthenticatedActionMixin, EKMixin, {
           if (this.currentUserReaction) {
             this._destroyReaction(this.reactable);
           } else {
-            this._createNewReaction('moon', this.currentUser.user, this.reactable);
+            this._createNewReaction('star', this.currentUser.user, this.reactable);
           }
         }
       })

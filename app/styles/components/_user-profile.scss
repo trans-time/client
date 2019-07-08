@@ -37,9 +37,9 @@
   align-items: center;
   justify-content: center;
   opacity: 0.68;
-  background-color: $dark-gray;
+  background-color: $light-gray;
   border-radius: $rhythm;
-  color: #fff;
+  color: $black;
   padding: $rhythm;
   text-align: center;
   box-sizing: border-box;
@@ -122,7 +122,7 @@
   border-radius: 25%;
   margin-left: $rhythm / 2;
   color: $text-color;
-  border: thin solid $light-gray;
+  border: thin solid $dark-gray;
 }
 
 .profile-display-name {
@@ -157,6 +157,7 @@
 
   a {
     text-decoration: none;
+    color: $primary-color;
   }
 }
 

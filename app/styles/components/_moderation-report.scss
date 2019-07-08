@@ -1,13 +1,13 @@
 .moderation-controls {
   display: flex;
   flex-shrink: 0;
-  border-bottom: thin solid $light-gray;
+  border-bottom: thin solid $dark-gray;
 
   a {
     flex-grow: 1;
     padding: $rhythm;
     color: $text-color;
-    border: thin solid $dark-gray;
+    border: thin solid $light-gray;
     text-decoration: none;
     text-align: center;
   }
@@ -110,7 +110,7 @@
   flex-shrink: 0;
   max-height: 75%;
   overflow-x: auto;
-  box-shadow: 1px 1px 5px $dark-gray;
+  box-shadow: 1px 1px 5px $light-gray;
   z-index: 10;
 }
 
@@ -125,8 +125,8 @@
   }
 
   .selected, &:focus {
-    color: $white;
-    background: $dark-gray;
+    color: $black;
+    background: $light-gray;
   }
 
   .moderation-panel-nav-comments {
@@ -137,7 +137,7 @@
 .moderation-panel-content {
   padding: 0 $rhythm $rhythm;
   overflow-x: auto;
-  border-top: 1px solid $dark-gray;
+  border-top: 1px solid $light-gray;
 
   .violation-aggregator {
     margin: $rhythm / 2 0;
@@ -157,7 +157,7 @@
 
 .moderation-panel-item {
   padding-top: $rhythm;
-  border-bottom: thin solid $light-gray;
+  border-bottom: thin solid $dark-gray;
 }
 
 .moderation-panel-item-link {
@@ -210,7 +210,7 @@
 }
 
 .flag-item {
-  border-bottom: thin solid $light-gray;
+  border-bottom: thin solid $dark-gray;
   margin-top: $rhythm;
 }
 
@@ -239,7 +239,7 @@
 }
 
 .flag-item-moderator-comment {
-  border-top: thin dashed $light-gray;
+  border-top: thin dashed $dark-gray;
   padding: $rhythm 0;
   font-size: 80%;
 

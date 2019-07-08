@@ -16,11 +16,3 @@
 </div>
 
 {{yield}}
-
-{{#if changeset}}
-  {{g-recaptcha
-    onSuccess=(action "onCaptchaResolved")
-    ref=(mut gRecaptcha)
-    size="invisible"
-  }}
-{{/if}}

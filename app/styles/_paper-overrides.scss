@@ -1,6 +1,10 @@
 md-input-container {
   margin: $rhythm 0;
   width: 100%;
+
+  .md-input {
+    color: $white;
+  }
 }
 
 md-input-container.md-default-theme label, md-input-container.md-default-theme .md-placeholder, md-input-container label, md-input-container .md-placeholder {
@@ -13,6 +17,26 @@ md-list-item.md-no-proxy, md-list-item .md-no-style {
 
 md-menu-content {
   padding: 0;
+  background-color: $black;
+
+  md-menu-item {
+    color: $white;
+  }
+}
+
+md-tabs {
+  .md-tab {
+    color: $primary-color;
+
+    &.md-active {
+      color: $primary-color;
+    }
+  }
+}
+
+.md-subheader {
+  color: $white;
+  background-color: $black;
 }
 
 .ember-basic-dropdown-content {
@@ -71,7 +95,7 @@ md-menu-content {
   .paper-toaster-error-item {
     display: flex;
     align-items: center;
-    border-bottom: thin solid $white;
+    border-bottom: thin solid $black;
     margin: $rhythm / 4 0;
     padding: $rhythm / 4 0;
   }

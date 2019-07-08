@@ -6,7 +6,7 @@
 .timeline-item-nav-slideshow-post {
   display: flex;
   flex-direction: column;
-  background-color: $white;
+  background-color: $black;
   z-index: 1;
   will-change: transform, opacity;
 
@@ -165,8 +165,8 @@
   justify-content: center;
   cursor: pointer;
   opacity: 0;
-  color: $light-gray;
-  background-color: $dark-gray;
+  color: $dark-gray;
+  background-color: $light-gray;
   transition: opacity 250ms;
   z-index: 9999;
 
@@ -243,7 +243,7 @@
   }
 
   .timeline-item-nav-slideshow-post {
-    border-bottom: 4px dashed $dark-gray;
+    border-bottom: 4px dashed $light-gray;
   }
 
   .hover-nav {
@@ -275,7 +275,7 @@
   }
 
   .timeline-item-nav-slideshow-nsfw {
-    border: 4px solid $black;
+    border: 4px solid $white;
     width: 100%;
 
     button {
@@ -294,7 +294,7 @@
   }
 
   .timeline-item-nav-post-comment-container {
-    border: 4px solid $dark-gray;
+    border: 4px solid $light-gray;
     box-sizing: border-box;
   }
 
@@ -345,8 +345,8 @@
     }
 
     .comments-container {
-      border: 4px solid $dark-gray;
-      border-top: 2px dashed $dark-gray;
+      border: 4px solid $light-gray;
+      border-top: 2px dashed $light-gray;
     }
   }
 }

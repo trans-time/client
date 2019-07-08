@@ -3,7 +3,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-shrink: 0;
-  background-color: $white;
+  background-color: $black;
   padding: 4px;
   padding-bottom: 0;
   font-size: 85%;
@@ -19,7 +19,7 @@
 
   .timeline-item-nav-controls-dot {
     margin: 0 $rhythm / 8;
-    color: $dark-gray;
+    color: $light-gray;
     opacity: 0.38;
     transition: opacity 250ms;
 
@@ -81,8 +81,8 @@
   display: flex;
   align-items: center;
   border-radius: 25px;
-  box-shadow: 1px 1px 3px $dark-gray;
-  background-color: $white;
+  box-shadow: 1px 1px 3px $light-gray;
+  background-color: $black;
   padding: 0 $rhythm / 2;
 
   .reaction-selector-modal-view-all {

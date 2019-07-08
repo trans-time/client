@@ -49,9 +49,9 @@ export default Component.extend({
     },
 
     submit() {
-      const { username, password, reCaptchaResponse } = this.get('changeset').getProperties('username', 'password', 'reCaptchaResponse');
+      const { username, password } = this.get('changeset').getProperties('username', 'password');
 
-      this.get('session').authenticate('authenticator:basic', username, password, reCaptchaResponse).then(() => {
+      this.get('session').authenticate('authenticator:basic', username, password).then(() => {
         this.get('modalManager').close('resolve');
       }).catch((reason) => {
         this.set('errorMessage', reason.error || reason);

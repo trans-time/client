@@ -1,6 +1,6 @@
 .image-editor {
   position: relative;
-  background-color: $white;
+  background-color: $black;
   z-index: 101;
 }
 
@@ -20,11 +20,11 @@
     align-items: center;
     display: flex;
     font-size: 200%;
-    background-color: $white;
+    background-color: $black;
     text-align: center;
 
     &:first-child {
-      border-bottom: 2px dashed $dark-gray;
+      border-bottom: 2px dashed $light-gray;
     }
 
     a, div, label {
@@ -67,16 +67,12 @@
   align-items: center;
   justify-content: center;
   padding: $rhythm;
-  background-color: $white;
-  color: $dark-gray;
+  background-color: $black;
+  color: $light-gray;
   opacity: 0.38;
   box-sizing: border-box;
   z-index: 1;
   transition: all 250ms;
-
-  &:hover {
-    opacity: 0.82;
-  }
 }
 
 .image-editor-display-image-caption {
@@ -89,7 +85,7 @@
   flex-direction: row;
   overflow-y: hidden;
   overflow-x: auto;
-  background-color: $light-gray;
+  background-color: $dark-gray;
 
   .sortable-objects {
     display: flex;
@@ -109,7 +105,7 @@
   .image-editor-carousel-item {
     flex-shrink: 0;
     background-color: $medium-gray;
-    color: $white;
+    color: $black;
     border-radius: 10px;
     margin: 1px;
 
@@ -147,8 +143,8 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-shrink: 0;
-  background-color: $white;
-  border-top: 2px dashed $dark-gray;
+  background-color: $black;
+  border-top: 2px dashed $light-gray;
   border-bottom: 0;
   padding: 4px;
   padding-bottom: 0;
@@ -190,14 +186,14 @@
     height: inherit !important;
     width: inherit !important;
     flex-grow: 1;
-    border-top: 2px dashed $dark-gray;
-    border-bottom: 2px dashed $dark-gray;
+    border-top: 2px dashed $light-gray;
+    border-bottom: 2px dashed $light-gray;
 
     .image-editor-control {
       &:first-child {
         border-bottom: 0;
-        border-left: 2px dashed $dark-gray;
-        border-right: 2px dashed $dark-gray;
+        border-left: 2px dashed $light-gray;
+        border-right: 2px dashed $light-gray;
       }
     }
   }

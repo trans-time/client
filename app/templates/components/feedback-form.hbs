@@ -32,10 +32,4 @@
       onClick=(action "handleSubmit")
     }}
   </div>
-
-  {{g-recaptcha
-    onSuccess=(action "onCaptchaResolved")
-    ref=(mut gRecaptcha)
-    size="invisible"
-  }}
 {{/paper-form}}

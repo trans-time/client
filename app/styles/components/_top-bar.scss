@@ -1,7 +1,7 @@
 .top-bar {
   position: relative;
   flex-shrink: 0;
-  background-color: $white;
+  background-color: $black;
   z-index: 100;
   font-size: 85%;
 
@@ -26,11 +26,12 @@
   }
 
   .top-bar-search {
+    box-sizing: border-box;
     width: 100%;
     font-size: 1.4em;
     outline: 0;
     border: 0;
-    padding: 0;
+    padding: 0 $rhythm / 2;
   }
 
   .top-bar-title {
@@ -38,7 +39,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    color: $dark-gray;
+    color: $light-gray;
     text-decoration: none;
   }
 
@@ -46,7 +47,7 @@
     position: relative;
 
     i {
-      color: $light-gray;
+      color: $dark-gray;
     }
 
     .top-bar-notification-button-highlighted {
@@ -67,7 +68,7 @@
   padding: $rhythm;
   margin: 0;
   list-style-type: none;
-  background-color: $white;
+  background-color: $black;
 }
 
 .top-bar-menu-item {
@@ -85,11 +86,11 @@
   top: 49px;
   left: 0;
   right: 0;
-  background: $white;
+  background: $black;
   list-style: none;
   margin: 0;
   padding: 0;
-  box-shadow: 1px 1px 3px $dark-gray;
+  box-shadow: 1px 1px 3px $light-gray;
 }
 
 .search-bar-results-group-name {
@@ -97,13 +98,14 @@
   color: $medium-gray;
   margin-top: $rhythm / 2;
   padding: $rhythm / 2;
-  border-bottom: 1px dashed $light-gray;
+  border-bottom: 1px dashed $dark-gray;
 }
 
 .search-bar-results-group-items {
   list-style: none;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 .search-bar-results-group-item {
@@ -112,8 +114,8 @@
   align-items: center;
 
   &:focus {
-    color: $white;
-    background-color: $dark-gray;
+    color: $black;
+    background-color: $light-gray;
   }
 }
 
@@ -130,7 +132,7 @@
 
 .top-bar-notifications {
   width: 200px;
-  background-color: $white;
+  background-color: $black;
   border: thin solid $medium-gray;
 }
 
@@ -171,7 +173,17 @@
 
 .notification-link-unread {
   md-menu-item {
-    background-color: $highlight-color;
+    button {
+      &:before {
+        display: inline-block;
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin: 0 $rhythm / 4;
+        background-color: $highlight-color;
+      }
+    }
   }
 }
 

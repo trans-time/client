@@ -34,11 +34,6 @@ html {
   position: fixed;
 }
 
-body > div:nth-last-child(1 of :not(.ember-view)) {
-  // ensure that recaptcha appears on safari
-  transform: translateZ(10px);
-}
-
 body > .ember-view:not(.liquid-destination), html, body, .main-application-content {
   height: 100%;
   width: 100%;
@@ -55,7 +50,7 @@ html, body {
   margin: 0;
   padding: 0;
   color: $text-color;
-  background-color: #fff;
+  background-color: $black;
   font-family: $primary-font-family;
 }
 
@@ -90,28 +85,12 @@ p {
   margin: $rhythm 0;
 }
 
-.grecaptcha-badge {
-  position: static !important;
-  width: 100% !important;
-  height: inherit !important;
-  box-shadow: none !important;
-  text-align: right;
-
-  .grecaptcha-logo {
-    margin: $rhythm * 2 $rhythm $rhythm;
-  }
-
-  iframe {
-    width: 100% !important;
-  }
-}
-
 .main-content {
   overflow: auto;
 }
 
 .link {
-  color: blue;
+  color: $primary-color;
   cursor: pointer;
   text-decoration: underline;
 }
@@ -141,8 +120,10 @@ p {
 }
 
 .at-username {
-  color: $medium-gray;
-  font-weight: normal;
+  color: $light-gray;
+  font-size: 110%;
+  font-weight: 600;
+  text-decoration: none;
 }
 
 .text-button {
@@ -160,6 +141,7 @@ p {
   font-family: $primary-font-family;
   background-color: transparent;
   border: 0;
+  color: $medium-gray;
   padding: 0;
 }
 
@@ -234,7 +216,7 @@ p {
   flex-grow: 1;
   margin-top: $rhythm * 6;
   padding-top: $rhythm;
-  border-top: 3px dashed $dark-gray;
+  border-top: 3px dashed $light-gray;
   font-size: 110%;
   text-align: justify;
 }
@@ -320,8 +302,8 @@ p {
     top: $rhythm * 2;
     left: $rhythm * 2;
     z-index: 10;
-    color: $light-gray;
-    text-shadow: 0 1px 1px $dark-gray;
+    color: $dark-gray;
+    text-shadow: 0 1px 1px $light-gray;
   }
 
   video, canvas {
@@ -341,7 +323,7 @@ p {
 
   .ember-webrtc-capture-no-device {
     padding: $rhythm * 2;
-    border-bottom: 2px dashed $black;
+    border-bottom: 2px dashed $white;
   }
 }
 
@@ -369,7 +351,7 @@ p {
   flex-direction: column;
   flex-grow: 1;
   min-height: 300px;
-  border-top: thin solid $light-gray;
+  border-top: thin solid $dark-gray;
 }
 
 .post-form-content-warnings {
@@ -397,7 +379,7 @@ p {
   flex-shrink: 0;
   padding: $rhythm $rhythm;
   justify-content: space-between;
-  border-bottom: 2px dashed $dark-gray;
+  border-bottom: 2px dashed $light-gray;
 
   .md-checkbox {
     margin: 0;
@@ -471,8 +453,7 @@ p {
   align-items: flex-start;
   justify-content: space-between;
   flex-shrink: 0;
-  background-color: $white;
-  border-top: 2px dashed $dark-gray;
+  border-top: 2px dashed $light-gray;
   border-bottom: 0;
   padding-bottom: 0;
 
@@ -489,12 +470,13 @@ p {
   position: relative;
   display: inline-block;
   padding: $rhythm;
-  background: none;
+  color: $white;
+  background-color: $black;
   border: none;
 
   &.post-form-controls-element-active {
-    background-color: $dark-gray;
-    color: $white;
+    background-color: $white;
+    color: $black;
   }
 }
 
@@ -506,7 +488,7 @@ p {
 
     .post-form-image-editor {
       width: 450px;
-      border-right: 2px dashed $dark-gray;
+      border-right: 2px dashed $light-gray;
       overflow: auto;
     }
 
@@ -557,36 +539,26 @@ p {
   }
 }
 
-
-button, a {
-  transition: all 250ms !important;
-
-  &:hover, &:focus {
-    font-weight: 900 !important;
-    font-size: 125% !important;
-  }
-}
-
 md-input-container.md-default-theme {
   .md-input {
-    border-bottom: 2px dashed $dark-gray;
+    border-bottom: 2px dashed $light-gray;
     transition: all 250ms;
   }
 
   label {
-    color: $dark-gray;
+    color: $light-gray;
   }
 }
 
 md-input-container.md-default-theme.md-focused.md-input-focused {
   .md-input {
     border-style: solid;
-    border-color: $dark-gray;
+    border-color: $light-gray;
     border-bottom-width: 4px;
   }
 
   label {
-    color: $dark-gray;
+    color: $light-gray;
   }
 }
 
@@ -595,11 +567,13 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
 }
 
 md-checkbox.md-default-theme:not(.md-checked) .md-icon, md-checkbox:not(.md-checked) .md-icon {
-  border: 2px dashed $dark-gray;
+  border: 2px dashed $light-gray;
 }
 
 .ember-text-area {
-  border: 2px dashed $dark-gray;
+  background-color: $black;
+  color: $white;
+  border: 2px dashed $light-gray;
   transition: all 250ms;
 
   &:focus {
@@ -612,43 +586,20 @@ md-checkbox.md-default-theme:not(.md-checked) .md-icon, md-checkbox:not(.md-chec
 .md-default-theme.md-button.md-raised, .tag-summary-time-button {
   box-shadow: 0;
   border: 2px dotted transparent;
-  background-color: $white;
+  background-color: $black;
   color: $medium-gray;
-
-  &:hover, &:focus {
-    border-color: $medium-gray;
-    font-size: 105% !important;
-
-    &:not(:disabled) {
-      background-color: $white;
-    }
-  }
 }
 
 .md-default-theme.md-button.md-primary.md-raised, .tag-summary-time-button-primary {
-  border: 4px solid $dark-gray;
-  background-color: $white;
-  color: $dark-gray;
+  border: 4px solid $light-gray;
+  background-color: $black;
+  color: $light-gray;
   box-shadow: 0;
 
-  &:hover, &:focus {
-    border-color: $dark-gray;
-    color: $white;
-
-    &:not(:disabled) {
-      background-color: $primary-color;
-    }
-  }
-
   &:disabled {
-    border-color: $light-gray;
-    background-color: $light-gray;
+    border-color: $dark-gray;
+    background-color: $dark-gray;
     color: $medium-gray;
-
-    &:hover, &:focus {
-      font-weight: initial !important;
-      font-size: initial !important;
-    }
   }
 }
 
@@ -691,4 +642,11 @@ md-checkbox.md-default-theme:not(.md-checked) .md-icon, md-checkbox:not(.md-chec
   flex-grow: 1;
   overflow: hidden;
   display: flex;
+}
+
+@keyframes pulse {
+  100% {
+    transform: scale3d(1.1, 1.1, 1.1);
+    opacity: 0.9;
+  }
 }

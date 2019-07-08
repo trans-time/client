@@ -11,6 +11,7 @@ export default TextField.extend(EKOnFocusMixin, {
   autocomplete: 'off',
 
   intl: service(),
+  topBarManager: service(),
 
   didInsertElement(...args) {
     this._super(...args);
@@ -19,9 +20,9 @@ export default TextField.extend(EKOnFocusMixin, {
 
     if (search.length === 0) return;
 
-    const queryParams = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
+    const queryParams = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
 
-    this.element.value = decodeURIComponent(queryParams.query) || '';
+    this.element.value = decodeURIComponent(queryParams.query || '');
   },
 
   ariaLabel: computed({

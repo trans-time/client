@@ -44,6 +44,7 @@ export default Component.extend({
   },
 
   _resolveSelection(query) {
+    this.get('router').transitionTo('search', { queryParams: { query }});
     this.get('resolveSelection')(query);
     this._clearResults();
     next(() => {
