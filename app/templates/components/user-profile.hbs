@@ -4,7 +4,9 @@
       {{#if (and isEditing changeset.avatar)}}
         <img alt={{t "profile.avatar"}} class="profile-header-avatar profile-avatar-sizing" src={{changeset.avatar}}>
       {{else}}
-        <img alt={{t "profile.avatar"}} class="profile-header-avatar profile-avatar-sizing" srcset={{user.avatarProfile}} sizes="160px">
+        {{#link-to "users.user.profile.index"}}
+          <img alt={{t "profile.avatar"}} class="profile-header-avatar profile-avatar-sizing" srcset={{user.avatarProfile}} sizes="160px">
+        {{/link-to}}
       {{/if}}
       {{#if isEditing}}
         <a {{action "changeAvatar"}} class="profile-header-avatar-new-overlay profile-avatar-sizing">
