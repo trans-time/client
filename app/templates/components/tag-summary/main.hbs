@@ -23,6 +23,8 @@
 </div>
 
 <div class="tag-summary-list {{if (eq currentSubmenu 'tags') 'tag-summary-list-active'}}">
+  {{#link-to "users.user.timeline" class="tag-summary-all-button"}}{{t "tagSummary.all"}}{{/link-to}}
+
   {{#each (sort-by "amount:desc" tags) as |tag|}}
     {{#if tag.isValid}}
       {{#paper-button
@@ -39,6 +41,8 @@
 </div>
 
 <div class="tag-summary-list {{if (eq currentSubmenu 'relationships') 'tag-summary-list-active'}}">
+  {{#link-to "users.user.timeline" class="tag-summary-all-button"}}{{t "tagSummary.all"}}{{/link-to}}
+  
   {{#each (sort-by "amount:desc" users) as |user|}}
     {{#if user.isValid}}
       {{#paper-button

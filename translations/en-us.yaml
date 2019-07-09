@@ -332,6 +332,7 @@ tagSearch:
   title: "tag search"
   users: "users"
 tagSummary:
+  all: "view whole timeline"
   beginning: "view (from beginning)"
   end: "view"
   search: "search"

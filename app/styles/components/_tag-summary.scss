@@ -21,6 +21,21 @@
   text-transform: none;
 }
 
+.tag-summary-all-button {
+  text-decoration: none;
+  padding: $rhythm * 0.68;
+  border-radius: $button-border-radius;
+  text-align: center;
+  width: 100%;
+  color: $black;
+  background: $text-color;
+  transition: background-color 250ms;
+
+  &:hover {
+    background: $white;
+  }
+}
+
 .tag-summary-list {
   display: none;
   overflow-x: hidden;
