@@ -68,6 +68,7 @@
   padding: $rhythm * 2;
   box-sizing: border-box;
   margin: 0 auto;
+  overflow: hidden;
 
   h2 {
     margin: 0 0 $rhythm;
@@ -275,7 +276,7 @@
   }
 
   .timeline-item-nav-slideshow-nsfw {
-    border: 4px solid $white;
+    border: 4px solid $light-gray;
     width: 100%;
 
     button {

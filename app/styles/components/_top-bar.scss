@@ -1,5 +1,7 @@
 .top-bar {
-  position: relative;
+  position: fixed;
+  width: 100%;
+  height: $top-bar-height;
   flex-shrink: 0;
   background-color: $black;
   z-index: 100;
