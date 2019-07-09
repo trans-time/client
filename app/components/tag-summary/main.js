@@ -160,13 +160,15 @@ export default Component.extend({
 
       if (type === 'tag') {
         const tagName = tag.get('model.name');
-        const tags = selectedTagNames.includes(tagName) ? selectedTagNames.filter((tag) => tag !== tagName) : selectedTagNames.concat([tagName]);
-        this.get('router').transitionTo('users.user.profile', { queryParams: { tags, relationships: selectedUserNames, submenu }})
+        this.get('router').transitionTo('users.user.timeline', { queryParams: { tags: [tagName] } });
+        // const tags = selectedTagNames.includes(tagName) ? selectedTagNames.filter((tag) => tag !== tagName) : selectedTagNames.concat([tagName]);
+        // this.get('router').transitionTo('users.user.profile', { queryParams: { tags, relationships: selectedUserNames, submenu }})
       } else if (type === 'user') {
         const username = tag.get('model.username');
-        const relationships = selectedUserNames.includes(username) ? selectedUserNames.filter((user) => user !== username) : selectedUserNames.concat([username]);
-        this.get('router').transitionTo('users.user.profile', { queryParams: { tags: selectedTagNames, relationships, submenu }});
-        this.attrs.addUserTagSummary(username);
+        this.get('router').transitionTo('users.user.timeline', { queryParams: { relationships: [username] } });
+        // const relationships = selectedUserNames.includes(username) ? selectedUserNames.filter((user) => user !== username) : selectedUserNames.concat([username]);
+        // this.get('router').transitionTo('users.user.profile', { queryParams: { tags: selectedTagNames, relationships, submenu }});
+        // this.attrs.addUserTagSummary(username);
       }
     }
   }
