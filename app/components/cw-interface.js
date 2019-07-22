@@ -10,39 +10,29 @@ export default Component.extend({
   cwManager: service(),
   modalManager: service(),
 
-  contentIsViewable: computed('cwManager.approvedTagIds', 'cwManager.shouldHideWarnings', {
+  approvedTimelineItemIds: oneWay('cwManager.approvedTimelineItemIds'),
+  blacklistedTagIds: oneWay('cwManager.blacklistedTagIds'),
+
+  contentIsViewable: computed('blacklistedTagIds', 'approvedTimelineItemIds', {
     get() {
-      if (this.cwManager.shouldHideWarnings) return true;
+      const blacklistedTagIds = this.get('blacklistedTagIds');
+      const approvedTimelineItemIds = this.get('approvedTimelineItemIds');
 
-      const approvedTagIds = this.get('cwManager.approvedTagIds');
-
-      return this.get('content.tags').every((tag) => approvedTagIds.indexOf(tag.id) > -1);
+      return approvedTimelineItemIds.includes(this.get('content.id')) || !this.get('content.tags').any((tag) => blacklistedTagIds.indexOf(tag.id) > -1);
     }
   }),
 
-  _addTagsFor(storage) {
-    const approvedTagIds = this.get('cwManager.approvedTagIds');
-    const tags = this.get('content.tags');
-    const maturityWarnings = ['nsfw', 'nudity', 'nude', 'mature'];
-
-    if (tags.any((tag) => maturityWarnings.indexOf(tag.get('name').toLowerCase()) > -1  && approvedTagIds.indexOf(tag.get('id')) === -1)) {
-      new Promise((resolve, reject) => {
-        this.get('modalManager').open('confirmation-modal', resolve, reject, { content: this.get('intl').t('contentWarnings.confirmation') });
-      }).then(() => {
-        this.get('cwManager').approveTags(storage, tags);
-      });
-    } else {
-      this.get('cwManager').approveTags(storage, tags);
-    }
-  },
-
   actions: {
-    addCWsForSession() {
-      this._addTagsFor(sessionStorage);
+    approveTimelineItem() {
+      this.get('cwManager').approveTimelineItem(this.get('content'));
     },
 
-    addCWsForAlways() {
-      this._addTagsFor(localStorage);
+    toggleTag(tag) {
+      if (this.get('blacklistedTagIds').includes(tag.id)) {
+        this.get('cwManager').restoreBlacklistedTag(tag);
+      } else {
+        this.get('cwManager').blacklistTag(tag);
+      }
     }
   }
 });

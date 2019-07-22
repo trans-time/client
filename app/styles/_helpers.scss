@@ -1,2 +1,18 @@
 @import "helpers/colors";
 @import "helpers/constraints";
+
+.strikeout {
+  text-decoration: line-through !important;
+}
+
+.strikeout-on-hover {
+  &:hover {
+    text-decoration: line-through !important;
+  }
+}
+
+.no-decoration-on-hover {
+  &:hover {
+    text-decoration: none !important;
+  }
+}

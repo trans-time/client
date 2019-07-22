@@ -4,52 +4,71 @@ import { computed } from '@ember/object';
 export default Service.extend({
   currentUser: service(),
 
-  shouldHideWarnings: computed({
-    get() {
-      const cu = this.get('currentUser');
-
-      return cu.getStorage(localStorage).hideWarnings;
-    }
-  }),
-
-  approvedTagIds: computed('currentUser.currentUserId', {
+  approvedTimelineItemIds: computed('currentUser.currentUserId', {
     get() {
       const cu = this.get('currentUser');
       const session = cu.getStorage(sessionStorage);
       const local = cu.getStorage(localStorage);
 
-      return session.approvedTagIds.concat(local.approvedTagIds);
+      return session.approvedTimelineItemIds.concat(local.approvedTimelineItemIds);
     }
   }),
 
-  approveTags(storage, tags) {
-    const cu = this.get('currentUser');
-    const userSettings = cu.getStorage(storage);
+  blacklistedTagIds: computed('currentUser.currentUserId', {
+    get() {
+      const cu = this.get('currentUser');
+      const session = cu.getStorage(sessionStorage);
+      const local = cu.getStorage(localStorage);
 
-    userSettings.approvedTagIds = userSettings.approvedTagIds.concat(tags.mapBy('id')).filter((id, index, self) => {
+      return session.blacklistedTagIds.concat(local.blacklistedTagIds);
+    }
+  }),
+
+  approveTimelineItem(timelineItem) {
+    const cu = this.get('currentUser');
+    const userSettings = cu.getStorage(localStorage);
+
+    userSettings.approvedTimelineItemIds = userSettings.approvedTimelineItemIds.concat(timelineItem.id).filter((id, index, self) => {
       return self.indexOf(id) === index;
     });
 
-    cu.setStorage(storage, userSettings);
+    cu.setStorage(localStorage, userSettings);
 
-    this.notifyPropertyChange('approvedTagIds');
+    this.notifyPropertyChange('approvedTimelineItemIds');
   },
 
-  hideWarnings() {
+  stopApprovingTimelineItem(timelineItem) {
     const cu = this.get('currentUser');
     const userSettings = cu.getStorage(localStorage);
-    userSettings.hideWarnings = true;
+
+    userSettings.approvedTimelineItemIds = userSettings.approvedTimelineItemIds.filter((id) => id !== timelineItem.get('id'));
 
     cu.setStorage(localStorage, userSettings);
-    this.notifyPropertyChange('shouldHideWarnings');
+
+    this.notifyPropertyChange('approvedTimelineItemIds');
   },
 
-  showWarnings() {
+  blacklistTag(tag) {
     const cu = this.get('currentUser');
     const userSettings = cu.getStorage(localStorage);
-    userSettings.hideWarnings = false;
+
+    userSettings.blacklistedTagIds = userSettings.blacklistedTagIds.concat(tag.id).filter((id, index, self) => {
+      return self.indexOf(id) === index;
+    });
 
     cu.setStorage(localStorage, userSettings);
-    this.notifyPropertyChange('shouldHideWarnings');
+
+    this.notifyPropertyChange('blacklistedTagIds');
+  },
+
+  restoreBlacklistedTag(tag) {
+    const cu = this.get('currentUser');
+    const userSettings = cu.getStorage(localStorage);
+
+    userSettings.blacklistedTagIds = userSettings.blacklistedTagIds.filter((id) => id !== tag.id);
+
+    cu.setStorage(localStorage, userSettings);
+
+    this.notifyPropertyChange('blacklistedTagIds');
   }
 });

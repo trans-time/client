@@ -14,6 +14,7 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
   classNameBindings: ['textRevealed'],
 
   currentUser: service(),
+  cwManager: service(),
   intl: service(),
   meta: service(),
   modalManager: service(),
@@ -36,6 +37,18 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
     element.addEventListener('dblclick', this._expandOrCollapseText.bind(this));
     element.addEventListener('touchend', this._checkForDoubleTap.bind(this));
   },
+
+  contentWarnings: computed({
+    get() {
+      return this.get('post.timelineItem.tags');
+    }
+  }),
+
+  manuallyApproved: computed('cwManager.approvedTimelineItemIds', {
+    get() {
+      return this.get('cwManager.approvedTimelineItemIds').includes(this.get('post.timelineItem.id'));
+    }
+  }),
 
   textHidden: computed('userRevealedText', 'textOverflown', {
     get() {
@@ -92,6 +105,18 @@ export default Component.extend(EKMixin, EKOnInsertMixin, {
   },
 
   actions: {
+    stopApprovingTimelineItem() {
+      this.get('cwManager').stopApprovingTimelineItem(this.get('post.timelineItem'));
+    },
+
+    blacklistContentWarning(cw) {
+      this.get('cwManager').blacklistTag(cw);
+    },
+
+    restoreBlacklistedTag(cw) {
+      this.get('cwManager').restoreBlacklistedTag(cw);
+    },
+
     revealText() {
       this._revealText();
     }

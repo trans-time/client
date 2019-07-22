@@ -121,7 +121,6 @@ export default Component.extend({
     this._super(...args);
 
     this.get('messageBus').subscribe('closeComments', this, this._toggleComments);
-    if (this.cwManager.shouldHideWarnings === undefined) this.modalManager.open("cw-toggle-modal");
   },
 
   didReceiveAttrs(...args) {

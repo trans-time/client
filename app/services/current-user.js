@@ -40,8 +40,8 @@ export default Service.extend({
 
   setupStorage(id) {
     const storageId = `user-${id}`;
-    if (!sessionStorage.getItem(storageId) || JSON.parse(sessionStorage.getItem(storageId)).approvedCWIds) sessionStorage.setItem(storageId, JSON.stringify({ approvedTagIds: [], approvedTimelineItemIds: [] }));
-    if (!localStorage.getItem(storageId) || JSON.parse(localStorage.getItem(storageId)).approvedCWIds) localStorage.setItem(storageId, JSON.stringify({ approvedTagIds: [], approvedTimelineItemIds: [] }));
+    if (!sessionStorage.getItem(storageId) || !JSON.parse(sessionStorage.getItem(storageId)).blacklistedTagIds) sessionStorage.setItem(storageId, JSON.stringify({ blacklistedTagIds: [], approvedTimelineItemIds: [] }));
+    if (!localStorage.getItem(storageId) || !JSON.parse(localStorage.getItem(storageId)).blacklistedTagIds) localStorage.setItem(storageId, JSON.stringify({ blacklistedTagIds: [], approvedTimelineItemIds: [] }));
   },
 
   getStorage(storage) {

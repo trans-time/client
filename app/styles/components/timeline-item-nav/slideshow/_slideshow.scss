@@ -76,6 +76,11 @@
 
   .timeline-item-nav-slideshow-nsfw-info {
     margin-bottom: $rhythm;
+
+    ul {
+      list-style: none;
+      padding: 0 0 0 $rhythm;
+    }
   }
 
   .timeline-item-nav-slideshow-nsfw-buttons {

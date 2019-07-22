@@ -1,6 +1,27 @@
 {{yield}}
 
 <div class="timeline-item-nav-post-constraint timeline-item-nav-post-text {{if userRevealedText 'timeline-item-nav-post-constraint-revealed'}}" tabindex="-1">
+
+  {{#if contentWarnings}}
+    <div class="timeline-item-nav-post-content-warnings">
+      {{#if manuallyApproved}}
+        (<a {{action "stopApprovingTimelineItem"}} class="strikeout-on-hover">{{t "contentWarnings.approved"}}</a>)
+      {{/if}}
+      {{t "contentWarnings.header"}}:
+      {{#each contentWarnings as |cw|}}
+        {{#if (contains cw.id cwManager.blacklistedTagIds)}}
+          <a {{action "restoreBlacklistedTag" cw}} class="timeline-item-nav-post-content-warning strikeout no-decoration-on-hover">
+            #{{cw.name}}
+          </a>
+        {{else}}
+          <a {{action "blacklistContentWarning" cw}} class="timeline-item-nav-post-content-warning strikeout-on-hover">
+            #{{cw.name}}
+          </a>
+        {{/if}}
+      {{/each}}
+    </div>
+  {{/if}}
+
   <span class="timeline-item-nav-post-meta">
     {{#if timelineItem.isPrivate}}
       {{fa-icon "lock"}} |

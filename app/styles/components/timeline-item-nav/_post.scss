@@ -9,6 +9,19 @@
   z-index: 3;
   transition: flex-shrink 500ms ease-out;
 
+  .timeline-item-nav-post-content-warnings {
+    size: 68%;
+    margin-bottom: $rhythm / 2;
+    background-color: $dark-gray;
+    overflow: hidden;
+    border-radius: $rhythm / 2;
+    padding: $rhythm / 4 $rhythm / 2;
+
+    a {
+      text-decoration: none;
+    }
+  }
+
   .timeline-item-nav-post-cws-container {
     margin: $rhythm / 2 $rhythm $rhythm;
     font-size: 82%;
