@@ -8,11 +8,7 @@
     emailChange=model.emailChange
     submit=(route-action "changeEmail")
   }}
-
-  <div class="account-field">
-    {{birthday-form}}
-  </div>
-
+  
   <div class="account-field">
     {{#paper-checkbox value=model.currentUser.isPublic onChange=(route-action "toggleIsPublic")}}
       {{{t "users.attributes.isPublic.label"}}}
