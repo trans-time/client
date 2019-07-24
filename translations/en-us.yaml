@@ -70,9 +70,9 @@ contentWarnings:
   approved: "approved"
   description: "this post has the following tags (unchecked tags require your approval to view):"
 coverPage:
-  lead: "we are an online community for <strong>trans</strong>, <strong>questioning</strong>, and <strong>gender nonconforming</strong> people."
+  lead: "we're an online community for <strong>trans</strong>, <strong>questioning</strong>, and <strong>gender nonconforming</strong> people."
   polytemporal: "we believe that transitioning is more than a single linear process. it's a <strong>tangle of many changes</strong>: perhaps to our bodies, our relationships, or our understanding of the world."
-  tool: "as a tool, <strong>trans time</strong> helps us tease apart and explore our experiences as trans ppl. as a community, we're here to compare notes, find people we can relate to, and help each other lead our best lives."
+  tool: "as a tool, <strong>trans time</strong> helps us tease apart and explore our experiences. as a community, we're here to compare notes, find people we can relate to, and help each other lead our best lives."
   whatWeDo: "we're formalizing the concept of the 'trans timeline,' creating a safe space where we can share photos and discuss the impact transitioning is having on our lives."
   gettingStarted: "if you'd like a quick tutorial on how to use the app, <a href='https://www.transtime.is/users/celeste/timeline?tags=%5B\"welcome\"%5D'>celeste</a> would be happy to help out! ^__^"
   features:
